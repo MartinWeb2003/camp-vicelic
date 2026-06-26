@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Camping Lovište Paradise · Pelješac, Croatia</title>
+<link rel="icon" href="./uploads/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="./uploads/favicon-32.png">
+<link rel="apple-touch-icon" href="./uploads/apple-touch-icon.png">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;scrollbar-width:none;-ms-overflow-style:none;}
+  *::-webkit-scrollbar{width:0;height:0;display:none;}
+  html{scroll-behavior:smooth;}
+  html,body{overflow-x:hidden;max-width:100%;}
+  body{margin:0;background:#ffffff;color:#1A1A1A;font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+  ::selection{background:#5BB0DE;color:#fff;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  input,textarea,select{font-family:inherit;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;}
+  h1,h2,h3,h4,p,span,a,button{overflow-wrap:break-word;word-break:break-word;}
+  @keyframes vcFadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes vcSlideDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#ffffff;">
+
+  <!-- ============ SIDEBAR (desktop) ============ -->
+  <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+    <aside style="position:fixed;top:0;left:0;bottom:0;width:272px;z-index:60;background:#fff;border-right:1px solid rgba(17,75,124,0.1);display:flex;flex-direction:column;overflow-y:auto;padding:30px 22px 26px;transition:transform .3s ease;{{ asideShift }}">
+      <button onClick="{{ toggleSidebar }}" aria-label="Collapse menu" style="position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:8px;background:rgba(17,75,124,0.06);color:#114B7C;display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1;transition:background .2s;" style-hover="background:rgba(17,75,124,0.12);">«</button>
+      <button onClick="{{ goHome }}" style="display:flex;justify-content:center;align-items:center;padding:6px 0 2px;">
+        <img src="./uploads/logo.png" alt="Camping Lovište Paradise" style="width:185px;max-width:100%;height:auto;object-fit:contain;display:block;">
+      </button>
+
+      <nav style="display:flex;flex-direction:column;gap:3px;margin-top:28px;">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="5">
+          <button onClick="{{ n.onClick }}" style="{{ n.sStyle }}">{{ n.label }}</button>
+        </sc-for>
+        <a href="{{ eventsUrl }}" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#2E7CB8;padding:12px 8px;border-radius:10px;transition:background .2s;" style-hover="background:rgba(91,176,222,0.14);">{{ t.nav.events }} <span style="font-size:11px;">↗</span></a>
+      </nav>
+
+      <div style="margin-top:22px;display:flex;justify-content:center;gap:6px;">
+        <sc-for list="{{ langItems }}" as="l" hint-placeholder-count="4">
+          <button onClick="{{ l.onClick }}" style="{{ l.chip }}">{{ l.label }}</button>
+        </sc-for>
+      </div>
+
+      <button onClick="{{ goContact }}" style="margin-top:22px;background:#2E7CB8;color:#fff;font-weight:700;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;padding:14px;border-radius:12px;transition:background .2s;" style-hover="background:#114B7C;">{{ t.cta }}</button>
+
+      <div style="margin-top:auto;padding-top:24px;display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <div style="display:flex;gap:9px;">
+          <a href="#" style="width:36px;height:36px;border-radius:10px;background:rgba(17,75,124,0.06);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#114B7C;transition:background .2s,color .2s;" style-hover="background:#2E7CB8;color:#fff;">FB</a>
+          <a href="#" style="width:36px;height:36px;border-radius:10px;background:rgba(17,75,124,0.06);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#114B7C;transition:background .2s,color .2s;" style-hover="background:#2E7CB8;color:#fff;">IG</a>
+        </div>
+        <span style="font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:0.12em;color:#9aa7b0;text-transform:uppercase;text-align:center;">Lovište · Pelješac · HR</span>
+      </div>
+    </aside>
+  </sc-if>
+
+  <!-- ============ DESKTOP REOPEN BUTTON ============ -->
+  <sc-if value="{{ showReopen }}" hint-placeholder-val="{{ false }}">
+    <button onClick="{{ toggleSidebar }}" aria-label="Open menu" style="position:fixed;top:18px;left:18px;z-index:65;width:46px;height:46px;border-radius:12px;background:#fff;border:1px solid rgba(17,75,124,0.12);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);box-shadow:0 10px 26px -12px rgba(17,75,124,0.4);color:#114B7C;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+      <span style="width:18px;height:2px;background:#114B7C;border-radius:2px;display:block;"></span>
+      <span style="width:18px;height:2px;background:#114B7C;border-radius:2px;display:block;"></span>
+      <span style="width:18px;height:2px;background:#114B7C;border-radius:2px;display:block;"></span>
+    </button>
+  </sc-if>
+
+  <!-- ============ MOBILE TOPBAR ============ -->
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
+    <header style="position:sticky;top:0;z-index:60;background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(17,75,124,0.1);">
+      <div style="padding:0 18px;height:66px;display:flex;align-items:center;justify-content:space-between;">
+        <button onClick="{{ goHome }}" style="display:flex;align-items:center;gap:10px;">
+          <img src="./uploads/logo.png" alt="Camping Lovište Paradise logo" style="width:40px;height:40px;object-fit:contain;flex:0 0 auto;display:block;">
+          <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:17px;color:#114B7C;">Camping Lovište Paradise</span>
+        </button>
+        <button onClick="{{ toggleMobile }}" aria-label="Menu" style="display:flex;flex-direction:column;gap:5px;padding:10px;border-radius:10px;background:rgba(17,75,124,0.06);">
+          <span style="width:22px;height:2px;background:#114B7C;border-radius:2px;display:block;"></span>
+          <span style="width:22px;height:2px;background:#114B7C;border-radius:2px;display:block;"></span>
+          <span style="width:22px;height:2px;background:#114B7C;border-radius:2px;display:block;"></span>
+        </button>
+      </div>
+    </header>
+  </sc-if>
+
+  <!-- ============ MOBILE OVERLAY ============ -->
+  <sc-if value="{{ mobileOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:80;background:#ffffff;display:flex;flex-direction:column;padding:24px clamp(20px,6vw,40px);animation:vcSlideDown .3s ease;">
+      <div style="display:flex;align-items:center;justify-content:space-between;height:50px;">
+        <span style="display:flex;align-items:center;gap:10px;">
+          <img src="./uploads/logo.png" alt="Camping Lovište Paradise logo" style="width:38px;height:38px;object-fit:contain;display:block;">
+          <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:18px;color:#114B7C;">Camping Lovište Paradise</span>
+        </span>
+        <button onClick="{{ toggleMobile }}" aria-label="Close" style="font-size:30px;line-height:1;color:#114B7C;padding:6px 12px;">×</button>
+      </div>
+      <nav style="display:flex;flex-direction:column;gap:4px;margin-top:36px;">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+          <button onClick="{{ n.onClick }}" style="{{ n.mStyle }}">{{ n.label }}</button>
+        </sc-for>
+        <a href="{{ eventsUrl }}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:26px;color:#114B7C;padding:14px 4px;">{{ t.nav.events }} <span style="font-size:18px;">↗</span></a>
+      </nav>
+      <div style="margin-top:auto;display:flex;flex-direction:column;gap:18px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <sc-for list="{{ langItems }}" as="l" hint-placeholder-count="4">
+            <button onClick="{{ l.onClick }}" style="{{ l.style }}">{{ l.name }} <span style="font-family:'Roboto Mono',monospace;font-size:11px;opacity:.5;">{{ l.label }}</span></button>
+          </sc-for>
+        </div>
+        <button onClick="{{ goContact }}" style="background:#2E7CB8;color:#fff;font-weight:600;font-size:16px;padding:16px;border-radius:14px;width:100%;">{{ t.cta }}</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <div style="{{ shellShift }}">
+  <main style="flex:1;">
+
+    <!-- ===================================================== HOME ===================================================== -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <div data-screen-label="Home">
+
+      <!-- HERO -->
+      <section style="position:relative;min-height:clamp(580px,90vh,900px);display:flex;align-items:flex-end;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,#114B7C,#2E7CB8 55%,#0E3C61);"></div>
+        <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,0.035),rgba(255,255,255,0.035) 16px,transparent 16px,transparent 34px);"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(8,28,45,0.78) 0%,rgba(8,28,45,0.15) 45%,rgba(8,28,45,0.35) 100%);"></div>
+        <div style="position:absolute;top:18px;right:20px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.08em;color:rgba(255,255,255,0.55);background:rgba(0,0,0,0.18);padding:6px 12px;border-radius:999px;text-transform:uppercase;">{{ t.hero.photo }}</div>
+        <div style="position:relative;z-index:2;max-width:1240px;width:100%;margin:0 auto;padding:0 clamp(20px,5vw,40px) clamp(54px,7vw,92px);">
+          <div style="max-width:760px;" data-reveal>
+            <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#fff;font-size:clamp(42px,7vw,82px);line-height:1.02;letter-spacing:-0.025em;margin:0 0 22px;">{{ t.hero.title }}</h1>
+            <p style="font-size:clamp(17px,2.1vw,21px);line-height:1.6;color:rgba(255,255,255,0.9);max-width:560px;margin:0 0 34px;">{{ t.hero.sub }}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:14px;">
+              <button onClick="{{ goContact }}" style="background:#5BB0DE;color:#08283D;font-weight:700;font-size:16px;padding:16px 30px;border-radius:999px;transition:transform .2s,background .2s;" style-hover="background:#86C6E8;transform:translateY(-2px);">{{ t.hero.primary }}</button>
+              <button onClick="{{ scrollAcc }}" style="background:rgba(255,255,255,0.1);color:#fff;font-weight:600;font-size:16px;padding:16px 30px;border-radius:999px;border:1px solid rgba(255,255,255,0.35);transition:background .2s;" style-hover="background:rgba(255,255,255,0.2);">{{ t.hero.secondary }}</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- IMAGE BAND -->
+      <section data-reveal="scale" style="position:relative;height:clamp(300px,46vw,540px);background:repeating-linear-gradient(135deg,#cde0ef,#cde0ef 16px,#dde9f4 16px,#dde9f4 32px);display:flex;align-items:flex-end;">
+        <span style="font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#5c6f7e;text-transform:uppercase;background:rgba(255,255,255,0.72);padding:7px 14px;margin:22px;">[ Panorama · kamp &amp; more ]</span>
+      </section>
+
+      <!-- INTRO -->
+      <section style="padding:clamp(72px,9vw,128px) clamp(20px,5vw,40px);">
+        <div style="max-width:920px;margin:0 auto;text-align:center;" data-reveal>
+          <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.4vw,46px);line-height:1.12;letter-spacing:-0.02em;margin:0 0 26px;text-wrap:balance;">{{ t.intro.title }}</h2>
+          <p style="font-size:clamp(16px,1.9vw,19px);line-height:1.75;color:#6B7280;margin:0;text-wrap:pretty;">{{ t.intro.body }}</p>
+        </div>
+      </section>
+
+      <!-- ACCOMMODATION -->
+      <section ref="{{ accRef }}" style="background:#fff;padding:clamp(72px,9vw,128px) clamp(20px,5vw,40px);border-top:1px solid rgba(17,75,124,0.06);border-bottom:1px solid rgba(17,75,124,0.06);">
+        <div style="max-width:1240px;margin:0 auto;">
+          <div style="max-width:640px;margin-bottom:clamp(40px,5vw,60px);" data-reveal>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.2vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0 0 16px;">{{ t.acc.title }}</h2>
+            <p style="font-size:17px;line-height:1.65;color:#6B7280;margin:0;">{{ t.acc.sub }}</p>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:26px;">
+            <sc-for list="{{ accommodations }}" as="a" hint-placeholder-count="3">
+              <div data-reveal style="background:#ffffff;border:1px solid rgba(17,75,124,0.08);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s;" style-hover="transform:translateY(-4px);box-shadow:0 22px 50px -28px rgba(17,75,124,0.5);">
+                <div style="position:relative;height:210px;background:repeating-linear-gradient(135deg,#d9e8f3,#d9e8f3 14px,#e8f2f9 14px,#e8f2f9 28px);display:flex;align-items:center;justify-content:center;">
+                  <span style="font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#7a8b9a;text-transform:uppercase;background:rgba(255,255,255,0.7);padding:6px 12px;border-radius:999px;">{{ a.img }}</span>
+                  <sc-if value="{{ a.tag }}" hint-placeholder-val="{{ false }}">
+                    <span style="position:absolute;top:14px;left:14px;background:#5BB0DE;color:#08283D;font-weight:700;font-size:11px;letter-spacing:0.04em;padding:6px 12px;border-radius:999px;text-transform:uppercase;">{{ a.tag }}</span>
+                  </sc-if>
+                </div>
+                <div style="padding:26px;display:flex;flex-direction:column;flex:1;">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px;">
+                    <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:21px;color:#114B7C;margin:0;">{{ a.name }}</h3>
+                  </div>
+                  <div style="font-size:14px;color:#6B7280;margin-bottom:18px;">{{ a.guests }}</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;">
+                    <sc-for list="{{ a.amenities }}" as="am" hint-placeholder-count="3">
+                      <span style="font-size:12px;color:#2E7CB8;background:rgba(91,176,222,0.13);padding:6px 12px;border-radius:999px;font-weight:500;">{{ am }}</span>
+                    </sc-for>
+                  </div>
+                  <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:20px;border-top:1px solid rgba(17,75,124,0.08);">
+                    <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:17px;color:#114B7C;">{{ a.price }}</span>
+                    <button onClick="{{ goRequest }}" style="font-size:14px;font-weight:600;color:#2E7CB8;display:flex;align-items:center;gap:6px;" style-hover="color:#114B7C;">{{ t.acc.cta }} <span style="font-size:16px;">→</span></button>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- FACILITIES -->
+      <section style="padding:clamp(72px,9vw,128px) clamp(20px,5vw,40px);">
+        <div style="max-width:1240px;margin:0 auto;">
+          <div style="text-align:center;max-width:640px;margin:0 auto clamp(40px,5vw,60px);" data-reveal>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.2vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0;">{{ t.fac.title }}</h2>
+          </div>
+          <div style="max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;">
+            <sc-for list="{{ facilities }}" as="f" hint-placeholder-count="6">
+              <div data-reveal style="background:#fff;border:1px solid rgba(17,75,124,0.08);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;padding:26px 24px;display:flex;flex-direction:column;gap:12px;transition:border-color .2s,transform .25s;" style-hover="border-color:#5BB0DE;transform:translateY(-3px);">
+                <span style="width:46px;height:46px;border-radius:13px;background:rgba(91,176,222,0.14);color:#2E7CB8;display:flex;align-items:center;justify-content:center;">{{ f.iconEl }}</span>
+                <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:17px;color:#114B7C;margin:4px 0 0;">{{ f.name }}</h3>
+                <p style="font-size:13.5px;line-height:1.55;color:#6B7280;margin:0;">{{ f.desc }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- THINGS TO DO -->
+      <section style="background:#fff;padding:clamp(72px,9vw,128px) clamp(20px,5vw,40px);border-top:1px solid rgba(17,75,124,0.06);">
+        <div style="max-width:1180px;margin:0 auto;">
+          <div style="max-width:640px;margin-bottom:clamp(48px,6vw,72px);" data-reveal>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.2vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0;">{{ t.things.title }}</h2>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:clamp(40px,5vw,72px);">
+            <sc-for list="{{ things }}" as="th" hint-placeholder-count="4">
+              <div data-reveal style="display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,56px);align-items:center;{{ th.dir }}">
+                <div style="flex:1 1 340px;min-width:280px;height:clamp(260px,32vw,380px);background:repeating-linear-gradient(135deg,#d9e8f3,#d9e8f3 14px,#e8f2f9 14px,#e8f2f9 28px);display:flex;align-items:center;justify-content:center;">
+                  <span style="font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#7a8b9a;text-transform:uppercase;background:rgba(255,255,255,0.7);padding:6px 12px;border-radius:999px;">{{ th.img }}</span>
+                </div>
+                <div style="flex:1 1 340px;min-width:280px;">
+                  <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(24px,3vw,32px);color:#114B7C;line-height:1.15;letter-spacing:-0.01em;margin:0 0 16px;">{{ th.name }}</h3>
+                  <p style="font-size:16.5px;line-height:1.7;color:#6B7280;margin:0;text-wrap:pretty;">{{ th.body }}</p>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXPLORE THE AREA -->
+      <section style="padding:clamp(72px,9vw,128px) clamp(20px,5vw,40px);">
+        <div style="max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(32px,4vw,56px);align-items:stretch;">
+          <div style="flex:1 1 380px;min-width:300px;" data-reveal>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.2vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0 0 16px;">{{ t.area.title }}</h2>
+            <p style="font-size:16.5px;line-height:1.65;color:#6B7280;margin:0 0 32px;">{{ t.area.sub }}</p>
+            <div style="display:flex;flex-direction:column;">
+              <sc-for list="{{ distances }}" as="d" hint-placeholder-count="6">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 0;border-bottom:1px solid rgba(17,75,124,0.1);">
+                  <div style="display:flex;align-items:center;gap:14px;">
+                    <span style="width:38px;height:38px;border-radius:11px;background:rgba(91,176,222,0.14);color:#2E7CB8;display:flex;align-items:center;justify-content:center;flex:0 0 auto;">{{ d.iconEl }}</span>
+                    <span style="font-weight:600;font-size:16px;color:#114B7C;">{{ d.place }}</span>
+                  </div>
+                  <span style="font-family:'Roboto Mono',monospace;font-size:13px;color:#6B7280;text-align:right;">{{ d.time }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="flex:1 1 420px;min-width:300px;position:relative;border-radius:0;overflow:hidden;min-height:380px;background:linear-gradient(150deg,#d2e5f3,#e7f2f9);border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);" data-reveal>
+            <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(17,75,124,0.05),rgba(17,75,124,0.05) 1px,transparent 1px,transparent 38px),repeating-linear-gradient(90deg,rgba(17,75,124,0.05),rgba(17,75,124,0.05) 1px,transparent 1px,transparent 38px);"></div>
+            <div style="position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:10px;">
+              <span style="width:18px;height:18px;background:#2E7CB8;border:3px solid #fff;border-radius:50%;box-shadow:0 6px 16px -4px rgba(17,75,124,0.6);"></span>
+              <span style="background:#114B7C;color:#fff;font-weight:600;font-size:13px;padding:6px 14px;border-radius:999px;white-space:nowrap;">Camping Lovište Paradise</span>
+            </div>
+            <span style="position:absolute;top:24px;left:24px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#5d6f7e;text-transform:uppercase;background:rgba(255,255,255,0.7);padding:6px 12px;border-radius:999px;">{{ t.area.mapLabel }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- GALLERY -->
+      <section style="background:#114B7C;padding:clamp(72px,9vw,128px) clamp(20px,5vw,40px);">
+        <div style="max-width:1240px;margin:0 auto;">
+          <div style="text-align:center;margin-bottom:clamp(40px,5vw,56px);" data-reveal>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#fff;font-size:clamp(28px,4.2vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0;">{{ t.gallery.title }}</h2>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));grid-auto-rows:200px;gap:16px;">
+            <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="6">
+              <div data-reveal="scale" style="overflow:hidden;background:repeating-linear-gradient(135deg,rgba(255,255,255,0.07),rgba(255,255,255,0.07) 14px,rgba(255,255,255,0.12) 14px,rgba(255,255,255,0.12) 28px);display:flex;align-items:center;justify-content:center;{{ g.span }}">
+                <span style="font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.06em;color:rgba(255,255,255,0.7);text-transform:uppercase;">{{ g.img }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- NEW CAMP / APARTMENTS -->
+      <section style="padding:clamp(72px,9vw,128px) clamp(20px,5vw,40px);">
+        <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:center;">
+          <div style="flex:1 1 360px;min-width:300px;" data-reveal="left">
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.2vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0 0 18px;">{{ t.apart.title }}</h2>
+            <p style="font-size:16.5px;line-height:1.7;color:#6B7280;margin:0 0 26px;text-wrap:pretty;">{{ t.apart.body }}</p>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+              <span style="color:#5BB0DE;font-size:15px;letter-spacing:3px;">★★★★★</span>
+              <span style="font-size:14px;color:#114B7C;font-weight:600;">{{ t.apart.note }}</span>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;">
+              <a href="https://share.google/OHEpVMwl5CKIDETnV" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#2E7CB8;color:#fff;font-weight:600;font-size:14px;padding:13px 22px;border-radius:999px;transition:background .2s;" style-hover="background:#114B7C;">{{ t.apart.btn1 }} <span style="font-size:14px;">↗</span></a>
+              <a href="https://share.google/JNdqiwMFTgmjvVUkw" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:rgba(17,75,124,0.06);color:#114B7C;font-weight:600;font-size:14px;padding:13px 22px;border-radius:999px;transition:background .2s;" style-hover="background:rgba(17,75,124,0.12);">{{ t.apart.btn2 }} <span style="font-size:14px;">↗</span></a>
+            </div>
+          </div>
+          <div style="flex:1 1 360px;min-width:300px;height:clamp(320px,40vw,440px);background:repeating-linear-gradient(135deg,#d9e8f3,#d9e8f3 14px,#e8f2f9 14px,#e8f2f9 28px);display:flex;align-items:center;justify-content:center;" data-reveal="right">
+            <span style="font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#7a8b9a;text-transform:uppercase;background:rgba(255,255,255,0.7);padding:6px 12px;">{{ t.apart.img }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA BAND -->
+      <section style="padding:0 clamp(20px,5vw,40px) clamp(72px,9vw,120px);">
+        <div style="max-width:1240px;margin:0 auto;position:relative;border-radius:0;overflow:hidden;background:linear-gradient(135deg,#2E7CB8,#114B7C);padding:clamp(48px,7vw,96px) clamp(28px,5vw,72px);text-align:center;" data-reveal>
+          <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,0.04),rgba(255,255,255,0.04) 16px,transparent 16px,transparent 34px);"></div>
+          <div style="position:relative;max-width:620px;margin:0 auto;">
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#fff;font-size:clamp(30px,4.4vw,50px);line-height:1.08;letter-spacing:-0.02em;margin:0 0 18px;text-wrap:balance;">{{ t.ctaBand.title }}</h2>
+            <p style="font-size:clamp(16px,2vw,19px);line-height:1.6;color:rgba(255,255,255,0.85);margin:0 0 32px;">{{ t.ctaBand.sub }}</p>
+            <button onClick="{{ goContact }}" style="background:#5BB0DE;color:#08283D;font-weight:700;font-size:16px;padding:17px 36px;border-radius:999px;transition:transform .2s,background .2s;" style-hover="background:#86C6E8;transform:translateY(-2px);">{{ t.ctaBand.button }}</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+    </sc-if>
+
+    <!-- ===================================================== ABOUT ===================================================== -->
+    <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="About">
+      <section style="background:#114B7C;padding:clamp(64px,9vw,120px) clamp(20px,5vw,40px) clamp(56px,7vw,96px);">
+        <div style="max-width:920px;margin:0 auto;">
+          <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#fff;font-size:clamp(36px,6vw,68px);line-height:1.05;letter-spacing:-0.025em;margin:0 0 22px;text-wrap:balance;">{{ t.about.hero.title }}</h1>
+          <p style="font-size:clamp(17px,2.1vw,21px);line-height:1.6;color:rgba(255,255,255,0.85);max-width:600px;margin:0;">{{ t.about.hero.sub }}</p>
+        </div>
+      </section>
+
+      <section style="padding:clamp(64px,8vw,110px) clamp(20px,5vw,40px);">
+        <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:center;">
+          <div style="flex:1 1 360px;min-width:300px;" data-reveal>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(26px,3.6vw,38px);line-height:1.12;letter-spacing:-0.02em;margin:0 0 24px;">{{ t.about.story.title }}</h2>
+            <div style="display:flex;flex-direction:column;gap:18px;">
+              <sc-for list="{{ t.about.story.paras }}" as="p" hint-placeholder-count="3">
+                <p style="font-size:16.5px;line-height:1.75;color:#6B7280;margin:0;text-wrap:pretty;">{{ p }}</p>
+              </sc-for>
+            </div>
+          </div>
+          <div style="flex:1 1 360px;min-width:300px;height:clamp(320px,40vw,460px);background:repeating-linear-gradient(135deg,#d9e8f3,#d9e8f3 14px,#e8f2f9 14px,#e8f2f9 28px);display:flex;align-items:center;justify-content:center;" data-reveal="right">
+            <span style="font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#7a8b9a;text-transform:uppercase;background:rgba(255,255,255,0.7);padding:6px 12px;border-radius:999px;">{{ t.about.story.img }}</span>
+          </div>
+        </div>
+      </section>
+
+      <section style="background:#fff;padding:clamp(64px,8vw,110px) clamp(20px,5vw,40px);border-top:1px solid rgba(17,75,124,0.06);border-bottom:1px solid rgba(17,75,124,0.06);">
+        <div style="max-width:1180px;margin:0 auto;">
+          <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(26px,3.6vw,38px);line-height:1.12;letter-spacing:-0.02em;margin:0 0 clamp(36px,5vw,52px);max-width:560px;" data-reveal>{{ t.about.diff.title }}</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;">
+            <sc-for list="{{ t.about.diff.items }}" as="d" hint-placeholder-count="3">
+              <div data-reveal style="display:flex;flex-direction:column;gap:14px;padding:28px;background:#ffffff;border-radius:0;border:1px solid rgba(17,75,124,0.07);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);">
+                <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:14px;color:#5BB0DE;letter-spacing:0.04em;">{{ d.no }}</span>
+                <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:20px;color:#114B7C;margin:0;">{{ d.title }}</h3>
+                <p style="font-size:15px;line-height:1.65;color:#6B7280;margin:0;">{{ d.body }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+
+      <section style="padding:0 clamp(20px,5vw,40px) clamp(72px,9vw,120px);">
+        <div style="max-width:1240px;margin:0 auto;position:relative;border-radius:0;overflow:hidden;background:linear-gradient(135deg,#2E7CB8,#114B7C);padding:clamp(48px,7vw,84px) clamp(28px,5vw,72px);text-align:center;" data-reveal>
+          <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#fff;font-size:clamp(28px,4vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0 0 28px;text-wrap:balance;">{{ t.ctaBand.title }}</h2>
+          <button onClick="{{ goContact }}" style="background:#5BB0DE;color:#08283D;font-weight:700;font-size:16px;padding:17px 36px;border-radius:999px;transition:transform .2s,background .2s;" style-hover="background:#86C6E8;transform:translateY(-2px);">{{ t.ctaBand.button }}</button>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
+    <!-- ===================================================== ACCOMMODATIONS ===================================================== -->
+    <sc-if value="{{ isAccommodations }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Accommodations">
+      <section style="background:#114B7C;padding:clamp(64px,9vw,110px) clamp(20px,5vw,40px) clamp(48px,6vw,72px);text-align:center;">
+        <div style="max-width:820px;margin:0 auto;">
+          <span style="font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#5BB0DE;">{{ t.accPage.overview }}</span>
+          <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#fff;font-size:clamp(34px,5.5vw,58px);line-height:1.05;letter-spacing:-0.02em;margin:12px 0 16px;text-transform:uppercase;">{{ accCat.title }}</h1>
+          <p style="font-size:clamp(16px,2vw,18px);line-height:1.6;color:rgba(255,255,255,0.85);margin:0 auto 28px;max-width:620px;">{{ accCat.sub }}</p>
+          <button onClick="{{ goPricing }}" style="background:rgba(255,255,255,0.12);color:#fff;font-weight:700;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;padding:14px 30px;border-radius:999px;border:1px solid rgba(255,255,255,0.4);transition:background .2s;" style-hover="background:rgba(255,255,255,0.22);">{{ t.accPage.viewPrices }}</button>
+        </div>
+      </section>
+
+      <section style="padding:clamp(48px,6vw,84px) clamp(20px,5vw,40px) clamp(40px,5vw,64px);">
+        <div style="max-width:1180px;margin:0 auto;">
+          <div style="display:flex;justify-content:center;margin-bottom:clamp(36px,4vw,52px);">
+            <div style="display:inline-flex;gap:4px;background:#fff;border:1px solid rgba(17,75,124,0.12);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:999px;padding:5px;">
+              <sc-for list="{{ accTabs }}" as="tb" hint-placeholder-count="2">
+                <button onClick="{{ tb.onClick }}" style="{{ tb.style }}">{{ tb.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:26px;">
+            <sc-for list="{{ accCards }}" as="c" hint-placeholder-count="3">
+              <div data-reveal style="background:#fff;border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s;" style-hover="transform:translateY(-4px);box-shadow:0 22px 50px -28px rgba(17,75,124,0.5);">
+                <div style="height:200px;background:repeating-linear-gradient(135deg,#d9e8f3,#d9e8f3 14px,#e8f2f9 14px,#e8f2f9 28px);display:flex;align-items:center;justify-content:center;">
+                  <span style="font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#7a8b9a;text-transform:uppercase;background:rgba(255,255,255,0.7);padding:6px 12px;border-radius:999px;">{{ c.img }}</span>
+                </div>
+                <div style="padding:26px 24px 28px;display:flex;flex-direction:column;flex:1;text-align:center;">
+                  <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:19px;color:#114B7C;letter-spacing:-0.01em;margin:0;text-transform:uppercase;">{{ c.name }}</h3>
+                  <div style="width:40px;height:3px;background:#5BB0DE;border-radius:2px;margin:14px auto 16px;"></div>
+                  <p style="font-size:14.5px;line-height:1.6;color:#6B7280;margin:0 0 22px;">{{ c.desc }}</p>
+                  <button onClick="{{ goRequest }}" style="margin-top:auto;align-self:center;background:rgba(91,176,222,0.16);color:#2E7CB8;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;padding:12px 26px;border-radius:999px;transition:background .2s,color .2s;" style-hover="background:#2E7CB8;color:#fff;">{{ t.accPage.learnMore }}</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <section style="background:#114B7C;padding:clamp(56px,7vw,96px) clamp(20px,5vw,40px);">
+        <div style="max-width:1180px;margin:0 auto;">
+          <div style="text-align:center;margin-bottom:clamp(36px,4vw,52px);">
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#fff;font-size:clamp(24px,3.4vw,36px);letter-spacing:0.02em;margin:0;text-transform:uppercase;">{{ accCat.facTitle }}</h2>
+            <div style="width:60px;height:3px;background:#5BB0DE;border-radius:2px;margin:16px auto 0;"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(24px,3vw,40px);">
+            <sc-for list="{{ accCards }}" as="c" hint-placeholder-count="3">
+              <div>
+                <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.04em;text-transform:uppercase;color:#BFE1F6;margin:0 0 16px;">{{ c.name }}</h3>
+                <div style="display:flex;flex-direction:column;gap:11px;">
+                  <sc-for list="{{ c.specs }}" as="s" hint-placeholder-count="6">
+                    <div style="display:flex;align-items:flex-start;gap:10px;padding-bottom:11px;border-bottom:1px solid rgba(255,255,255,0.12);">
+                      <span style="flex:0 0 auto;color:#5BB0DE;margin-top:1px;">{{ s.iconEl }}</span>
+                      <span style="font-size:14px;line-height:1.45;color:rgba(255,255,255,0.85);">{{ s.text }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
+    <!-- ===================================================== ACTIVITIES ===================================================== -->
+    <sc-if value="{{ isActivities }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Activities">
+      <section style="background:#fff;padding:clamp(56px,7vw,90px) clamp(20px,5vw,40px) clamp(32px,4vw,48px);border-bottom:1px solid rgba(17,75,124,0.06);">
+        <div style="max-width:1180px;margin:0 auto;">
+          <span style="font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#5BB0DE;">{{ t.activities.hero.sub }}</span>
+          <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#114B7C;font-size:clamp(32px,5vw,52px);line-height:1.05;letter-spacing:-0.02em;margin:12px 0 16px;text-wrap:balance;">{{ t.activities.hero.title }}</h1>
+          <p style="font-size:clamp(16px,2vw,19px);line-height:1.6;color:#6B7280;margin:0;max-width:640px;">{{ t.activities.hero.intro }}</p>
+        </div>
+      </section>
+
+      <section style="padding:clamp(48px,6vw,84px) clamp(20px,5vw,40px);">
+        <div style="max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(40px,5vw,72px);">
+          <sc-for list="{{ activitiesItems }}" as="a" hint-placeholder-count="6">
+            <div data-reveal style="display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,56px);align-items:center;{{ a.dir }}">
+              <div style="flex:1 1 380px;min-width:280px;height:clamp(280px,34vw,420px);background:repeating-linear-gradient(135deg,#d9e8f3,#d9e8f3 14px,#e8f2f9 14px,#e8f2f9 28px);display:flex;align-items:center;justify-content:center;">
+                <span style="font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#7a8b9a;text-transform:uppercase;background:rgba(255,255,255,0.7);padding:6px 12px;border-radius:999px;">{{ a.img }}</span>
+              </div>
+              <div style="flex:1 1 380px;min-width:280px;">
+                <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(22px,2.8vw,30px);color:#114B7C;letter-spacing:-0.01em;margin:0 0 12px;text-transform:uppercase;">{{ a.name }}</h2>
+                <div style="width:48px;height:3px;background:#5BB0DE;border-radius:2px;margin-bottom:20px;"></div>
+                <div style="display:flex;flex-direction:column;gap:14px;">
+                  <sc-for list="{{ a.paras }}" as="p" hint-placeholder-count="2">
+                    <p style="font-size:15.5px;line-height:1.7;color:#6B7280;margin:0;text-wrap:pretty;">{{ p }}</p>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ a.video }}" hint-placeholder-val="{{ false }}">
+                  <div style="position:relative;margin-top:20px;height:clamp(180px,22vw,240px);background:repeating-linear-gradient(135deg,#cfe1ef,#cfe1ef 14px,#deebf5 14px,#deebf5 28px);display:flex;align-items:center;justify-content:center;border-radius:0;">
+                    <span style="width:54px;height:54px;border-radius:50%;background:rgba(17,75,124,0.85);color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;padding-left:4px;">▶</span>
+                    <span style="position:absolute;bottom:12px;left:12px;font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:0.06em;color:#5d6f7e;text-transform:uppercase;background:rgba(255,255,255,0.72);padding:5px 10px;">{{ a.videoLabel }}</span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ a.hasThumbs }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;">
+                    <sc-for list="{{ a.thumbsArr }}" as="th" hint-placeholder-count="4">
+                      <span style="width:64px;height:48px;background:repeating-linear-gradient(135deg,#dceaf4,#dceaf4 8px,#eaf3f9 8px,#eaf3f9 16px);border-radius:0;display:block;"></span>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <div style="display:flex;align-items:center;gap:7px;margin-top:16px;color:#9aa7b0;">
+                  <span style="font-size:13px;">⤢</span>
+                  <span style="font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.04em;">{{ t.activities.enlarge }}</span>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="padding:0 clamp(20px,5vw,40px) clamp(72px,9vw,120px);">
+        <div style="max-width:1180px;margin:0 auto;position:relative;border-radius:0;overflow:hidden;background:linear-gradient(135deg,#2E7CB8,#114B7C);padding:clamp(40px,6vw,72px) clamp(28px,5vw,64px);text-align:center;" data-reveal>
+          <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#fff;font-size:clamp(26px,3.6vw,40px);line-height:1.1;letter-spacing:-0.02em;margin:0 0 24px;text-wrap:balance;">{{ t.ctaBand.title }}</h2>
+          <button onClick="{{ goRequest }}" style="background:#5BB0DE;color:#08283D;font-weight:700;font-size:16px;padding:16px 34px;border-radius:999px;transition:transform .2s,background .2s;" style-hover="background:#86C6E8;transform:translateY(-2px);">{{ t.ctaBand.button }}</button>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
+    <!-- ===================================================== PRICING ===================================================== -->
+    <sc-if value="{{ isPricing }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Pricing">
+      <section style="background:#114B7C;padding:clamp(64px,9vw,110px) clamp(20px,5vw,40px) clamp(52px,7vw,84px);text-align:center;">
+        <div style="max-width:820px;margin:0 auto;">
+          <span style="font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#5BB0DE;">{{ t.pricing.hero.eyebrow }}</span>
+          <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#fff;font-size:clamp(34px,5.5vw,58px);line-height:1.05;letter-spacing:-0.02em;margin:14px 0 18px;text-transform:uppercase;">{{ t.pricing.hero.title }}</h1>
+          <p style="font-size:clamp(16px,2vw,19px);line-height:1.6;color:rgba(255,255,255,0.85);margin:0 auto;max-width:600px;">{{ t.pricing.hero.sub }}</p>
+        </div>
+      </section>
+
+      <section style="padding:clamp(56px,7vw,96px) clamp(20px,5vw,40px);">
+        <div style="max-width:1100px;margin:0 auto;">
+
+          <div data-reveal style="margin-bottom:clamp(48px,6vw,72px);">
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(22px,3vw,30px);letter-spacing:-0.01em;margin:0 0 6px;">{{ t.pricing.mh.title }}</h2>
+            <p style="font-size:15px;color:#6B7280;margin:0 0 22px;">{{ t.pricing.mh.sub }}</p>
+            <div style="overflow:hidden;border:1px solid rgba(17,75,124,0.12);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;">
+              <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr;background:#2E7CB8;">
+                <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;">{{ t.pricing.mh.cPeriod }}</div>
+                <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;text-align:center;">{{ t.pricing.mh.c1 }}</div>
+                <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;text-align:center;">{{ t.pricing.mh.c2 }}</div>
+              </div>
+              <sc-for list="{{ mobileRates }}" as="r" hint-placeholder-count="6">
+                <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr;border-top:1px solid rgba(17,75,124,0.08);{{ r.rowBg }}">
+                  <div style="padding:15px 20px;font-weight:700;font-size:15px;color:#114B7C;">{{ r.period }}</div>
+                  <div style="padding:15px 20px;text-align:center;font-size:15px;color:#3a4a52;">{{ r.c1 }}</div>
+                  <div style="padding:15px 20px;text-align:center;font-size:15px;color:#3a4a52;">{{ r.c2 }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <p style="font-size:13.5px;color:#6B7280;margin:14px 2px 0;">{{ t.pricing.mh.note }}</p>
+          </div>
+
+          <div data-reveal style="margin-bottom:clamp(48px,6vw,72px);">
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(22px,3vw,30px);letter-spacing:-0.01em;margin:0 0 6px;">{{ t.pricing.camp.title }}</h2>
+            <p style="font-size:15px;color:#6B7280;margin:0 0 22px;">{{ t.pricing.camp.sub }}</p>
+            <div style="overflow:hidden;border:1px solid rgba(17,75,124,0.12);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;">
+              <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;background:#2E7CB8;">
+                <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;">{{ t.pricing.camp.cItem }}</div>
+                <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;text-align:center;">{{ t.pricing.camp.cLow }}</div>
+                <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;text-align:center;">{{ t.pricing.camp.cHigh }}</div>
+              </div>
+              <sc-for list="{{ campRates }}" as="r" hint-placeholder-count="9">
+                <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;border-top:1px solid rgba(17,75,124,0.08);{{ r.rowBg }}">
+                  <div style="padding:14px 20px;font-weight:600;font-size:15px;color:#114B7C;">{{ r.item }}</div>
+                  <div style="padding:14px 20px;text-align:center;font-size:15px;color:#3a4a52;">{{ r.low }}</div>
+                  <div style="padding:14px 20px;text-align:center;font-size:15px;color:#3a4a52;">{{ r.high }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <p style="font-size:13.5px;color:#6B7280;margin:14px 2px 0;">{{ t.pricing.camp.note }}</p>
+          </div>
+
+          <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
+            <div style="background:#fff;border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;padding:clamp(26px,3vw,34px);">
+              <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:#2E7CB8;margin:0;">{{ t.pricing.included.title }}</h3>
+              <div style="display:flex;flex-direction:column;gap:12px;margin-top:18px;">
+                <sc-for list="{{ includedItems }}" as="i" hint-placeholder-count="5">
+                  <div style="display:flex;align-items:flex-start;gap:12px;">
+                    <span style="flex:0 0 auto;width:26px;height:26px;border-radius:8px;background:rgba(91,176,222,0.16);color:#2E7CB8;display:flex;align-items:center;justify-content:center;">{{ i.iconEl }}</span>
+                    <span style="font-size:15px;line-height:1.5;color:#3a4a52;">{{ i.text }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="background:#fff;border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;padding:clamp(26px,3vw,34px);">
+              <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:#2E7CB8;margin:0;">{{ t.pricing.good.title }}</h3>
+              <div style="display:flex;flex-direction:column;gap:12px;margin-top:18px;">
+                <sc-for list="{{ goodItems }}" as="i" hint-placeholder-count="5">
+                  <div style="display:flex;align-items:flex-start;gap:12px;">
+                    <span style="flex:0 0 auto;width:26px;height:26px;border-radius:8px;background:rgba(91,176,222,0.16);color:#2E7CB8;display:flex;align-items:center;justify-content:center;">{{ i.iconEl }}</span>
+                    <span style="font-size:15px;line-height:1.5;color:#3a4a52;">{{ i.text }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <div data-reveal style="margin-top:clamp(40px,5vw,56px);text-align:center;">
+            <button onClick="{{ goContact }}" style="background:#5BB0DE;color:#08283D;font-weight:700;font-size:16px;padding:17px 36px;border-radius:999px;transition:transform .2s,background .2s;" style-hover="background:#86C6E8;transform:translateY(-2px);">{{ t.pricing.reserveBtn }}</button>
+          </div>
+
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
+    <!-- ===================================================== CAMP MAP ===================================================== -->
+    <sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Camp map">
+      <section style="background:#114B7C;padding:clamp(64px,9vw,110px) clamp(20px,5vw,40px) clamp(52px,7vw,84px);text-align:center;">
+        <div style="max-width:820px;margin:0 auto;">
+          <span style="font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#5BB0DE;">{{ t.map.hero.eyebrow }}</span>
+          <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#fff;font-size:clamp(34px,5.5vw,58px);line-height:1.05;letter-spacing:-0.02em;margin:14px 0 18px;text-transform:uppercase;">{{ t.map.hero.title }}</h1>
+          <p style="font-size:clamp(16px,2vw,19px);line-height:1.6;color:rgba(255,255,255,0.85);margin:0 auto;max-width:600px;">{{ t.map.hero.sub }}</p>
+        </div>
+      </section>
+
+      <section style="padding:clamp(56px,7vw,96px) clamp(20px,5vw,40px);">
+        <div style="max-width:1100px;margin:0 auto;">
+          <div style="max-width:760px;margin:0 auto clamp(36px,4vw,48px);text-align:center;" data-reveal>
+            <p style="font-size:16.5px;line-height:1.7;color:#6B7280;margin:0 0 22px;text-wrap:pretty;">{{ t.map.intro }}</p>
+            <div style="display:inline-flex;flex-direction:column;gap:10px;text-align:left;">
+              <sc-for list="{{ mapBullets }}" as="b" hint-placeholder-count="4">
+                <div style="display:flex;align-items:center;gap:11px;">
+                  <span style="flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:#5BB0DE;"></span>
+                  <span style="font-size:15px;color:#3a4a52;">{{ b }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div data-reveal="scale" style="position:relative;border:2px dashed rgba(17,75,124,0.22);border-radius:0;min-height:clamp(360px,50vw,600px);background:linear-gradient(150deg,#e7f2f9,#d8e9f4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;overflow:hidden;">
+            <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(17,75,124,0.05),rgba(17,75,124,0.05) 1px,transparent 1px,transparent 44px),repeating-linear-gradient(90deg,rgba(17,75,124,0.05),rgba(17,75,124,0.05) 1px,transparent 1px,transparent 44px);"></div>
+            <span style="position:relative;width:56px;height:56px;border-radius:0;background:rgba(91,176,222,0.18);color:#2E7CB8;display:flex;align-items:center;justify-content:center;">{{ mapPinEl }}</span>
+            <span style="position:relative;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(20px,2.6vw,26px);color:#114B7C;">{{ t.map.placeholderTitle }}</span>
+            <span style="position:relative;font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#7a8b9a;background:rgba(255,255,255,0.72);padding:7px 14px;border-radius:999px;">{{ t.map.placeholder }}</span>
+          </div>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
+    <!-- ===================================================== SEND A REQUEST ===================================================== -->
+    <sc-if value="{{ isRequest }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Send a request">
+      <section style="background:#114B7C;padding:clamp(64px,9vw,110px) clamp(20px,5vw,40px) clamp(52px,7vw,84px);text-align:center;">
+        <div style="max-width:880px;margin:0 auto;">
+          <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#fff;font-size:clamp(30px,4.6vw,52px);line-height:1.08;letter-spacing:-0.02em;margin:0 0 18px;text-transform:uppercase;">{{ t.request.hero.title }}</h1>
+          <p style="font-size:clamp(16px,2vw,19px);line-height:1.6;color:rgba(255,255,255,0.85);margin:0 auto;max-width:640px;">{{ t.request.hero.sub }}</p>
+        </div>
+      </section>
+
+      <section style="padding:clamp(48px,6vw,84px) clamp(20px,5vw,40px) clamp(64px,8vw,110px);">
+        <div style="max-width:920px;margin:0 auto;">
+          <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+            <form onSubmit="{{ onSubmit }}" style="display:flex;flex-direction:column;gap:22px;">
+              <input value="{{ form.company }}" onChange="{{ onCompany }}" tabIndex="-1" autoComplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
+
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+                <label style="display:block;">
+                  <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.name }} *</span>
+                  <input value="{{ form.name }}" onChange="{{ onName }}" required="required" placeholder="{{ t.request.f.namePh }}" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;" style-focus="border-color:#2E7CB8;" />
+                </label>
+                <label style="display:block;">
+                  <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.email }} *</span>
+                  <input type="email" value="{{ form.email }}" onChange="{{ onEmail }}" required="required" placeholder="{{ t.request.f.emailPh }}" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;" style-focus="border-color:#2E7CB8;" />
+                </label>
+              </div>
+
+              <label style="display:block;">
+                <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.accommodation }} *</span>
+                <select value="{{ form.accommodation }}" onChange="{{ onAccommodation }}" required="required" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;cursor:pointer;">
+                  <option value="">{{ t.request.f.choose }}</option>
+                  <sc-for list="{{ accommodationOptions }}" as="o" hint-placeholder-count="5">
+                    <option value="{{ o }}">{{ o }}</option>
+                  </sc-for>
+                </select>
+              </label>
+
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+                <label style="display:block;">
+                  <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.vehicle }}</span>
+                  <select value="{{ form.vehicle }}" onChange="{{ onVehicle }}" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;cursor:pointer;">
+                    <option value="">{{ t.request.f.choose }}</option>
+                    <sc-for list="{{ vehicleOptions }}" as="o" hint-placeholder-count="5"><option value="{{ o }}">{{ o }}</option></sc-for>
+                  </select>
+                </label>
+                <label style="display:block;">
+                  <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.vlength }}</span>
+                  <select value="{{ form.vlength }}" onChange="{{ onVlength }}" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;cursor:pointer;">
+                    <option value="">{{ t.request.f.choose }}</option>
+                    <sc-for list="{{ lengthOptions }}" as="o" hint-placeholder-count="5"><option value="{{ o }}">{{ o }}</option></sc-for>
+                  </select>
+                </label>
+              </div>
+
+              <label style="display:block;">
+                <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.campingcard }}</span>
+                <select value="{{ form.campingcard }}" onChange="{{ onCampingcard }}" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;cursor:pointer;">
+                  <option value="">{{ t.request.f.choose }}</option>
+                  <sc-for list="{{ yesnoOptions }}" as="o" hint-placeholder-count="2"><option value="{{ o }}">{{ o }}</option></sc-for>
+                </select>
+              </label>
+
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+                <label style="display:block;">
+                  <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.arrive }} *</span>
+                  <input type="date" value="{{ form.arrive }}" onChange="{{ onArrive }}" required="required" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;" style-focus="border-color:#2E7CB8;" />
+                </label>
+                <label style="display:block;">
+                  <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.depart }} *</span>
+                  <input type="date" value="{{ form.depart }}" onChange="{{ onDepart }}" required="required" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;" style-focus="border-color:#2E7CB8;" />
+                </label>
+              </div>
+
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+                <label style="display:block;">
+                  <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.country }} *</span>
+                  <select value="{{ form.country }}" onChange="{{ onCountry }}" required="required" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;cursor:pointer;">
+                    <option value="">{{ t.request.f.choose }}</option>
+                    <sc-for list="{{ countryOptions }}" as="o" hint-placeholder-count="6"><option value="{{ o }}">{{ o }}</option></sc-for>
+                  </select>
+                </label>
+                <label style="display:block;">
+                  <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.phone }} *</span>
+                  <input value="{{ form.phone }}" onChange="{{ onPhone }}" required="required" placeholder="{{ t.request.f.phonePh }}" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;" style-focus="border-color:#2E7CB8;" />
+                </label>
+              </div>
+
+              <label style="display:block;">
+                <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.message }}</span>
+                <textarea value="{{ form.message }}" onChange="{{ onMessage }}" rows="5" placeholder="{{ t.request.f.messagePh }}" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;resize:vertical;min-height:120px;" style-focus="border-color:#2E7CB8;"></textarea>
+              </label>
+
+              <button type="submit" style="background:#2E7CB8;color:#fff;font-weight:700;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;padding:17px;border-radius:12px;width:100%;transition:background .2s;" style-hover="background:#114B7C;">{{ t.request.f.submit }}</button>
+              <p style="font-size:12.5px;line-height:1.5;color:#9aa7b0;margin:0;">{{ t.request.f.gdpr }}</p>
+            </form>
+          </sc-if>
+
+          <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+            <div style="text-align:center;background:#fff;border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;padding:clamp(40px,5vw,64px);max-width:560px;margin:0 auto;">
+              <div style="width:60px;height:60px;border-radius:50%;background:rgba(91,176,222,0.18);color:#2E7CB8;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;">{{ successCheck }}</div>
+              <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:26px;color:#114B7C;margin:0 0 12px;">{{ t.request.success.title }}</h2>
+              <p style="font-size:16px;line-height:1.65;color:#6B7280;margin:0 0 26px;">{{ t.request.success.body }}</p>
+              <button onClick="{{ resetForm }}" style="background:#2E7CB8;color:#fff;font-weight:600;font-size:15px;padding:14px 30px;border-radius:999px;transition:background .2s;" style-hover="background:#114B7C;">{{ t.request.success.again }}</button>
+            </div>
+          </sc-if>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
+    <!-- ===================================================== CONTACT ===================================================== -->
+    <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Contact">
+      <section style="background:#114B7C;padding:clamp(64px,9vw,110px) clamp(20px,5vw,40px) clamp(52px,7vw,84px);">
+        <div style="max-width:760px;margin:0 auto;">
+          <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#fff;font-size:clamp(36px,6vw,64px);line-height:1.05;letter-spacing:-0.025em;margin:0 0 20px;">{{ t.contact.hero.title }}</h1>
+          <p style="font-size:clamp(17px,2.1vw,20px);line-height:1.6;color:rgba(255,255,255,0.85);margin:0;">{{ t.contact.hero.sub }}</p>
+        </div>
+      </section>
+
+      <section style="padding:clamp(56px,7vw,96px) clamp(20px,5vw,40px);">
+        <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(32px,4vw,56px);align-items:flex-start;">
+
+          <div style="flex:1 1 380px;min-width:300px;" data-reveal="left">
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(24px,3.2vw,34px);color:#114B7C;letter-spacing:-0.02em;margin:0 0 12px;">{{ t.contact.intro }}</h2>
+            <p style="font-size:16.5px;line-height:1.65;color:#6B7280;margin:0 0 30px;max-width:440px;">{{ t.contact.respNote }}</p>
+            <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:32px;">
+              <sc-for list="{{ contactInfo }}" as="c" hint-placeholder-count="3">
+                <div style="display:flex;gap:14px;align-items:center;">
+                  <span style="flex:0 0 auto;width:44px;height:44px;border-radius:12px;background:rgba(91,176,222,0.15);color:#2E7CB8;display:flex;align-items:center;justify-content:center;">{{ c.iconEl }}</span>
+                  <div style="display:flex;flex-direction:column;gap:2px;">
+                    <span style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#6B7280;">{{ c.label }}</span>
+                    <span style="font-size:17px;font-weight:600;color:#114B7C;">{{ c.value }}</span>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            <a href="{{ mailHref }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#2E7CB8;color:#fff;font-weight:700;font-size:16px;padding:16px 30px;border-radius:999px;transition:background .2s,transform .2s;" style-hover="background:#114B7C;transform:translateY(-2px);">{{ t.contact.emailBtn }} <span style="font-size:16px;">↗</span></a>
+          </div>
+
+          <div style="flex:1 1 360px;min-width:300px;display:flex;flex-direction:column;gap:20px;" data-reveal="right">
+            <div style="height:clamp(220px,26vw,300px);background:repeating-linear-gradient(135deg,#d9e8f3,#d9e8f3 14px,#e8f2f9 14px,#e8f2f9 28px);display:flex;align-items:center;justify-content:center;">
+              <span style="font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#7a8b9a;text-transform:uppercase;background:rgba(255,255,255,0.7);padding:6px 12px;">{{ t.contact.locImg }}</span>
+            </div>
+            <div style="background:#fff;border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;padding:24px;">
+              <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#114B7C;margin:0 0 14px;">{{ t.contact.hoursHeading }}</h3>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <sc-for list="{{ t.contact.hours }}" as="h" hint-placeholder-count="2">
+                  <div style="display:flex;justify-content:space-between;gap:12px;font-size:14px;">
+                    <span style="color:#6B7280;">{{ h.day }}</span>
+                    <span style="color:#114B7C;font-weight:600;">{{ h.time }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="position:relative;overflow:hidden;height:200px;background:linear-gradient(150deg,#d2e5f3,#e7f2f9);border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);">
+              <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(17,75,124,0.05),rgba(17,75,124,0.05) 1px,transparent 1px,transparent 32px),repeating-linear-gradient(90deg,rgba(17,75,124,0.05),rgba(17,75,124,0.05) 1px,transparent 1px,transparent 32px);"></div>
+              <div style="position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:8px;">
+                <span style="width:16px;height:16px;background:#2E7CB8;border:3px solid #fff;border-radius:50%;box-shadow:0 6px 16px -4px rgba(17,75,124,0.6);"></span>
+                <span style="background:#114B7C;color:#fff;font-weight:600;font-size:12px;padding:5px 12px;border-radius:999px;">Lovište</span>
+              </div>
+              <span style="position:absolute;top:16px;left:16px;font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:0.06em;color:#5d6f7e;text-transform:uppercase;background:rgba(255,255,255,0.7);padding:5px 10px;">{{ t.contact.mapLabel }}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:#0E3C61;color:rgba(255,255,255,0.7);padding:clamp(56px,7vw,84px) clamp(20px,5vw,40px) 36px;">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);justify-content:space-between;padding-bottom:clamp(36px,5vw,52px);border-bottom:1px solid rgba(255,255,255,0.12);">
+        <div style="flex:1 1 280px;max-width:340px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+            <img src="./uploads/logo.png" alt="Camping Lovište Paradise logo" style="width:46px;height:46px;object-fit:contain;flex:0 0 auto;display:block;">
+            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:18px;color:#fff;">Camping Lovište Paradise</span>
+          </div>
+          <p style="font-size:14.5px;line-height:1.65;margin:0 0 20px;">{{ t.footer.tagline }}</p>
+          <div style="display:flex;gap:10px;">
+            <a href="#" style="width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#fff;transition:background .2s;" style-hover="background:#2E7CB8;">FB</a>
+            <a href="#" style="width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#fff;transition:background .2s;" style-hover="background:#2E7CB8;">IG</a>
+          </div>
+        </div>
+        <div style="flex:0 1 auto;">
+          <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#BFE1F6;margin:0 0 18px;">{{ t.footer.explore }}</h4>
+          <nav style="display:flex;flex-direction:column;gap:12px;">
+            <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+              <button onClick="{{ n.onClick }}" style="text-align:left;font-size:14.5px;color:rgba(255,255,255,0.7);transition:color .2s;" style-hover="color:#fff;">{{ n.label }}</button>
+            </sc-for>
+            <a href="{{ eventsUrl }}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;text-align:left;font-size:14.5px;color:rgba(255,255,255,0.7);transition:color .2s;" style-hover="color:#fff;">{{ t.nav.events }} <span style="font-size:12px;">↗</span></a>
+          </nav>
+        </div>
+        <div style="flex:0 1 auto;">
+          <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#BFE1F6;margin:0 0 18px;">{{ t.footer.contactHeading }}</h4>
+          <div style="display:flex;flex-direction:column;gap:12px;font-size:14.5px;">
+            <span>Lovište 12, 20269 Lovište</span>
+            <span>+385 20 000 000</span>
+            <span>info@vicelic-camping.hr</span>
+          </div>
+        </div>
+      </div>
+      <div style="padding-top:28px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:13px;color:rgba(255,255,255,0.5);">
+        <span>© {{ year }} Camping Lovište Paradise · Lovište, Pelješac, Hrvatska</span>
+        <span>{{ t.footer.rights }}</span>
+      </div>
+    </div>
+  </footer>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:860},&quot;defaultLocale&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;hr&quot;,&quot;en&quot;,&quot;de&quot;,&quot;sl&quot;],&quot;default&quot;:&quot;hr&quot;,&quot;tsType&quot;:&quot;'hr' | 'en' | 'de' | 'sl'&quot;},&quot;reduceMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = {
+    locale: (this.props.defaultLocale || 'hr'),
+    page: 'home',
+    mobileOpen: false,
+    langOpen: false,
+    sidebarOpen: true,
+    accTab: 'mh',
+    isMobile: (typeof window !== 'undefined' && window.innerWidth < 1024),
+    faqOpen: 0,
+    submitted: false,
+    form: { name:'', email:'', accommodation:'', vehicle:'', vlength:'', campingcard:'', arrive:'', depart:'', country:'', phone:'', message:'', company:'' }
+  };
+
+  copy = {
+    hr: {
+      cta: 'Pošalji upit',
+      nav: { home:'Početna', about:'O nama', accommodations:'Smještaj', activities:'Aktivnosti', pricing:'Cjenik', map:'Karta kampa', events:'Događanja u Orebiću', request:'Pošalji upit', contact:'Kontakt' },
+      accPage: {
+        overview:'Pregled smještaja', viewPrices:'Pogledaj cijene', learnMore:'Pošalji upit',
+        toggle:{ mh:'Mobilne kućice', camping:'Kampiranje' },
+        mh: { title:'Mobilne kućice', sub:'Zove se mobilna kućica, ali zapravo je udoban dom za odmor za cijelu obitelj — dom daleko od doma u prekrasnoj mediteranskoj prirodi, sa svim prednostima kampiranja.', facTitle:'Oprema mobilnih kućica', cards:[
+          { name:'Comfort mobilna kućica', img:'[ Comfort mobilna kućica ]', desc:'Izvrsna ravnoteža suvremenog ugođaja i života na otvorenom, među maslinovim terasama.', specs:['Oko 30 m² unutarnjeg prostora','Dvije spavaće sobe (4–5 osoba)','Kuhinja i blagovaonica','Kupaonica s tušem','Natkrivena terasa s pogledom na more','Klima i SAT TV','Besplatni Wi-Fi i parking','Ljubimci dobrodošli'] },
+          { name:'Deluxe mobilna kućica', img:'[ Deluxe mobilna kućica ]', desc:'Više prostora, druga kupaonica i najljepši pogledi — savršeno za obitelji koje žele malo više.', specs:['Oko 35 m² unutarnjeg prostora','Dvije spavaće sobe (2+2 osobe)','Velika kuhinja / blagovaonica','Dvije kupaonice','Terasa s pogledom na more i namještajem','Klima i SAT TV','Besplatni Wi-Fi i parking','Ljubimci dobrodošli'] }
+        ] },
+        camping: { title:'Kampiranje', sub:'Svaka parcela u kampu Lovište Paradise ima svoj šarm. U hladu maslina i borova, terasasta zbog privatnosti i pogleda na more, s plažom na korak — pronađite svoje savršeno mjesto.', facTitle:'Oprema kampa', cards:[
+          { name:'Parcela uz more', img:'[ Parcela uz more ]', desc:'Na najnižim terasama, na korak od mora — probudite se uz šum valova.', specs:['Oko 90 m²','Do 6 osoba','Priključak struje','Prirodna sjena','30 m do plaže','Besplatni Wi-Fi'] },
+          { name:'Parcela u hladu', img:'[ Parcela u masliniku ]', desc:'Skrivena među maslinovim terasama za ugodan hlad i u najtoplijim danima.', specs:['Oko 80 m²','Do 6 osoba','Priključak struje','Gusta prirodna sjena','Parking uz parcelu','Besplatni Wi-Fi'] },
+          { name:'Glamping šator', img:'[ Glamping šator ]', desc:'Sva radost kampiranja uz pravi krevet i privatnu terasu — ponesite samo sebe.', specs:['Opremljen safari šator','2–3 osobe','Pravi kreveti i posteljina','Privatna terasa','Pogled na more','Besplatni Wi-Fi'] }
+        ] }
+      },
+      activities: {
+        hero: { sub:'Obilje sadržaja u kampu i oko njega', title:'Aktivnosti u kampu Lovište Paradise', intro:'Kad je riječ o odmoru na otvorenom, kampiranje u kampu Lovište Paradise doista nudi sve.' },
+        enlarge:'Kliknite na slike za povećanje', videoLabel:'[ Video kampa ]',
+        items:[
+          { name:'Plaža', img:'[ Plaža i uvala iz zraka ]', video:true, thumbs:5, paras:['Svi zamišljamo savršenu plažu — bistro more, blagi valovi i prekrasan okoliš. Šljunčana plaža ispod kampa ima sve troje, s mirnim i toplim morem uvale Lovište na korak od vaše parcele.','Plivajte, ronite na dah ili probajte SUP i kajak, pa se osušite na suncu. Ovo je jedan od najmirnijih i najbistrijih dijelova obale na Pelješcu.'] },
+          { name:'Restoran i gastronomija', img:'[ Konoba s terasom uz more ]', thumbs:0, paras:['Gastronomija je velik dio ovog kraja. Konobe Lovišta nude prepoznatljiva dalmatinska jela — svježu ribu, školjke iz Malostonskog zaljeva i meso ispod peke, uz domaće maslinovo ulje i mediteransko povrće.','Sve to uz cijenjene pelješke crnjake, Plavac i Dingač, ili svjež Pošip sa susjedne Korčule.'] },
+          { name:'Beach bar', img:'[ Beach bar uz plažu ]', thumbs:0, paras:['Beach bar je mjesto za usporiti — popijte hladno piće s društvom, prigrizite nešto tijekom dana na plaži ili uživajte u popodnevnoj kavi u hladu uz prekrasan pogled na more.','U mirnim večerima bar je prirodno okupljalište za smijeh i kamperske priče dok sunce zalazi.'] },
+          { name:'Opuštanje uz bazen', img:'[ Bazen / ležaljke ]', thumbs:1, paras:['Ponekad je najbolja aktivnost — nikakva. Smjestite se u hlad maslinovih terasa s knjigom, slušajte cvrčke i pustite da dan teče.','Ležaljke, mirni kutci i zelenilo po cijelom kampu pružaju svakom uzrastu mjesto za predah.'] },
+          { name:'Sport i vodeni sportovi', img:'[ Sportski tereni iz zraka ]', thumbs:5, paras:['Aktivni gosti neće se dosađivati. Ima prostora za nogomet, odbojku i stolni tenis, a mirna uvala idealna je za SUP, kajak i jedrenje na dasci.','Iznajmite kajak ili dasku tik uz kamp ili krenite brodom u istraživanje otoka uz pelješki kanal.'] },
+          { name:'Staze i istraživanje', img:'[ Biciklističke staze / vidikovac ]', thumbs:0, paras:['Izvan kampa, biciklističke i pješačke staze vode kroz vinograde i maslinike Pelješca, sve do Orebića i vidikovaca s pogledom na Korčulu.','Izvrsna je baza za izlete — Stonske solane i zidine, vinarije Dingača i trajekt za Korčulu nadohvat su ruke.'] }
+        ]
+      },
+      request: {
+        hero: { title:'Pošalji upit', sub:'Recite nam termine, broj gostiju i smještaj. Javljamo se osobno, najčešće isti dan.' },
+        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', accommodation:'Odaberite smještaj', vehicle:'Vrsta vozila', vlength:'Duljina vozila', campingcard:'CampingCard / Predsezona', arrive:'Datum dolaska', depart:'Datum odlaska', country:'Država', phone:'Kontakt broj', phonePh:'+385 …', message:'Vaša poruka', messagePh:'Recite nam sve što nam pomaže pripremiti ponudu…', choose:'— Odaberite opciju —', submit:'Pošalji upit', gdpr:'GDPR — vaši se podaci prikupljaju isključivo za odgovor na ovaj upit i za eVisitor prijavu.' },
+        accOptions:['Comfort mobilna kućica','Deluxe mobilna kućica','Parcela uz more','Parcela u hladu','Glamping šator'],
+        vehicleOptions:['Šator','Kamp-kućica','Kamper / autodom','Auto + krovni šator','Bez vozila'],
+        lengthOptions:['do 5 m','5–6 m','6–7 m','7–8 m','preko 8 m'],
+        yesnoOptions:['Da','Ne'],
+        countryOptions:['Hrvatska','Slovenija','Njemačka','Austrija','Italija','Češka','Poljska','Nizozemska','Ostalo'],
+        success: { title:'Upit je poslan!', body:'Hvala vam. Vaš upit je zaprimljen i javit ćemo se u najkraćem roku, najčešće isti dan.', again:'Pošalji novi upit' }
+      },
+      pricing: {
+        hero: { eyebrow:'Cjenik 2026', title:'Cijene i tarife', sub:'Dnevne cijene u EUR. Službeni cjenik je na recepciji. Pošaljite upit za personaliziranu ponudu.' },
+        mh: { title:'Mobilne kućice i glamping', sub:'Cijena po jedinici, po noći.', cPeriod:'Razdoblje', c1:'Mobilna kućica (4–5)', c2:'Glamping šator (2–3)', note:'Završno čišćenje (jednokratno) 40 € za mobilne kućice. Posteljina i ručnici uključeni u cijenu.' },
+        camp: { title:'Parcele za kampiranje', sub:'Cijena po noći. Cijena parcele uz cijenu po osobi.', cItem:'Stavka', cLow:'Predsezona', cHigh:'Sezona', note:'Predsezona: 01/04–06/07 i 24/08–31/10. Sezona: 06/07–24/08.', rows:[ ['Odrasli','8 €','11 €'],['Dijete (7–12)','5 €','7 €'],['Dijete do 7 god.','besplatno','besplatno'],['Parcela (šator / kamp-kućica)','12 €','16 €'],['Auto / motor','4 €','5 €'],['Kamper / prikolica','6 €','8 €'],['Struja','5 €','5 €'],['Pas','5 €','6 €'],['Boravišna pristojba (odrasli)','1,60 €','1,60 €'] ] },
+        included: { title:'Uključeno u cijenu', items:['Topli tuševi i sanitarije','Besplatni Wi-Fi u cijelom kampu','Jedno parkirno mjesto po parceli','Pristup plaži uz kamp','Korištenje zajedničkih prostora'] },
+        good: { title:'Dobro je znati', items:['Boravišna pristojba 1,60 € / odrasli / noć','Djeca do 7 godina besplatno','Psi dobrodošli — 5–6 € / noć','Akontacija 30% potvrđuje rezervaciju','Besplatno otkazivanje do 14 dana prije dolaska'] },
+        reserveBtn:'Pošalji upit za rezervaciju'
+      },
+      map: {
+        hero: { eyebrow:'Pronađite put', title:'Interaktivna karta kampa', sub:'Istražite raspored kampa, sadržaje i smještaj. Interaktivna karta uskoro stiže.' },
+        intro:'Pripremamo digitalnu kartu kampa kao dio online doživljaja. Za sada je ovaj prostor rezerviran — kad zaživi, moći ćete:',
+        bullets:['Pretraživati sadržaje i smještajne jedinice','Prikazati samo određene sadržaje ili tipove smještaja','Odabrati točnu jedinicu i poslati upit putem obrasca','Promijeniti jezik karte'],
+        placeholderTitle:'Interaktivna karta uskoro',
+        placeholder:'[ ovdje dolazi karta kampa ]'
+      },
+      hero: {
+        photo: '[ Hero foto, uvala u zlatno doba ]',
+        eyebrow: 'Lovište · Poluotok Pelješac · Hrvatska',
+        title: 'Probudite se uz more.',
+        sub: 'Mali obiteljski kamp skriven među maslinama i borovima, na samom rubu mirne uvale Lovište, daleko od gužve, korak od mora.',
+        primary: 'Pošalji upit', secondary: 'Istraži kamp'
+      },
+      stats: [
+        { num:'1998.', label:'Obiteljski od' },
+        { num:'40', label:'Parcela i kućica' },
+        { num:'3 ha', label:'Zelenila uz more' },
+        { num:'30 m', label:'Do plaže' }
+      ],
+      intro: {
+        eyebrow: 'Dobrodošli',
+        title: 'Tih kutak Jadrana, vođen jednom obitelji već više od dvadeset godina.',
+        body: 'Camping Lovište Paradise nije veliki resort, i ne želi to biti. To je terasasti maslinik koji se spušta prema kristalnom moru, s parcelama u hladu, mobilnim kućicama i glamping šatorima. Dovoljno blizu da čujete valove, dovoljno daleko od svega ostalog.'
+      },
+      acc: {
+        eyebrow: 'Smještaj',
+        title: 'Pronađite svoj kutak',
+        sub: 'Od potpuno opremljenih mobilnih kućica do zasjenjenih parcela uz more, svaka jedinica nosi vlastiti karakter.',
+        cta: 'Pošalji upit',
+        items: [
+          { name:'Mobilna kućica', guests:'4–5 osoba · 35 m²', price:'od 95 €/noć', tag:'Najpopularnije', img:'[ Mobilna kućica ]', amenities:['Klima','Kupaonica','Natkrivena terasa','Kuhinja'] },
+          { name:'Parcela uz more', guests:'do 6 osoba · 90 m²', price:'od 32 €/noć', tag:'', img:'[ Parcela uz more ]', amenities:['Struja','Prirodna sjena','30 m do mora','Wi-Fi'] },
+          { name:'Glamping šator', guests:'2–3 osobe', price:'od 70 €/noć', tag:'', img:'[ Glamping šator ]', amenities:['Pravi krevet','Privatna terasa','Pogled na more'] }
+        ]
+      },
+      fac: {
+        eyebrow: 'Sadržaji', title: 'Sve što vam treba, i ništa suvišno',
+        items: [
+          { name:'Moderne sanitarije', desc:'Čisti, prostrani sanitarni čvorovi s toplom vodom 0–24.' },
+          { name:'Besplatni Wi-Fi', desc:'Pokriva cijeli kamp, dovoljno brz i za rad na daljinu.' },
+          { name:'Plaža uz kamp', desc:'Šljunčana plaža i bistro more na samo 30 metara hoda.' },
+          { name:'Parkiranje', desc:'Mjesto za vozilo uz svaku parcelu, bez dodatne naknade.' },
+          { name:'Supermarket u blizini', desc:'Dobro opskrbljen supermarket nalazi se nadomak kampa, u Lovištu.' },
+          { name:'Ljubimci dobrodošli', desc:'Vaš pas je dio obitelji, rado ga ugošćujemo.' }
+        ]
+      },
+      things: {
+        eyebrow: 'Doživljaji', title: 'Dani ovdje teku polako',
+        items: [
+          { no:'01', img:'[ Plaža i kupanje ]', name:'More na dohvat ruke', body:'Šljunčane plaže i skrivene uvale Lovišta vrijede svake fotografije. Voda je bistra, plitka uz obalu i savršena za djecu i ronjenje na dah.' },
+          { no:'02', img:'[ Gastro i vino ]', name:'Okusi Pelješca', body:'Svježa riba, školjke iz Maloga mora i vrhunski Pelješki Plavac. Naša obitelj rado preporuči konobe i vinarije koje turisti rijetko pronađu.' },
+          { no:'03', img:'[ Vodeni sportovi ]', name:'Kajak, SUP i ronjenje', body:'Iznajmite kajak ili dasku za veslanje pred kampom, ili istražite okolne otočiće. Lovište je poznato i kao jedna od najboljih jedriličarskih luka na Jadranu.' },
+          { no:'04', img:'[ Bicikl i staze ]', name:'Vinske ceste i staze', body:'Biciklističke i pješačke staze vode kroz vinograde i maslinike Pelješca, sve do Orebića i vidikovaca s kojih puca pogled na Korčulu.' }
+        ]
+      },
+      area: {
+        eyebrow: 'Okolica', title: 'Savršena baza za istraživanje',
+        sub: 'Pelješac je tek početak. S Lovišta su nadohvat neki od najljepših dijelova južne Dalmacije.',
+        mapLabel: '[ Interaktivna karta, Leaflet ]',
+        distances: [
+          { place:'Mjesto Lovište', time:'5 min hoda' },
+          { place:'Orebić', time:'35 km · 45 min' },
+          { place:'Otok Korčula', time:'trajekt 25 min' },
+          { place:'NP Mljet', time:'≈ 1 h' },
+          { place:'Ston (zidine, kamenice)', time:'≈ 1 h' },
+          { place:'Dubrovnik', time:'≈ 2 h' }
+        ]
+      },
+      gallery: { eyebrow:'Galerija', title:'Pogledom kroz kamp',
+        items:['Pogled na uvalu','Maslinik','Plaža','Mobilna kućica','Zalazak sunca','Bazen','Terasa','Staza'] },
+      reviews: { eyebrow:'Dojmovi gostiju', title:'Vraćaju se iz godine u godinu',
+        items:[
+          { stars:'★★★★★', quote:'Najljepši kamp na kojem smo ikad bili. Mir, čistoća i more pred šatorom. Domaćini su nas dočekali kao obitelj.', name:'Petra K.', place:'Zagreb, HR', initial:'P' },
+          { stars:'★★★★★', quote:'Terasaste parcele znače da svi imaju pogled i privatnost. Sanitarije besprijekorne. Dolazimo i sljedeće ljeto.', name:'Markus W.', place:'München, DE', initial:'M' },
+          { stars:'★★★★★', quote:'Mali, tih i autentičan, točno ono što smo tražili daleko od velikih resorta. Plaža je san.', name:'Sophie L.', place:'Lyon, FR', initial:'S' }
+        ] },
+      apart: { eyebrow:'Novootvoreni kamp', title:'Novi kamp, provjereno gostoljublje', body:'Camping Lovište Paradise otvara svoja vrata ovog ljeta, pa kamp tek prikuplja prve recenzije. No naša obitelj već godinama ugošćuje goste u svojim apartmanima u Lovištu, s izvrsnim ocjenama na Googleu. Ista briga i toplina čekaju vas i u kampu.', note:'Pogledajte recenzije naših apartmana', btn1:'Recenzije · Apartman 1', btn2:'Recenzije · Apartman 2', img:'[ Apartmani / zadovoljni gosti ]' },
+      ctaBand: { title:'Spremni za savršeno ljeto?', sub:'Recite nam svoje termine i broj gostiju, javljamo se osobno, obično isti dan.', button:'Pošalji upit' },
+      footer: { tagline:'Obiteljski kamp u uvali Lovište na poluotoku Pelješcu. Mir, more i maslinik od 1998.', explore:'Stranice', contactHeading:'Kontakt', rights:'Sva prava pridržana.' },
+      about: {
+        hero: { eyebrow:'O kampu', title:'Tih kamp iznad uvale.', sub:'Terasasti maslinik na rubu Lovišta, godinama oblikovan u miran kamp uz more.' },
+        story: { title:'O kampu', img:'[ Terase kampa iznad mora ]', paras:[
+          'Camping Lovište Paradise smjestio se na blagoj padini maslina koja se spušta do bistrog mora uvale Lovište. Terasasti raspored znači da gotovo svaka parcela i mobilna kućica ima vlastiti hlad, privatnost i pogled na more.',
+          'Kamp se prostire na otprilike tri hektara zelenila, s mobilnim kućicama, glamping šatorima i parcelama uz more isprepletenima među maslinama i borovima. Šljunčana plaža je tridesetak metara od najniže terase.',
+          'Moderne sanitarije, besplatni Wi-Fi po cijelom kampu, parkirno mjesto uz svaku parcelu i plaža na korak čine boravak jednostavnim — mali, uredan kamp stvoren za spore dane uz more.'
+        ] },
+        diff: { title:'Što nas čini drugačijima', items:[
+          { no:'01', title:'Mali i tih', body:'Ograničen broj parcela znači mir, prostor i osjećaj da ste gost, a ne broj.' },
+          { no:'02', title:'Doslovno uz more', body:'Terase se spuštaju do same obale, od šatora do mora je tridesetak koraka.' },
+          { no:'03', title:'Zeleno i sjenovito', body:'Terase maslina i borova daju gotovo svakoj parceli prirodni hlad i ravno mjesto za odmor.' }
+        ] },
+        timeline: { title:'Kroz godine', items:[
+          { year:'1998.', label:'Obitelj Vicelić otvara prvih nekoliko parcela u svom masliniku.' },
+          { year:'2009.', label:'Dodane prve mobilne kućice i obnovljene sanitarije.' },
+          { year:'2017.', label:'Uveden glamping i uređena plaža uz kamp.' },
+          { year:'2024.', label:'Punjači za električna vozila i novi prostor uz more.' }
+        ] }
+      },
+      faqPage: {
+        hero: { eyebrow:'Česta pitanja', title:'Sve što trebate znati', sub:'Niste pronašli odgovor? Javite nam se, rado pomažemo.' },
+        ctaTitle:'Još pitanja?', ctaSub:'Pošaljite nam poruku i odgovaramo, najčešće isti dan.',
+        items:[
+          { q:'Kada su prijava i odjava?', a:'Prijava je od 14:00, a odjava do 11:00. Ranija prijava ili kasnija odjava mogući su prema dostupnosti, samo nam javite unaprijed.' },
+          { q:'Jesu li kućni ljubimci dozvoljeni?', a:'Da! Psi su dobrodošli na parcelama i u većini smještaja uz malu naknadu. Molimo da ih držite na povodcu u zajedničkim prostorima.' },
+          { q:'Kako funkcionira plaćanje i cijene?', a:'Cijene ovise o terminu i tipu smještaja. Nakon upita šaljemo personaliziranu ponudu; akontacija potvrđuje rezervaciju, ostatak se plaća pri dolasku.' },
+          { q:'Što ponijeti sa sobom?', a:'Za parcele: vlastiti šator/kamper i opremu. Mobilne kućice i glamping šatori dolaze potpuno opremljeni s posteljinom i ručnicima.' },
+          { q:'Ima li parkinga?', a:'Da, jedno parkirno mjesto uz svaku parcelu i smještajnu jedinicu uključeno je u cijenu. Dodatna vozila uz najavu.' },
+          { q:'Postoji li Wi-Fi?', a:'Besplatni Wi-Fi pokriva cijeli kamp i dovoljno je brz za video pozive i rad na daljinu.' },
+          { q:'Kakva je politika otkazivanja?', a:'Besplatno otkazivanje do 14 dana prije dolaska uz povrat akontacije. Detalje šaljemo uz svaku ponudu.' },
+          { q:'Što je u blizini?', a:'Mjesto Lovište s konobama i trgovinom je 5 minuta hoda. Orebić, trajekt za Korčulu i NP Mljet su izletu na dohvat ruke.' }
+        ]
+      },
+      contact: {
+        hero: { eyebrow:'Kontakt', title:'Pošaljite upit', sub:'Recite nam termine i broj gostiju, javljamo se osobno, obično isti dan.' },
+        formHeading:'Upit za rezervaciju',
+        intro:'Javite nam se', emailBtn:'Pošaljite e-mail', respNote:'Odgovaramo osobno, najčešće isti dan. Kliknite gumb ispod za slanje e-maila.', locImg:'[ Lovište / uvala ]',
+        f: { name:'Ime i prezime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', arrive:'Dolazak (opcionalno)', depart:'Odlazak (opcionalno)', party:'Broj gostiju', message:'Poruka', messagePh:'Recite nam tip smještaja, posebne želje…', submit:'Pošalji upit', privacy:'Vaše podatke koristimo isključivo za odgovor na ovaj upit.' },
+        partyOptions:['1 osoba','2 osobe','3 osobe','4 osobe','5 osoba','6+ osoba'],
+        success: { title:'Upit je poslan!', body:'Hvala vam. Vaš upit je zaprimljen i javit ćemo se u najkraćem roku, najčešće isti dan.', again:'Pošalji novi upit' },
+        hoursHeading:'Recepcija',
+        hours:[ { day:'Pon – Ned (sezona)', time:'08:00 – 21:00' }, { day:'Izvan sezone', time:'na upit' } ],
+        mapLabel:'[ Karta, Lovište ]'
+      }
+    },
+    en: {
+      cta: 'Inquire',
+      nav: { home:'Home', about:'About', accommodations:'Accommodations', activities:'Activities', pricing:'Price list', map:'Camp map', events:'Events in Orebić', request:'Send a request', contact:'Contact' },
+      accPage: {
+        overview:'Accommodation overview', viewPrices:'View prices', learnMore:'Inquire',
+        toggle:{ mh:'Mobile homes', camping:'Camping' },
+        mh: { title:'Mobile homes', sub:'It is called a mobile home, but it is really a comfortable holiday home for the whole family — a home away from home in beautiful Mediterranean nature, with all the benefits of camping.', facTitle:'Mobile home facilities', cards:[
+          { name:'Comfort mobile home', img:'[ Comfort mobile home ]', desc:'A great balance between contemporary comfort and outdoor living, right among the olive terraces.', specs:['Around 30 m² of interior space','Two bedrooms (4–5 persons)','Kitchen & dining area','Bathroom with shower','Covered terrace with sea view','Air-conditioning & SAT TV','Free Wi-Fi & parking spot','Pet-friendly'] },
+          { name:'Deluxe mobile home', img:'[ Deluxe mobile home ]', desc:'More space, a second bathroom and the best views — perfect for families who want a little extra.', specs:['Around 35 m² of interior space','Two bedrooms (2+2 persons)','Large kitchen / dining room','Two bathrooms','Terrace with sea view & furniture','Air-conditioning & SAT TV','Free Wi-Fi & parking spot','Pet-friendly'] }
+        ] },
+        camping: { title:'Camping', sub:'Every pitch at Lovište Paradise has its own charm. Shaded by olives and pines, terraced for privacy and a sea view, with the beach just steps away — find your perfect spot.', facTitle:'Camping facilities', cards:[
+          { name:'Seafront pitch', img:'[ Seafront pitch ]', desc:'On the lowest terraces, just steps from the water — wake up to the sound of the sea.', specs:['Around 90 m²','Up to 6 persons','Electricity hook-up','Natural shade','30 m to the beach','Free Wi-Fi'] },
+          { name:'Shaded pitch', img:'[ Shaded olive-grove pitch ]', desc:'Tucked among the olive terraces for cool shade on the hottest summer days.', specs:['Around 80 m²','Up to 6 persons','Electricity hook-up','Deep natural shade','Parking by the pitch','Free Wi-Fi'] },
+          { name:'Glamping tent', img:'[ Glamping tent ]', desc:'All the joy of camping with a real bed and a private terrace — just bring yourself.', specs:['Furnished safari-style tent','2–3 persons','Real beds & bedding','Private terrace','Sea view','Free Wi-Fi'] }
+        ] }
+      },
+      activities: {
+        hero: { sub:'Plenty of things to do in and around the camp', title:'Activities at Camping Lovište Paradise', intro:'When it comes to a holiday in the great outdoors, camping at Lovište Paradise really does have it all.' },
+        enlarge:'Click on the images to enlarge', videoLabel:'[ Camp video ]',
+        items:[
+          { name:'Beach', img:'[ Beach & bay from above ]', video:true, thumbs:5, paras:['We all picture the perfect beach — crystal-clear water, gentle waves and beautiful surroundings. The pebble beach below the camp has all three, with the calm, warm water of Lovište bay just steps from your pitch.','Swim, snorkel or try paddleboarding and kayaking, then dry off in the sun. It is one of the quietest, clearest stretches of coast on the Pelješac peninsula.'] },
+          { name:'Restaurant & gastronomy', img:'[ Tavern terrace by the sea ]', thumbs:0, paras:['Gastronomy is a big part of this region. The taverns of Lovište serve characteristic Dalmatian dishes — fresh fish, shellfish from the Mali Ston bay and meat slow-cooked under the bell, with local olive oil and Mediterranean vegetables.','Pair it all with the celebrated Pelješac reds, Plavac and Dingač, or a crisp Pošip from neighbouring Korčula.'] },
+          { name:'Beach bar', img:'[ Beach bar by the shore ]', thumbs:0, paras:['The beach bar is the spot to slow down — knock back a cold drink with friends, grab a snack during your beach day, or sip an afternoon coffee in the shade with a stunning sea view.','On calm evenings the bar is the natural gathering point to share a few laughs and camping tales as the sun goes down.'] },
+          { name:'Poolside & relaxing', img:'[ Pool / loungers ]', thumbs:1, paras:['Sometimes the best activity is none at all. Settle into the shade of the olive terraces with a book, listen to the cicadas and let the day drift by.','Loungers, quiet corners and greenery throughout the camp give every age a place to unwind.'] },
+          { name:'Sports & watersports', img:'[ Sports courts from above ]', thumbs:5, paras:['Active guests will not be bored. There is space for football, volleyball and table tennis, and the flat bay is ideal for paddleboarding, kayaking and windsurfing.','Rent a kayak or SUP right by the camp, or hop on a boat for an island-hopping adventure along the Pelješac channel.'] },
+          { name:'Trails & exploring', img:'[ Cycling trail / viewpoint ]', thumbs:0, paras:['Beyond the camp, cycling and walking trails wind through the vineyards and olive groves of Pelješac, all the way to Orebić and viewpoints overlooking Korčula.','It is a great base for day trips — the salt pans and walls of Ston, the wineries of Dingač, and the ferry to Korčula are all within easy reach.'] }
+        ]
+      },
+      request: {
+        hero: { title:'Send a request', sub:'Tell us your dates, party and accommodation. We reply personally, usually the same day.' },
+        f: { name:'Your name', namePh:'Your name', email:'E-mail', emailPh:'you@example.com', accommodation:'Choose accommodation', vehicle:'Vehicle type', vlength:'Length of the vehicle', campingcard:'CampingCard / Low season', arrive:'Date of arrival', depart:'Date of departure', country:'Country', phone:'Contact number', phonePh:'+385 …', message:'Your message', messagePh:'Tell us anything that helps us prepare your offer…', choose:'— Please choose an option —', submit:'Send request', gdpr:'GDPR — your details are collected only to answer this request and for eVisitor registration.' },
+        accOptions:['Comfort mobile home','Deluxe mobile home','Seafront pitch','Shaded pitch','Glamping tent'],
+        vehicleOptions:['Tent','Caravan','Camper / motorhome','Car + roof tent','None'],
+        lengthOptions:['up to 5 m','5–6 m','6–7 m','7–8 m','over 8 m'],
+        yesnoOptions:['Yes','No'],
+        countryOptions:['Croatia','Slovenia','Germany','Austria','Italy','Czechia','Poland','Netherlands','Other'],
+        success: { title:'Request sent!', body:'Thank you. Your request has been received and we will get back to you as soon as possible, usually the same day.', again:'Send another request' }
+      },
+      pricing: {
+        hero: { eyebrow:'Price list 2026', title:'Prices & rates', sub:'Daily rates in EUR. The official price list is at reception. Send us an inquiry for a personalised offer.' },
+        mh: { title:'Mobile homes & glamping', sub:'Price per unit, per night.', cPeriod:'Period', c1:'Mobile home (4–5)', c2:'Glamping tent (2–3)', note:'Final cleaning (once) €40 for mobile homes. Bed linen and towels included.' },
+        camp: { title:'Outdoor camping pitches', sub:'Price per night. Pitch price plus a per-person rate.', cItem:'Item', cLow:'Low season', cHigh:'High season', note:'Low season: 01/04–06/07 & 24/08–31/10. High season: 06/07–24/08.', rows:[ ['Adult','8 €','11 €'],['Child (7–12)','5 €','7 €'],['Child up to 7','free','free'],['Pitch (tent / caravan)','12 €','16 €'],['Car / motorbike','4 €','5 €'],['Camper / caravan','6 €','8 €'],['Electricity','5 €','5 €'],['Dog','5 €','6 €'],['Tourist tax (adult)','1,60 €','1,60 €'] ] },
+        included: { title:'Included in the price', items:['Hot showers & sanitary facilities','Free Wi-Fi across the camp','One parking space per pitch','Access to the beach by the camp','Use of the common areas'] },
+        good: { title:'Good to know', items:['Tourist tax €1.60 / adult / night','Children up to 7 stay free','Dogs welcome — €5–6 / night','A 30% deposit confirms your booking','Free cancellation up to 14 days before arrival'] },
+        reserveBtn:'Send a reservation request'
+      },
+      map: {
+        hero: { eyebrow:'Find your way', title:'Interactive camp map', sub:'Explore the camp layout, facilities and accommodation. The interactive map is coming soon.' },
+        intro:'We are building a digital map of the camp as part of our online experience. For now this space is reserved — once it is live, you will be able to:',
+        bullets:['Search for facilities and accommodation units','View only certain facility or accommodation types','Pick your exact unit and inquire via the contact form','Switch the map language'],
+        placeholderTitle:'Interactive map coming soon',
+        placeholder:'[ camp map embed will go here ]'
+      },
+      hero: {
+        photo: '[ Hero photo, bay at golden hour ]',
+        eyebrow: 'Lovište · Pelješac Peninsula · Croatia',
+        title: 'Wake up by the sea.',
+        sub: 'A small family-run camp hidden among olive trees and pines, right at the edge of the calm bay of Lovište, far from the crowds, steps from the water.',
+        primary: 'Inquire', secondary: 'Explore the camp'
+      },
+      stats: [
+        { num:'1998', label:'Family-run since' },
+        { num:'40', label:'Pitches & homes' },
+        { num:'3 ha', label:'Of greenery by the sea' },
+        { num:'30 m', label:'To the beach' }
+      ],
+      intro: {
+        eyebrow: 'Welcome',
+        title: 'A quiet corner of the Adriatic, run by one family for over twenty years.',
+        body: 'Camping Lovište Paradise is not a large resort, and never wants to be. It is a terraced olive grove sloping down to crystal-clear water, with shaded pitches, mobile homes and glamping tents. Close enough to hear the waves, far enough from everything else.'
+      },
+      acc: {
+        eyebrow: 'Accommodation',
+        title: 'Find your spot',
+        sub: 'From fully-equipped mobile homes to shaded seafront pitches, every unit has a character of its own.',
+        cta: 'Inquire',
+        items: [
+          { name:'Mobile home', guests:'4–5 guests · 35 m²', price:'from €95/night', tag:'Most popular', img:'[ Mobile home ]', amenities:['A/C','Bathroom','Covered terrace','Kitchen'] },
+          { name:'Seafront pitch', guests:'up to 6 guests · 90 m²', price:'from €32/night', tag:'', img:'[ Seafront pitch ]', amenities:['Electricity','Natural shade','30 m to sea','Wi-Fi'] },
+          { name:'Glamping tent', guests:'2–3 guests', price:'from €70/night', tag:'', img:'[ Glamping tent ]', amenities:['Real bed','Private terrace','Sea view'] }
+        ]
+      },
+      fac: {
+        eyebrow: 'Facilities', title: 'Everything you need, and nothing you don\u2019t',
+        items: [
+          { name:'Modern sanitary block', desc:'Clean, spacious facilities with hot water around the clock.' },
+          { name:'Free Wi-Fi', desc:'Covers the whole camp, fast enough to work remotely.' },
+          { name:'Beach by the camp', desc:'Pebble beach and clear sea just a 30-metre walk away.' },
+          { name:'Parking', desc:'A space beside every pitch, at no extra charge.' },
+          { name:'Supermarket nearby', desc:'A well-stocked supermarket is a short walk away in Lovište.' },
+          { name:'Pets welcome', desc:'Your dog is family, we are happy to host them.' }
+        ]
+      },
+      things: {
+        eyebrow: 'Experiences', title: 'Days here move slowly',
+        items: [
+          { no:'01', img:'[ Beach & swimming ]', name:'The sea at your feet', body:'Lovište\u2019s pebble beaches and hidden coves are worth every photo. The water is clear, shallow near the shore, and perfect for kids and snorkelling.' },
+          { no:'02', img:'[ Food & wine ]', name:'Flavours of Pelješac', body:'Fresh fish, shellfish from the Mali Ston bay and the region\u2019s prized Plavac wine. Our family gladly points you to taverns and wineries tourists rarely find.' },
+          { no:'03', img:'[ Watersports ]', name:'Kayak, SUP & diving', body:'Rent a kayak or paddleboard right by the camp, or explore the nearby islets. Lovište is also known as one of the finest sailing harbours on the Adriatic.' },
+          { no:'04', img:'[ Cycling & trails ]', name:'Wine roads & trails', body:'Cycling and walking routes wind through Pelješac\u2019s vineyards and olive groves, all the way to Orebić and viewpoints overlooking Korčula.' }
+        ]
+      },
+      area: {
+        eyebrow: 'The area', title: 'A perfect base to explore',
+        sub: 'Pelješac is only the beginning. From Lovište, some of the most beautiful parts of southern Dalmatia are within easy reach.',
+        mapLabel: '[ Interactive map, Leaflet ]',
+        distances: [
+          { place:'Lovište village', time:'5 min walk' },
+          { place:'Orebić', time:'35 km · 45 min' },
+          { place:'Korčula island', time:'25 min by ferry' },
+          { place:'Mljet National Park', time:'≈ 1 h' },
+          { place:'Ston (walls, oysters)', time:'≈ 1 h' },
+          { place:'Dubrovnik', time:'≈ 2 h' }
+        ]
+      },
+      gallery: { eyebrow:'Gallery', title:'A glimpse around the camp',
+        items:['Bay view','Olive grove','Beach','Mobile home','Sunset','Pool','Terrace','Trail'] },
+      reviews: { eyebrow:'Guest stories', title:'They come back, year after year',
+        items:[
+          { stars:'★★★★★', quote:'The most beautiful camp we have ever stayed at. Quiet, clean, and the sea right by the tent. The hosts welcomed us like family.', name:'Petra K.', place:'Zagreb, HR', initial:'P' },
+          { stars:'★★★★★', quote:'The terraced pitches mean everyone gets a view and privacy. Spotless facilities. We are coming back next summer.', name:'Markus W.', place:'Munich, DE', initial:'M' },
+          { stars:'★★★★★', quote:'Small, quiet and authentic, exactly what we wanted away from the big resorts. The beach is a dream.', name:'Sophie L.', place:'Lyon, FR', initial:'S' }
+        ] },
+      apart: { eyebrow:'Newly opening', title:'A new camp, a proven welcome', body:'Camping Lovište Paradise opens its doors this summer, so the camp is only gathering its first reviews. But our family has hosted guests in our apartments in Lovište for years, with excellent ratings on Google. The same care and warmth await you at the camp.', note:'See the reviews for our apartments', btn1:'Reviews · Apartment 1', btn2:'Reviews · Apartment 2', img:'[ Apartments / happy guests ]' },
+      ctaBand: { title:'Ready for a perfect summer?', sub:'Tell us your dates and party size, we reply personally, usually the same day.', button:'Inquire' },
+      footer: { tagline:'A family camp in the bay of Lovište on the Pelješac peninsula. Calm, sea and olive grove since 1998.', explore:'Pages', contactHeading:'Contact', rights:'All rights reserved.' },
+      about: {
+        hero: { eyebrow:'About the camp', title:'A quiet camp above the bay.', sub:'A terraced olive grove on the edge of Lovište, shaped over the years into a calm seaside camp.' },
+        story: { title:'About the camp', img:'[ Camp terraces above the sea ]', paras:[
+          'Camping Lovište Paradise sits on a gentle slope of olive trees stepping down to the clear water of Lovište bay. The terraced layout means almost every pitch and mobile home has its own shade, privacy and view of the sea.',
+          'The camp covers roughly three hectares of greenery, with mobile homes, glamping tents and seafront pitches woven between the olives and pines. A pebble beach lies just thirty metres from the lowest terrace.',
+          'Modern sanitary facilities, free Wi-Fi across the grounds, a parking space by every pitch and a beach on the doorstep keep things simple — a small, well-kept camp built for slow seaside days.'
+        ] },
+        diff: { title:'What makes us different', items:[
+          { no:'01', title:'Small and quiet', body:'A limited number of pitches means calm, space, and the feeling of being a guest, not a number.' },
+          { no:'02', title:'Truly by the sea', body:'The terraces drop right to the shoreline, about thirty steps from tent to water.' },
+          { no:'03', title:'Green & shaded', body:'Olive and pine terraces give nearly every pitch natural shade and a level place to settle.' }
+        ] },
+        timeline: { title:'Through the years', items:[
+          { year:'1998', label:'The Vicelić family opens its first few pitches in the olive grove.' },
+          { year:'2009', label:'First mobile homes added and the sanitary block renovated.' },
+          { year:'2017', label:'Glamping introduced and the beach by the camp landscaped.' },
+          { year:'2024', label:'EV chargers installed and a new space by the sea opened.' }
+        ] }
+      },
+      faqPage: {
+        hero: { eyebrow:'FAQ', title:'Everything you need to know', sub:'Didn\u2019t find your answer? Get in touch, we\u2019re happy to help.' },
+        ctaTitle:'Still have questions?', ctaSub:'Send us a message and we\u2019ll reply, usually the same day.',
+        items:[
+          { q:'When are check-in and check-out?', a:'Check-in is from 2:00 PM and check-out is by 11:00 AM. Earlier check-in or later check-out is possible subject to availability, just let us know in advance.' },
+          { q:'Are pets allowed?', a:'Yes! Dogs are welcome on pitches and in most accommodation for a small fee. Please keep them on a leash in common areas.' },
+          { q:'How do pricing and payment work?', a:'Prices depend on the dates and accommodation type. After your inquiry we send a personalised offer; a deposit confirms the booking and the balance is paid on arrival.' },
+          { q:'What should I bring?', a:'For pitches: your own tent/camper and equipment. Mobile homes and glamping tents come fully equipped, with bedding and towels included.' },
+          { q:'Is there parking?', a:'Yes, one parking space per pitch and accommodation unit is included in the price. Additional vehicles by arrangement.' },
+          { q:'Is there Wi-Fi?', a:'Free Wi-Fi covers the whole camp and is fast enough for video calls and remote work.' },
+          { q:'What is the cancellation policy?', a:'Free cancellation up to 14 days before arrival with a full deposit refund. Full details are sent with each offer.' },
+          { q:'What is nearby?', a:'Lovište village, with taverns and a shop, is a 5-minute walk. Orebić, the ferry to Korčula and Mljet National Park are all easy day trips.' }
+        ]
+      },
+      contact: {
+        hero: { eyebrow:'Contact', title:'Send an inquiry', sub:'Tell us your dates and party size, we reply personally, usually the same day.' },
+        formHeading:'Booking inquiry',
+        intro:'Get in touch', emailBtn:'Send us an email', respNote:'We reply personally, usually the same day. Click the button below to send us an email.', locImg:'[ Lovište / the bay ]',
+        f: { name:'Full name', namePh:'Your name', email:'Email', emailPh:'you@example.com', arrive:'Arrival (optional)', depart:'Departure (optional)', party:'Party size', message:'Message', messagePh:'Tell us your preferred accommodation, special requests…', submit:'Send inquiry', privacy:'We use your details only to reply to this inquiry.' },
+        partyOptions:['1 guest','2 guests','3 guests','4 guests','5 guests','6+ guests'],
+        success: { title:'Inquiry sent!', body:'Thank you. Your inquiry has been received and we\u2019ll get back to you as soon as possible, usually the same day.', again:'Send another inquiry' },
+        hoursHeading:'Reception',
+        hours:[ { day:'Mon – Sun (season)', time:'8:00 AM – 9:00 PM' }, { day:'Off season', time:'on request' } ],
+        mapLabel:'[ Map, Lovište ]'
+      }
+    },
+    de: {
+      cta: 'Anfragen',
+      nav: { home:'Startseite', about:'Über uns', accommodations:'Unterkünfte', activities:'Aktivitäten', pricing:'Preisliste', map:'Lageplan', events:'Events in Orebić', request:'Anfrage senden', contact:'Kontakt' },
+      accPage: {
+        overview:'Unterkunftsübersicht', viewPrices:'Preise ansehen', learnMore:'Anfragen',
+        toggle:{ mh:'Mobilheime', camping:'Camping' },
+        mh: { title:'Mobilheime', sub:'Es heißt Mobilheim, ist aber in Wahrheit ein komfortables Ferienhaus für die ganze Familie — ein Zuhause fern von Zuhause in schöner mediterraner Natur, mit allen Vorteilen des Campings.', facTitle:'Ausstattung der Mobilheime', cards:[
+          { name:'Comfort Mobilheim', img:'[ Comfort Mobilheim ]', desc:'Eine gute Balance aus modernem Komfort und Leben im Freien, mitten zwischen den Oliventerrassen.', specs:['Rund 30 m² Innenfläche','Zwei Schlafzimmer (4–5 Personen)','Küche & Essbereich','Bad mit Dusche','Überdachte Terrasse mit Meerblick','Klimaanlage & SAT-TV','Kostenloses WLAN & Parkplatz','Haustierfreundlich'] },
+          { name:'Deluxe Mobilheim', img:'[ Deluxe Mobilheim ]', desc:'Mehr Platz, ein zweites Bad und der beste Ausblick — perfekt für Familien, die etwas mehr möchten.', specs:['Rund 35 m² Innenfläche','Zwei Schlafzimmer (2+2 Personen)','Große Küche / Essbereich','Zwei Badezimmer','Terrasse mit Meerblick & Möbeln','Klimaanlage & SAT-TV','Kostenloses WLAN & Parkplatz','Haustierfreundlich'] }
+        ] },
+        camping: { title:'Camping', sub:'Jeder Stellplatz bei Lovište Paradise hat seinen eigenen Charme. Beschattet von Oliven und Pinien, terrassiert für Privatsphäre und Meerblick, mit dem Strand nur wenige Schritte entfernt — finden Sie Ihren perfekten Platz.', facTitle:'Camping-Ausstattung', cards:[
+          { name:'Stellplatz am Meer', img:'[ Stellplatz am Meer ]', desc:'Auf den untersten Terrassen, nur wenige Schritte vom Wasser — wachen Sie zum Klang des Meeres auf.', specs:['Rund 90 m²','Bis zu 6 Personen','Stromanschluss','Natürlicher Schatten','30 m zum Strand','Kostenloses WLAN'] },
+          { name:'Schattiger Stellplatz', img:'[ Stellplatz im Olivenhain ]', desc:'Zwischen den Oliventerrassen für kühlen Schatten an den heißesten Sommertagen.', specs:['Rund 80 m²','Bis zu 6 Personen','Stromanschluss','Tiefer natürlicher Schatten','Parken am Stellplatz','Kostenloses WLAN'] },
+          { name:'Glamping-Zelt', img:'[ Glamping-Zelt ]', desc:'Die ganze Freude am Camping mit echtem Bett und privater Terrasse — bringen Sie nur sich selbst mit.', specs:['Möbliertes Safari-Zelt','2–3 Personen','Echte Betten & Bettwäsche','Private Terrasse','Meerblick','Kostenloses WLAN'] }
+        ] }
+      },
+      activities: {
+        hero: { sub:'Viel zu erleben im und rund um das Camp', title:'Aktivitäten im Camping Lovište Paradise', intro:'Wenn es um Urlaub in der freien Natur geht, hat Camping bei Lovište Paradise wirklich alles zu bieten.' },
+        enlarge:'Klicken Sie auf die Bilder zum Vergrößern', videoLabel:'[ Camp-Video ]',
+        items:[
+          { name:'Strand', img:'[ Strand & Bucht von oben ]', video:true, thumbs:5, paras:['Wir alle stellen uns den perfekten Strand vor — kristallklares Wasser, sanfte Wellen und eine schöne Umgebung. Der Kiesstrand unterhalb des Camps hat alle drei, mit dem ruhigen, warmen Wasser der Bucht von Lovište nur wenige Schritte von Ihrem Stellplatz.','Schwimmen, schnorcheln oder SUP und Kajak ausprobieren, dann in der Sonne trocknen. Es ist einer der ruhigsten und klarsten Küstenabschnitte der Halbinsel Pelješac.'] },
+          { name:'Restaurant & Gastronomie', img:'[ Taverne mit Terrasse am Meer ]', thumbs:0, paras:['Die Gastronomie ist ein großer Teil dieser Region. Die Tavernen von Lovište servieren typische dalmatinische Gerichte — frischen Fisch, Meeresfrüchte aus der Bucht von Mali Ston und Fleisch unter der Peka, mit lokalem Olivenöl und mediterranem Gemüse.','Dazu die berühmten Pelješac-Rotweine Plavac und Dingač oder ein frischer Pošip vom benachbarten Korčula.'] },
+          { name:'Beach Bar', img:'[ Beach Bar am Ufer ]', thumbs:0, paras:['Die Beach Bar ist der Ort zum Entschleunigen — ein kühles Getränk mit Freunden, ein Snack während des Strandtags oder ein Nachmittagskaffee im Schatten mit traumhaftem Meerblick.','An ruhigen Abenden ist die Bar der natürliche Treffpunkt für ein paar Lacher und Camping-Geschichten bei Sonnenuntergang.'] },
+          { name:'Pool & Entspannung', img:'[ Pool / Liegen ]', thumbs:1, paras:['Manchmal ist die beste Aktivität gar keine. Machen Sie es sich im Schatten der Oliventerrassen mit einem Buch gemütlich, lauschen Sie den Zikaden und lassen Sie den Tag verstreichen.','Liegen, ruhige Ecken und Grün im ganzen Camp bieten jedem Alter einen Platz zum Ausspannen.'] },
+          { name:'Sport & Wassersport', img:'[ Sportplätze von oben ]', thumbs:5, paras:['Aktive Gäste langweilen sich nicht. Es gibt Platz für Fußball, Volleyball und Tischtennis, und die flache Bucht ist ideal für SUP, Kajak und Windsurfen.','Mieten Sie ein Kajak oder SUP direkt am Camp oder steigen Sie für ein Insel-Hopping entlang des Pelješac-Kanals aufs Boot.'] },
+          { name:'Wege & Entdecken', img:'[ Radweg / Aussichtspunkt ]', thumbs:0, paras:['Außerhalb des Camps führen Rad- und Wanderwege durch die Weinberge und Olivenhaine von Pelješac, bis nach Orebić und zu Aussichtspunkten mit Blick auf Korčula.','Eine ideale Basis für Tagesausflüge — die Salinen und Mauern von Ston, die Weingüter von Dingač und die Fähre nach Korčula sind alle leicht erreichbar.'] }
+        ]
+      },
+      request: {
+        hero: { title:'Anfrage senden', sub:'Nennen Sie uns Daten, Personenzahl und Unterkunft. Wir antworten persönlich, meist noch am selben Tag.' },
+        f: { name:'Ihr Name', namePh:'Ihr Name', email:'E-Mail', emailPh:'sie@beispiel.com', accommodation:'Unterkunft wählen', vehicle:'Fahrzeugtyp', vlength:'Länge des Fahrzeugs', campingcard:'CampingCard / Nebensaison', arrive:'Anreisedatum', depart:'Abreisedatum', country:'Land', phone:'Telefonnummer', phonePh:'+385 …', message:'Ihre Nachricht', messagePh:'Sagen Sie uns alles, was bei der Angebotserstellung hilft…', choose:'— Bitte wählen —', submit:'Anfrage senden', gdpr:'DSGVO — Ihre Daten werden nur zur Beantwortung dieser Anfrage und für die eVisitor-Registrierung erhoben.' },
+        accOptions:['Comfort Mobilheim','Deluxe Mobilheim','Stellplatz am Meer','Schattiger Stellplatz','Glamping-Zelt'],
+        vehicleOptions:['Zelt','Wohnwagen','Wohnmobil','Auto + Dachzelt','Keines'],
+        lengthOptions:['bis 5 m','5–6 m','6–7 m','7–8 m','über 8 m'],
+        yesnoOptions:['Ja','Nein'],
+        countryOptions:['Kroatien','Slowenien','Deutschland','Österreich','Italien','Tschechien','Polen','Niederlande','Andere'],
+        success: { title:'Anfrage gesendet!', body:'Vielen Dank. Ihre Anfrage ist eingegangen und wir melden uns so schnell wie möglich, meist noch am selben Tag.', again:'Weitere Anfrage senden' }
+      },
+      pricing: {
+        hero: { eyebrow:'Preisliste 2026', title:'Preise & Tarife', sub:'Tagespreise in EUR. Die offizielle Preisliste liegt an der Rezeption. Senden Sie eine Anfrage für ein persönliches Angebot.' },
+        mh: { title:'Mobilheime & Glamping', sub:'Preis pro Einheit, pro Nacht.', cPeriod:'Zeitraum', c1:'Mobilheim (4–5)', c2:'Glamping-Zelt (2–3)', note:'Endreinigung (einmalig) 40 € für Mobilheime. Bettwäsche und Handtücher inklusive.' },
+        camp: { title:'Stellplätze zum Campen', sub:'Preis pro Nacht. Stellplatzpreis plus Preis pro Person.', cItem:'Position', cLow:'Nebensaison', cHigh:'Hauptsaison', note:'Nebensaison: 01/04–06/07 & 24/08–31/10. Hauptsaison: 06/07–24/08.', rows:[ ['Erwachsene','8 €','11 €'],['Kind (7–12)','5 €','7 €'],['Kind bis 7','kostenlos','kostenlos'],['Stellplatz (Zelt / Wohnwagen)','12 €','16 €'],['Auto / Motorrad','4 €','5 €'],['Wohnmobil / Anhänger','6 €','8 €'],['Strom','5 €','5 €'],['Hund','5 €','6 €'],['Kurtaxe (Erwachsene)','1,60 €','1,60 €'] ] },
+        included: { title:'Im Preis enthalten', items:['Warme Duschen & Sanitäranlagen','Kostenloses WLAN im ganzen Camp','Ein Parkplatz pro Stellplatz','Zugang zum Strand am Camp','Nutzung der Gemeinschaftsbereiche'] },
+        good: { title:'Gut zu wissen', items:['Kurtaxe 1,60 € / Erwachsener / Nacht','Kinder bis 7 Jahre kostenlos','Hunde willkommen — 5–6 € / Nacht','30% Anzahlung bestätigt die Buchung','Kostenlose Stornierung bis 14 Tage vor Anreise'] },
+        reserveBtn:'Reservierungsanfrage senden'
+      },
+      map: {
+        hero: { eyebrow:'Finden Sie den Weg', title:'Interaktiver Lageplan', sub:'Entdecken Sie das Camp, die Ausstattung und die Unterkünfte. Die interaktive Karte kommt bald.' },
+        intro:'Wir erstellen eine digitale Karte des Camps als Teil des Online-Erlebnisses. Vorerst ist dieser Bereich reserviert — sobald sie live ist, können Sie:',
+        bullets:['Nach Ausstattung und Unterkünften suchen','Nur bestimmte Ausstattungen oder Unterkunftstypen anzeigen','Ihre genaue Einheit wählen und über das Formular anfragen','Die Sprache der Karte ändern'],
+        placeholderTitle:'Interaktive Karte kommt bald',
+        placeholder:'[ hier kommt die Camp-Karte ]'
+      },
+      hero: { photo:'[ Hero Foto, Bucht im goldenen Licht ]', eyebrow:'Lovište · Halbinsel Pelješac · Kroatien', title:'Wachen Sie am Meer auf.', sub:'Ein kleiner familiengeführter Campingplatz, versteckt zwischen Olivenbäumen und Pinien, direkt am Rand der ruhigen Bucht von Lovište, weit weg vom Trubel, nur wenige Schritte vom Wasser.', primary:'Anfragen', secondary:'Platz entdecken' },
+      stats: [ {num:'1998',label:'Familiengeführt seit'}, {num:'40',label:'Stellplätze & Häuser'}, {num:'3 ha',label:'Grün am Meer'}, {num:'30 m',label:'Zum Strand'} ],
+      intro: { eyebrow:'Willkommen', title:'Eine ruhige Ecke der Adria, seit über zwanzig Jahren von einer Familie geführt.', body:'Camping Lovište Paradise ist kein großes Resort, und will es auch nicht sein. Es ist ein terrassierter Olivenhain, der zum kristallklaren Wasser hin abfällt, mit schattigen Stellplätzen, Mobilheimen und Glamping-Zelten. Nah genug, um die Wellen zu hören, weit genug von allem anderen entfernt.' },
+      acc: { eyebrow:'Unterkünfte', title:'Finden Sie Ihren Platz', sub:'Von voll ausgestatteten Mobilheimen bis zu schattigen Stellplätzen am Meer, jede Einheit hat ihren eigenen Charakter.', cta:'Anfragen', items: [
+        { name:'Mobilheim', guests:'4–5 Gäste · 35 m²', price:'ab 95 €/Nacht', tag:'Beliebteste', img:'[ Mobilheim ]', amenities:['Klimaanlage','Bad','Überdachte Terrasse','Küche'] },
+        { name:'Stellplatz am Meer', guests:'bis 6 Gäste · 90 m²', price:'ab 32 €/Nacht', tag:'', img:'[ Stellplatz am Meer ]', amenities:['Strom','Natürlicher Schatten','30 m zum Meer','WLAN'] },
+        { name:'Glamping-Zelt', guests:'2–3 Gäste', price:'ab 70 €/Nacht', tag:'', img:'[ Glamping-Zelt ]', amenities:['Echtes Bett','Private Terrasse','Meerblick'] } ] },
+      fac: { eyebrow:'Ausstattung', title:'Alles, was Sie brauchen, und nichts Überflüssiges', items: [
+        { name:'Moderne Sanitäranlagen', desc:'Saubere, geräumige Anlagen mit Warmwasser rund um die Uhr.' },
+        { name:'Kostenloses WLAN', desc:'Deckt den ganzen Platz ab, schnell genug zum Arbeiten.' },
+        { name:'Strand am Platz', desc:'Kiesstrand und klares Meer nur 30 Meter entfernt.' },
+        { name:'Parkplatz', desc:'Ein Stellplatz neben jedem Platz, ohne Aufpreis.' },
+        { name:'Supermarkt in der Nähe', desc:'Ein gut sortierter Supermarkt ist nur wenige Schritte entfernt in Lovište.' },
+        { name:'Haustiere willkommen', desc:'Ihr Hund gehört zur Familie, wir beherbergen ihn gern.' } ] },
+      things: { eyebrow:'Erlebnisse', title:'Die Tage vergehen hier langsam', items: [
+        { no:'01', img:'[ Strand & Schwimmen ]', name:'Das Meer zu Ihren Füßen', body:'Die Kiesstrände und versteckten Buchten von Lovište sind jedes Foto wert. Das Wasser ist klar, am Ufer flach und perfekt für Kinder und zum Schnorcheln.' },
+        { no:'02', img:'[ Essen & Wein ]', name:'Aromen von Pelješac', body:'Frischer Fisch, Meeresfrüchte aus der Bucht von Mali Ston und der berühmte Plavac-Wein der Region. Unsere Familie zeigt Ihnen gern Tavernen und Weingüter, die Touristen selten finden.' },
+        { no:'03', img:'[ Wassersport ]', name:'Kajak, SUP & Tauchen', body:'Mieten Sie ein Kajak oder ein SUP direkt am Platz oder erkunden Sie die nahen Inselchen. Lovište gilt auch als einer der schönsten Segelhäfen der Adria.' },
+        { no:'04', img:'[ Radfahren & Wege ]', name:'Weinstraßen & Wege', body:'Rad- und Wanderwege schlängeln sich durch die Weinberge und Olivenhaine von Pelješac, bis nach Orebić und zu Aussichtspunkten mit Blick auf Korčula.' } ] },
+      area: { eyebrow:'Die Umgebung', title:'Eine perfekte Basis zum Entdecken', sub:'Pelješac ist nur der Anfang. Von Lovište aus sind einige der schönsten Teile Süddalmatiens leicht erreichbar.', mapLabel:'[ Interaktive Karte, Leaflet ]', distances: [
+        { place:'Dorf Lovište', time:'5 Min. zu Fuß' },
+        { place:'Orebić', time:'35 km · 45 Min.' },
+        { place:'Insel Korčula', time:'25 Min. mit der Fähre' },
+        { place:'Nationalpark Mljet', time:'≈ 1 Std.' },
+        { place:'Ston (Mauern, Austern)', time:'≈ 1 Std.' },
+        { place:'Dubrovnik', time:'≈ 2 Std.' } ] },
+      gallery: { eyebrow:'Galerie', title:'Ein Blick über den Platz', items:['Blick auf die Bucht','Olivenhain','Strand','Mobilheim','Sonnenuntergang','Pool','Terrasse','Weg'] },
+      apart: { eyebrow:'Neu eröffnet', title:'Ein neuer Platz, ein bewährtes Willkommen', body:'Camping Lovište Paradise öffnet diesen Sommer seine Tore, der Platz sammelt also gerade erst seine ersten Bewertungen. Doch unsere Familie beherbergt seit Jahren Gäste in unseren Apartments in Lovište, mit ausgezeichneten Bewertungen bei Google. Dieselbe Fürsorge und Wärme erwarten Sie auch auf dem Platz.', note:'Sehen Sie die Bewertungen unserer Apartments', btn1:'Bewertungen · Apartment 1', btn2:'Bewertungen · Apartment 2', img:'[ Apartments / zufriedene Gäste ]' },
+      ctaBand: { title:'Bereit für einen perfekten Sommer?', sub:'Nennen Sie uns Ihre Daten und die Anzahl der Gäste, wir antworten persönlich, meist noch am selben Tag.', button:'Anfragen' },
+      footer: { tagline:'Ein Familiencampingplatz in der Bucht von Lovište auf der Halbinsel Pelješac. Ruhe, Meer und Olivenhain seit 1998.', explore:'Seiten', contactHeading:'Kontakt', rights:'Alle Rechte vorbehalten.' },
+      about: {
+        hero: { eyebrow:'Über das Camp', title:'Ein ruhiges Camp über der Bucht.', sub:'Ein terrassierter Olivenhain am Rand von Lovište, über die Jahre zu einem ruhigen Camp am Meer geformt.' },
+        story: { title:'Über das Camp', img:'[ Camp-Terrassen über dem Meer ]', paras:[
+          'Camping Lovište Paradise liegt an einem sanften Hang aus Olivenbäumen, der zum klaren Wasser der Bucht von Lovište abfällt. Durch die Terrassen hat fast jeder Stellplatz und jedes Mobilheim eigenen Schatten, Privatsphäre und Meerblick.',
+          'Das Camp erstreckt sich über rund drei Hektar Grün, mit Mobilheimen, Glamping-Zelten und Stellplätzen am Meer zwischen Oliven und Pinien. Ein Kiesstrand liegt nur dreißig Meter von der untersten Terrasse entfernt.',
+          'Moderne Sanitäranlagen, kostenloses WLAN auf dem ganzen Gelände, ein Parkplatz an jedem Stellplatz und ein Strand vor der Tür halten alles einfach — ein kleines, gepflegtes Camp für ruhige Tage am Meer.'
+        ] },
+        diff: { title:'Was uns anders macht', items:[
+          { no:'01', title:'Klein und ruhig', body:'Eine begrenzte Anzahl an Plätzen bedeutet Ruhe, Raum und das Gefühl, Gast zu sein, nicht eine Nummer.' },
+          { no:'02', title:'Wirklich am Meer', body:'Die Terrassen reichen bis ans Ufer, etwa dreißig Schritte vom Zelt bis zum Wasser.' },
+          { no:'03', title:'Grün & schattig', body:'Oliven- und Pinienterrassen geben fast jedem Stellplatz natürlichen Schatten und einen ebenen Platz.' }
+        ] }
+      },
+      faqPage: {
+        hero: { eyebrow:'FAQ', title:'Alles, was Sie wissen müssen', sub:'Keine Antwort gefunden? Melden Sie sich, wir helfen gern.' },
+        ctaTitle:'Noch Fragen?', ctaSub:'Senden Sie uns eine Nachricht, wir antworten meist noch am selben Tag.',
+        items:[
+          { q:'Wann sind Check-in und Check-out?', a:'Check-in ist ab 14:00 Uhr, Check-out bis 11:00 Uhr. Früherer Check-in oder späterer Check-out ist je nach Verfügbarkeit möglich, sagen Sie uns einfach vorab Bescheid.' },
+          { q:'Sind Haustiere erlaubt?', a:'Ja! Hunde sind auf den Stellplätzen und in den meisten Unterkünften gegen eine kleine Gebühr willkommen. Bitte halten Sie sie in Gemeinschaftsbereichen an der Leine.' },
+          { q:'Wie funktionieren Preise und Zahlung?', a:'Die Preise hängen von Zeitraum und Unterkunftstyp ab. Nach Ihrer Anfrage senden wir ein persönliches Angebot; eine Anzahlung bestätigt die Buchung, der Rest wird bei Anreise bezahlt.' },
+          { q:'Was soll ich mitbringen?', a:'Für Stellplätze: Ihr eigenes Zelt/Wohnmobil und Ausrüstung. Mobilheime und Glamping-Zelte sind voll ausgestattet, inklusive Bettwäsche und Handtüchern.' },
+          { q:'Gibt es Parkplätze?', a:'Ja, ein Parkplatz pro Stellplatz und Unterkunft ist im Preis enthalten. Weitere Fahrzeuge nach Absprache.' },
+          { q:'Gibt es WLAN?', a:'Kostenloses WLAN deckt den ganzen Platz ab und ist schnell genug für Videoanrufe und Arbeit.' },
+          { q:'Wie ist die Stornobedingung?', a:'Kostenlose Stornierung bis 14 Tage vor Anreise mit voller Rückerstattung der Anzahlung. Details senden wir mit jedem Angebot.' },
+          { q:'Was gibt es in der Nähe?', a:'Das Dorf Lovište mit Tavernen und einem Laden ist 5 Minuten zu Fuß entfernt. Orebić, die Fähre nach Korčula und der Nationalpark Mljet sind leichte Tagesausflüge.' }
+        ]
+      },
+      contact: { hero:{ eyebrow:'Kontakt', title:'Senden Sie eine Anfrage', sub:'Nennen Sie uns Ihre Daten und die Anzahl der Gäste, wir antworten persönlich, meist noch am selben Tag.' }, formHeading:'Buchungsanfrage', intro:'Melden Sie sich', emailBtn:'Senden Sie uns eine E-Mail', respNote:'Wir antworten persönlich, meist noch am selben Tag. Klicken Sie unten, um uns eine E-Mail zu senden.', locImg:'[ Lovište / die Bucht ]', hoursHeading:'Rezeption', hours:[ {day:'Mo – So (Saison)',time:'8:00 – 21:00'}, {day:'Nebensaison',time:'auf Anfrage'} ], mapLabel:'[ Karte, Lovište ]' }
+    },
+    sl: {
+      cta: 'Povpraševanje',
+      nav: { home:'Domov', about:'O nas', accommodations:'Nastanitev', activities:'Dejavnosti', pricing:'Cenik', map:'Zemljevid', events:'Dogodki v Orebiću', request:'Pošlji povpraševanje', contact:'Kontakt' },
+      accPage: {
+        overview:'Pregled nastanitev', viewPrices:'Poglej cene', learnMore:'Povpraševanje',
+        toggle:{ mh:'Mobilne hišice', camping:'Kampiranje' },
+        mh: { title:'Mobilne hišice', sub:'Imenuje se mobilna hišica, a je v resnici udoben počitniški dom za vso družino — dom daleč od doma v čudoviti sredozemski naravi, z vsemi prednostmi kampiranja.', facTitle:'Oprema mobilnih hišic', cards:[
+          { name:'Comfort mobilna hišica', img:'[ Comfort mobilna hišica ]', desc:'Odlično ravnovesje sodobnega udobja in življenja na prostem, sredi oljčnih teras.', specs:['Okoli 30 m² notranjega prostora','Dve spalnici (4–5 oseb)','Kuhinja in jedilnica','Kopalnica s prho','Pokrita terasa s pogledom na morje','Klima in SAT TV','Brezplačni Wi-Fi in parkirišče','Hišni ljubljenčki dobrodošli'] },
+          { name:'Deluxe mobilna hišica', img:'[ Deluxe mobilna hišica ]', desc:'Več prostora, druga kopalnica in najlepši pogledi — popolno za družine, ki želijo malce več.', specs:['Okoli 35 m² notranjega prostora','Dve spalnici (2+2 osebi)','Velika kuhinja / jedilnica','Dve kopalnici','Terasa s pogledom na morje in pohištvom','Klima in SAT TV','Brezplačni Wi-Fi in parkirišče','Hišni ljubljenčki dobrodošli'] }
+        ] },
+        camping: { title:'Kampiranje', sub:'Vsaka parcela v kampu Lovište Paradise ima svoj čar. V senci oljk in borov, terasasta za zasebnost in pogled na morje, s plažo le korak stran — poiščite svoj popoln kotiček.', facTitle:'Oprema kampa', cards:[
+          { name:'Parcela ob morju', img:'[ Parcela ob morju ]', desc:'Na najnižjih terasah, le korak od vode — zbudite se ob šumu morja.', specs:['Okoli 90 m²','Do 6 oseb','Priključek elektrike','Naravna senca','30 m do plaže','Brezplačni Wi-Fi'] },
+          { name:'Senčna parcela', img:'[ Parcela v oljčniku ]', desc:'Skrita med oljčnimi terasami za prijetno senco tudi v najbolj vročih dneh.', specs:['Okoli 80 m²','Do 6 oseb','Priključek elektrike','Gosta naravna senca','Parkiranje ob parceli','Brezplačni Wi-Fi'] },
+          { name:'Glamping šotor', img:'[ Glamping šotor ]', desc:'Vse veselje kampiranja s pravo posteljo in zasebno teraso — prinesite le sebe.', specs:['Opremljen safari šotor','2–3 osebe','Prave postelje in posteljnina','Zasebna terasa','Pogled na morje','Brezplačni Wi-Fi'] }
+        ] }
+      },
+      activities: {
+        hero: { sub:'Obilo dejavnosti v kampu in okolici', title:'Dejavnosti v kampu Lovište Paradise', intro:'Ko gre za počitnice v naravi, kampiranje v kampu Lovište Paradise res ponuja vse.' },
+        enlarge:'Kliknite na slike za povečavo', videoLabel:'[ Video kampa ]',
+        items:[
+          { name:'Plaža', img:'[ Plaža in zaliv od zgoraj ]', video:true, thumbs:5, paras:['Vsi si predstavljamo popolno plažo — bistro morje, nežni valovi in čudovita okolica. Prodnata plaža pod kampom ima vse troje, z mirnim in toplim morjem zaliva Lovište le korak od vaše parcele.','Plavajte, potapljajte se ali preizkusite SUP in kajak, nato pa se posušite na soncu. To je eden najmirnejših in najbistrejših delov obale na Pelješcu.'] },
+          { name:'Restavracija in gastronomija', img:'[ Gostilna s teraso ob morju ]', thumbs:0, paras:['Gastronomija je velik del te pokrajine. Gostilne v Lovištu ponujajo značilne dalmatinske jedi — svežo ribo, školjke iz Malostonskega zaliva in meso izpod peke, z domačim oljčnim oljem in sredozemsko zelenjavo.','Vse to ob cenjenih peljeških rdečih vinih, Plavcu in Dingaču, ali svežem Pošipu s sosednje Korčule.'] },
+          { name:'Beach bar', img:'[ Beach bar ob obali ]', thumbs:0, paras:['Beach bar je kraj za umiritev — hladna pijača z družbo, prigrizek med dnevom na plaži ali popoldanska kava v senci s čudovitim pogledom na morje.','Ob mirnih večerih je bar naravno zbirališče za smeh in kamperske zgodbe ob sončnem zahodu.'] },
+          { name:'Ob bazenu in sprostitev', img:'[ Bazen / ležalniki ]', thumbs:1, paras:['Včasih je najboljša dejavnost — nobena. Namestite se v senco oljčnih teras s knjigo, prisluhnite škržatom in pustite, da dan mineva.','Ležalniki, mirni kotički in zelenje po vsem kampu nudijo vsaki starosti prostor za počitek.'] },
+          { name:'Šport in vodni športi', img:'[ Športna igrišča od zgoraj ]', thumbs:5, paras:['Aktivni gostje se ne bodo dolgočasili. Prostor je za nogomet, odbojko in namizni tenis, miren zaliv pa je idealen za SUP, kajak in jadranje na deski.','Najemite kajak ali SUP tik ob kampu ali se vkrcajte na čoln za raziskovanje otokov ob pelješkem kanalu.'] },
+          { name:'Poti in raziskovanje', img:'[ Kolesarska pot / razgledišče ]', thumbs:0, paras:['Zunaj kampa kolesarske in pohodne poti vodijo skozi vinograde in oljčnike Pelješca, vse do Orebića in razgledišč s pogledom na Korčulo.','Odlična baza za izlete — solne ravnice in obzidje Stona, vinarji Dingača in trajekt za Korčulo so vsi zlahka dosegljivi.'] }
+        ]
+      },
+      request: {
+        hero: { title:'Pošlji povpraševanje', sub:'Sporočite nam termine, število gostov in nastanitev. Odgovorimo osebno, običajno isti dan.' },
+        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-pošta', emailPh:'vi@primer.com', accommodation:'Izberite nastanitev', vehicle:'Vrsta vozila', vlength:'Dolžina vozila', campingcard:'CampingCard / Predsezona', arrive:'Datum prihoda', depart:'Datum odhoda', country:'Država', phone:'Kontaktna številka', phonePh:'+386 …', message:'Vaše sporočilo', messagePh:'Sporočite nam vse, kar pomaga pri pripravi ponudbe…', choose:'— Izberite možnost —', submit:'Pošlji povpraševanje', gdpr:'GDPR — vaši podatki se zbirajo izključno za odgovor na to povpraševanje in za eVisitor prijavo.' },
+        accOptions:['Comfort mobilna hišica','Deluxe mobilna hišica','Parcela ob morju','Senčna parcela','Glamping šotor'],
+        vehicleOptions:['Šotor','Prikolica','Avtodom','Avto + strešni šotor','Brez vozila'],
+        lengthOptions:['do 5 m','5–6 m','6–7 m','7–8 m','nad 8 m'],
+        yesnoOptions:['Da','Ne'],
+        countryOptions:['Hrvaška','Slovenija','Nemčija','Avstrija','Italija','Češka','Poljska','Nizozemska','Drugo'],
+        success: { title:'Povpraševanje poslano!', body:'Hvala. Vaše povpraševanje je prejeto in odgovorili vam bomo v najkrajšem možnem času, običajno isti dan.', again:'Pošlji novo povpraševanje' }
+      },
+      pricing: {
+        hero: { eyebrow:'Cenik 2026', title:'Cene in tarife', sub:'Dnevne cene v EUR. Uradni cenik je na recepciji. Pošljite povpraševanje za prilagojeno ponudbo.' },
+        mh: { title:'Mobilne hišice in glamping', sub:'Cena na enoto, na noč.', cPeriod:'Obdobje', c1:'Mobilna hišica (4–5)', c2:'Glamping šotor (2–3)', note:'Končno čiščenje (enkratno) 40 € za mobilne hišice. Posteljnina in brisače vključene.' },
+        camp: { title:'Parcele za kampiranje', sub:'Cena na noč. Cena parcele in cena na osebo.', cItem:'Postavka', cLow:'Predsezona', cHigh:'Sezona', note:'Predsezona: 01/04–06/07 in 24/08–31/10. Sezona: 06/07–24/08.', rows:[ ['Odrasli','8 €','11 €'],['Otrok (7–12)','5 €','7 €'],['Otrok do 7','brezplačno','brezplačno'],['Parcela (šotor / prikolica)','12 €','16 €'],['Avto / motor','4 €','5 €'],['Avtodom / prikolica','6 €','8 €'],['Elektrika','5 €','5 €'],['Pes','5 €','6 €'],['Turistična taksa (odrasli)','1,60 €','1,60 €'] ] },
+        included: { title:'Vključeno v ceno', items:['Tople prhe in sanitarije','Brezplačni Wi-Fi po vsem kampu','Eno parkirno mesto na parcelo','Dostop do plaže ob kampu','Uporaba skupnih prostorov'] },
+        good: { title:'Dobro je vedeti', items:['Turistična taksa 1,60 € / odrasli / noč','Otroci do 7 let brezplačno','Psi dobrodošli — 5–6 € / noč','30% akontacija potrdi rezervacijo','Brezplačna odpoved do 14 dni pred prihodom'] },
+        reserveBtn:'Pošlji povpraševanje za rezervacijo'
+      },
+      map: {
+        hero: { eyebrow:'Poiščite pot', title:'Interaktivni zemljevid kampa', sub:'Raziščite razporeditev kampa, vsebine in nastanitve. Interaktivni zemljevid kmalu prihaja.' },
+        intro:'Pripravljamo digitalni zemljevid kampa kot del spletne izkušnje. Za zdaj je ta prostor rezerviran — ko bo na voljo, boste lahko:',
+        bullets:['Iskali vsebine in nastanitvene enote','Prikazali samo določene vsebine ali tipe nastanitev','Izbrali točno enoto in poslali povpraševanje prek obrazca','Spremenili jezik zemljevida'],
+        placeholderTitle:'Interaktivni zemljevid kmalu',
+        placeholder:'[ tukaj bo zemljevid kampa ]'
+      },
+      hero: { photo:'[ Hero fotografija, zaliv v zlati uri ]', eyebrow:'Lovište · Polotok Pelješac · Hrvaška', title:'Zbudite se ob morju.', sub:'Majhen družinski kamp, skrit med oljkami in bori, na samem robu mirnega zaliva Lovište, stran od gneče, le korak od morja.', primary:'Povpraševanje', secondary:'Razišči kamp' },
+      stats: [ {num:'1998',label:'Družinski od'}, {num:'40',label:'Parcel in hišic'}, {num:'3 ha',label:'Zelenja ob morju'}, {num:'30 m',label:'Do plaže'} ],
+      intro: { eyebrow:'Dobrodošli', title:'Miren kotiček Jadrana, ki ga ena družina vodi že več kot dvajset let.', body:'Camping Lovište Paradise ni velik resort in to si tudi ne želi biti. Je terasast oljčni nasad, ki se spušča do kristalno čistega morja, s senčnimi parcelami, mobilnimi hišicami in glamping šotori. Dovolj blizu, da slišite valove, dovolj daleč od vsega drugega.' },
+      acc: { eyebrow:'Nastanitev', title:'Poiščite svoj kotiček', sub:'Od popolnoma opremljenih mobilnih hišic do senčnih parcel ob morju, vsaka enota ima svoj značaj.', cta:'Povpraševanje', items: [
+        { name:'Mobilna hišica', guests:'4–5 oseb · 35 m²', price:'od 95 €/noč', tag:'Najbolj priljubljeno', img:'[ Mobilna hišica ]', amenities:['Klima','Kopalnica','Pokrita terasa','Kuhinja'] },
+        { name:'Parcela ob morju', guests:'do 6 oseb · 90 m²', price:'od 32 €/noč', tag:'', img:'[ Parcela ob morju ]', amenities:['Elektrika','Naravna senca','30 m do morja','Wi-Fi'] },
+        { name:'Glamping šotor', guests:'2–3 osebe', price:'od 70 €/noč', tag:'', img:'[ Glamping šotor ]', amenities:['Prava postelja','Zasebna terasa','Pogled na morje'] } ] },
+      fac: { eyebrow:'Oprema', title:'Vse, kar potrebujete, in nič odvečnega', items: [
+        { name:'Sodobne sanitarije', desc:'Čiste, prostorne sanitarije s toplo vodo ves dan.' },
+        { name:'Brezplačni Wi-Fi', desc:'Pokriva celoten kamp, dovolj hiter za delo.' },
+        { name:'Plaža ob kampu', desc:'Prodnata plaža in čisto morje le 30 metrov stran.' },
+        { name:'Parkirišče', desc:'Eno parkirno mesto ob vsaki parceli, brez doplačila.' },
+        { name:'Supermarket v bližini', desc:'Dobro založen supermarket je le nekaj korakov stran v Lovištu.' },
+        { name:'Hišni ljubljenčki dobrodošli', desc:'Vaš pes je del družine, z veseljem ga sprejmemo.' } ] },
+      things: { eyebrow:'Doživetja', title:'Dnevi tukaj minevajo počasi', items: [
+        { no:'01', img:'[ Plaža & kopanje ]', name:'Morje na dosegu rok', body:'Prodnate plaže in skriti zalivi Lovišta so vredni vsake fotografije. Voda je čista, ob obali plitva in popolna za otroke in potapljanje.' },
+        { no:'02', img:'[ Hrana & vino ]', name:'Okusi Pelješca', body:'Sveže ribe, školjke iz Malostonskega zaliva in cenjeni vino Plavac. Naša družina vam z veseljem pokaže gostilne in vinarje, ki jih turisti redko najdejo.' },
+        { no:'03', img:'[ Vodni športi ]', name:'Kajak, SUP & potapljanje', body:'Najemite kajak ali SUP tik ob kampu ali raziščite bližnje otočke. Lovište velja tudi za eno najlepših jadralnih pristanišč na Jadranu.' },
+        { no:'04', img:'[ Kolesarjenje & poti ]', name:'Vinske ceste & poti', body:'Kolesarske in pohodne poti vodijo skozi vinograde in oljčnike Pelješca, vse do Orebića in razglednih točk s pogledom na Korčulo.' } ] },
+      area: { eyebrow:'Okolica', title:'Odlična baza za raziskovanje', sub:'Pelješac je šele začetek. Iz Lovišta so na dosegu nekateri najlepši deli južne Dalmacije.', mapLabel:'[ Interaktivni zemljevid, Leaflet ]', distances: [
+        { place:'Vas Lovište', time:'5 min hoje' },
+        { place:'Orebić', time:'35 km · 45 min' },
+        { place:'Otok Korčula', time:'25 min s trajektom' },
+        { place:'NP Mljet', time:'≈ 1 h' },
+        { place:'Ston (obzidje, ostrige)', time:'≈ 1 h' },
+        { place:'Dubrovnik', time:'≈ 2 h' } ] },
+      gallery: { eyebrow:'Galerija', title:'Pogled po kampu', items:['Pogled na zaliv','Oljčnik','Plaža','Mobilna hišica','Sončni zahod','Bazen','Terasa','Pot'] },
+      apart: { eyebrow:'Na novo odprto', title:'Nov kamp, preverjena gostoljubnost', body:'Camping Lovište Paradise letos poleti odpira svoja vrata, zato kamp šele zbira prve ocene. A naša družina že leta gosti obiskovalce v svojih apartmajih v Lovištu, z odličnimi ocenami na Googlu. Enaka skrb in toplina vas čakata tudi v kampu.', note:'Oglejte si ocene naših apartmajev', btn1:'Ocene · Apartma 1', btn2:'Ocene · Apartma 2', img:'[ Apartmaji / zadovoljni gosti ]' },
+      ctaBand: { title:'Pripravljeni na popolno poletje?', sub:'Sporočite nam svoje termine in število gostov, odgovorimo osebno, običajno isti dan.', button:'Povpraševanje' },
+      footer: { tagline:'Družinski kamp v zalivu Lovište na polotoku Pelješac. Mir, morje in oljčnik od leta 1998.', explore:'Strani', contactHeading:'Kontakt', rights:'Vse pravice pridržane.' },
+      about: {
+        hero: { eyebrow:'O kampu', title:'Miren kamp nad zalivom.', sub:'Terasast oljčni nasad na robu Lovišta, skozi leta oblikovan v miren kamp ob morju.' },
+        story: { title:'O kampu', img:'[ Terase kampa nad morjem ]', paras:[
+          'Camping Lovište Paradise leži na blagem pobočju oljk, ki se spušča do bistrega morja zaliva Lovište. Terasasta razporeditev pomeni, da ima skoraj vsaka parcela in mobilna hišica svojo senco, zasebnost in pogled na morje.',
+          'Kamp se razprostira na približno treh hektarih zelenja, z mobilnimi hišicami, glamping šotori in parcelami ob morju med oljkami in bori. Prodnata plaža je le trideset metrov od najnižje terase.',
+          'Sodobne sanitarije, brezplačni Wi-Fi po vsem kampu, parkirno mesto ob vsaki parceli in plaža tik pred vrati poskrbijo, da je vse preprosto — majhen, urejen kamp za počasne dni ob morju.'
+        ] },
+        diff: { title:'Kaj nas dela drugačne', items:[
+          { no:'01', title:'Majhen in miren', body:'Omejeno število parcel pomeni mir, prostor in občutek, da ste gost, ne številka.' },
+          { no:'02', title:'Zares ob morju', body:'Terase se spuščajo do obale, približno trideset korakov od šotora do vode.' },
+          { no:'03', title:'Zeleno in senčno', body:'Terase oljk in borov dajejo skoraj vsaki parceli naravno senco in ravno mesto za počitek.' }
+        ] }
+      },
+      faqPage: {
+        hero: { eyebrow:'Pogosta vprašanja', title:'Vse, kar morate vedeti', sub:'Niste našli odgovora? Pišite nam, z veseljem pomagamo.' },
+        ctaTitle:'Še vprašanja?', ctaSub:'Pošljite nam sporočilo in odgovorimo, običajno isti dan.',
+        items:[
+          { q:'Kdaj sta prijava in odjava?', a:'Prijava je od 14:00, odjava do 11:00. Zgodnejša prijava ali poznejša odjava je mogoča glede na razpoložljivost, le vnaprej nam sporočite.' },
+          { q:'So hišni ljubljenčki dovoljeni?', a:'Da! Psi so dobrodošli na parcelah in v večini nastanitev za majhno doplačilo. Prosimo, da jih v skupnih prostorih držite na povodcu.' },
+          { q:'Kako delujejo cene in plačilo?', a:'Cene so odvisne od termina in vrste nastanitve. Po vašem povpraševanju pošljemo prilagojeno ponudbo; akontacija potrdi rezervacijo, preostanek se plača ob prihodu.' },
+          { q:'Kaj naj prinesem?', a:'Za parcele: svoj šotor/avtodom in opremo. Mobilne hišice in glamping šotori so popolnoma opremljeni, vključno s posteljnino in brisačami.' },
+          { q:'Je na voljo parkirišče?', a:'Da, eno parkirno mesto na parcelo in nastanitveno enoto je vključeno v ceno. Dodatna vozila po dogovoru.' },
+          { q:'Je na voljo Wi-Fi?', a:'Brezplačni Wi-Fi pokriva celoten kamp in je dovolj hiter za videoklice in delo.' },
+          { q:'Kakšna je politika odpovedi?', a:'Brezplačna odpoved do 14 dni pred prihodom z vračilom celotne akontacije. Podrobnosti pošljemo z vsako ponudbo.' },
+          { q:'Kaj je v bližini?', a:'Vas Lovište z gostilnami in trgovino je 5 minut hoje. Orebić, trajekt za Korčulo in NP Mljet so enostavni dnevni izleti.' }
+        ]
+      },
+      contact: { hero:{ eyebrow:'Kontakt', title:'Pošljite povpraševanje', sub:'Sporočite nam svoje termine in število gostov, odgovorimo osebno, običajno isti dan.' }, formHeading:'Povpraševanje za rezervacijo', intro:'Pišite nam', emailBtn:'Pošljite nam e-pošto', respNote:'Odgovorimo osebno, običajno isti dan. Kliknite spodaj za pošiljanje e-pošte.', locImg:'[ Lovište / zaliv ]', hoursHeading:'Recepcija', hours:[ {day:'Pon – Ned (sezona)',time:'8:00 – 21:00'}, {day:'Izven sezone',time:'na zahtevo'} ], mapLabel:'[ Zemljevid, Lovište ]' }
+    }
+  };
+
+  componentDidMount() {
+    this._onResize = () => {
+      const m = window.innerWidth < 1024;
+      if (m !== this.state.isMobile) this.setState({ isMobile: m });
+    };
+    window.addEventListener('resize', this._onResize);
+    this.setupReveal();
+  }
+  componentDidUpdate() { this.setupReveal(); }
+  componentWillUnmount() { window.removeEventListener('resize', this._onResize); }
+
+  setupReveal() {
+    if (this.props.reduceMotion) return;
+    if (typeof IntersectionObserver === 'undefined') return;
+    cancelAnimationFrame(this._raf);
+    this._raf = requestAnimationFrame(() => {
+      if (!this._obs) {
+        this._obs = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            const el = e.target;
+            if (e.isIntersecting) {
+              el.style.opacity = '1';
+              el.style.transform = 'none';
+            } else {
+              el.style.opacity = '0';
+              el.style.transform = el.__hide || 'translateY(28px)';
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
+      }
+      const nodes = document.querySelectorAll('[data-reveal]');
+      nodes.forEach((n) => {
+        if (n.__vc) return;
+        n.__vc = true;
+        const dir = n.getAttribute('data-reveal') || 'up';
+        let hide = 'translateY(28px)';
+        if (dir === 'left') hide = 'translateX(-40px)';
+        else if (dir === 'right') hide = 'translateX(40px)';
+        else if (dir === 'scale') hide = 'scale(0.94)';
+        n.__hide = hide;
+        n.style.opacity = '0';
+        n.style.transform = hide;
+        n.style.transition = 'opacity .7s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1)';
+        this._obs.observe(n);
+      });
+    });
+  }
+
+  go(page) {
+    this.setState({ page, mobileOpen: false });
+    try { window.scrollTo({ top: 0, behavior: 'auto' }); } catch (e) {}
+    // newly mounted page nodes need fresh reveal scan
+    setTimeout(() => { this.setupReveal(); }, 30);
+  }
+
+  icon(name, size) {
+    const s = size || 22;
+    const h = React.createElement;
+    const lib = {
+      droplet: [['path',{d:'M12 2.7C9 6 5.7 9.4 5.7 14a6.3 6.3 0 0 0 12.6 0c0-4.6-3.3-8-6.6-11.3Z'}]],
+      wifi: [['path',{d:'M2.5 9a16 16 0 0 1 19 0'}],['path',{d:'M5.5 12.5a11 11 0 0 1 13 0'}],['path',{d:'M8.5 16a6 6 0 0 1 7 0'}],['path',{d:'M12 19.4h.01'}]],
+      waves: [['path',{d:'M2 7c1 0 1.6.9 2.8.9C6.5 7.9 6.5 6 8.7 6s2.2 1.9 3.9 1.9S14.8 6 17 6s2.2 1.9 3 1.9'}],['path',{d:'M2 12.5c1 0 1.6.9 2.8.9 1.7 0 1.7-1.9 3.9-1.9s2.2 1.9 3.9 1.9 1.9-1.9 4.1-1.9c.8 0 1.4.9 2.4.9'}],['path',{d:'M2 18c1 0 1.6.9 2.8.9 1.7 0 1.7-1.9 3.9-1.9s2.2 1.9 3.9 1.9 1.9-1.9 4.1-1.9c.8 0 1.4.9 2.4.9'}]],
+      parking: [['rect',{x:3,y:3,width:18,height:18,rx:3}],['path',{d:'M9.5 17V7h3.2a3.2 3.2 0 0 1 0 6.4H9.5'}]],
+      basket: [['path',{d:'M5.2 10 8 3'}],['path',{d:'M18.8 10 16 3'}],['path',{d:'M3 10h18l-1.4 8.3a2 2 0 0 1-2 1.7H6.4a2 2 0 0 1-2-1.7L3 10Z'}],['path',{d:'M10 14v2'}],['path',{d:'M14 14v2'}]],
+      zap: [['path',{d:'M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z'}]],
+      washer: [['rect',{x:4,y:2.5,width:16,height:19,rx:2}],['path',{d:'M4 6.5h16'}],['circle',{cx:12,cy:14,r:4.6}],['path',{d:'M9 13.2c1-.8 1.8.8 3 .8s2-1.6 3-.8'}],['path',{d:'M7.4 4.6h.01'}]],
+      paw: [['circle',{cx:7,cy:8,r:1.7}],['circle',{cx:17,cy:8,r:1.7}],['circle',{cx:4.6,cy:13,r:1.5}],['circle',{cx:19.4,cy:13,r:1.5}],['path',{d:'M12 13c-2.5 0-4.5 1.6-4.5 3.6 0 1.7 1.5 2.9 4.5 2.9s4.5-1.2 4.5-2.9C16.5 14.6 14.5 13 12 13Z'}]],
+      house: [['path',{d:'M3 10.5 12 3l9 7.5'}],['path',{d:'M5.5 9.3V21h13V9.3'}],['path',{d:'M10 21v-6h4v6'}]],
+      navigation: [['path',{d:'M3 11 21 3l-7.5 18-2.2-7.3L3 11Z'}]],
+      sailboat: [['path',{d:'M3.5 18h17l-2.2 3.2a1 1 0 0 1-.8.5H6.5a1 1 0 0 1-.8-.5L3.5 18Z'}],['path',{d:'M12 16V3'}],['path',{d:'M12 5c3 1.5 5.5 5 6.5 9H12'}]],
+      tree: [['path',{d:'M12 3 6 13h12L12 3Z'}],['path',{d:'M8.5 13 12 18l3.5-5'}],['path',{d:'M12 18v3'}]],
+      landmark: [['path',{d:'M3 21h18'}],['path',{d:'M5 21V10'}],['path',{d:'M19 21V10'}],['path',{d:'M9 21V10'}],['path',{d:'M15 21V10'}],['path',{d:'M12 21V10'}],['path',{d:'M3.5 10 12 3.5 20.5 10Z'}]],
+      building: [['path',{d:'M4 21V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v16'}],['path',{d:'M15 9h4a1 1 0 0 1 1 1v11'}],['path',{d:'M2 21h20'}],['path',{d:'M8 8h.01M11.5 8h.01M8 12h.01M11.5 12h.01M8 16h.01M11.5 16h.01'}]],
+      mail: [['rect',{x:3,y:5,width:18,height:14,rx:2}],['path',{d:'M3.5 6.5 12 13l8.5-6.5'}]],
+      phone: [['path',{d:'M5 4h3l2 5-2.4 1.5a11 11 0 0 0 5 5L16 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z'}]],
+      pin: [['path',{d:'M12 21s7-6.3 7-11a7 7 0 0 0-14 0c0 4.7 7 11 7 11Z'}],['circle',{cx:12,cy:10,r:2.5}]],
+      check: [['path',{d:'M20 6 9 17l-5-5'}]]
+    };
+    const defs = lib[name] || lib.pin;
+    return h('svg', { width:s, height:s, viewBox:'0 0 24 24', fill:'none', stroke:'currentColor', strokeWidth:1.7, strokeLinecap:'round', strokeLinejoin:'round', key:name }, defs.map((d,i)=>h(d[0], Object.assign({key:i}, d[1]))));
+  }
+
+  renderVals() {
+    const t = this.copy[this.state.locale];
+    const page = this.state.page;
+    const navDef = [
+      { key:'home', label:t.nav.home }, { key:'about', label:t.nav.about },
+      { key:'accommodations', label:t.nav.accommodations }, { key:'activities', label:t.nav.activities },
+      { key:'pricing', label:t.nav.pricing }, { key:'map', label:t.nav.map },
+      { key:'request', label:t.nav.request }, { key:'contact', label:t.nav.contact }
+    ];
+    const linkBase = 'font-size:14.5px;font-weight:600;padding:9px 14px;border-radius:999px;white-space:nowrap;transition:background .2s,color .2s;';
+    const mBase = 'text-align:left;font-family:\'Plus Jakarta Sans\',sans-serif;font-weight:700;font-size:26px;padding:14px 4px;transition:color .2s;';
+    const sBase = 'display:block;width:100%;text-align:center;font-family:\'Plus Jakarta Sans\',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;padding:12px 8px;border-radius:10px;transition:background .2s,color .2s;';
+    const navItems = navDef.map((n) => {
+      const active = n.key === page;
+      return {
+        label: n.label,
+        onClick: () => this.go(n.key),
+        style: linkBase + (active ? 'color:#114B7C;background:rgba(91,176,222,0.16);' : 'color:#3a4a40;background:transparent;'),
+        mStyle: mBase + (active ? 'color:#2E7CB8;' : 'color:#114B7C;'),
+        sStyle: sBase + (active ? 'color:#2E7CB8;background:rgba(91,176,222,0.16);' : 'color:#114B7C;background:transparent;')
+      };
+    });
+
+    const isHr = this.state.locale === 'hr';
+    const langDefs = [
+      { code:'hr', label:'HR', name:'Hrvatski' },
+      { code:'en', label:'ENG', name:'English' },
+      { code:'de', label:'DE', name:'Deutsch' },
+      { code:'sl', label:'SL', name:'Slovenščina' }
+    ];
+    const langItemBase = 'display:flex;align-items:center;justify-content:space-between;gap:16px;text-align:left;width:100%;font-size:14.5px;font-weight:600;padding:11px 14px;border-radius:10px;transition:background .15s;';
+    const langItems = langDefs.map((l) => ({
+      code:l.code, label:l.label, name:l.name, active:this.state.locale===l.code,
+      onClick: () => this.setState({ locale:l.code, langOpen:false, mobileOpen:false }),
+      style: langItemBase + (this.state.locale===l.code ? 'background:rgba(91,176,222,0.16);color:#114B7C;' : 'background:transparent;color:#3a4a40;'),
+      chip: 'min-width:40px;padding:7px 9px;border-radius:9px;font-size:11px;font-weight:700;letter-spacing:0.04em;transition:background .2s,color .2s;' + (this.state.locale===l.code ? 'background:#2E7CB8;color:#fff;' : 'background:rgba(17,75,124,0.07);color:#114B7C;')
+    }));
+    const currentLangLabel = (langDefs.find((l)=>l.code===this.state.locale) || langDefs[0]).label;
+
+    const accommodations = t.acc.items;
+    const facIcons = ['droplet','wifi','waves','parking','basket','paw'];
+    const facilities = t.fac.items.map((f, i) => ({ ...f, iconEl: this.icon(facIcons[i % facIcons.length], 22) }));
+    const distIcons = ['house','navigation','sailboat','tree','landmark','building'];
+    const distances = t.area.distances.map((d, i) => ({ ...d, iconEl: this.icon(distIcons[i % distIcons.length], 20) }));
+    const things = t.things.items.map((it, i) => ({
+      ...it,
+      dir: i % 2 === 1 ? 'flex-direction:row-reverse;' : ''
+    }));
+    const gallery = t.gallery.items.map((label, i) => ({
+      img: '[ ' + label + ' ]',
+      span: (i === 0 || i === 5) ? 'grid-column:span 2;' : ''
+    }));
+
+    const mhNums = [
+      ['01/04 – 25/05','95 €','70 €'],
+      ['25/05 – 22/06','120 €','90 €'],
+      ['22/06 – 06/07','150 €','110 €'],
+      ['06/07 – 24/08','190 €','140 €'],
+      ['24/08 – 07/09','150 €','110 €'],
+      ['07/09 – 31/10','100 €','75 €']
+    ];
+    const mobileRates = mhNums.map((r, i) => ({ period:r[0], c1:r[1], c2:r[2], rowBg: i % 2 ? 'background:#ffffff;' : 'background:#fff;' }));
+    const campRates = ((t.pricing && t.pricing.camp.rows) || []).map((r, i) => ({ item:r[0], low:r[1], high:r[2], rowBg: i % 2 ? 'background:#ffffff;' : 'background:#fff;' }));
+    const includedItems = ((t.pricing && t.pricing.included.items) || []).map((x) => ({ text:x, iconEl: this.icon('check', 16) }));
+    const goodItems = ((t.pricing && t.pricing.good.items) || []).map((x) => ({ text:x, iconEl: this.icon('check', 16) }));
+    const mapBullets = (t.map && t.map.bullets) || [];
+    const mapPinEl = this.icon('pin', 30);
+    const eventsUrl = 'https://visitorebic-croatia.hr';
+    const sbOpen = this.state.sidebarOpen;
+    const shellShift = (!this.state.isMobile ? ('margin-left:' + (sbOpen ? '272px' : '0') + ';transition:margin-left .3s ease;') : '') + 'min-height:100vh;display:flex;flex-direction:column;';
+    const asideShift = sbOpen ? 'transform:translateX(0);' : 'transform:translateX(-100%);';
+
+    const ap = t.accPage || { toggle:{}, mh:{}, camping:{} };
+    const accCat = this.state.accTab === 'camping' ? (ap.camping || {}) : (ap.mh || {});
+    const accCards = (accCat.cards || []).map((c) => ({ name:c.name, img:c.img, desc:c.desc, specs: (c.specs || []).map((s) => ({ text:s, iconEl: this.icon('check', 15) })) }));
+    const segBase = 'font-family:\'Plus Jakarta Sans\',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;padding:11px 24px;border-radius:999px;transition:background .2s,color .2s;';
+    const accTabs = [ { key:'mh', label:(ap.toggle||{}).mh }, { key:'camping', label:(ap.toggle||{}).camping } ].map((tb) => ({
+      label: tb.label,
+      onClick: () => this.setState({ accTab: tb.key }),
+      style: segBase + (this.state.accTab === tb.key ? 'background:#2E7CB8;color:#fff;' : 'background:transparent;color:#114B7C;')
+    }));
+
+    const activitiesItems = ((t.activities && t.activities.items) || []).map((a, i) => ({
+      name:a.name, paras:a.paras, img:a.img, video: !!a.video,
+      videoLabel: (t.activities && t.activities.videoLabel) || '',
+      hasThumbs: (a.thumbs || 0) > 0,
+      thumbsArr: Array.from({ length: a.thumbs || 0 }, (_, k) => k),
+      dir: i % 2 === 1 ? 'flex-direction:row-reverse;' : ''
+    }));
+
+    const rq = t.request || {};
+    const accommodationOptions = rq.accOptions || [];
+    const vehicleOptions = rq.vehicleOptions || [];
+    const lengthOptions = rq.lengthOptions || [];
+    const yesnoOptions = rq.yesnoOptions || [];
+    const countryOptions = rq.countryOptions || [];
+    const successCheck = this.icon('check', 26);
+
+    const faqs = t.faqPage.items.map((it, i) => ({
+      q: it.q, a: it.a,
+      open: this.state.faqOpen === i,
+      iconStyle: this.state.faqOpen === i ? 'transform:rotate(45deg);' : '',
+      onToggle: () => this.setState({ faqOpen: this.state.faqOpen === i ? -1 : i })
+    }));
+
+    const contactInfo = [
+      { label: isHr ? 'Adresa' : 'Address', value: 'Lovište 12, 20269 Lovište', iconEl: this.icon('pin', 20) },
+      { label: isHr ? 'Telefon' : 'Phone', value: '+385 20 000 000', iconEl: this.icon('phone', 20) },
+      { label: 'E-mail', value: 'info@vicelic-camping.hr', iconEl: this.icon('mail', 20) }
+    ];
+    const subj = isHr ? 'Upit - Camping Lovište Paradise' : 'Inquiry - Camping Lovište Paradise';
+    const mbody = isHr ? 'Poštovani,\n\nzanima me boravak u kampu.\nTermini i broj gostiju:\n\n' : 'Hello,\n\nI would like to inquire about a stay.\nDates and party size:\n\n';
+    const mailHref = 'https://mail.google.com/mail/?view=cm&fs=1&to=info@vicelic-camping.hr&su=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(mbody);
+
+    const f = this.state.form;
+    const setF = (k) => (e) => this.setState({ form: { ...this.state.form, [k]: e.target.value } });
+
+    return {
+      t, page,
+      isHome: page === 'home', isAbout: page === 'about', isAccommodations: page === 'accommodations', isActivities: page === 'activities', isPricing: page === 'pricing', isMap: page === 'map', isRequest: page === 'request', isContact: page === 'contact',
+      showReopen: (!this.state.isMobile && !this.state.sidebarOpen), asideShift,
+      mobile: this.state.isMobile, desktop: !this.state.isMobile,
+      mobileOpen: this.state.mobileOpen,
+      toggleMobile: () => this.setState({ mobileOpen: !this.state.mobileOpen }),
+      goHome: () => this.go('home'), goAbout: () => this.go('about'),
+      goAccommodations: () => this.go('accommodations'), goActivities: () => this.go('activities'),
+      goPricing: () => this.go('pricing'), goMap: () => this.go('map'), goRequest: () => this.go('request'),
+      goContact: () => this.go('contact'),
+      toggleSidebar: () => this.setState({ sidebarOpen: !this.state.sidebarOpen }),
+      scrollAcc: () => { try { this.accEl && this.accEl.scrollIntoView({ behavior:'smooth', block:'start' }); } catch(e){} },
+      accRef: (el) => { this.accEl = el; },
+      langItems, currentLangLabel, langOpen: this.state.langOpen,
+      toggleLang: () => this.setState({ langOpen: !this.state.langOpen }),
+      closeLang: () => this.setState({ langOpen: false }),
+      navItems, accommodations, facilities, things, gallery, contactInfo, distances, mailHref,
+      mobileRates, campRates, includedItems, goodItems, mapBullets, mapPinEl, eventsUrl, shellShift,
+      accCat, accCards, accTabs, activitiesItems,
+      accommodationOptions, vehicleOptions, lengthOptions, yesnoOptions, countryOptions, successCheck,
+      submitted: this.state.submitted, notSubmitted: !this.state.submitted,
+      form: f,
+      onName: setF('name'), onEmail: setF('email'), onArrive: setF('arrive'),
+      onDepart: setF('depart'), onParty: setF('party'), onMessage: setF('message'), onCompany: setF('company'),
+      onAccommodation: setF('accommodation'), onVehicle: setF('vehicle'), onVlength: setF('vlength'),
+      onCampingcard: setF('campingcard'), onCountry: setF('country'), onPhone: setF('phone'),
+      onSubmit: (e) => {
+        e.preventDefault();
+        if (this.state.form.company) return; // honeypot
+        this.setState({ submitted: true });
+        try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (er) {}
+      },
+      resetForm: () => this.setState({ submitted: false, form: { name:'', email:'', accommodation:'', vehicle:'', vlength:'', campingcard:'', arrive:'', depart:'', country:'', phone:'', message:'', company:'' } }),
+      year: new Date().getFullYear()
+    };
+  }
+}
+</script>
+</body>
+</html>
