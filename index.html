@@ -78,7 +78,7 @@
 
   <!-- ============ MOBILE TOPBAR ============ -->
   <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
-    <header style="position:sticky;top:0;z-index:60;background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(17,75,124,0.1);">
+    <header style="position:sticky;top:0;z-index:60;background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(17,75,124,0.1);transition:transform .32s ease;{{ topbarShift }}">
       <div style="padding:0 18px;height:66px;display:flex;align-items:center;justify-content:space-between;">
         <button onClick="{{ goHome }}" style="display:flex;align-items:center;gap:10px;">
           <img src="./uploads/logo.png" alt="Camping Lovište Paradise logo" style="width:40px;height:40px;object-fit:contain;flex:0 0 auto;display:block;">
@@ -95,21 +95,21 @@
 
   <!-- ============ MOBILE OVERLAY ============ -->
   <sc-if value="{{ mobileOpen }}" hint-placeholder-val="{{ false }}">
-    <div style="position:fixed;inset:0;z-index:80;background:#ffffff;display:flex;flex-direction:column;padding:24px clamp(20px,6vw,40px);animation:vcSlideDown .3s ease;">
-      <div style="display:flex;align-items:center;justify-content:space-between;height:50px;">
+    <div style="position:fixed;inset:0;z-index:80;background:#ffffff;display:flex;flex-direction:column;padding:24px clamp(20px,6vw,40px);animation:vcSlideDown .3s ease;overflow-y:auto;">
+      <div style="display:flex;align-items:center;justify-content:space-between;height:50px;flex:0 0 auto;">
         <span style="display:flex;align-items:center;gap:10px;">
           <img src="./uploads/logo.png" alt="Camping Lovište Paradise logo" style="width:38px;height:38px;object-fit:contain;display:block;">
           <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:18px;color:#114B7C;">Camping Lovište Paradise</span>
         </span>
         <button onClick="{{ toggleMobile }}" aria-label="Close" style="font-size:30px;line-height:1;color:#114B7C;padding:6px 12px;">×</button>
       </div>
-      <nav style="display:flex;flex-direction:column;gap:4px;margin-top:36px;">
+      <nav style="display:flex;flex-direction:column;gap:2px;margin-top:28px;flex:0 0 auto;">
         <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
           <button onClick="{{ n.onClick }}" style="{{ n.mStyle }}">{{ n.label }}</button>
         </sc-for>
-        <a href="{{ eventsUrl }}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:26px;color:#114B7C;padding:14px 4px;">{{ t.nav.events }} <span style="font-size:18px;">↗</span></a>
+        <a href="{{ eventsUrl }}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:20px;color:#114B7C;padding:11px 4px;">{{ t.nav.events }} <span style="font-size:15px;">↗</span></a>
       </nav>
-      <div style="margin-top:auto;display:flex;flex-direction:column;gap:18px;">
+      <div style="margin-top:28px;padding-bottom:8px;display:flex;flex-direction:column;gap:18px;flex:0 0 auto;">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
           <sc-for list="{{ langItems }}" as="l" hint-placeholder-count="4">
             <button onClick="{{ l.onClick }}" style="{{ l.style }}">{{ l.name }} <span style="font-family:'Roboto Mono',monospace;font-size:11px;opacity:.5;">{{ l.label }}</span></button>
@@ -264,43 +264,6 @@
         </div>
       </section>
 
-      <!-- GALLERY -->
-      <section style="background:#114B7C;padding:clamp(72px,9vw,128px) clamp(20px,5vw,40px);">
-        <div style="max-width:1240px;margin:0 auto;">
-          <div style="text-align:center;margin-bottom:clamp(40px,5vw,56px);" data-reveal>
-            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#fff;font-size:clamp(28px,4.2vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0;">{{ t.gallery.title }}</h2>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));grid-auto-rows:200px;gap:16px;">
-            <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="6">
-              <div data-reveal="scale" style="overflow:hidden;background:repeating-linear-gradient(135deg,rgba(255,255,255,0.07),rgba(255,255,255,0.07) 14px,rgba(255,255,255,0.12) 14px,rgba(255,255,255,0.12) 28px);display:flex;align-items:center;justify-content:center;{{ g.span }}">
-                <span style="font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.06em;color:rgba(255,255,255,0.7);text-transform:uppercase;">{{ g.img }}</span>
-              </div>
-            </sc-for>
-          </div>
-        </div>
-      </section>
-
-      <!-- NEW CAMP / APARTMENTS -->
-      <section style="padding:clamp(72px,9vw,128px) clamp(20px,5vw,40px);">
-        <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:center;">
-          <div style="flex:1 1 360px;min-width:300px;" data-reveal="left">
-            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.2vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0 0 18px;">{{ t.apart.title }}</h2>
-            <p style="font-size:16.5px;line-height:1.7;color:#6B7280;margin:0 0 26px;text-wrap:pretty;">{{ t.apart.body }}</p>
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
-              <span style="color:#5BB0DE;font-size:15px;letter-spacing:3px;">★★★★★</span>
-              <span style="font-size:14px;color:#114B7C;font-weight:600;">{{ t.apart.note }}</span>
-            </div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;">
-              <a href="https://share.google/OHEpVMwl5CKIDETnV" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#2E7CB8;color:#fff;font-weight:600;font-size:14px;padding:13px 22px;border-radius:999px;transition:background .2s;" style-hover="background:#114B7C;">{{ t.apart.btn1 }} <span style="font-size:14px;">↗</span></a>
-              <a href="https://share.google/JNdqiwMFTgmjvVUkw" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:rgba(17,75,124,0.06);color:#114B7C;font-weight:600;font-size:14px;padding:13px 22px;border-radius:999px;transition:background .2s;" style-hover="background:rgba(17,75,124,0.12);">{{ t.apart.btn2 }} <span style="font-size:14px;">↗</span></a>
-            </div>
-          </div>
-          <div style="flex:1 1 360px;min-width:300px;height:clamp(320px,40vw,440px);background:repeating-linear-gradient(135deg,#d9e8f3,#d9e8f3 14px,#e8f2f9 14px,#e8f2f9 28px);display:flex;align-items:center;justify-content:center;" data-reveal="right">
-            <span style="font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#7a8b9a;text-transform:uppercase;background:rgba(255,255,255,0.7);padding:6px 12px;">{{ t.apart.img }}</span>
-          </div>
-        </div>
-      </section>
-
       <!-- CTA BAND -->
       <section style="padding:0 clamp(20px,5vw,40px) clamp(72px,9vw,120px);">
         <div style="max-width:1240px;margin:0 auto;position:relative;border-radius:0;overflow:hidden;background:linear-gradient(135deg,#2E7CB8,#114B7C);padding:clamp(48px,7vw,96px) clamp(28px,5vw,72px);text-align:center;" data-reveal>
@@ -326,7 +289,28 @@
         </div>
       </section>
 
-      <section style="padding:clamp(64px,8vw,110px) clamp(20px,5vw,40px);">
+      <!-- REVIEWS / APARTMENTS -->
+      <section style="padding:clamp(64px,8vw,110px) clamp(20px,5vw,40px) clamp(48px,6vw,72px);">
+        <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:center;">
+          <div style="flex:1 1 360px;min-width:300px;" data-reveal="left">
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.2vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0 0 18px;">{{ t.apart.title }}</h2>
+            <p style="font-size:16.5px;line-height:1.7;color:#6B7280;margin:0 0 26px;text-wrap:pretty;">{{ t.apart.body }}</p>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+              <span style="color:#5BB0DE;font-size:15px;letter-spacing:3px;">★★★★★</span>
+              <span style="font-size:14px;color:#114B7C;font-weight:600;">{{ t.apart.note }}</span>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;">
+              <a href="https://share.google/OHEpVMwl5CKIDETnV" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#2E7CB8;color:#fff;font-weight:600;font-size:14px;padding:13px 22px;border-radius:999px;transition:background .2s;" style-hover="background:#114B7C;">{{ t.apart.btn1 }} <span style="font-size:14px;">↗</span></a>
+              <a href="https://share.google/JNdqiwMFTgmjvVUkw" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:rgba(17,75,124,0.06);color:#114B7C;font-weight:600;font-size:14px;padding:13px 22px;border-radius:999px;transition:background .2s;" style-hover="background:rgba(17,75,124,0.12);">{{ t.apart.btn2 }} <span style="font-size:14px;">↗</span></a>
+            </div>
+          </div>
+          <div style="flex:1 1 360px;min-width:300px;height:clamp(320px,40vw,440px);background:repeating-linear-gradient(135deg,#d9e8f3,#d9e8f3 14px,#e8f2f9 14px,#e8f2f9 28px);display:flex;align-items:center;justify-content:center;" data-reveal="right">
+            <span style="font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#7a8b9a;text-transform:uppercase;background:rgba(255,255,255,0.7);padding:6px 12px;">{{ t.apart.img }}</span>
+          </div>
+        </div>
+      </section>
+
+      <section style="padding:clamp(48px,6vw,80px) clamp(20px,5vw,40px) clamp(64px,8vw,110px);border-top:1px solid rgba(17,75,124,0.06);">
         <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:center;">
           <div style="flex:1 1 360px;min-width:300px;" data-reveal>
             <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(26px,3.6vw,38px);line-height:1.12;letter-spacing:-0.02em;margin:0 0 24px;">{{ t.about.story.title }}</h2>
@@ -504,44 +488,59 @@
       <section style="padding:clamp(56px,7vw,96px) clamp(20px,5vw,40px);">
         <div style="max-width:1100px;margin:0 auto;">
 
-          <div data-reveal style="margin-bottom:clamp(48px,6vw,72px);">
-            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(22px,3vw,30px);letter-spacing:-0.01em;margin:0 0 6px;">{{ t.pricing.mh.title }}</h2>
-            <p style="font-size:15px;color:#6B7280;margin:0 0 22px;">{{ t.pricing.mh.sub }}</p>
-            <div style="overflow:hidden;border:1px solid rgba(17,75,124,0.12);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;">
-              <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr;background:#2E7CB8;">
-                <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;">{{ t.pricing.mh.cPeriod }}</div>
-                <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;text-align:center;">{{ t.pricing.mh.c1 }}</div>
-                <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;text-align:center;">{{ t.pricing.mh.c2 }}</div>
-              </div>
-              <sc-for list="{{ mobileRates }}" as="r" hint-placeholder-count="6">
-                <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr;border-top:1px solid rgba(17,75,124,0.08);{{ r.rowBg }}">
-                  <div style="padding:15px 20px;font-weight:700;font-size:15px;color:#114B7C;">{{ r.period }}</div>
-                  <div style="padding:15px 20px;text-align:center;font-size:15px;color:#3a4a52;">{{ r.c1 }}</div>
-                  <div style="padding:15px 20px;text-align:center;font-size:15px;color:#3a4a52;">{{ r.c2 }}</div>
-                </div>
+          <!-- Switch: mobile homes / camping -->
+          <div data-reveal style="display:flex;justify-content:center;margin-bottom:clamp(32px,4vw,48px);">
+            <div style="display:inline-flex;gap:4px;background:#fff;border:1px solid rgba(17,75,124,0.12);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:999px;padding:5px;">
+              <sc-for list="{{ priceTabs }}" as="tb" hint-placeholder-count="2">
+                <button onClick="{{ tb.onClick }}" style="{{ tb.style }}">{{ tb.label }}</button>
               </sc-for>
             </div>
-            <p style="font-size:13.5px;color:#6B7280;margin:14px 2px 0;">{{ t.pricing.mh.note }}</p>
           </div>
 
-          <div data-reveal style="margin-bottom:clamp(48px,6vw,72px);">
-            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(22px,3vw,30px);letter-spacing:-0.01em;margin:0 0 6px;">{{ t.pricing.camp.title }}</h2>
-            <p style="font-size:15px;color:#6B7280;margin:0 0 22px;">{{ t.pricing.camp.sub }}</p>
-            <div style="overflow:hidden;border:1px solid rgba(17,75,124,0.12);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;">
-              <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;background:#2E7CB8;">
-                <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;">{{ t.pricing.camp.cItem }}</div>
-                <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;text-align:center;">{{ t.pricing.camp.cLow }}</div>
-                <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;text-align:center;">{{ t.pricing.camp.cHigh }}</div>
-              </div>
-              <sc-for list="{{ campRates }}" as="r" hint-placeholder-count="9">
-                <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;border-top:1px solid rgba(17,75,124,0.08);{{ r.rowBg }}">
-                  <div style="padding:14px 20px;font-weight:600;font-size:15px;color:#114B7C;">{{ r.item }}</div>
-                  <div style="padding:14px 20px;text-align:center;font-size:15px;color:#3a4a52;">{{ r.low }}</div>
-                  <div style="padding:14px 20px;text-align:center;font-size:15px;color:#3a4a52;">{{ r.high }}</div>
+          <div data-reveal style="margin-bottom:clamp(40px,5vw,64px);">
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(22px,3vw,30px);letter-spacing:-0.01em;margin:0 0 6px;">{{ priceTable.title }}</h2>
+            <p style="font-size:15px;color:#6B7280;margin:0 0 22px;">{{ priceTable.sub }}</p>
+
+            <!-- Desktop / wide: grid table -->
+            <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+              <div style="overflow:hidden;border:1px solid rgba(17,75,124,0.12);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;">
+                <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr;background:#2E7CB8;">
+                  <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;">{{ priceTable.col0 }}</div>
+                  <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;text-align:center;">{{ priceTable.col1 }}</div>
+                  <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;text-align:center;">{{ priceTable.col2 }}</div>
                 </div>
-              </sc-for>
-            </div>
-            <p style="font-size:13.5px;color:#6B7280;margin:14px 2px 0;">{{ t.pricing.camp.note }}</p>
+                <sc-for list="{{ priceTable.rows }}" as="r" hint-placeholder-count="6">
+                  <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr;border-top:1px solid rgba(17,75,124,0.08);{{ r.rowBg }}">
+                    <div style="padding:15px 20px;font-weight:700;font-size:15px;color:#114B7C;">{{ r.c0 }}</div>
+                    <div style="padding:15px 20px;text-align:center;font-size:15px;color:#3a4a52;">{{ r.c1 }}</div>
+                    <div style="padding:15px 20px;text-align:center;font-size:15px;color:#3a4a52;">{{ r.c2 }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <!-- Mobile: stacked cards so no text is clipped -->
+            <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <sc-for list="{{ priceTable.rows }}" as="r" hint-placeholder-count="6">
+                  <div style="border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);padding:16px;{{ r.rowBg }}">
+                    <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#114B7C;margin:0 0 12px;overflow-wrap:break-word;">{{ r.c0 }}</div>
+                    <div style="display:flex;gap:10px;">
+                      <div style="flex:1 1 0;min-width:0;background:rgba(91,176,222,0.1);padding:10px 12px;">
+                        <div style="font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:0.04em;text-transform:uppercase;color:#6B7280;margin-bottom:4px;overflow-wrap:break-word;">{{ r.col1 }}</div>
+                        <div style="font-size:15px;font-weight:700;color:#114B7C;">{{ r.c1 }}</div>
+                      </div>
+                      <div style="flex:1 1 0;min-width:0;background:rgba(91,176,222,0.1);padding:10px 12px;">
+                        <div style="font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:0.04em;text-transform:uppercase;color:#6B7280;margin-bottom:4px;overflow-wrap:break-word;">{{ r.col2 }}</div>
+                        <div style="font-size:15px;font-weight:700;color:#114B7C;">{{ r.c2 }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <p style="font-size:13.5px;color:#6B7280;margin:14px 2px 0;">{{ priceTable.note }}</p>
           </div>
 
           <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
@@ -836,6 +835,8 @@ class Component extends DCLogic {
     langOpen: false,
     sidebarOpen: true,
     accTab: 'mh',
+    priceTab: 'mh',
+    topbarHidden: false,
     isMobile: (typeof window !== 'undefined' && window.innerWidth < 1024),
     faqOpen: 0,
     submitted: false,
@@ -1417,10 +1418,46 @@ class Component extends DCLogic {
       if (m !== this.state.isMobile) this.setState({ isMobile: m });
     };
     window.addEventListener('resize', this._onResize);
+
+    // Hide the mobile topbar when scrolling down, reveal it when scrolling up.
+    // The runtime makes <body> the scroll container, so window.scrollY /
+    // documentElement.scrollTop stay 0 while body.scrollTop holds the value.
+    // Scroll events also don't bubble — so listen in the capture phase and read
+    // the position as the max of every candidate to be container-agnostic.
+    this._lastScroll = 0;
+    this._scrollTop = (e) => {
+      const tgt = e && e.target;
+      const tgtY = (tgt && tgt !== document && tgt !== window && typeof tgt.scrollTop === 'number') ? tgt.scrollTop : 0;
+      const de = document.documentElement;
+      return Math.max(
+        tgtY,
+        window.pageYOffset || 0,
+        de ? (de.scrollTop || 0) : 0,
+        document.body ? (document.body.scrollTop || 0) : 0
+      );
+    };
+    this._onScroll = (e) => {
+      if (this.state.mobileOpen) return;
+      const y = this._scrollTop(e);
+      const last = this._lastScroll;
+      if (y <= 8) {
+        if (this.state.topbarHidden) this.setState({ topbarHidden: false });
+      } else if (y > last + 6) {
+        if (!this.state.topbarHidden) this.setState({ topbarHidden: true });
+      } else if (y < last - 6) {
+        if (this.state.topbarHidden) this.setState({ topbarHidden: false });
+      }
+      this._lastScroll = y;
+    };
+    window.addEventListener('scroll', this._onScroll, { capture: true, passive: true });
+
     this.setupReveal();
   }
   componentDidUpdate() { this.setupReveal(); }
-  componentWillUnmount() { window.removeEventListener('resize', this._onResize); }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+    window.removeEventListener('scroll', this._onScroll, { capture: true });
+  }
 
   setupReveal() {
     if (this.props.reduceMotion) return;
@@ -1503,7 +1540,7 @@ class Component extends DCLogic {
       { key:'request', label:t.nav.request }, { key:'contact', label:t.nav.contact }
     ];
     const linkBase = 'font-size:14.5px;font-weight:600;padding:9px 14px;border-radius:999px;white-space:nowrap;transition:background .2s,color .2s;';
-    const mBase = 'text-align:left;font-family:\'Plus Jakarta Sans\',sans-serif;font-weight:700;font-size:26px;padding:14px 4px;transition:color .2s;';
+    const mBase = 'text-align:left;font-family:\'Plus Jakarta Sans\',sans-serif;font-weight:700;font-size:20px;padding:11px 4px;transition:color .2s;';
     const sBase = 'display:block;width:100%;text-align:center;font-family:\'Plus Jakarta Sans\',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;padding:12px 8px;border-radius:10px;transition:background .2s,color .2s;';
     const navItems = navDef.map((n) => {
       const active = n.key === page;
@@ -1541,10 +1578,6 @@ class Component extends DCLogic {
       ...it,
       dir: i % 2 === 1 ? 'flex-direction:row-reverse;' : ''
     }));
-    const gallery = t.gallery.items.map((label, i) => ({
-      img: '[ ' + label + ' ]',
-      span: (i === 0 || i === 5) ? 'grid-column:span 2;' : ''
-    }));
 
     const mhNums = [
       ['01/04 – 25/05','95 €','70 €'],
@@ -1573,6 +1606,21 @@ class Component extends DCLogic {
       label: tb.label,
       onClick: () => this.setState({ accTab: tb.key }),
       style: segBase + (this.state.accTab === tb.key ? 'background:#2E7CB8;color:#fff;' : 'background:transparent;color:#114B7C;')
+    }));
+
+    const pricing = t.pricing || { mh:{}, camp:{} };
+    const ptIsMh = this.state.priceTab !== 'camping';
+    const ptCat = ptIsMh ? (pricing.mh || {}) : (pricing.camp || {});
+    const ptCol0 = ptIsMh ? ptCat.cPeriod : ptCat.cItem;
+    const ptCol1 = ptIsMh ? ptCat.c1 : ptCat.cLow;
+    const ptCol2 = ptIsMh ? ptCat.c2 : ptCat.cHigh;
+    const ptRaw = ptIsMh ? mobileRates.map((r) => [r.period, r.c1, r.c2]) : campRates.map((r) => [r.item, r.low, r.high]);
+    const ptRows = ptRaw.map((r, i) => ({ c0:r[0], c1:r[1], c2:r[2], col1:ptCol1, col2:ptCol2, rowBg: i % 2 ? 'background:#f4f9fd;' : 'background:#ffffff;' }));
+    const priceTable = { title:ptCat.title, sub:ptCat.sub, note:ptCat.note, col0:ptCol0, col1:ptCol1, col2:ptCol2, rows:ptRows };
+    const priceTabs = [ { key:'mh', label:(ap.toggle||{}).mh }, { key:'camping', label:(ap.toggle||{}).camping } ].map((tb) => ({
+      label: tb.label,
+      onClick: () => this.setState({ priceTab: tb.key }),
+      style: segBase + (this.state.priceTab === tb.key ? 'background:#2E7CB8;color:#fff;' : 'background:transparent;color:#114B7C;')
     }));
 
     const activitiesItems = ((t.activities && t.activities.items) || []).map((a, i) => ({
@@ -1615,6 +1663,7 @@ class Component extends DCLogic {
       isHome: page === 'home', isAbout: page === 'about', isAccommodations: page === 'accommodations', isActivities: page === 'activities', isPricing: page === 'pricing', isMap: page === 'map', isRequest: page === 'request', isContact: page === 'contact',
       showReopen: (!this.state.isMobile && !this.state.sidebarOpen), asideShift,
       mobile: this.state.isMobile, desktop: !this.state.isMobile,
+      topbarShift: this.state.topbarHidden ? 'transform:translateY(-100%);' : 'transform:translateY(0);',
       mobileOpen: this.state.mobileOpen,
       toggleMobile: () => this.setState({ mobileOpen: !this.state.mobileOpen }),
       goHome: () => this.go('home'), goAbout: () => this.go('about'),
@@ -1627,8 +1676,8 @@ class Component extends DCLogic {
       langItems, currentLangLabel, langOpen: this.state.langOpen,
       toggleLang: () => this.setState({ langOpen: !this.state.langOpen }),
       closeLang: () => this.setState({ langOpen: false }),
-      navItems, accommodations, facilities, things, gallery, contactInfo, distances, mailHref,
-      mobileRates, campRates, includedItems, goodItems, mapBullets, mapPinEl, eventsUrl, shellShift,
+      navItems, accommodations, facilities, things, contactInfo, distances, mailHref,
+      priceTable, priceTabs, includedItems, goodItems, mapBullets, mapPinEl, eventsUrl, shellShift,
       accCat, accCards, accTabs, activitiesItems,
       accommodationOptions, vehicleOptions, lengthOptions, yesnoOptions, countryOptions, successCheck,
       submitted: this.state.submitted, notSubmitted: !this.state.submitted,
