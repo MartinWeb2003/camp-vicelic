@@ -15,21 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  *{box-sizing:border-box;scrollbar-width:none;-ms-overflow-style:none;}
-  *::-webkit-scrollbar{width:0;height:0;display:none;}
-  html{scroll-behavior:smooth;}
-  html,body{overflow-x:hidden;max-width:100%;}
-  body{margin:0;background:#ffffff;color:#1A1A1A;font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
-  ::selection{background:#5BB0DE;color:#fff;}
-  button{font-family:inherit;cursor:pointer;border:none;background:none;}
-  input,textarea,select{font-family:inherit;}
-  a{color:inherit;text-decoration:none;}
-  img{max-width:100%;}
-  h1,h2,h3,h4,p,span,a,button{overflow-wrap:break-word;word-break:break-word;}
-  @keyframes vcFadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
-  @keyframes vcSlideDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
-</style>
+<link rel="stylesheet" href="./styles.css">
 </helmet>
 
 <div style="min-height:100vh;background:#ffffff;">
@@ -357,32 +343,37 @@
       <section style="background:#114B7C;padding:clamp(64px,9vw,110px) clamp(20px,5vw,40px) clamp(48px,6vw,72px);text-align:center;">
         <div style="max-width:820px;margin:0 auto;">
           <span style="font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#5BB0DE;">{{ t.accPage.overview }}</span>
-          <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#fff;font-size:clamp(34px,5.5vw,58px);line-height:1.05;letter-spacing:-0.02em;margin:12px 0 16px;text-transform:uppercase;">{{ accCat.title }}</h1>
-          <p style="font-size:clamp(16px,2vw,18px);line-height:1.6;color:rgba(255,255,255,0.85);margin:0 auto 28px;max-width:620px;">{{ accCat.sub }}</p>
+          <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#fff;font-size:clamp(34px,5.5vw,58px);line-height:1.05;letter-spacing:-0.02em;margin:12px 0 16px;text-transform:uppercase;">{{ t.accPage.title }}</h1>
+          <p style="font-size:clamp(16px,2vw,18px);line-height:1.6;color:rgba(255,255,255,0.85);margin:0 auto 28px;max-width:620px;">{{ t.accPage.sub }}</p>
           <button onClick="{{ goPricing }}" style="background:rgba(255,255,255,0.12);color:#fff;font-weight:700;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;padding:14px 30px;border-radius:999px;border:1px solid rgba(255,255,255,0.4);transition:background .2s;" style-hover="background:rgba(255,255,255,0.22);">{{ t.accPage.viewPrices }}</button>
         </div>
       </section>
 
       <section style="padding:clamp(48px,6vw,84px) clamp(20px,5vw,40px) clamp(40px,5vw,64px);">
         <div style="max-width:1180px;margin:0 auto;">
-          <div style="display:flex;justify-content:center;margin-bottom:clamp(36px,4vw,52px);">
-            <div style="display:inline-flex;gap:4px;background:#fff;border:1px solid rgba(17,75,124,0.12);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:999px;padding:5px;">
-              <sc-for list="{{ accTabs }}" as="tb" hint-placeholder-count="2">
-                <button onClick="{{ tb.onClick }}" style="{{ tb.style }}">{{ tb.label }}</button>
-              </sc-for>
-            </div>
-          </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:26px;">
-            <sc-for list="{{ accCards }}" as="c" hint-placeholder-count="3">
+            <sc-for list="{{ accTiers }}" as="c" hint-placeholder-count="3">
               <div data-reveal style="background:#fff;border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s;" style-hover="transform:translateY(-4px);box-shadow:0 22px 50px -28px rgba(17,75,124,0.5);">
-                <div style="height:200px;background:repeating-linear-gradient(135deg,#d9e8f3,#d9e8f3 14px,#e8f2f9 14px,#e8f2f9 28px);display:flex;align-items:center;justify-content:center;">
+                <div style="position:relative;height:200px;background:repeating-linear-gradient(135deg,#d9e8f3,#d9e8f3 14px,#e8f2f9 14px,#e8f2f9 28px);display:flex;align-items:center;justify-content:center;">
+                  <span style="position:absolute;top:14px;left:14px;width:40px;height:40px;background:#114B7C;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:19px;display:flex;align-items:center;justify-content:center;">{{ c.tier }}</span>
                   <span style="font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#7a8b9a;text-transform:uppercase;background:rgba(255,255,255,0.7);padding:6px 12px;border-radius:999px;">{{ c.img }}</span>
                 </div>
-                <div style="padding:26px 24px 28px;display:flex;flex-direction:column;flex:1;text-align:center;">
+                <div style="padding:26px 24px 28px;display:flex;flex-direction:column;flex:1;">
                   <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:19px;color:#114B7C;letter-spacing:-0.01em;margin:0;text-transform:uppercase;">{{ c.name }}</h3>
-                  <div style="width:40px;height:3px;background:#5BB0DE;border-radius:2px;margin:14px auto 16px;"></div>
-                  <p style="font-size:14.5px;line-height:1.6;color:#6B7280;margin:0 0 22px;">{{ c.desc }}</p>
-                  <button onClick="{{ goRequest }}" style="margin-top:auto;align-self:center;background:rgba(91,176,222,0.16);color:#2E7CB8;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;padding:12px 26px;border-radius:999px;transition:background .2s,color .2s;" style-hover="background:#2E7CB8;color:#fff;">{{ t.accPage.learnMore }}</button>
+                  <div style="width:40px;height:3px;background:#5BB0DE;border-radius:2px;margin:14px 0 16px;"></div>
+                  <p style="font-size:14.5px;line-height:1.6;color:#6B7280;margin:0 0 20px;">{{ c.desc }}</p>
+                  <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:22px;">
+                    <sc-for list="{{ c.specs }}" as="s" hint-placeholder-count="4">
+                      <div style="display:flex;align-items:flex-start;gap:10px;">
+                        <span style="flex:0 0 auto;color:#2E7CB8;margin-top:1px;">{{ s.iconEl }}</span>
+                        <span style="font-size:14px;line-height:1.45;color:#3a4a52;">{{ s.text }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:18px;border-top:1px solid rgba(17,75,124,0.08);">
+                    <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#114B7C;">{{ c.price }}</span>
+                    <button onClick="{{ goRequest }}" style="background:rgba(91,176,222,0.16);color:#2E7CB8;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;padding:11px 22px;border-radius:999px;transition:background .2s,color .2s;" style-hover="background:#2E7CB8;color:#fff;">{{ t.accPage.learnMore }}</button>
+                  </div>
                 </div>
               </div>
             </sc-for>
@@ -391,26 +382,32 @@
       </section>
 
       <section style="background:#114B7C;padding:clamp(56px,7vw,96px) clamp(20px,5vw,40px);">
-        <div style="max-width:1180px;margin:0 auto;">
+        <div style="max-width:1000px;margin:0 auto;">
           <div style="text-align:center;margin-bottom:clamp(36px,4vw,52px);">
-            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#fff;font-size:clamp(24px,3.4vw,36px);letter-spacing:0.02em;margin:0;text-transform:uppercase;">{{ accCat.facTitle }}</h2>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#fff;font-size:clamp(24px,3.4vw,36px);letter-spacing:0.02em;margin:0;text-transform:uppercase;">{{ t.accPage.facTitle }}</h2>
             <div style="width:60px;height:3px;background:#5BB0DE;border-radius:2px;margin:16px auto 0;"></div>
           </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(24px,3vw,40px);">
-            <sc-for list="{{ accCards }}" as="c" hint-placeholder-count="3">
-              <div>
-                <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.04em;text-transform:uppercase;color:#BFE1F6;margin:0 0 16px;">{{ c.name }}</h3>
-                <div style="display:flex;flex-direction:column;gap:11px;">
-                  <sc-for list="{{ c.specs }}" as="s" hint-placeholder-count="6">
-                    <div style="display:flex;align-items:flex-start;gap:10px;padding-bottom:11px;border-bottom:1px solid rgba(255,255,255,0.12);">
-                      <span style="flex:0 0 auto;color:#5BB0DE;margin-top:1px;">{{ s.iconEl }}</span>
-                      <span style="font-size:14px;line-height:1.45;color:rgba(255,255,255,0.85);">{{ s.text }}</span>
-                    </div>
-                  </sc-for>
-                </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px clamp(24px,3vw,40px);">
+            <sc-for list="{{ sharedFacilities }}" as="f" hint-placeholder-count="6">
+              <div style="display:flex;align-items:flex-start;gap:10px;padding-bottom:11px;border-bottom:1px solid rgba(255,255,255,0.12);">
+                <span style="flex:0 0 auto;color:#5BB0DE;margin-top:1px;">{{ f.iconEl }}</span>
+                <span style="font-size:14.5px;line-height:1.45;color:rgba(255,255,255,0.85);">{{ f.text }}</span>
               </div>
             </sc-for>
           </div>
+        </div>
+      </section>
+
+      <section style="padding:clamp(56px,7vw,96px) clamp(20px,5vw,40px);">
+        <div style="max-width:820px;margin:0 auto;text-align:center;" data-reveal>
+          <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(24px,3.4vw,36px);letter-spacing:-0.01em;margin:0 0 14px;">{{ t.accPage.extrasTitle }}</h2>
+          <p style="font-size:16px;line-height:1.65;color:#6B7280;margin:0 auto 26px;max-width:560px;">{{ t.accPage.extrasSub }}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:30px;">
+            <sc-for list="{{ t.accPage.extrasChips }}" as="e" hint-placeholder-count="4">
+              <span style="font-size:13px;color:#2E7CB8;background:rgba(91,176,222,0.13);padding:9px 16px;border-radius:999px;font-weight:600;">{{ e }}</span>
+            </sc-for>
+          </div>
+          <button onClick="{{ goPricing }}" style="background:#2E7CB8;color:#fff;font-weight:700;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;padding:14px 30px;border-radius:999px;transition:background .2s;" style-hover="background:#114B7C;">{{ t.accPage.viewPrices }}</button>
         </div>
       </section>
     </div>
@@ -485,10 +482,23 @@
         </div>
       </section>
 
+      <!-- CAMP MAP (first thing on the pricing page) -->
+      <section style="padding:clamp(48px,6vw,80px) clamp(20px,5vw,40px) 0;">
+        <div style="max-width:1100px;margin:0 auto;" data-reveal>
+          <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(22px,3vw,30px);letter-spacing:-0.01em;margin:0 0 18px;text-align:center;">{{ t.map.hero.title }}</h2>
+          <div style="position:relative;border:2px dashed rgba(17,75,124,0.22);min-height:clamp(320px,44vw,520px);background:linear-gradient(150deg,#e7f2f9,#d8e9f4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;overflow:hidden;">
+            <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(17,75,124,0.05),rgba(17,75,124,0.05) 1px,transparent 1px,transparent 44px),repeating-linear-gradient(90deg,rgba(17,75,124,0.05),rgba(17,75,124,0.05) 1px,transparent 1px,transparent 44px);"></div>
+            <span style="position:relative;width:56px;height:56px;background:rgba(91,176,222,0.18);color:#2E7CB8;display:flex;align-items:center;justify-content:center;">{{ mapPinEl }}</span>
+            <span style="position:relative;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(20px,2.6vw,26px);color:#114B7C;">{{ t.map.placeholderTitle }}</span>
+            <span style="position:relative;font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#7a8b9a;background:rgba(255,255,255,0.72);padding:7px 14px;border-radius:999px;text-align:center;">{{ t.map.placeholder }}</span>
+          </div>
+        </div>
+      </section>
+
       <section style="padding:clamp(56px,7vw,96px) clamp(20px,5vw,40px);">
         <div style="max-width:1100px;margin:0 auto;">
 
-          <!-- Switch: mobile homes / camping -->
+          <!-- Switch: pitches & rates / optional extras -->
           <div data-reveal style="display:flex;justify-content:center;margin-bottom:clamp(32px,4vw,48px);">
             <div style="display:inline-flex;gap:4px;background:#fff;border:1px solid rgba(17,75,124,0.12);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:999px;padding:5px;">
               <sc-for list="{{ priceTabs }}" as="tb" hint-placeholder-count="2">
@@ -497,23 +507,26 @@
             </div>
           </div>
 
+          <sc-for list="{{ priceTables }}" as="tb" hint-placeholder-count="2">
           <div data-reveal style="margin-bottom:clamp(40px,5vw,64px);">
-            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(22px,3vw,30px);letter-spacing:-0.01em;margin:0 0 6px;">{{ priceTable.title }}</h2>
-            <p style="font-size:15px;color:#6B7280;margin:0 0 22px;">{{ priceTable.sub }}</p>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(22px,3vw,30px);letter-spacing:-0.01em;margin:0 0 6px;">{{ tb.title }}</h2>
+            <p style="font-size:15px;color:#6B7280;margin:0 0 22px;">{{ tb.sub }}</p>
 
             <!-- Desktop / wide: grid table -->
             <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
               <div style="overflow:hidden;border:1px solid rgba(17,75,124,0.12);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;">
-                <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr;background:#2E7CB8;">
-                  <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;">{{ priceTable.col0 }}</div>
-                  <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;text-align:center;">{{ priceTable.col1 }}</div>
-                  <div style="padding:16px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.05em;text-transform:uppercase;color:#fff;text-align:center;">{{ priceTable.col2 }}</div>
+                <div style="display:grid;grid-template-columns:{{ tb.grid }};background:#2E7CB8;">
+                  <div style="padding:15px 18px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:#fff;">{{ tb.col0 }}</div>
+                  <sc-for list="{{ tb.heads }}" as="h" hint-placeholder-count="3">
+                    <div style="padding:15px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:#fff;text-align:center;">{{ h }}</div>
+                  </sc-for>
                 </div>
-                <sc-for list="{{ priceTable.rows }}" as="r" hint-placeholder-count="6">
-                  <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr;border-top:1px solid rgba(17,75,124,0.08);{{ r.rowBg }}">
-                    <div style="padding:15px 20px;font-weight:700;font-size:15px;color:#114B7C;">{{ r.c0 }}</div>
-                    <div style="padding:15px 20px;text-align:center;font-size:15px;color:#3a4a52;">{{ r.c1 }}</div>
-                    <div style="padding:15px 20px;text-align:center;font-size:15px;color:#3a4a52;">{{ r.c2 }}</div>
+                <sc-for list="{{ tb.rows }}" as="r" hint-placeholder-count="6">
+                  <div style="display:grid;grid-template-columns:{{ r.grid }};border-top:1px solid rgba(17,75,124,0.08);{{ r.rowBg }}">
+                    <div style="padding:14px 18px;font-weight:700;font-size:14.5px;color:#114B7C;">{{ r.label }}</div>
+                    <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="3">
+                      <div style="padding:14px 14px;text-align:center;font-size:14.5px;color:#3a4a52;">{{ c.value }}</div>
+                    </sc-for>
                   </div>
                 </sc-for>
               </div>
@@ -522,26 +535,27 @@
             <!-- Mobile: stacked cards so no text is clipped -->
             <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
               <div style="display:flex;flex-direction:column;gap:12px;">
-                <sc-for list="{{ priceTable.rows }}" as="r" hint-placeholder-count="6">
+                <sc-for list="{{ tb.rows }}" as="r" hint-placeholder-count="6">
                   <div style="border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);padding:16px;{{ r.rowBg }}">
-                    <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#114B7C;margin:0 0 12px;overflow-wrap:break-word;">{{ r.c0 }}</div>
-                    <div style="display:flex;gap:10px;">
-                      <div style="flex:1 1 0;min-width:0;background:rgba(91,176,222,0.1);padding:10px 12px;">
-                        <div style="font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:0.04em;text-transform:uppercase;color:#6B7280;margin-bottom:4px;overflow-wrap:break-word;">{{ r.col1 }}</div>
-                        <div style="font-size:15px;font-weight:700;color:#114B7C;">{{ r.c1 }}</div>
-                      </div>
-                      <div style="flex:1 1 0;min-width:0;background:rgba(91,176,222,0.1);padding:10px 12px;">
-                        <div style="font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:0.04em;text-transform:uppercase;color:#6B7280;margin-bottom:4px;overflow-wrap:break-word;">{{ r.col2 }}</div>
-                        <div style="font-size:15px;font-weight:700;color:#114B7C;">{{ r.c2 }}</div>
-                      </div>
+                    <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:15.5px;color:#114B7C;margin:0 0 12px;overflow-wrap:break-word;">{{ r.label }}</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                      <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="3">
+                        <div style="flex:1 1 84px;min-width:0;background:rgba(91,176,222,0.1);padding:9px 11px;">
+                          <div style="font-family:'Roboto Mono',monospace;font-size:9.5px;letter-spacing:0.03em;text-transform:uppercase;color:#6B7280;margin-bottom:4px;overflow-wrap:break-word;">{{ c.header }}</div>
+                          <div style="font-size:15px;font-weight:700;color:#114B7C;">{{ c.value }}</div>
+                        </div>
+                      </sc-for>
                     </div>
                   </div>
                 </sc-for>
               </div>
             </sc-if>
 
-            <p style="font-size:13.5px;color:#6B7280;margin:14px 2px 0;">{{ priceTable.note }}</p>
+            <sc-if value="{{ tb.note }}" hint-placeholder-val="{{ true }}">
+              <p style="font-size:13.5px;color:#6B7280;margin:14px 2px 0;">{{ tb.note }}</p>
+            </sc-if>
           </div>
+          </sc-for>
 
           <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
             <div style="background:#fff;border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;padding:clamp(26px,3vw,34px);">
@@ -572,42 +586,6 @@
             <button onClick="{{ goContact }}" style="background:#5BB0DE;color:#08283D;font-weight:700;font-size:16px;padding:17px 36px;border-radius:999px;transition:transform .2s,background .2s;" style-hover="background:#86C6E8;transform:translateY(-2px);">{{ t.pricing.reserveBtn }}</button>
           </div>
 
-        </div>
-      </section>
-    </div>
-    </sc-if>
-
-    <!-- ===================================================== CAMP MAP ===================================================== -->
-    <sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
-    <div data-screen-label="Camp map">
-      <section style="background:#114B7C;padding:clamp(64px,9vw,110px) clamp(20px,5vw,40px) clamp(52px,7vw,84px);text-align:center;">
-        <div style="max-width:820px;margin:0 auto;">
-          <span style="font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#5BB0DE;">{{ t.map.hero.eyebrow }}</span>
-          <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#fff;font-size:clamp(34px,5.5vw,58px);line-height:1.05;letter-spacing:-0.02em;margin:14px 0 18px;text-transform:uppercase;">{{ t.map.hero.title }}</h1>
-          <p style="font-size:clamp(16px,2vw,19px);line-height:1.6;color:rgba(255,255,255,0.85);margin:0 auto;max-width:600px;">{{ t.map.hero.sub }}</p>
-        </div>
-      </section>
-
-      <section style="padding:clamp(56px,7vw,96px) clamp(20px,5vw,40px);">
-        <div style="max-width:1100px;margin:0 auto;">
-          <div style="max-width:760px;margin:0 auto clamp(36px,4vw,48px);text-align:center;" data-reveal>
-            <p style="font-size:16.5px;line-height:1.7;color:#6B7280;margin:0 0 22px;text-wrap:pretty;">{{ t.map.intro }}</p>
-            <div style="display:inline-flex;flex-direction:column;gap:10px;text-align:left;">
-              <sc-for list="{{ mapBullets }}" as="b" hint-placeholder-count="4">
-                <div style="display:flex;align-items:center;gap:11px;">
-                  <span style="flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:#5BB0DE;"></span>
-                  <span style="font-size:15px;color:#3a4a52;">{{ b }}</span>
-                </div>
-              </sc-for>
-            </div>
-          </div>
-
-          <div data-reveal="scale" style="position:relative;border:2px dashed rgba(17,75,124,0.22);border-radius:0;min-height:clamp(360px,50vw,600px);background:linear-gradient(150deg,#e7f2f9,#d8e9f4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;overflow:hidden;">
-            <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(17,75,124,0.05),rgba(17,75,124,0.05) 1px,transparent 1px,transparent 44px),repeating-linear-gradient(90deg,rgba(17,75,124,0.05),rgba(17,75,124,0.05) 1px,transparent 1px,transparent 44px);"></div>
-            <span style="position:relative;width:56px;height:56px;border-radius:0;background:rgba(91,176,222,0.18);color:#2E7CB8;display:flex;align-items:center;justify-content:center;">{{ mapPinEl }}</span>
-            <span style="position:relative;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(20px,2.6vw,26px);color:#114B7C;">{{ t.map.placeholderTitle }}</span>
-            <span style="position:relative;font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#7a8b9a;background:rgba(255,255,255,0.72);padding:7px 14px;border-radius:999px;">{{ t.map.placeholder }}</span>
-          </div>
         </div>
       </section>
     </div>
@@ -834,8 +812,7 @@ class Component extends DCLogic {
     mobileOpen: false,
     langOpen: false,
     sidebarOpen: true,
-    accTab: 'mh',
-    priceTab: 'mh',
+    priceTab: 'core',
     topbarHidden: false,
     isMobile: (typeof window !== 'undefined' && window.innerWidth < 1024),
     faqOpen: 0,
@@ -848,17 +825,20 @@ class Component extends DCLogic {
       cta: 'Pošalji upit',
       nav: { home:'Početna', about:'O nama', accommodations:'Smještaj', activities:'Aktivnosti', pricing:'Cjenik', map:'Karta kampa', events:'Događanja u Orebiću', request:'Pošalji upit', contact:'Kontakt' },
       accPage: {
-        overview:'Pregled smještaja', viewPrices:'Pogledaj cijene', learnMore:'Pošalji upit',
-        toggle:{ mh:'Mobilne kućice', camping:'Kampiranje' },
-        mh: { title:'Mobilne kućice', sub:'Zove se mobilna kućica, ali zapravo je udoban dom za odmor za cijelu obitelj — dom daleko od doma u prekrasnoj mediteranskoj prirodi, sa svim prednostima kampiranja.', facTitle:'Oprema mobilnih kućica', cards:[
-          { name:'Comfort mobilna kućica', img:'[ Comfort mobilna kućica ]', desc:'Izvrsna ravnoteža suvremenog ugođaja i života na otvorenom, među maslinovim terasama.', specs:['Oko 30 m² unutarnjeg prostora','Dvije spavaće sobe (4–5 osoba)','Kuhinja i blagovaonica','Kupaonica s tušem','Natkrivena terasa s pogledom na more','Klima i SAT TV','Besplatni Wi-Fi i parking','Ljubimci dobrodošli'] },
-          { name:'Deluxe mobilna kućica', img:'[ Deluxe mobilna kućica ]', desc:'Više prostora, druga kupaonica i najljepši pogledi — savršeno za obitelji koje žele malo više.', specs:['Oko 35 m² unutarnjeg prostora','Dvije spavaće sobe (2+2 osobe)','Velika kuhinja / blagovaonica','Dvije kupaonice','Terasa s pogledom na more i namještajem','Klima i SAT TV','Besplatni Wi-Fi i parking','Ljubimci dobrodošli'] }
-        ] },
-        camping: { title:'Kampiranje', sub:'Svaka parcela u kampu Lovište Paradise ima svoj šarm. U hladu maslina i borova, terasasta zbog privatnosti i pogleda na more, s plažom na korak — pronađite svoje savršeno mjesto.', facTitle:'Oprema kampa', cards:[
-          { name:'Parcela uz more', img:'[ Parcela uz more ]', desc:'Na najnižim terasama, na korak od mora — probudite se uz šum valova.', specs:['Oko 90 m²','Do 6 osoba','Priključak struje','Prirodna sjena','30 m do plaže','Besplatni Wi-Fi'] },
-          { name:'Parcela u hladu', img:'[ Parcela u masliniku ]', desc:'Skrivena među maslinovim terasama za ugodan hlad i u najtoplijim danima.', specs:['Oko 80 m²','Do 6 osoba','Priključak struje','Gusta prirodna sjena','Parking uz parcelu','Besplatni Wi-Fi'] },
-          { name:'Glamping šator', img:'[ Glamping šator ]', desc:'Sva radost kampiranja uz pravi krevet i privatnu terasu — ponesite samo sebe.', specs:['Opremljen safari šator','2–3 osobe','Pravi kreveti i posteljina','Privatna terasa','Pogled na more','Besplatni Wi-Fi'] }
-        ] }
+        overview:'Kamp parcele', viewPrices:'Pogledaj cijene', learnMore:'Pošalji upit',
+        title:'Parcele u kampu',
+        sub:'Iste udobne parcele u četiri kategorije — A, B, C i D — koje se razlikuju uglavnom po položaju i pogledu. Od prvog reda uz more do svježeg hlada maslinika.',
+        facTitle:'Sve parcele uključuju',
+        tiers:[
+          { tier:'A', name:'Parcela A — uz more', img:'[ Parcela A · prvi red ]', desc:'Najbolji položaj, u prvom redu uz samo more — probudite se uz šum valova.', price:'od 38 €/noć', specs:['Do 6 osoba','Prvi red uz more','Struja uključena','Prirodna sjena'] },
+          { tier:'B', name:'Parcela B — blizu mora', img:'[ Parcela B · blizu mora ]', desc:'Nekoliko koraka dalje od obale, s otvorenim pogledom na uvalu.', price:'od 36 €/noć', specs:['Do 6 osoba','Pogled na more','Struja uključena','Blizu plaže'] },
+          { tier:'C', name:'Parcela C — srednje terase', img:'[ Parcela C · srednje terase ]', desc:'Mirne srednje terase u ugodnom hladu, na kratkoj šetnji do mora.', price:'od 34 €/noć', specs:['Do 6 osoba','Djelomičan hlad','Struja uključena','Mirna lokacija'] },
+          { tier:'D', name:'Parcela D — u hladu maslinika', img:'[ Parcela D · maslinik ]', desc:'Gornje terase u gustom hladu maslina — najsvježije i najpovoljnije mjesto.', price:'od 32 €/noć', specs:['Do 6 osoba','Gust prirodni hlad','Struja uključena','Parking uz parcelu'] }
+        ],
+        facilities:['Moderne sanitarije s toplom vodom 0–24','Besplatni Wi-Fi u cijelom kampu','Struja uključena u cijenu parcele','Jedno vozilo po parceli','Pristup plaži uz kamp','Točionik pitke vode u blizini','Ljubimci dobrodošli','Supermarket u Lovištu na par minuta'],
+        extrasTitle:'Dodatna oprema po želji',
+        extrasSub:'Sve parcele dijele istu opremu kampa. Uz malu doplatu možete unajmiti hladnjak s pretincem na ključ, perilicu ili sušilicu rublja — pogledajte cjenik za detalje.',
+        extrasChips:['Hladnjak (s ključem)','Perilica rublja','Sušilica rublja']
       },
       activities: {
         hero: { sub:'Obilje sadržaja u kampu i oko njega', title:'Aktivnosti u kampu Lovište Paradise', intro:'Kad je riječ o odmoru na otvorenom, kampiranje u kampu Lovište Paradise doista nudi sve.' },
@@ -875,7 +855,7 @@ class Component extends DCLogic {
       request: {
         hero: { title:'Pošalji upit', sub:'Recite nam termine, broj gostiju i smještaj. Javljamo se osobno, najčešće isti dan.' },
         f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', accommodation:'Odaberite smještaj', vehicle:'Vrsta vozila', vlength:'Duljina vozila', campingcard:'CampingCard / Predsezona', arrive:'Datum dolaska', depart:'Datum odlaska', country:'Država', phone:'Kontakt broj', phonePh:'+385 …', message:'Vaša poruka', messagePh:'Recite nam sve što nam pomaže pripremiti ponudu…', choose:'— Odaberite opciju —', submit:'Pošalji upit', gdpr:'GDPR — vaši se podaci prikupljaju isključivo za odgovor na ovaj upit i za eVisitor prijavu.' },
-        accOptions:['Comfort mobilna kućica','Deluxe mobilna kućica','Parcela uz more','Parcela u hladu','Glamping šator'],
+        accOptions:['Parcela A — uz more','Parcela B — blizu mora','Parcela C — srednje terase','Parcela D — u hladu maslinika','Nisam siguran/a'],
         vehicleOptions:['Šator','Kamp-kućica','Kamper / autodom','Auto + krovni šator','Bez vozila'],
         lengthOptions:['do 5 m','5–6 m','6–7 m','7–8 m','preko 8 m'],
         yesnoOptions:['Da','Ne'],
@@ -883,11 +863,14 @@ class Component extends DCLogic {
         success: { title:'Upit je poslan!', body:'Hvala vam. Vaš upit je zaprimljen i javit ćemo se u najkraćem roku, najčešće isti dan.', again:'Pošalji novi upit' }
       },
       pricing: {
-        hero: { eyebrow:'Cjenik 2026', title:'Cijene i tarife', sub:'Dnevne cijene u EUR. Službeni cjenik je na recepciji. Pošaljite upit za personaliziranu ponudu.' },
-        mh: { title:'Mobilne kućice i glamping', sub:'Cijena po jedinici, po noći.', cPeriod:'Razdoblje', c1:'Mobilna kućica (4–5)', c2:'Glamping šator (2–3)', note:'Završno čišćenje (jednokratno) 40 € za mobilne kućice. Posteljina i ručnici uključeni u cijenu.' },
-        camp: { title:'Parcele za kampiranje', sub:'Cijena po noći. Cijena parcele uz cijenu po osobi.', cItem:'Stavka', cLow:'Predsezona', cHigh:'Sezona', note:'Predsezona: 01/04–06/07 i 24/08–31/10. Sezona: 06/07–24/08.', rows:[ ['Odrasli','8 €','11 €'],['Dijete (7–12)','5 €','7 €'],['Dijete do 7 god.','besplatno','besplatno'],['Parcela (šator / kamp-kućica)','12 €','16 €'],['Auto / motor','4 €','5 €'],['Kamper / prikolica','6 €','8 €'],['Struja','5 €','5 €'],['Pas','5 €','6 €'],['Boravišna pristojba (odrasli)','1,60 €','1,60 €'] ] },
-        included: { title:'Uključeno u cijenu', items:['Topli tuševi i sanitarije','Besplatni Wi-Fi u cijelom kampu','Jedno parkirno mjesto po parceli','Pristup plaži uz kamp','Korištenje zajedničkih prostora'] },
-        good: { title:'Dobro je znati', items:['Boravišna pristojba 1,60 € / odrasli / noć','Djeca do 7 godina besplatno','Psi dobrodošli — 5–6 € / noć','Akontacija 30% potvrđuje rezervaciju','Besplatno otkazivanje do 14 dana prije dolaska'] },
+        hero: { eyebrow:'Cjenik 2026', title:'Cijene i tarife', sub:'Dnevne cijene u EUR, PDV uključen. Cijena parcele ovisi o kategoriji (A–D) i sezoni. Boravišna pristojba plaća se zasebno.' },
+        tabs:{ core:'Parcele i tarife', extras:'Oprema i pristojbe' },
+        tiers: { title:'Cijena parcele po kategoriji', sub:'Cijena po parceli, po noći.', note:'Van sezone: 01.01.–31.05. i 01.10.–31.12. · Pred/posezona: 01.06.–30.06. i 01.09.–30.09. · Glavna sezona: 01.07.–31.08.', cols:['Parcela','Van sezone','Pred/posezona','Glavna sezona'], rows:[ ['Parcela A','38 €','40 €','55 €'],['Parcela B','36 €','38 €','50 €'],['Parcela C','34 €','36 €','48 €'],['Parcela D','32 €','34 €','45 €'] ] },
+        persons: { title:'Osobe i vozila', sub:'Naplaćuje se uz cijenu parcele, po noći.', note:'Djeca do 5 godina besplatno. Jedno vozilo uključeno je u cijenu parcele.', cols:['Stavka','Van sezone','Pred/posezona','Glavna sezona'], rows:[ ['Odrasli (12+)','6 €','8 €','10 €'],['Djeca (5–12)','5 €','6 €','8 €'],['Dijete do 5 god.','besplatno','besplatno','besplatno'],['Dodatni šator / auto / prikolica / motocikl','7 €','7 €','7 €'],['Pas','4 €','5 €','6 €'] ] },
+        extras: { title:'Dodatna oprema (najam)', sub:'Za najam na recepciji.', note:'PDV uključen u cijenu.', cols:['Oprema','Cijena'], rows:[ ['Perilica rublja','8 €'],['Sušilica rublja','8 €'],['Hladnjak (pretinac s ključem)','4 €'] ] },
+        tax: { title:'Boravišna pristojba', sub:'Po osobi, po danu. Nije uključena u cijenu parcele.', note:'', cols:['Osoba','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Osoba 18+','1,70 €','1,10 €'],['Osoba 12–18','0,85 €','0,55 €'],['Dijete 0–12','0,00 €','0,00 €'] ] },
+        included: { title:'Uključeno u cijenu', items:['Struja uključena u cijenu parcele','Topli tuševi i sanitarije','Besplatni Wi-Fi u cijelom kampu','Jedno vozilo po parceli','Pristup plaži uz kamp'] },
+        good: { title:'Dobro je znati', items:['PDV je uključen u cijene','Boravišna pristojba se plaća zasebno','Jednokratna prijava 2 € po rezervaciji','Djeca do 5 godina besplatno','Psi dobrodošli — 4–6 € / noć'] },
         reserveBtn:'Pošalji upit za rezervaciju'
       },
       map: {
@@ -913,17 +896,18 @@ class Component extends DCLogic {
       intro: {
         eyebrow: 'Dobrodošli',
         title: 'Tih kutak Jadrana, vođen jednom obitelji već više od dvadeset godina.',
-        body: 'Camping Lovište Paradise nije veliki resort, i ne želi to biti. To je terasasti maslinik koji se spušta prema kristalnom moru, s parcelama u hladu, mobilnim kućicama i glamping šatorima. Dovoljno blizu da čujete valove, dovoljno daleko od svega ostalog.'
+        body: 'Camping Lovište Paradise nije veliki resort, i ne želi to biti. To je terasasti maslinik koji se spušta prema kristalnom moru, s parcelama u hladu — od prvog reda uz more do mirnih kutaka u zelenilu. Dovoljno blizu da čujete valove, dovoljno daleko od svega ostalog.'
       },
       acc: {
         eyebrow: 'Smještaj',
         title: 'Pronađite svoj kutak',
-        sub: 'Od potpuno opremljenih mobilnih kućica do zasjenjenih parcela uz more, svaka jedinica nosi vlastiti karakter.',
+        sub: 'Iste udobne parcele u četiri kategorije — A, B, C i D — koje se razlikuju uglavnom po položaju i pogledu na more.',
         cta: 'Pošalji upit',
         items: [
-          { name:'Mobilna kućica', guests:'4–5 osoba · 35 m²', price:'od 95 €/noć', tag:'Najpopularnije', img:'[ Mobilna kućica ]', amenities:['Klima','Kupaonica','Natkrivena terasa','Kuhinja'] },
-          { name:'Parcela uz more', guests:'do 6 osoba · 90 m²', price:'od 32 €/noć', tag:'', img:'[ Parcela uz more ]', amenities:['Struja','Prirodna sjena','30 m do mora','Wi-Fi'] },
-          { name:'Glamping šator', guests:'2–3 osobe', price:'od 70 €/noć', tag:'', img:'[ Glamping šator ]', amenities:['Pravi krevet','Privatna terasa','Pogled na more'] }
+          { name:'Parcela A — uz more', guests:'do 6 osoba', price:'od 38 €/noć', tag:'Prvi red', img:'[ Parcela A · uz more ]', amenities:['Struja uključena','Prvi red uz more','Prirodna sjena','Wi-Fi'] },
+          { name:'Parcela B — blizu mora', guests:'do 6 osoba', price:'od 36 €/noć', tag:'', img:'[ Parcela B · blizu mora ]', amenities:['Struja uključena','Pogled na more','Blizu plaže','Wi-Fi'] },
+          { name:'Parcela C — srednje terase', guests:'do 6 osoba', price:'od 34 €/noć', tag:'', img:'[ Parcela C · srednje terase ]', amenities:['Struja uključena','Djelomičan hlad','Mirna lokacija','Wi-Fi'] },
+          { name:'Parcela D — u hladu', guests:'do 6 osoba', price:'od 32 €/noć', tag:'Povoljno', img:'[ Parcela D · maslinik ]', amenities:['Struja uključena','Gusti hlad maslina','Parking uz parcelu','Wi-Fi'] }
         ]
       },
       fac: {
@@ -973,8 +957,8 @@ class Component extends DCLogic {
       about: {
         hero: { eyebrow:'O kampu', title:'Tih kamp iznad uvale.', sub:'Terasasti maslinik na rubu Lovišta, godinama oblikovan u miran kamp uz more.' },
         story: { title:'O kampu', img:'[ Terase kampa iznad mora ]', paras:[
-          'Camping Lovište Paradise smjestio se na blagoj padini maslina koja se spušta do bistrog mora uvale Lovište. Terasasti raspored znači da gotovo svaka parcela i mobilna kućica ima vlastiti hlad, privatnost i pogled na more.',
-          'Kamp se prostire na otprilike tri hektara zelenila, s mobilnim kućicama, glamping šatorima i parcelama uz more isprepletenima među maslinama i borovima. Šljunčana plaža je tridesetak metara od najniže terase.',
+          'Camping Lovište Paradise smjestio se na blagoj padini maslina koja se spušta do bistrog mora uvale Lovište. Terasasti raspored znači da gotovo svaka parcela ima vlastiti hlad, privatnost i pogled na more.',
+          'Kamp se prostire na otprilike tri hektara zelenila, s terasastim parcelama isprepletenima među maslinama i borovima — od prvog reda uz more do mirnih kutaka u hladu maslinika. Šljunčana plaža je tridesetak metara od najniže terase.',
           'Moderne sanitarije, besplatni Wi-Fi po cijelom kampu, parkirno mjesto uz svaku parcelu i plaža na korak čine boravak jednostavnim — mali, uredan kamp stvoren za spore dane uz more.'
         ] },
         diff: { title:'Što nas čini drugačijima', items:[
@@ -1019,17 +1003,20 @@ class Component extends DCLogic {
       cta: 'Inquire',
       nav: { home:'Home', about:'About', accommodations:'Accommodations', activities:'Activities', pricing:'Price list', map:'Camp map', events:'Events in Orebić', request:'Send a request', contact:'Contact' },
       accPage: {
-        overview:'Accommodation overview', viewPrices:'View prices', learnMore:'Inquire',
-        toggle:{ mh:'Mobile homes', camping:'Camping' },
-        mh: { title:'Mobile homes', sub:'It is called a mobile home, but it is really a comfortable holiday home for the whole family — a home away from home in beautiful Mediterranean nature, with all the benefits of camping.', facTitle:'Mobile home facilities', cards:[
-          { name:'Comfort mobile home', img:'[ Comfort mobile home ]', desc:'A great balance between contemporary comfort and outdoor living, right among the olive terraces.', specs:['Around 30 m² of interior space','Two bedrooms (4–5 persons)','Kitchen & dining area','Bathroom with shower','Covered terrace with sea view','Air-conditioning & SAT TV','Free Wi-Fi & parking spot','Pet-friendly'] },
-          { name:'Deluxe mobile home', img:'[ Deluxe mobile home ]', desc:'More space, a second bathroom and the best views — perfect for families who want a little extra.', specs:['Around 35 m² of interior space','Two bedrooms (2+2 persons)','Large kitchen / dining room','Two bathrooms','Terrace with sea view & furniture','Air-conditioning & SAT TV','Free Wi-Fi & parking spot','Pet-friendly'] }
-        ] },
-        camping: { title:'Camping', sub:'Every pitch at Lovište Paradise has its own charm. Shaded by olives and pines, terraced for privacy and a sea view, with the beach just steps away — find your perfect spot.', facTitle:'Camping facilities', cards:[
-          { name:'Seafront pitch', img:'[ Seafront pitch ]', desc:'On the lowest terraces, just steps from the water — wake up to the sound of the sea.', specs:['Around 90 m²','Up to 6 persons','Electricity hook-up','Natural shade','30 m to the beach','Free Wi-Fi'] },
-          { name:'Shaded pitch', img:'[ Shaded olive-grove pitch ]', desc:'Tucked among the olive terraces for cool shade on the hottest summer days.', specs:['Around 80 m²','Up to 6 persons','Electricity hook-up','Deep natural shade','Parking by the pitch','Free Wi-Fi'] },
-          { name:'Glamping tent', img:'[ Glamping tent ]', desc:'All the joy of camping with a real bed and a private terrace — just bring yourself.', specs:['Furnished safari-style tent','2–3 persons','Real beds & bedding','Private terrace','Sea view','Free Wi-Fi'] }
-        ] }
+        overview:'Camp pitches', viewPrices:'View prices', learnMore:'Inquire',
+        title:'Camping pitches',
+        sub:'The same comfortable pitch in four tiers — A, B, C and D — differing mostly by position and sea view. From the front row by the water to the cool shade of the olive grove.',
+        facTitle:'Every pitch includes',
+        tiers:[
+          { tier:'A', name:'Pitch A — seafront', img:'[ Pitch A · front row ]', desc:'The best spot, in the front row right by the sea — wake up to the sound of the waves.', price:'from €38/night', specs:['Up to 6 persons','Front row by the sea','Electricity included','Natural shade'] },
+          { tier:'B', name:'Pitch B — near the sea', img:'[ Pitch B · near the sea ]', desc:'A few steps back from the shore, with an open view over the bay.', price:'from €36/night', specs:['Up to 6 persons','Sea view','Electricity included','Close to the beach'] },
+          { tier:'C', name:'Pitch C — mid terraces', img:'[ Pitch C · mid terraces ]', desc:'Quiet mid terraces in pleasant shade, a short walk from the water.', price:'from €34/night', specs:['Up to 6 persons','Partial shade','Electricity included','Quiet location'] },
+          { tier:'D', name:'Pitch D — olive-grove shade', img:'[ Pitch D · olive grove ]', desc:'Upper terraces in the deep shade of the olives — the coolest and best-value spot.', price:'from €32/night', specs:['Up to 6 persons','Deep natural shade','Electricity included','Parking by the pitch'] }
+        ],
+        facilities:['Modern sanitary block, hot water 24/7','Free Wi-Fi across the camp','Electricity included in the pitch price','One vehicle per pitch','Access to the beach by the camp','Drinking-water point nearby','Pet-friendly','Supermarket in Lovište, minutes away'],
+        extrasTitle:'Optional extras',
+        extrasSub:'Every pitch shares the same camp facilities. For a small fee you can rent a fridge with a lockable compartment, a washing machine or a dryer — see the price list for details.',
+        extrasChips:['Fridge (lockable)','Washing machine','Dryer']
       },
       activities: {
         hero: { sub:'Plenty of things to do in and around the camp', title:'Activities at Camping Lovište Paradise', intro:'When it comes to a holiday in the great outdoors, camping at Lovište Paradise really does have it all.' },
@@ -1046,7 +1033,7 @@ class Component extends DCLogic {
       request: {
         hero: { title:'Send a request', sub:'Tell us your dates, party and accommodation. We reply personally, usually the same day.' },
         f: { name:'Your name', namePh:'Your name', email:'E-mail', emailPh:'you@example.com', accommodation:'Choose accommodation', vehicle:'Vehicle type', vlength:'Length of the vehicle', campingcard:'CampingCard / Low season', arrive:'Date of arrival', depart:'Date of departure', country:'Country', phone:'Contact number', phonePh:'+385 …', message:'Your message', messagePh:'Tell us anything that helps us prepare your offer…', choose:'— Please choose an option —', submit:'Send request', gdpr:'GDPR — your details are collected only to answer this request and for eVisitor registration.' },
-        accOptions:['Comfort mobile home','Deluxe mobile home','Seafront pitch','Shaded pitch','Glamping tent'],
+        accOptions:['Pitch A — seafront','Pitch B — near the sea','Pitch C — mid terraces','Pitch D — olive-grove shade','Not sure yet'],
         vehicleOptions:['Tent','Caravan','Camper / motorhome','Car + roof tent','None'],
         lengthOptions:['up to 5 m','5–6 m','6–7 m','7–8 m','over 8 m'],
         yesnoOptions:['Yes','No'],
@@ -1054,11 +1041,14 @@ class Component extends DCLogic {
         success: { title:'Request sent!', body:'Thank you. Your request has been received and we will get back to you as soon as possible, usually the same day.', again:'Send another request' }
       },
       pricing: {
-        hero: { eyebrow:'Price list 2026', title:'Prices & rates', sub:'Daily rates in EUR. The official price list is at reception. Send us an inquiry for a personalised offer.' },
-        mh: { title:'Mobile homes & glamping', sub:'Price per unit, per night.', cPeriod:'Period', c1:'Mobile home (4–5)', c2:'Glamping tent (2–3)', note:'Final cleaning (once) €40 for mobile homes. Bed linen and towels included.' },
-        camp: { title:'Outdoor camping pitches', sub:'Price per night. Pitch price plus a per-person rate.', cItem:'Item', cLow:'Low season', cHigh:'High season', note:'Low season: 01/04–06/07 & 24/08–31/10. High season: 06/07–24/08.', rows:[ ['Adult','8 €','11 €'],['Child (7–12)','5 €','7 €'],['Child up to 7','free','free'],['Pitch (tent / caravan)','12 €','16 €'],['Car / motorbike','4 €','5 €'],['Camper / caravan','6 €','8 €'],['Electricity','5 €','5 €'],['Dog','5 €','6 €'],['Tourist tax (adult)','1,60 €','1,60 €'] ] },
-        included: { title:'Included in the price', items:['Hot showers & sanitary facilities','Free Wi-Fi across the camp','One parking space per pitch','Access to the beach by the camp','Use of the common areas'] },
-        good: { title:'Good to know', items:['Tourist tax €1.60 / adult / night','Children up to 7 stay free','Dogs welcome — €5–6 / night','A 30% deposit confirms your booking','Free cancellation up to 14 days before arrival'] },
+        hero: { eyebrow:'Price list 2026', title:'Prices & rates', sub:'Daily rates in EUR, VAT included. The pitch price depends on the tier (A–D) and season. Tourist tax is charged separately.' },
+        tabs:{ core:'Pitches & rates', extras:'Extras & taxes' },
+        tiers: { title:'Pitch price by tier', sub:'Price per pitch, per night.', note:'Off-season: 01.01.–31.05. & 01.10.–31.12. · Mid-season: 01.06.–30.06. & 01.09.–30.09. · Peak season: 01.07.–31.08.', cols:['Pitch','Off-season','Mid-season','Peak season'], rows:[ ['Pitch A','38 €','40 €','55 €'],['Pitch B','36 €','38 €','50 €'],['Pitch C','34 €','36 €','48 €'],['Pitch D','32 €','34 €','45 €'] ] },
+        persons: { title:'People & vehicles', sub:'Charged on top of the pitch price, per night.', note:'Children under 5 stay free. One vehicle is included in the pitch price.', cols:['Item','Off-season','Mid-season','Peak season'], rows:[ ['Adult (12+)','6 €','8 €','10 €'],['Child (5–12)','5 €','6 €','8 €'],['Child under 5','free','free','free'],['Extra tent / car / trailer / motorbike','7 €','7 €','7 €'],['Dog','4 €','5 €','6 €'] ] },
+        extras: { title:'Optional extras (rental)', sub:'Available to rent at reception.', note:'VAT included.', cols:['Item','Price'], rows:[ ['Washing machine','8 €'],['Dryer','8 €'],['Fridge (lockable compartment)','4 €'] ] },
+        tax: { title:'Tourist tax', sub:'Per person, per day. Not included in the pitch price.', note:'', cols:['Person','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Person 18+','1,70 €','1,10 €'],['Person 12–18','0,85 €','0,55 €'],['Child 0–12','0,00 €','0,00 €'] ] },
+        included: { title:'Included in the price', items:['Electricity included in the pitch price','Hot showers & sanitary facilities','Free Wi-Fi across the camp','One vehicle per pitch','Access to the beach by the camp'] },
+        good: { title:'Good to know', items:['VAT is included in the prices','Tourist tax is charged separately','One-time registration €2 per booking','Children under 5 stay free','Dogs welcome — €4–6 / night'] },
         reserveBtn:'Send a reservation request'
       },
       map: {
@@ -1084,17 +1074,18 @@ class Component extends DCLogic {
       intro: {
         eyebrow: 'Welcome',
         title: 'A quiet corner of the Adriatic, run by one family for over twenty years.',
-        body: 'Camping Lovište Paradise is not a large resort, and never wants to be. It is a terraced olive grove sloping down to crystal-clear water, with shaded pitches, mobile homes and glamping tents. Close enough to hear the waves, far enough from everything else.'
+        body: 'Camping Lovište Paradise is not a large resort, and never wants to be. It is a terraced olive grove sloping down to crystal-clear water, with shaded pitches — from the front row by the sea to quiet corners in the greenery. Close enough to hear the waves, far enough from everything else.'
       },
       acc: {
         eyebrow: 'Accommodation',
         title: 'Find your spot',
-        sub: 'From fully-equipped mobile homes to shaded seafront pitches, every unit has a character of its own.',
+        sub: 'The same comfortable pitch in four tiers — A, B, C and D — differing mostly by position and sea view.',
         cta: 'Inquire',
         items: [
-          { name:'Mobile home', guests:'4–5 guests · 35 m²', price:'from €95/night', tag:'Most popular', img:'[ Mobile home ]', amenities:['A/C','Bathroom','Covered terrace','Kitchen'] },
-          { name:'Seafront pitch', guests:'up to 6 guests · 90 m²', price:'from €32/night', tag:'', img:'[ Seafront pitch ]', amenities:['Electricity','Natural shade','30 m to sea','Wi-Fi'] },
-          { name:'Glamping tent', guests:'2–3 guests', price:'from €70/night', tag:'', img:'[ Glamping tent ]', amenities:['Real bed','Private terrace','Sea view'] }
+          { name:'Pitch A — seafront', guests:'up to 6 guests', price:'from €38/night', tag:'Front row', img:'[ Pitch A · seafront ]', amenities:['Electricity incl.','Front row by sea','Natural shade','Wi-Fi'] },
+          { name:'Pitch B — near the sea', guests:'up to 6 guests', price:'from €36/night', tag:'', img:'[ Pitch B · near sea ]', amenities:['Electricity incl.','Sea view','Close to beach','Wi-Fi'] },
+          { name:'Pitch C — mid terraces', guests:'up to 6 guests', price:'from €34/night', tag:'', img:'[ Pitch C · mid terraces ]', amenities:['Electricity incl.','Partial shade','Quiet location','Wi-Fi'] },
+          { name:'Pitch D — olive shade', guests:'up to 6 guests', price:'from €32/night', tag:'Best value', img:'[ Pitch D · olive grove ]', amenities:['Electricity incl.','Deep olive shade','Parking by pitch','Wi-Fi'] }
         ]
       },
       fac: {
@@ -1144,8 +1135,8 @@ class Component extends DCLogic {
       about: {
         hero: { eyebrow:'About the camp', title:'A quiet camp above the bay.', sub:'A terraced olive grove on the edge of Lovište, shaped over the years into a calm seaside camp.' },
         story: { title:'About the camp', img:'[ Camp terraces above the sea ]', paras:[
-          'Camping Lovište Paradise sits on a gentle slope of olive trees stepping down to the clear water of Lovište bay. The terraced layout means almost every pitch and mobile home has its own shade, privacy and view of the sea.',
-          'The camp covers roughly three hectares of greenery, with mobile homes, glamping tents and seafront pitches woven between the olives and pines. A pebble beach lies just thirty metres from the lowest terrace.',
+          'Camping Lovište Paradise sits on a gentle slope of olive trees stepping down to the clear water of Lovište bay. The terraced layout means almost every pitch has its own shade, privacy and view of the sea.',
+          'The camp covers roughly three hectares of greenery, with terraced pitches woven between the olives and pines — from the front row by the sea to quiet corners in the olive shade. A pebble beach lies just thirty metres from the lowest terrace.',
           'Modern sanitary facilities, free Wi-Fi across the grounds, a parking space by every pitch and a beach on the doorstep keep things simple — a small, well-kept camp built for slow seaside days.'
         ] },
         diff: { title:'What makes us different', items:[
@@ -1190,17 +1181,20 @@ class Component extends DCLogic {
       cta: 'Anfragen',
       nav: { home:'Startseite', about:'Über uns', accommodations:'Unterkünfte', activities:'Aktivitäten', pricing:'Preisliste', map:'Lageplan', events:'Events in Orebić', request:'Anfrage senden', contact:'Kontakt' },
       accPage: {
-        overview:'Unterkunftsübersicht', viewPrices:'Preise ansehen', learnMore:'Anfragen',
-        toggle:{ mh:'Mobilheime', camping:'Camping' },
-        mh: { title:'Mobilheime', sub:'Es heißt Mobilheim, ist aber in Wahrheit ein komfortables Ferienhaus für die ganze Familie — ein Zuhause fern von Zuhause in schöner mediterraner Natur, mit allen Vorteilen des Campings.', facTitle:'Ausstattung der Mobilheime', cards:[
-          { name:'Comfort Mobilheim', img:'[ Comfort Mobilheim ]', desc:'Eine gute Balance aus modernem Komfort und Leben im Freien, mitten zwischen den Oliventerrassen.', specs:['Rund 30 m² Innenfläche','Zwei Schlafzimmer (4–5 Personen)','Küche & Essbereich','Bad mit Dusche','Überdachte Terrasse mit Meerblick','Klimaanlage & SAT-TV','Kostenloses WLAN & Parkplatz','Haustierfreundlich'] },
-          { name:'Deluxe Mobilheim', img:'[ Deluxe Mobilheim ]', desc:'Mehr Platz, ein zweites Bad und der beste Ausblick — perfekt für Familien, die etwas mehr möchten.', specs:['Rund 35 m² Innenfläche','Zwei Schlafzimmer (2+2 Personen)','Große Küche / Essbereich','Zwei Badezimmer','Terrasse mit Meerblick & Möbeln','Klimaanlage & SAT-TV','Kostenloses WLAN & Parkplatz','Haustierfreundlich'] }
-        ] },
-        camping: { title:'Camping', sub:'Jeder Stellplatz bei Lovište Paradise hat seinen eigenen Charme. Beschattet von Oliven und Pinien, terrassiert für Privatsphäre und Meerblick, mit dem Strand nur wenige Schritte entfernt — finden Sie Ihren perfekten Platz.', facTitle:'Camping-Ausstattung', cards:[
-          { name:'Stellplatz am Meer', img:'[ Stellplatz am Meer ]', desc:'Auf den untersten Terrassen, nur wenige Schritte vom Wasser — wachen Sie zum Klang des Meeres auf.', specs:['Rund 90 m²','Bis zu 6 Personen','Stromanschluss','Natürlicher Schatten','30 m zum Strand','Kostenloses WLAN'] },
-          { name:'Schattiger Stellplatz', img:'[ Stellplatz im Olivenhain ]', desc:'Zwischen den Oliventerrassen für kühlen Schatten an den heißesten Sommertagen.', specs:['Rund 80 m²','Bis zu 6 Personen','Stromanschluss','Tiefer natürlicher Schatten','Parken am Stellplatz','Kostenloses WLAN'] },
-          { name:'Glamping-Zelt', img:'[ Glamping-Zelt ]', desc:'Die ganze Freude am Camping mit echtem Bett und privater Terrasse — bringen Sie nur sich selbst mit.', specs:['Möbliertes Safari-Zelt','2–3 Personen','Echte Betten & Bettwäsche','Private Terrasse','Meerblick','Kostenloses WLAN'] }
-        ] }
+        overview:'Stellplätze', viewPrices:'Preise ansehen', learnMore:'Anfragen',
+        title:'Campingstellplätze',
+        sub:'Derselbe komfortable Stellplatz in vier Kategorien — A, B, C und D — die sich vor allem durch Lage und Meerblick unterscheiden. Von der ersten Reihe am Wasser bis zum kühlen Schatten des Olivenhains.',
+        facTitle:'Jeder Stellplatz umfasst',
+        tiers:[
+          { tier:'A', name:'Stellplatz A — am Meer', img:'[ Stellplatz A · erste Reihe ]', desc:'Die beste Lage, in der ersten Reihe direkt am Meer — wachen Sie zum Klang der Wellen auf.', price:'ab 38 €/Nacht', specs:['Bis zu 6 Personen','Erste Reihe am Meer','Strom inklusive','Natürlicher Schatten'] },
+          { tier:'B', name:'Stellplatz B — nah am Meer', img:'[ Stellplatz B · nah am Meer ]', desc:'Ein paar Schritte von der Küste entfernt, mit offenem Blick über die Bucht.', price:'ab 36 €/Nacht', specs:['Bis zu 6 Personen','Meerblick','Strom inklusive','Nah am Strand'] },
+          { tier:'C', name:'Stellplatz C — mittlere Terrassen', img:'[ Stellplatz C · mittlere Terrassen ]', desc:'Ruhige mittlere Terrassen im angenehmen Schatten, ein kurzer Weg zum Wasser.', price:'ab 34 €/Nacht', specs:['Bis zu 6 Personen','Teilweise Schatten','Strom inklusive','Ruhige Lage'] },
+          { tier:'D', name:'Stellplatz D — im Olivenschatten', img:'[ Stellplatz D · Olivenhain ]', desc:'Obere Terrassen im tiefen Schatten der Oliven — der kühlste und günstigste Platz.', price:'ab 32 €/Nacht', specs:['Bis zu 6 Personen','Tiefer natürlicher Schatten','Strom inklusive','Parken am Stellplatz'] }
+        ],
+        facilities:['Moderne Sanitäranlagen, 24/7 warmes Wasser','Kostenloses WLAN im ganzen Camp','Strom im Stellplatzpreis enthalten','Ein Fahrzeug pro Stellplatz','Zugang zum Strand am Camp','Trinkwasserstelle in der Nähe','Haustierfreundlich','Supermarkt in Lovište, wenige Minuten entfernt'],
+        extrasTitle:'Zusatzausstattung nach Wunsch',
+        extrasSub:'Alle Stellplätze teilen sich dieselbe Camp-Ausstattung. Gegen einen kleinen Aufpreis können Sie einen Kühlschrank mit abschließbarem Fach, eine Waschmaschine oder einen Trockner mieten — Details in der Preisliste.',
+        extrasChips:['Kühlschrank (abschließbar)','Waschmaschine','Trockner']
       },
       activities: {
         hero: { sub:'Viel zu erleben im und rund um das Camp', title:'Aktivitäten im Camping Lovište Paradise', intro:'Wenn es um Urlaub in der freien Natur geht, hat Camping bei Lovište Paradise wirklich alles zu bieten.' },
@@ -1217,7 +1211,7 @@ class Component extends DCLogic {
       request: {
         hero: { title:'Anfrage senden', sub:'Nennen Sie uns Daten, Personenzahl und Unterkunft. Wir antworten persönlich, meist noch am selben Tag.' },
         f: { name:'Ihr Name', namePh:'Ihr Name', email:'E-Mail', emailPh:'sie@beispiel.com', accommodation:'Unterkunft wählen', vehicle:'Fahrzeugtyp', vlength:'Länge des Fahrzeugs', campingcard:'CampingCard / Nebensaison', arrive:'Anreisedatum', depart:'Abreisedatum', country:'Land', phone:'Telefonnummer', phonePh:'+385 …', message:'Ihre Nachricht', messagePh:'Sagen Sie uns alles, was bei der Angebotserstellung hilft…', choose:'— Bitte wählen —', submit:'Anfrage senden', gdpr:'DSGVO — Ihre Daten werden nur zur Beantwortung dieser Anfrage und für die eVisitor-Registrierung erhoben.' },
-        accOptions:['Comfort Mobilheim','Deluxe Mobilheim','Stellplatz am Meer','Schattiger Stellplatz','Glamping-Zelt'],
+        accOptions:['Stellplatz A — am Meer','Stellplatz B — nah am Meer','Stellplatz C — mittlere Terrassen','Stellplatz D — im Olivenschatten','Noch unsicher'],
         vehicleOptions:['Zelt','Wohnwagen','Wohnmobil','Auto + Dachzelt','Keines'],
         lengthOptions:['bis 5 m','5–6 m','6–7 m','7–8 m','über 8 m'],
         yesnoOptions:['Ja','Nein'],
@@ -1225,11 +1219,14 @@ class Component extends DCLogic {
         success: { title:'Anfrage gesendet!', body:'Vielen Dank. Ihre Anfrage ist eingegangen und wir melden uns so schnell wie möglich, meist noch am selben Tag.', again:'Weitere Anfrage senden' }
       },
       pricing: {
-        hero: { eyebrow:'Preisliste 2026', title:'Preise & Tarife', sub:'Tagespreise in EUR. Die offizielle Preisliste liegt an der Rezeption. Senden Sie eine Anfrage für ein persönliches Angebot.' },
-        mh: { title:'Mobilheime & Glamping', sub:'Preis pro Einheit, pro Nacht.', cPeriod:'Zeitraum', c1:'Mobilheim (4–5)', c2:'Glamping-Zelt (2–3)', note:'Endreinigung (einmalig) 40 € für Mobilheime. Bettwäsche und Handtücher inklusive.' },
-        camp: { title:'Stellplätze zum Campen', sub:'Preis pro Nacht. Stellplatzpreis plus Preis pro Person.', cItem:'Position', cLow:'Nebensaison', cHigh:'Hauptsaison', note:'Nebensaison: 01/04–06/07 & 24/08–31/10. Hauptsaison: 06/07–24/08.', rows:[ ['Erwachsene','8 €','11 €'],['Kind (7–12)','5 €','7 €'],['Kind bis 7','kostenlos','kostenlos'],['Stellplatz (Zelt / Wohnwagen)','12 €','16 €'],['Auto / Motorrad','4 €','5 €'],['Wohnmobil / Anhänger','6 €','8 €'],['Strom','5 €','5 €'],['Hund','5 €','6 €'],['Kurtaxe (Erwachsene)','1,60 €','1,60 €'] ] },
-        included: { title:'Im Preis enthalten', items:['Warme Duschen & Sanitäranlagen','Kostenloses WLAN im ganzen Camp','Ein Parkplatz pro Stellplatz','Zugang zum Strand am Camp','Nutzung der Gemeinschaftsbereiche'] },
-        good: { title:'Gut zu wissen', items:['Kurtaxe 1,60 € / Erwachsener / Nacht','Kinder bis 7 Jahre kostenlos','Hunde willkommen — 5–6 € / Nacht','30% Anzahlung bestätigt die Buchung','Kostenlose Stornierung bis 14 Tage vor Anreise'] },
+        hero: { eyebrow:'Preisliste 2026', title:'Preise & Tarife', sub:'Tagespreise in EUR, inkl. MwSt. Der Stellplatzpreis richtet sich nach Kategorie (A–D) und Saison. Die Kurtaxe wird separat berechnet.' },
+        tabs:{ core:'Stellplätze & Tarife', extras:'Ausstattung & Gebühren' },
+        tiers: { title:'Stellplatzpreis nach Kategorie', sub:'Preis pro Stellplatz, pro Nacht.', note:'Nebensaison: 01.01.–31.05. & 01.10.–31.12. · Zwischensaison: 01.06.–30.06. & 01.09.–30.09. · Hauptsaison: 01.07.–31.08.', cols:['Stellplatz','Nebensaison','Zwischensaison','Hauptsaison'], rows:[ ['Stellplatz A','38 €','40 €','55 €'],['Stellplatz B','36 €','38 €','50 €'],['Stellplatz C','34 €','36 €','48 €'],['Stellplatz D','32 €','34 €','45 €'] ] },
+        persons: { title:'Personen & Fahrzeuge', sub:'Zusätzlich zum Stellplatzpreis, pro Nacht.', note:'Kinder unter 5 Jahren kostenlos. Ein Fahrzeug ist im Stellplatzpreis enthalten.', cols:['Position','Nebensaison','Zwischensaison','Hauptsaison'], rows:[ ['Erwachsene (12+)','6 €','8 €','10 €'],['Kind (5–12)','5 €','6 €','8 €'],['Kind unter 5','kostenlos','kostenlos','kostenlos'],['Zusätzl. Zelt / Auto / Anhänger / Motorrad','7 €','7 €','7 €'],['Hund','4 €','5 €','6 €'] ] },
+        extras: { title:'Zusatzausstattung (Miete)', sub:'An der Rezeption mietbar.', note:'MwSt. inklusive.', cols:['Ausstattung','Preis'], rows:[ ['Waschmaschine','8 €'],['Trockner','8 €'],['Kühlschrank (abschließbares Fach)','4 €'] ] },
+        tax: { title:'Kurtaxe', sub:'Pro Person, pro Tag. Nicht im Stellplatzpreis enthalten.', note:'', cols:['Person','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Person 18+','1,70 €','1,10 €'],['Person 12–18','0,85 €','0,55 €'],['Kind 0–12','0,00 €','0,00 €'] ] },
+        included: { title:'Im Preis enthalten', items:['Strom im Stellplatzpreis enthalten','Warme Duschen & Sanitäranlagen','Kostenloses WLAN im ganzen Camp','Ein Fahrzeug pro Stellplatz','Zugang zum Strand am Camp'] },
+        good: { title:'Gut zu wissen', items:['MwSt. ist in den Preisen enthalten','Kurtaxe wird separat berechnet','Einmalige Anmeldung 2 € pro Buchung','Kinder unter 5 Jahren kostenlos','Hunde willkommen — 4–6 € / Nacht'] },
         reserveBtn:'Reservierungsanfrage senden'
       },
       map: {
@@ -1241,11 +1238,12 @@ class Component extends DCLogic {
       },
       hero: { photo:'[ Hero Foto, Bucht im goldenen Licht ]', eyebrow:'Lovište · Halbinsel Pelješac · Kroatien', title:'Wachen Sie am Meer auf.', sub:'Ein kleiner familiengeführter Campingplatz, versteckt zwischen Olivenbäumen und Pinien, direkt am Rand der ruhigen Bucht von Lovište, weit weg vom Trubel, nur wenige Schritte vom Wasser.', primary:'Anfragen', secondary:'Platz entdecken' },
       stats: [ {num:'1998',label:'Familiengeführt seit'}, {num:'40',label:'Stellplätze & Häuser'}, {num:'3 ha',label:'Grün am Meer'}, {num:'30 m',label:'Zum Strand'} ],
-      intro: { eyebrow:'Willkommen', title:'Eine ruhige Ecke der Adria, seit über zwanzig Jahren von einer Familie geführt.', body:'Camping Lovište Paradise ist kein großes Resort, und will es auch nicht sein. Es ist ein terrassierter Olivenhain, der zum kristallklaren Wasser hin abfällt, mit schattigen Stellplätzen, Mobilheimen und Glamping-Zelten. Nah genug, um die Wellen zu hören, weit genug von allem anderen entfernt.' },
-      acc: { eyebrow:'Unterkünfte', title:'Finden Sie Ihren Platz', sub:'Von voll ausgestatteten Mobilheimen bis zu schattigen Stellplätzen am Meer, jede Einheit hat ihren eigenen Charakter.', cta:'Anfragen', items: [
-        { name:'Mobilheim', guests:'4–5 Gäste · 35 m²', price:'ab 95 €/Nacht', tag:'Beliebteste', img:'[ Mobilheim ]', amenities:['Klimaanlage','Bad','Überdachte Terrasse','Küche'] },
-        { name:'Stellplatz am Meer', guests:'bis 6 Gäste · 90 m²', price:'ab 32 €/Nacht', tag:'', img:'[ Stellplatz am Meer ]', amenities:['Strom','Natürlicher Schatten','30 m zum Meer','WLAN'] },
-        { name:'Glamping-Zelt', guests:'2–3 Gäste', price:'ab 70 €/Nacht', tag:'', img:'[ Glamping-Zelt ]', amenities:['Echtes Bett','Private Terrasse','Meerblick'] } ] },
+      intro: { eyebrow:'Willkommen', title:'Eine ruhige Ecke der Adria, seit über zwanzig Jahren von einer Familie geführt.', body:'Camping Lovište Paradise ist kein großes Resort, und will es auch nicht sein. Es ist ein terrassierter Olivenhain, der zum kristallklaren Wasser hin abfällt, mit schattigen Stellplätzen — von der ersten Reihe am Meer bis zu ruhigen Ecken im Grün. Nah genug, um die Wellen zu hören, weit genug von allem anderen entfernt.' },
+      acc: { eyebrow:'Unterkünfte', title:'Finden Sie Ihren Platz', sub:'Derselbe komfortable Stellplatz in vier Kategorien — A, B, C und D — die sich vor allem durch Lage und Meerblick unterscheiden.', cta:'Anfragen', items: [
+        { name:'Stellplatz A — am Meer', guests:'bis 6 Gäste', price:'ab 38 €/Nacht', tag:'Erste Reihe', img:'[ Stellplatz A · am Meer ]', amenities:['Strom inkl.','Erste Reihe am Meer','Natürlicher Schatten','WLAN'] },
+        { name:'Stellplatz B — nah am Meer', guests:'bis 6 Gäste', price:'ab 36 €/Nacht', tag:'', img:'[ Stellplatz B · nah am Meer ]', amenities:['Strom inkl.','Meerblick','Nah am Strand','WLAN'] },
+        { name:'Stellplatz C — mittlere Terrassen', guests:'bis 6 Gäste', price:'ab 34 €/Nacht', tag:'', img:'[ Stellplatz C · mittlere Terrassen ]', amenities:['Strom inkl.','Teilweise Schatten','Ruhige Lage','WLAN'] },
+        { name:'Stellplatz D — im Olivenschatten', guests:'bis 6 Gäste', price:'ab 32 €/Nacht', tag:'Günstig', img:'[ Stellplatz D · Olivenhain ]', amenities:['Strom inkl.','Tiefer Olivenschatten','Parken am Stellplatz','WLAN'] } ] },
       fac: { eyebrow:'Ausstattung', title:'Alles, was Sie brauchen, und nichts Überflüssiges', items: [
         { name:'Moderne Sanitäranlagen', desc:'Saubere, geräumige Anlagen mit Warmwasser rund um die Uhr.' },
         { name:'Kostenloses WLAN', desc:'Deckt den ganzen Platz ab, schnell genug zum Arbeiten.' },
@@ -1272,8 +1270,8 @@ class Component extends DCLogic {
       about: {
         hero: { eyebrow:'Über das Camp', title:'Ein ruhiges Camp über der Bucht.', sub:'Ein terrassierter Olivenhain am Rand von Lovište, über die Jahre zu einem ruhigen Camp am Meer geformt.' },
         story: { title:'Über das Camp', img:'[ Camp-Terrassen über dem Meer ]', paras:[
-          'Camping Lovište Paradise liegt an einem sanften Hang aus Olivenbäumen, der zum klaren Wasser der Bucht von Lovište abfällt. Durch die Terrassen hat fast jeder Stellplatz und jedes Mobilheim eigenen Schatten, Privatsphäre und Meerblick.',
-          'Das Camp erstreckt sich über rund drei Hektar Grün, mit Mobilheimen, Glamping-Zelten und Stellplätzen am Meer zwischen Oliven und Pinien. Ein Kiesstrand liegt nur dreißig Meter von der untersten Terrasse entfernt.',
+          'Camping Lovište Paradise liegt an einem sanften Hang aus Olivenbäumen, der zum klaren Wasser der Bucht von Lovište abfällt. Durch die Terrassen hat fast jeder Stellplatz eigenen Schatten, Privatsphäre und Meerblick.',
+          'Das Camp erstreckt sich über rund drei Hektar Grün, mit terrassierten Stellplätzen zwischen Oliven und Pinien — von der ersten Reihe am Meer bis zu ruhigen Ecken im Olivenschatten. Ein Kiesstrand liegt nur dreißig Meter von der untersten Terrasse entfernt.',
           'Moderne Sanitäranlagen, kostenloses WLAN auf dem ganzen Gelände, ein Parkplatz an jedem Stellplatz und ein Strand vor der Tür halten alles einfach — ein kleines, gepflegtes Camp für ruhige Tage am Meer.'
         ] },
         diff: { title:'Was uns anders macht', items:[
@@ -1302,17 +1300,20 @@ class Component extends DCLogic {
       cta: 'Povpraševanje',
       nav: { home:'Domov', about:'O nas', accommodations:'Nastanitev', activities:'Dejavnosti', pricing:'Cenik', map:'Zemljevid', events:'Dogodki v Orebiću', request:'Pošlji povpraševanje', contact:'Kontakt' },
       accPage: {
-        overview:'Pregled nastanitev', viewPrices:'Poglej cene', learnMore:'Povpraševanje',
-        toggle:{ mh:'Mobilne hišice', camping:'Kampiranje' },
-        mh: { title:'Mobilne hišice', sub:'Imenuje se mobilna hišica, a je v resnici udoben počitniški dom za vso družino — dom daleč od doma v čudoviti sredozemski naravi, z vsemi prednostmi kampiranja.', facTitle:'Oprema mobilnih hišic', cards:[
-          { name:'Comfort mobilna hišica', img:'[ Comfort mobilna hišica ]', desc:'Odlično ravnovesje sodobnega udobja in življenja na prostem, sredi oljčnih teras.', specs:['Okoli 30 m² notranjega prostora','Dve spalnici (4–5 oseb)','Kuhinja in jedilnica','Kopalnica s prho','Pokrita terasa s pogledom na morje','Klima in SAT TV','Brezplačni Wi-Fi in parkirišče','Hišni ljubljenčki dobrodošli'] },
-          { name:'Deluxe mobilna hišica', img:'[ Deluxe mobilna hišica ]', desc:'Več prostora, druga kopalnica in najlepši pogledi — popolno za družine, ki želijo malce več.', specs:['Okoli 35 m² notranjega prostora','Dve spalnici (2+2 osebi)','Velika kuhinja / jedilnica','Dve kopalnici','Terasa s pogledom na morje in pohištvom','Klima in SAT TV','Brezplačni Wi-Fi in parkirišče','Hišni ljubljenčki dobrodošli'] }
-        ] },
-        camping: { title:'Kampiranje', sub:'Vsaka parcela v kampu Lovište Paradise ima svoj čar. V senci oljk in borov, terasasta za zasebnost in pogled na morje, s plažo le korak stran — poiščite svoj popoln kotiček.', facTitle:'Oprema kampa', cards:[
-          { name:'Parcela ob morju', img:'[ Parcela ob morju ]', desc:'Na najnižjih terasah, le korak od vode — zbudite se ob šumu morja.', specs:['Okoli 90 m²','Do 6 oseb','Priključek elektrike','Naravna senca','30 m do plaže','Brezplačni Wi-Fi'] },
-          { name:'Senčna parcela', img:'[ Parcela v oljčniku ]', desc:'Skrita med oljčnimi terasami za prijetno senco tudi v najbolj vročih dneh.', specs:['Okoli 80 m²','Do 6 oseb','Priključek elektrike','Gosta naravna senca','Parkiranje ob parceli','Brezplačni Wi-Fi'] },
-          { name:'Glamping šotor', img:'[ Glamping šotor ]', desc:'Vse veselje kampiranja s pravo posteljo in zasebno teraso — prinesite le sebe.', specs:['Opremljen safari šotor','2–3 osebe','Prave postelje in posteljnina','Zasebna terasa','Pogled na morje','Brezplačni Wi-Fi'] }
-        ] }
+        overview:'Parcele kampa', viewPrices:'Poglej cene', learnMore:'Povpraševanje',
+        title:'Parcele v kampu',
+        sub:'Iste udobne parcele v štirih kategorijah — A, B, C in D — ki se razlikujejo predvsem po legi in pogledu na morje. Od prve vrste ob vodi do sveže sence oljčnika.',
+        facTitle:'Vse parcele vključujejo',
+        tiers:[
+          { tier:'A', name:'Parcela A — ob morju', img:'[ Parcela A · prva vrsta ]', desc:'Najboljša lega, v prvi vrsti tik ob morju — zbudite se ob šumu valov.', price:'od 38 €/noč', specs:['Do 6 oseb','Prva vrsta ob morju','Elektrika vključena','Naravna senca'] },
+          { tier:'B', name:'Parcela B — blizu morja', img:'[ Parcela B · blizu morja ]', desc:'Nekaj korakov od obale, z odprtim pogledom na zaliv.', price:'od 36 €/noč', specs:['Do 6 oseb','Pogled na morje','Elektrika vključena','Blizu plaže'] },
+          { tier:'C', name:'Parcela C — srednje terase', img:'[ Parcela C · srednje terase ]', desc:'Mirne srednje terase v prijetni senci, kratek sprehod do vode.', price:'od 34 €/noč', specs:['Do 6 oseb','Delna senca','Elektrika vključena','Mirna lega'] },
+          { tier:'D', name:'Parcela D — v senci oljčnika', img:'[ Parcela D · oljčnik ]', desc:'Zgornje terase v gosti senci oljk — najbolj sveže in najugodnejše mesto.', price:'od 32 €/noč', specs:['Do 6 oseb','Gosta naravna senca','Elektrika vključena','Parkiranje ob parceli'] }
+        ],
+        facilities:['Sodobne sanitarije s toplo vodo 0–24','Brezplačni Wi-Fi po vsem kampu','Elektrika vključena v ceno parcele','Eno vozilo na parcelo','Dostop do plaže ob kampu','Pitnik v bližini','Hišni ljubljenčki dobrodošli','Supermarket v Lovištu, nekaj minut stran'],
+        extrasTitle:'Dodatna oprema po želji',
+        extrasSub:'Vse parcele imajo enako opremo kampa. Za majhno doplačilo lahko najamete hladilnik s predalom na ključ, pralni ali sušilni stroj — podrobnosti so v ceniku.',
+        extrasChips:['Hladilnik (s ključem)','Pralni stroj','Sušilni stroj']
       },
       activities: {
         hero: { sub:'Obilo dejavnosti v kampu in okolici', title:'Dejavnosti v kampu Lovište Paradise', intro:'Ko gre za počitnice v naravi, kampiranje v kampu Lovište Paradise res ponuja vse.' },
@@ -1329,7 +1330,7 @@ class Component extends DCLogic {
       request: {
         hero: { title:'Pošlji povpraševanje', sub:'Sporočite nam termine, število gostov in nastanitev. Odgovorimo osebno, običajno isti dan.' },
         f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-pošta', emailPh:'vi@primer.com', accommodation:'Izberite nastanitev', vehicle:'Vrsta vozila', vlength:'Dolžina vozila', campingcard:'CampingCard / Predsezona', arrive:'Datum prihoda', depart:'Datum odhoda', country:'Država', phone:'Kontaktna številka', phonePh:'+386 …', message:'Vaše sporočilo', messagePh:'Sporočite nam vse, kar pomaga pri pripravi ponudbe…', choose:'— Izberite možnost —', submit:'Pošlji povpraševanje', gdpr:'GDPR — vaši podatki se zbirajo izključno za odgovor na to povpraševanje in za eVisitor prijavo.' },
-        accOptions:['Comfort mobilna hišica','Deluxe mobilna hišica','Parcela ob morju','Senčna parcela','Glamping šotor'],
+        accOptions:['Parcela A — ob morju','Parcela B — blizu morja','Parcela C — srednje terase','Parcela D — v senci oljčnika','Še nisem prepričan/a'],
         vehicleOptions:['Šotor','Prikolica','Avtodom','Avto + strešni šotor','Brez vozila'],
         lengthOptions:['do 5 m','5–6 m','6–7 m','7–8 m','nad 8 m'],
         yesnoOptions:['Da','Ne'],
@@ -1337,11 +1338,14 @@ class Component extends DCLogic {
         success: { title:'Povpraševanje poslano!', body:'Hvala. Vaše povpraševanje je prejeto in odgovorili vam bomo v najkrajšem možnem času, običajno isti dan.', again:'Pošlji novo povpraševanje' }
       },
       pricing: {
-        hero: { eyebrow:'Cenik 2026', title:'Cene in tarife', sub:'Dnevne cene v EUR. Uradni cenik je na recepciji. Pošljite povpraševanje za prilagojeno ponudbo.' },
-        mh: { title:'Mobilne hišice in glamping', sub:'Cena na enoto, na noč.', cPeriod:'Obdobje', c1:'Mobilna hišica (4–5)', c2:'Glamping šotor (2–3)', note:'Končno čiščenje (enkratno) 40 € za mobilne hišice. Posteljnina in brisače vključene.' },
-        camp: { title:'Parcele za kampiranje', sub:'Cena na noč. Cena parcele in cena na osebo.', cItem:'Postavka', cLow:'Predsezona', cHigh:'Sezona', note:'Predsezona: 01/04–06/07 in 24/08–31/10. Sezona: 06/07–24/08.', rows:[ ['Odrasli','8 €','11 €'],['Otrok (7–12)','5 €','7 €'],['Otrok do 7','brezplačno','brezplačno'],['Parcela (šotor / prikolica)','12 €','16 €'],['Avto / motor','4 €','5 €'],['Avtodom / prikolica','6 €','8 €'],['Elektrika','5 €','5 €'],['Pes','5 €','6 €'],['Turistična taksa (odrasli)','1,60 €','1,60 €'] ] },
-        included: { title:'Vključeno v ceno', items:['Tople prhe in sanitarije','Brezplačni Wi-Fi po vsem kampu','Eno parkirno mesto na parcelo','Dostop do plaže ob kampu','Uporaba skupnih prostorov'] },
-        good: { title:'Dobro je vedeti', items:['Turistična taksa 1,60 € / odrasli / noč','Otroci do 7 let brezplačno','Psi dobrodošli — 5–6 € / noč','30% akontacija potrdi rezervacijo','Brezplačna odpoved do 14 dni pred prihodom'] },
+        hero: { eyebrow:'Cenik 2026', title:'Cene in tarife', sub:'Dnevne cene v EUR, DDV vključen. Cena parcele je odvisna od kategorije (A–D) in sezone. Turistična taksa se plača ločeno.' },
+        tabs:{ core:'Parcele in tarife', extras:'Oprema in takse' },
+        tiers: { title:'Cena parcele po kategoriji', sub:'Cena na parcelo, na noč.', note:'Izven sezone: 01.01.–31.05. in 01.10.–31.12. · Medsezona: 01.06.–30.06. in 01.09.–30.09. · Glavna sezona: 01.07.–31.08.', cols:['Parcela','Izven sezone','Medsezona','Glavna sezona'], rows:[ ['Parcela A','38 €','40 €','55 €'],['Parcela B','36 €','38 €','50 €'],['Parcela C','34 €','36 €','48 €'],['Parcela D','32 €','34 €','45 €'] ] },
+        persons: { title:'Osebe in vozila', sub:'Zaračuna se poleg cene parcele, na noč.', note:'Otroci do 5 let brezplačno. Eno vozilo je vključeno v ceno parcele.', cols:['Postavka','Izven sezone','Medsezona','Glavna sezona'], rows:[ ['Odrasli (12+)','6 €','8 €','10 €'],['Otrok (5–12)','5 €','6 €','8 €'],['Otrok do 5 let','brezplačno','brezplačno','brezplačno'],['Dodatni šotor / avto / prikolica / motor','7 €','7 €','7 €'],['Pes','4 €','5 €','6 €'] ] },
+        extras: { title:'Dodatna oprema (najem)', sub:'Za najem na recepciji.', note:'DDV vključen.', cols:['Oprema','Cena'], rows:[ ['Pralni stroj','8 €'],['Sušilni stroj','8 €'],['Hladilnik (predal s ključavnico)','4 €'] ] },
+        tax: { title:'Turistična taksa', sub:'Na osebo, na dan. Ni vključena v ceno parcele.', note:'', cols:['Oseba','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Oseba 18+','1,70 €','1,10 €'],['Oseba 12–18','0,85 €','0,55 €'],['Otrok 0–12','0,00 €','0,00 €'] ] },
+        included: { title:'Vključeno v ceno', items:['Elektrika vključena v ceno parcele','Tople prhe in sanitarije','Brezplačni Wi-Fi po vsem kampu','Eno vozilo na parcelo','Dostop do plaže ob kampu'] },
+        good: { title:'Dobro je vedeti', items:['DDV je vključen v cene','Turistična taksa se plača ločeno','Enkratna prijava 2 € na rezervacijo','Otroci do 5 let brezplačno','Psi dobrodošli — 4–6 € / noč'] },
         reserveBtn:'Pošlji povpraševanje za rezervacijo'
       },
       map: {
@@ -1353,11 +1357,12 @@ class Component extends DCLogic {
       },
       hero: { photo:'[ Hero fotografija, zaliv v zlati uri ]', eyebrow:'Lovište · Polotok Pelješac · Hrvaška', title:'Zbudite se ob morju.', sub:'Majhen družinski kamp, skrit med oljkami in bori, na samem robu mirnega zaliva Lovište, stran od gneče, le korak od morja.', primary:'Povpraševanje', secondary:'Razišči kamp' },
       stats: [ {num:'1998',label:'Družinski od'}, {num:'40',label:'Parcel in hišic'}, {num:'3 ha',label:'Zelenja ob morju'}, {num:'30 m',label:'Do plaže'} ],
-      intro: { eyebrow:'Dobrodošli', title:'Miren kotiček Jadrana, ki ga ena družina vodi že več kot dvajset let.', body:'Camping Lovište Paradise ni velik resort in to si tudi ne želi biti. Je terasast oljčni nasad, ki se spušča do kristalno čistega morja, s senčnimi parcelami, mobilnimi hišicami in glamping šotori. Dovolj blizu, da slišite valove, dovolj daleč od vsega drugega.' },
-      acc: { eyebrow:'Nastanitev', title:'Poiščite svoj kotiček', sub:'Od popolnoma opremljenih mobilnih hišic do senčnih parcel ob morju, vsaka enota ima svoj značaj.', cta:'Povpraševanje', items: [
-        { name:'Mobilna hišica', guests:'4–5 oseb · 35 m²', price:'od 95 €/noč', tag:'Najbolj priljubljeno', img:'[ Mobilna hišica ]', amenities:['Klima','Kopalnica','Pokrita terasa','Kuhinja'] },
-        { name:'Parcela ob morju', guests:'do 6 oseb · 90 m²', price:'od 32 €/noč', tag:'', img:'[ Parcela ob morju ]', amenities:['Elektrika','Naravna senca','30 m do morja','Wi-Fi'] },
-        { name:'Glamping šotor', guests:'2–3 osebe', price:'od 70 €/noč', tag:'', img:'[ Glamping šotor ]', amenities:['Prava postelja','Zasebna terasa','Pogled na morje'] } ] },
+      intro: { eyebrow:'Dobrodošli', title:'Miren kotiček Jadrana, ki ga ena družina vodi že več kot dvajset let.', body:'Camping Lovište Paradise ni velik resort in to si tudi ne želi biti. Je terasast oljčni nasad, ki se spušča do kristalno čistega morja, s senčnimi parcelami — od prve vrste ob morju do mirnih kotičkov v zelenju. Dovolj blizu, da slišite valove, dovolj daleč od vsega drugega.' },
+      acc: { eyebrow:'Nastanitev', title:'Poiščite svoj kotiček', sub:'Iste udobne parcele v štirih kategorijah — A, B, C in D — ki se razlikujejo predvsem po legi in pogledu na morje.', cta:'Povpraševanje', items: [
+        { name:'Parcela A — ob morju', guests:'do 6 oseb', price:'od 38 €/noč', tag:'Prva vrsta', img:'[ Parcela A · ob morju ]', amenities:['Elektrika vklj.','Prva vrsta ob morju','Naravna senca','Wi-Fi'] },
+        { name:'Parcela B — blizu morja', guests:'do 6 oseb', price:'od 36 €/noč', tag:'', img:'[ Parcela B · blizu morja ]', amenities:['Elektrika vklj.','Pogled na morje','Blizu plaže','Wi-Fi'] },
+        { name:'Parcela C — srednje terase', guests:'do 6 oseb', price:'od 34 €/noč', tag:'', img:'[ Parcela C · srednje terase ]', amenities:['Elektrika vklj.','Delna senca','Mirna lega','Wi-Fi'] },
+        { name:'Parcela D — v senci oljk', guests:'do 6 oseb', price:'od 32 €/noč', tag:'Ugodno', img:'[ Parcela D · oljčnik ]', amenities:['Elektrika vklj.','Gosta senca oljk','Parkiranje ob parceli','Wi-Fi'] } ] },
       fac: { eyebrow:'Oprema', title:'Vse, kar potrebujete, in nič odvečnega', items: [
         { name:'Sodobne sanitarije', desc:'Čiste, prostorne sanitarije s toplo vodo ves dan.' },
         { name:'Brezplačni Wi-Fi', desc:'Pokriva celoten kamp, dovolj hiter za delo.' },
@@ -1384,8 +1389,8 @@ class Component extends DCLogic {
       about: {
         hero: { eyebrow:'O kampu', title:'Miren kamp nad zalivom.', sub:'Terasast oljčni nasad na robu Lovišta, skozi leta oblikovan v miren kamp ob morju.' },
         story: { title:'O kampu', img:'[ Terase kampa nad morjem ]', paras:[
-          'Camping Lovište Paradise leži na blagem pobočju oljk, ki se spušča do bistrega morja zaliva Lovište. Terasasta razporeditev pomeni, da ima skoraj vsaka parcela in mobilna hišica svojo senco, zasebnost in pogled na morje.',
-          'Kamp se razprostira na približno treh hektarih zelenja, z mobilnimi hišicami, glamping šotori in parcelami ob morju med oljkami in bori. Prodnata plaža je le trideset metrov od najnižje terase.',
+          'Camping Lovište Paradise leži na blagem pobočju oljk, ki se spušča do bistrega morja zaliva Lovište. Terasasta razporeditev pomeni, da ima skoraj vsaka parcela svojo senco, zasebnost in pogled na morje.',
+          'Kamp se razprostira na približno treh hektarih zelenja, s terasastimi parcelami med oljkami in bori — od prve vrste ob morju do mirnih kotičkov v senci oljk. Prodnata plaža je le trideset metrov od najnižje terase.',
           'Sodobne sanitarije, brezplačni Wi-Fi po vsem kampu, parkirno mesto ob vsaki parceli in plaža tik pred vrati poskrbijo, da je vse preprosto — majhen, urejen kamp za počasne dni ob morju.'
         ] },
         diff: { title:'Kaj nas dela drugačne', items:[
@@ -1536,7 +1541,7 @@ class Component extends DCLogic {
     const navDef = [
       { key:'home', label:t.nav.home }, { key:'about', label:t.nav.about },
       { key:'accommodations', label:t.nav.accommodations }, { key:'activities', label:t.nav.activities },
-      { key:'pricing', label:t.nav.pricing }, { key:'map', label:t.nav.map },
+      { key:'pricing', label:t.nav.pricing },
       { key:'request', label:t.nav.request }, { key:'contact', label:t.nav.contact }
     ];
     const linkBase = 'font-size:14.5px;font-weight:600;padding:9px 14px;border-radius:999px;white-space:nowrap;transition:background .2s,color .2s;';
@@ -1579,45 +1584,45 @@ class Component extends DCLogic {
       dir: i % 2 === 1 ? 'flex-direction:row-reverse;' : ''
     }));
 
-    const mhNums = [
-      ['01/04 – 25/05','95 €','70 €'],
-      ['25/05 – 22/06','120 €','90 €'],
-      ['22/06 – 06/07','150 €','110 €'],
-      ['06/07 – 24/08','190 €','140 €'],
-      ['24/08 – 07/09','150 €','110 €'],
-      ['07/09 – 31/10','100 €','75 €']
-    ];
-    const mobileRates = mhNums.map((r, i) => ({ period:r[0], c1:r[1], c2:r[2], rowBg: i % 2 ? 'background:#ffffff;' : 'background:#fff;' }));
-    const campRates = ((t.pricing && t.pricing.camp.rows) || []).map((r, i) => ({ item:r[0], low:r[1], high:r[2], rowBg: i % 2 ? 'background:#ffffff;' : 'background:#fff;' }));
     const includedItems = ((t.pricing && t.pricing.included.items) || []).map((x) => ({ text:x, iconEl: this.icon('check', 16) }));
     const goodItems = ((t.pricing && t.pricing.good.items) || []).map((x) => ({ text:x, iconEl: this.icon('check', 16) }));
-    const mapBullets = (t.map && t.map.bullets) || [];
     const mapPinEl = this.icon('pin', 30);
     const eventsUrl = 'https://visitorebic-croatia.hr';
     const sbOpen = this.state.sidebarOpen;
     const shellShift = (!this.state.isMobile ? ('margin-left:' + (sbOpen ? '272px' : '0') + ';transition:margin-left .3s ease;') : '') + 'min-height:100vh;display:flex;flex-direction:column;';
     const asideShift = sbOpen ? 'transform:translateX(0);' : 'transform:translateX(-100%);';
 
-    const ap = t.accPage || { toggle:{}, mh:{}, camping:{} };
-    const accCat = this.state.accTab === 'camping' ? (ap.camping || {}) : (ap.mh || {});
-    const accCards = (accCat.cards || []).map((c) => ({ name:c.name, img:c.img, desc:c.desc, specs: (c.specs || []).map((s) => ({ text:s, iconEl: this.icon('check', 15) })) }));
-    const segBase = 'font-family:\'Plus Jakarta Sans\',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;padding:11px 24px;border-radius:999px;transition:background .2s,color .2s;';
-    const accTabs = [ { key:'mh', label:(ap.toggle||{}).mh }, { key:'camping', label:(ap.toggle||{}).camping } ].map((tb) => ({
-      label: tb.label,
-      onClick: () => this.setState({ accTab: tb.key }),
-      style: segBase + (this.state.accTab === tb.key ? 'background:#2E7CB8;color:#fff;' : 'background:transparent;color:#114B7C;')
+    const ap = t.accPage || {};
+    const tierSpecIcons = ['navigation','waves','tree','check'];
+    const accTiers = (ap.tiers || []).map((c) => ({
+      tier:c.tier, name:c.name, img:c.img, desc:c.desc, price:c.price,
+      specs: (c.specs || []).map((s, i) => ({ text:s, iconEl: this.icon(tierSpecIcons[i % tierSpecIcons.length], 16) }))
     }));
+    const sharedFacIcons = ['droplet','wifi','waves','parking','basket','paw','house','zap'];
+    const sharedFacilities = (ap.facilities || []).map((x, i) => ({ text:x, iconEl: this.icon(sharedFacIcons[i % sharedFacIcons.length], 18) }));
+    const segBase = 'font-family:\'Plus Jakarta Sans\',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;padding:11px 24px;border-radius:999px;transition:background .2s,color .2s;';
 
-    const pricing = t.pricing || { mh:{}, camp:{} };
-    const ptIsMh = this.state.priceTab !== 'camping';
-    const ptCat = ptIsMh ? (pricing.mh || {}) : (pricing.camp || {});
-    const ptCol0 = ptIsMh ? ptCat.cPeriod : ptCat.cItem;
-    const ptCol1 = ptIsMh ? ptCat.c1 : ptCat.cLow;
-    const ptCol2 = ptIsMh ? ptCat.c2 : ptCat.cHigh;
-    const ptRaw = ptIsMh ? mobileRates.map((r) => [r.period, r.c1, r.c2]) : campRates.map((r) => [r.item, r.low, r.high]);
-    const ptRows = ptRaw.map((r, i) => ({ c0:r[0], c1:r[1], c2:r[2], col1:ptCol1, col2:ptCol2, rowBg: i % 2 ? 'background:#f4f9fd;' : 'background:#ffffff;' }));
-    const priceTable = { title:ptCat.title, sub:ptCat.sub, note:ptCat.note, col0:ptCol0, col1:ptCol1, col2:ptCol2, rows:ptRows };
-    const priceTabs = [ { key:'mh', label:(ap.toggle||{}).mh }, { key:'camping', label:(ap.toggle||{}).camping } ].map((tb) => ({
+    // Pricing tables are column-count agnostic: cols[0] is the row-label column,
+    // cols[1..] are value columns. Handles 4-col season tables, the 3-col tax
+    // table and the 2-col extras table with one code path.
+    const pr = t.pricing || {};
+    const mkTable = (src) => {
+      const s = src || {};
+      const cols = s.cols || [];
+      const heads = cols.slice(1);
+      const grid = cols.map((c, i) => (i === 0 ? '1.6fr' : '1fr')).join(' ');
+      const rows = (s.rows || []).map((r, i) => ({
+        label: r[0],
+        cells: heads.map((h, j) => ({ header: h, value: r[j + 1] })),
+        grid,
+        rowBg: i % 2 ? 'background:#f4f9fd;' : 'background:#ffffff;'
+      }));
+      return { title:s.title, sub:s.sub, note:s.note, col0: cols[0], heads, grid, rows };
+    };
+    const priceTables = this.state.priceTab === 'extras'
+      ? [mkTable(pr.extras), mkTable(pr.tax)]
+      : [mkTable(pr.tiers), mkTable(pr.persons)];
+    const priceTabs = [ { key:'core', label:(pr.tabs||{}).core }, { key:'extras', label:(pr.tabs||{}).extras } ].map((tb) => ({
       label: tb.label,
       onClick: () => this.setState({ priceTab: tb.key }),
       style: segBase + (this.state.priceTab === tb.key ? 'background:#2E7CB8;color:#fff;' : 'background:transparent;color:#114B7C;')
@@ -1660,7 +1665,7 @@ class Component extends DCLogic {
 
     return {
       t, page,
-      isHome: page === 'home', isAbout: page === 'about', isAccommodations: page === 'accommodations', isActivities: page === 'activities', isPricing: page === 'pricing', isMap: page === 'map', isRequest: page === 'request', isContact: page === 'contact',
+      isHome: page === 'home', isAbout: page === 'about', isAccommodations: page === 'accommodations', isActivities: page === 'activities', isPricing: page === 'pricing', isRequest: page === 'request', isContact: page === 'contact',
       showReopen: (!this.state.isMobile && !this.state.sidebarOpen), asideShift,
       mobile: this.state.isMobile, desktop: !this.state.isMobile,
       topbarShift: this.state.topbarHidden ? 'transform:translateY(-100%);' : 'transform:translateY(0);',
@@ -1668,7 +1673,7 @@ class Component extends DCLogic {
       toggleMobile: () => this.setState({ mobileOpen: !this.state.mobileOpen }),
       goHome: () => this.go('home'), goAbout: () => this.go('about'),
       goAccommodations: () => this.go('accommodations'), goActivities: () => this.go('activities'),
-      goPricing: () => this.go('pricing'), goMap: () => this.go('map'), goRequest: () => this.go('request'),
+      goPricing: () => this.go('pricing'), goRequest: () => this.go('request'),
       goContact: () => this.go('contact'),
       toggleSidebar: () => this.setState({ sidebarOpen: !this.state.sidebarOpen }),
       scrollAcc: () => { try { this.accEl && this.accEl.scrollIntoView({ behavior:'smooth', block:'start' }); } catch(e){} },
@@ -1677,8 +1682,8 @@ class Component extends DCLogic {
       toggleLang: () => this.setState({ langOpen: !this.state.langOpen }),
       closeLang: () => this.setState({ langOpen: false }),
       navItems, accommodations, facilities, things, contactInfo, distances, mailHref,
-      priceTable, priceTabs, includedItems, goodItems, mapBullets, mapPinEl, eventsUrl, shellShift,
-      accCat, accCards, accTabs, activitiesItems,
+      priceTables, priceTabs, includedItems, goodItems, mapPinEl, eventsUrl, shellShift,
+      accTiers, sharedFacilities, activitiesItems,
       accommodationOptions, vehicleOptions, lengthOptions, yesnoOptions, countryOptions, successCheck,
       submitted: this.state.submitted, notSubmitted: !this.state.submitted,
       form: f,

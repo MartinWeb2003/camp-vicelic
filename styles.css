@@ -1,0 +1,17 @@
+/* Vicelić Camping — global styles (extracted from the DC helmet block).
+   Component-level styling is inline in index.html; this file holds the
+   global resets, base element rules and keyframes. */
+
+*{box-sizing:border-box;scrollbar-width:none;-ms-overflow-style:none;}
+*::-webkit-scrollbar{width:0;height:0;display:none;}
+html{scroll-behavior:smooth;}
+html,body{overflow-x:hidden;max-width:100%;}
+body{margin:0;background:#ffffff;color:#1A1A1A;font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+::selection{background:#5BB0DE;color:#fff;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
+input,textarea,select{font-family:inherit;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;}
+h1,h2,h3,h4,p,span,a,button{overflow-wrap:break-word;word-break:break-word;}
+@keyframes vcFadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+@keyframes vcSlideDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
