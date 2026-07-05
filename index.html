@@ -116,9 +116,16 @@
       <!-- HERO -->
       <section style="position:relative;min-height:clamp(580px,90vh,900px);display:flex;align-items:flex-end;overflow:hidden;">
         <div style="position:absolute;inset:0;background:linear-gradient(135deg,#114B7C,#2E7CB8 55%,#0E3C61);"></div>
+        <sc-if value="{{ heroHasVideo }}" hint-placeholder-val="{{ false }}">
+          <video ref="{{ muteRef }}" autoPlay loop playsInline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+            <source src="{{ heroVideo }}" type="video/mp4" />
+          </video>
+        </sc-if>
         <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,0.035),rgba(255,255,255,0.035) 16px,transparent 16px,transparent 34px);"></div>
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(8,28,45,0.78) 0%,rgba(8,28,45,0.15) 45%,rgba(8,28,45,0.35) 100%);"></div>
-        <div style="position:absolute;top:18px;right:20px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.08em;color:rgba(255,255,255,0.55);background:rgba(0,0,0,0.18);padding:6px 12px;border-radius:999px;text-transform:uppercase;">{{ t.hero.photo }}</div>
+        <sc-if value="{{ heroNoVideo }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;top:18px;right:20px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.08em;color:rgba(255,255,255,0.55);background:rgba(0,0,0,0.18);padding:6px 12px;border-radius:999px;text-transform:uppercase;">{{ t.hero.photo }}</div>
+        </sc-if>
         <div style="position:relative;z-index:2;max-width:1240px;width:100%;margin:0 auto;padding:0 clamp(20px,5vw,40px) clamp(54px,7vw,92px);">
           <div style="max-width:760px;" data-reveal>
             <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:#fff;font-size:clamp(42px,7vw,82px);line-height:1.02;letter-spacing:-0.025em;margin:0 0 22px;">{{ t.hero.title }}</h1>
@@ -131,9 +138,16 @@
         </div>
       </section>
 
-      <!-- IMAGE BAND -->
-      <section data-reveal="scale" style="position:relative;height:clamp(300px,46vw,540px);background:repeating-linear-gradient(135deg,#cde0ef,#cde0ef 16px,#dde9f4 16px,#dde9f4 32px);display:flex;align-items:flex-end;">
-        <span style="font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#5c6f7e;text-transform:uppercase;background:rgba(255,255,255,0.72);padding:7px 14px;margin:22px;">[ Panorama · kamp &amp; more ]</span>
+      <!-- IMAGE / DRONE PANORAMA BAND -->
+      <section data-reveal="scale" style="position:relative;height:clamp(300px,46vw,540px);background:repeating-linear-gradient(135deg,#cde0ef,#cde0ef 16px,#dde9f4 16px,#dde9f4 32px);display:flex;align-items:flex-end;overflow:hidden;">
+        <sc-if value="{{ panoramaHasVideo }}" hint-placeholder-val="{{ false }}">
+          <video ref="{{ muteRef }}" autoPlay loop playsInline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+            <source src="{{ panoramaVideo }}" type="video/mp4" />
+          </video>
+        </sc-if>
+        <sc-if value="{{ panoramaNoVideo }}" hint-placeholder-val="{{ true }}">
+          <span style="position:relative;font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#5c6f7e;text-transform:uppercase;background:rgba(255,255,255,0.72);padding:7px 14px;margin:22px;">[ Panorama · kamp &amp; more ]</span>
+        </sc-if>
       </section>
 
       <!-- INTRO -->
@@ -439,10 +453,19 @@
                     <p style="font-size:15.5px;line-height:1.7;color:#6B7280;margin:0;text-wrap:pretty;">{{ p }}</p>
                   </sc-for>
                 </div>
-                <sc-if value="{{ a.video }}" hint-placeholder-val="{{ false }}">
-                  <div style="position:relative;margin-top:20px;height:clamp(180px,22vw,240px);background:repeating-linear-gradient(135deg,#cfe1ef,#cfe1ef 14px,#deebf5 14px,#deebf5 28px);display:flex;align-items:center;justify-content:center;border-radius:0;">
-                    <span style="width:54px;height:54px;border-radius:50%;background:rgba(17,75,124,0.85);color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;padding-left:4px;">▶</span>
-                    <span style="position:absolute;bottom:12px;left:12px;font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:0.06em;color:#5d6f7e;text-transform:uppercase;background:rgba(255,255,255,0.72);padding:5px 10px;">{{ a.videoLabel }}</span>
+                <sc-if value="{{ a.showVideo }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:20px;">
+                    <sc-if value="{{ a.isPlaying }}" hint-placeholder-val="{{ false }}">
+                      <div style="position:relative;width:100%;padding-top:56.25%;background:#000;">
+                        <iframe src="{{ a.embedSrc }}" title="{{ a.name }}" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowFullScreen="allowfullscreen" style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ a.showFacade }}" hint-placeholder-val="{{ true }}">
+                      <button onClick="{{ a.onPlay }}" aria-label="{{ a.name }}" style="position:relative;display:block;width:100%;height:clamp(180px,22vw,240px);background:repeating-linear-gradient(135deg,#cfe1ef,#cfe1ef 14px,#deebf5 14px,#deebf5 28px);cursor:{{ a.cursor }};" style-hover="filter:brightness(0.97);">
+                        <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:rgba(17,75,124,0.85);color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;padding-left:4px;">▶</span>
+                        <span style="position:absolute;bottom:12px;left:12px;font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:0.06em;color:#5d6f7e;text-transform:uppercase;background:rgba(255,255,255,0.72);padding:5px 10px;">{{ a.videoLabel }}</span>
+                      </button>
+                    </sc-if>
                   </div>
                 </sc-if>
                 <sc-if value="{{ a.hasThumbs }}" hint-placeholder-val="{{ false }}">
@@ -813,6 +836,7 @@ class Component extends DCLogic {
     langOpen: false,
     sidebarOpen: true,
     priceTab: 'core',
+    playingVideo: null,
     topbarHidden: false,
     isMobile: (typeof window !== 'undefined' && window.innerWidth < 1024),
     faqOpen: 0,
@@ -827,35 +851,35 @@ class Component extends DCLogic {
       accPage: {
         overview:'Kamp parcele', viewPrices:'Pogledaj cijene', learnMore:'Pošalji upit',
         title:'Parcele u kampu',
-        sub:'Iste udobne parcele u četiri kategorije — A, B, C i D — koje se razlikuju uglavnom po položaju i pogledu. Od prvog reda uz more do svježeg hlada maslinika.',
+        sub:'Iste udobne parcele u četiri kategorije, A, B, C i D, koje se razlikuju uglavnom po položaju i pogledu. Od prvog reda uz more do svježeg hlada maslinika.',
         facTitle:'Sve parcele uključuju',
         tiers:[
-          { tier:'A', name:'Parcela A — uz more', img:'[ Parcela A · prvi red ]', desc:'Najbolji položaj, u prvom redu uz samo more — probudite se uz šum valova.', price:'od 38 €/noć', specs:['Do 6 osoba','Prvi red uz more','Struja uključena','Prirodna sjena'] },
-          { tier:'B', name:'Parcela B — blizu mora', img:'[ Parcela B · blizu mora ]', desc:'Nekoliko koraka dalje od obale, s otvorenim pogledom na uvalu.', price:'od 36 €/noć', specs:['Do 6 osoba','Pogled na more','Struja uključena','Blizu plaže'] },
-          { tier:'C', name:'Parcela C — srednje terase', img:'[ Parcela C · srednje terase ]', desc:'Mirne srednje terase u ugodnom hladu, na kratkoj šetnji do mora.', price:'od 34 €/noć', specs:['Do 6 osoba','Djelomičan hlad','Struja uključena','Mirna lokacija'] },
-          { tier:'D', name:'Parcela D — u hladu maslinika', img:'[ Parcela D · maslinik ]', desc:'Gornje terase u gustom hladu maslina — najsvježije i najpovoljnije mjesto.', price:'od 32 €/noć', specs:['Do 6 osoba','Gust prirodni hlad','Struja uključena','Parking uz parcelu'] }
+          { tier:'A', name:'Parcela A, uz more', img:'[ Parcela A · prvi red ]', desc:'Najbolji položaj, u prvom redu uz samo more, probudite se uz šum valova.', price:'od 38 €/noć', specs:['Do 6 osoba','Prvi red uz more','Struja uključena','Prirodna sjena'] },
+          { tier:'B', name:'Parcela B, blizu mora', img:'[ Parcela B · blizu mora ]', desc:'Nekoliko koraka dalje od obale, s otvorenim pogledom na uvalu.', price:'od 36 €/noć', specs:['Do 6 osoba','Pogled na more','Struja uključena','Blizu plaže'] },
+          { tier:'C', name:'Parcela C, srednje terase', img:'[ Parcela C · srednje terase ]', desc:'Mirne srednje terase u ugodnom hladu, na kratkoj šetnji do mora.', price:'od 34 €/noć', specs:['Do 6 osoba','Djelomičan hlad','Struja uključena','Mirna lokacija'] },
+          { tier:'D', name:'Parcela D, u hladu maslinika', img:'[ Parcela D · maslinik ]', desc:'Gornje terase u gustom hladu maslina, najsvježije i najpovoljnije mjesto.', price:'od 32 €/noć', specs:['Do 6 osoba','Gust prirodni hlad','Struja uključena','Parking uz parcelu'] }
         ],
         facilities:['Moderne sanitarije s toplom vodom 0–24','Besplatni Wi-Fi u cijelom kampu','Struja uključena u cijenu parcele','Jedno vozilo po parceli','Pristup plaži uz kamp','Točionik pitke vode u blizini','Ljubimci dobrodošli','Supermarket u Lovištu na par minuta'],
         extrasTitle:'Dodatna oprema po želji',
-        extrasSub:'Sve parcele dijele istu opremu kampa. Uz malu doplatu možete unajmiti hladnjak s pretincem na ključ, perilicu ili sušilicu rublja — pogledajte cjenik za detalje.',
+        extrasSub:'Sve parcele dijele istu opremu kampa. Uz malu doplatu možete unajmiti hladnjak s pretincem na ključ, perilicu ili sušilicu rublja, pogledajte cjenik za detalje.',
         extrasChips:['Hladnjak (s ključem)','Perilica rublja','Sušilica rublja']
       },
       activities: {
         hero: { sub:'Obilje sadržaja u kampu i oko njega', title:'Aktivnosti u kampu Lovište Paradise', intro:'Kad je riječ o odmoru na otvorenom, kampiranje u kampu Lovište Paradise doista nudi sve.' },
         enlarge:'Kliknite na slike za povećanje', videoLabel:'[ Video kampa ]',
         items:[
-          { name:'Plaža', img:'[ Plaža i uvala iz zraka ]', video:true, thumbs:5, paras:['Svi zamišljamo savršenu plažu — bistro more, blagi valovi i prekrasan okoliš. Šljunčana plaža ispod kampa ima sve troje, s mirnim i toplim morem uvale Lovište na korak od vaše parcele.','Plivajte, ronite na dah ili probajte SUP i kajak, pa se osušite na suncu. Ovo je jedan od najmirnijih i najbistrijih dijelova obale na Pelješcu.'] },
-          { name:'Restoran i gastronomija', img:'[ Konoba s terasom uz more ]', thumbs:0, paras:['Gastronomija je velik dio ovog kraja. Konobe Lovišta nude prepoznatljiva dalmatinska jela — svježu ribu, školjke iz Malostonskog zaljeva i meso ispod peke, uz domaće maslinovo ulje i mediteransko povrće.','Sve to uz cijenjene pelješke crnjake, Plavac i Dingač, ili svjež Pošip sa susjedne Korčule.'] },
-          { name:'Beach bar', img:'[ Beach bar uz plažu ]', thumbs:0, paras:['Beach bar je mjesto za usporiti — popijte hladno piće s društvom, prigrizite nešto tijekom dana na plaži ili uživajte u popodnevnoj kavi u hladu uz prekrasan pogled na more.','U mirnim večerima bar je prirodno okupljalište za smijeh i kamperske priče dok sunce zalazi.'] },
-          { name:'Opuštanje uz bazen', img:'[ Bazen / ležaljke ]', thumbs:1, paras:['Ponekad je najbolja aktivnost — nikakva. Smjestite se u hlad maslinovih terasa s knjigom, slušajte cvrčke i pustite da dan teče.','Ležaljke, mirni kutci i zelenilo po cijelom kampu pružaju svakom uzrastu mjesto za predah.'] },
+          { name:'Plaža', img:'[ Plaža i uvala iz zraka ]', video:true, thumbs:5, paras:['Svi zamišljamo savršenu plažu, bistro more, blagi valovi i prekrasan okoliš. Šljunčana plaža ispod kampa ima sve troje, s mirnim i toplim morem uvale Lovište na korak od vaše parcele.','Plivajte, ronite na dah ili probajte SUP i kajak, pa se osušite na suncu. Ovo je jedan od najmirnijih i najbistrijih dijelova obale na Pelješcu.'] },
+          { name:'Restoran i gastronomija', img:'[ Konoba s terasom uz more ]', thumbs:0, paras:['Gastronomija je velik dio ovog kraja. Konobe Lovišta nude prepoznatljiva dalmatinska jela, svježu ribu, školjke iz Malostonskog zaljeva i meso ispod peke, uz domaće maslinovo ulje i mediteransko povrće.','Sve to uz cijenjene pelješke crnjake, Plavac i Dingač, ili svjež Pošip sa susjedne Korčule.'] },
+          { name:'Beach bar', img:'[ Beach bar uz plažu ]', thumbs:0, paras:['Beach bar je mjesto za usporiti, popijte hladno piće s društvom, prigrizite nešto tijekom dana na plaži ili uživajte u popodnevnoj kavi u hladu uz prekrasan pogled na more.','U mirnim večerima bar je prirodno okupljalište za smijeh i kamperske priče dok sunce zalazi.'] },
+          { name:'Opuštanje uz bazen', img:'[ Bazen / ležaljke ]', thumbs:1, paras:['Ponekad je najbolja aktivnost, nikakva. Smjestite se u hlad maslinovih terasa s knjigom, slušajte cvrčke i pustite da dan teče.','Ležaljke, mirni kutci i zelenilo po cijelom kampu pružaju svakom uzrastu mjesto za predah.'] },
           { name:'Sport i vodeni sportovi', img:'[ Sportski tereni iz zraka ]', thumbs:5, paras:['Aktivni gosti neće se dosađivati. Ima prostora za nogomet, odbojku i stolni tenis, a mirna uvala idealna je za SUP, kajak i jedrenje na dasci.','Iznajmite kajak ili dasku tik uz kamp ili krenite brodom u istraživanje otoka uz pelješki kanal.'] },
-          { name:'Staze i istraživanje', img:'[ Biciklističke staze / vidikovac ]', thumbs:0, paras:['Izvan kampa, biciklističke i pješačke staze vode kroz vinograde i maslinike Pelješca, sve do Orebića i vidikovaca s pogledom na Korčulu.','Izvrsna je baza za izlete — Stonske solane i zidine, vinarije Dingača i trajekt za Korčulu nadohvat su ruke.'] }
+          { name:'Staze i istraživanje', img:'[ Biciklističke staze / vidikovac ]', thumbs:0, paras:['Izvan kampa, biciklističke i pješačke staze vode kroz vinograde i maslinike Pelješca, sve do Orebića i vidikovaca s pogledom na Korčulu.','Izvrsna je baza za izlete, Stonske solane i zidine, vinarije Dingača i trajekt za Korčulu nadohvat su ruke.'] }
         ]
       },
       request: {
         hero: { title:'Pošalji upit', sub:'Recite nam termine, broj gostiju i smještaj. Javljamo se osobno, najčešće isti dan.' },
-        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', accommodation:'Odaberite smještaj', vehicle:'Vrsta vozila', vlength:'Duljina vozila', campingcard:'CampingCard / Predsezona', arrive:'Datum dolaska', depart:'Datum odlaska', country:'Država', phone:'Kontakt broj', phonePh:'+385 …', message:'Vaša poruka', messagePh:'Recite nam sve što nam pomaže pripremiti ponudu…', choose:'— Odaberite opciju —', submit:'Pošalji upit', gdpr:'GDPR — vaši se podaci prikupljaju isključivo za odgovor na ovaj upit i za eVisitor prijavu.' },
-        accOptions:['Parcela A — uz more','Parcela B — blizu mora','Parcela C — srednje terase','Parcela D — u hladu maslinika','Nisam siguran/a'],
+        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', accommodation:'Odaberite smještaj', vehicle:'Vrsta vozila', vlength:'Duljina vozila', campingcard:'CampingCard / Predsezona', arrive:'Datum dolaska', depart:'Datum odlaska', country:'Država', phone:'Kontakt broj', phonePh:'+385 …', message:'Vaša poruka', messagePh:'Recite nam sve što nam pomaže pripremiti ponudu…', choose:'Odaberite opciju', submit:'Pošalji upit', gdpr:'GDPR, vaši se podaci prikupljaju isključivo za odgovor na ovaj upit i za eVisitor prijavu.' },
+        accOptions:['Parcela A, uz more','Parcela B, blizu mora','Parcela C, srednje terase','Parcela D, u hladu maslinika','Nisam siguran/a'],
         vehicleOptions:['Šator','Kamp-kućica','Kamper / autodom','Auto + krovni šator','Bez vozila'],
         lengthOptions:['do 5 m','5–6 m','6–7 m','7–8 m','preko 8 m'],
         yesnoOptions:['Da','Ne'],
@@ -870,12 +894,12 @@ class Component extends DCLogic {
         extras: { title:'Dodatna oprema (najam)', sub:'Za najam na recepciji.', note:'PDV uključen u cijenu.', cols:['Oprema','Cijena'], rows:[ ['Perilica rublja','8 €'],['Sušilica rublja','8 €'],['Hladnjak (pretinac s ključem)','4 €'] ] },
         tax: { title:'Boravišna pristojba', sub:'Po osobi, po danu. Nije uključena u cijenu parcele.', note:'', cols:['Osoba','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Osoba 18+','1,70 €','1,10 €'],['Osoba 12–18','0,85 €','0,55 €'],['Dijete 0–12','0,00 €','0,00 €'] ] },
         included: { title:'Uključeno u cijenu', items:['Struja uključena u cijenu parcele','Topli tuševi i sanitarije','Besplatni Wi-Fi u cijelom kampu','Jedno vozilo po parceli','Pristup plaži uz kamp'] },
-        good: { title:'Dobro je znati', items:['PDV je uključen u cijene','Boravišna pristojba se plaća zasebno','Jednokratna prijava 2 € po rezervaciji','Djeca do 5 godina besplatno','Psi dobrodošli — 4–6 € / noć'] },
+        good: { title:'Dobro je znati', items:['PDV je uključen u cijene','Boravišna pristojba se plaća zasebno','Jednokratna prijava 2 € po rezervaciji','Djeca do 5 godina besplatno','Psi dobrodošli, 4–6 € / noć'] },
         reserveBtn:'Pošalji upit za rezervaciju'
       },
       map: {
         hero: { eyebrow:'Pronađite put', title:'Interaktivna karta kampa', sub:'Istražite raspored kampa, sadržaje i smještaj. Interaktivna karta uskoro stiže.' },
-        intro:'Pripremamo digitalnu kartu kampa kao dio online doživljaja. Za sada je ovaj prostor rezerviran — kad zaživi, moći ćete:',
+        intro:'Pripremamo digitalnu kartu kampa kao dio online doživljaja. Za sada je ovaj prostor rezerviran, kad zaživi, moći ćete:',
         bullets:['Pretraživati sadržaje i smještajne jedinice','Prikazati samo određene sadržaje ili tipove smještaja','Odabrati točnu jedinicu i poslati upit putem obrasca','Promijeniti jezik karte'],
         placeholderTitle:'Interaktivna karta uskoro',
         placeholder:'[ ovdje dolazi karta kampa ]'
@@ -896,18 +920,18 @@ class Component extends DCLogic {
       intro: {
         eyebrow: 'Dobrodošli',
         title: 'Tih kutak Jadrana, vođen jednom obitelji već više od dvadeset godina.',
-        body: 'Camping Lovište Paradise nije veliki resort, i ne želi to biti. To je terasasti maslinik koji se spušta prema kristalnom moru, s parcelama u hladu — od prvog reda uz more do mirnih kutaka u zelenilu. Dovoljno blizu da čujete valove, dovoljno daleko od svega ostalog.'
+        body: 'Camping Lovište Paradise nije veliki resort, i ne želi to biti. To je terasasti maslinik koji se spušta prema kristalnom moru, s parcelama u hladu, od prvog reda uz more do mirnih kutaka u zelenilu. Dovoljno blizu da čujete valove, dovoljno daleko od svega ostalog.'
       },
       acc: {
         eyebrow: 'Smještaj',
         title: 'Pronađite svoj kutak',
-        sub: 'Iste udobne parcele u četiri kategorije — A, B, C i D — koje se razlikuju uglavnom po položaju i pogledu na more.',
+        sub: 'Iste udobne parcele u četiri kategorije, A, B, C i D, koje se razlikuju uglavnom po položaju i pogledu na more.',
         cta: 'Pošalji upit',
         items: [
-          { name:'Parcela A — uz more', guests:'do 6 osoba', price:'od 38 €/noć', tag:'Prvi red', img:'[ Parcela A · uz more ]', amenities:['Struja uključena','Prvi red uz more','Prirodna sjena','Wi-Fi'] },
-          { name:'Parcela B — blizu mora', guests:'do 6 osoba', price:'od 36 €/noć', tag:'', img:'[ Parcela B · blizu mora ]', amenities:['Struja uključena','Pogled na more','Blizu plaže','Wi-Fi'] },
-          { name:'Parcela C — srednje terase', guests:'do 6 osoba', price:'od 34 €/noć', tag:'', img:'[ Parcela C · srednje terase ]', amenities:['Struja uključena','Djelomičan hlad','Mirna lokacija','Wi-Fi'] },
-          { name:'Parcela D — u hladu', guests:'do 6 osoba', price:'od 32 €/noć', tag:'Povoljno', img:'[ Parcela D · maslinik ]', amenities:['Struja uključena','Gusti hlad maslina','Parking uz parcelu','Wi-Fi'] }
+          { name:'Parcela A, uz more', guests:'do 6 osoba', price:'od 38 €/noć', tag:'Prvi red', img:'[ Parcela A · uz more ]', amenities:['Struja uključena','Prvi red uz more','Prirodna sjena','Wi-Fi'] },
+          { name:'Parcela B, blizu mora', guests:'do 6 osoba', price:'od 36 €/noć', tag:'', img:'[ Parcela B · blizu mora ]', amenities:['Struja uključena','Pogled na more','Blizu plaže','Wi-Fi'] },
+          { name:'Parcela C, srednje terase', guests:'do 6 osoba', price:'od 34 €/noć', tag:'', img:'[ Parcela C · srednje terase ]', amenities:['Struja uključena','Djelomičan hlad','Mirna lokacija','Wi-Fi'] },
+          { name:'Parcela D, u hladu', guests:'do 6 osoba', price:'od 32 €/noć', tag:'Povoljno', img:'[ Parcela D · maslinik ]', amenities:['Struja uključena','Gusti hlad maslina','Parking uz parcelu','Wi-Fi'] }
         ]
       },
       fac: {
@@ -958,8 +982,8 @@ class Component extends DCLogic {
         hero: { eyebrow:'O kampu', title:'Tih kamp iznad uvale.', sub:'Terasasti maslinik na rubu Lovišta, godinama oblikovan u miran kamp uz more.' },
         story: { title:'O kampu', img:'[ Terase kampa iznad mora ]', paras:[
           'Camping Lovište Paradise smjestio se na blagoj padini maslina koja se spušta do bistrog mora uvale Lovište. Terasasti raspored znači da gotovo svaka parcela ima vlastiti hlad, privatnost i pogled na more.',
-          'Kamp se prostire na otprilike tri hektara zelenila, s terasastim parcelama isprepletenima među maslinama i borovima — od prvog reda uz more do mirnih kutaka u hladu maslinika. Šljunčana plaža je tridesetak metara od najniže terase.',
-          'Moderne sanitarije, besplatni Wi-Fi po cijelom kampu, parkirno mjesto uz svaku parcelu i plaža na korak čine boravak jednostavnim — mali, uredan kamp stvoren za spore dane uz more.'
+          'Kamp se prostire na otprilike tri hektara zelenila, s terasastim parcelama isprepletenima među maslinama i borovima, od prvog reda uz more do mirnih kutaka u hladu maslinika. Šljunčana plaža je tridesetak metara od najniže terase.',
+          'Moderne sanitarije, besplatni Wi-Fi po cijelom kampu, parkirno mjesto uz svaku parcelu i plaža na korak čine boravak jednostavnim, mali, uredan kamp stvoren za spore dane uz more.'
         ] },
         diff: { title:'Što nas čini drugačijima', items:[
           { no:'01', title:'Mali i tih', body:'Ograničen broj parcela znači mir, prostor i osjećaj da ste gost, a ne broj.' },
@@ -1005,35 +1029,35 @@ class Component extends DCLogic {
       accPage: {
         overview:'Camp pitches', viewPrices:'View prices', learnMore:'Inquire',
         title:'Camping pitches',
-        sub:'The same comfortable pitch in four tiers — A, B, C and D — differing mostly by position and sea view. From the front row by the water to the cool shade of the olive grove.',
+        sub:'The same comfortable pitch in four tiers, A, B, C and D, differing mostly by position and sea view. From the front row by the water to the cool shade of the olive grove.',
         facTitle:'Every pitch includes',
         tiers:[
-          { tier:'A', name:'Pitch A — seafront', img:'[ Pitch A · front row ]', desc:'The best spot, in the front row right by the sea — wake up to the sound of the waves.', price:'from €38/night', specs:['Up to 6 persons','Front row by the sea','Electricity included','Natural shade'] },
-          { tier:'B', name:'Pitch B — near the sea', img:'[ Pitch B · near the sea ]', desc:'A few steps back from the shore, with an open view over the bay.', price:'from €36/night', specs:['Up to 6 persons','Sea view','Electricity included','Close to the beach'] },
-          { tier:'C', name:'Pitch C — mid terraces', img:'[ Pitch C · mid terraces ]', desc:'Quiet mid terraces in pleasant shade, a short walk from the water.', price:'from €34/night', specs:['Up to 6 persons','Partial shade','Electricity included','Quiet location'] },
-          { tier:'D', name:'Pitch D — olive-grove shade', img:'[ Pitch D · olive grove ]', desc:'Upper terraces in the deep shade of the olives — the coolest and best-value spot.', price:'from €32/night', specs:['Up to 6 persons','Deep natural shade','Electricity included','Parking by the pitch'] }
+          { tier:'A', name:'Pitch A, seafront', img:'[ Pitch A · front row ]', desc:'The best spot, in the front row right by the sea, wake up to the sound of the waves.', price:'from €38/night', specs:['Up to 6 persons','Front row by the sea','Electricity included','Natural shade'] },
+          { tier:'B', name:'Pitch B, near the sea', img:'[ Pitch B · near the sea ]', desc:'A few steps back from the shore, with an open view over the bay.', price:'from €36/night', specs:['Up to 6 persons','Sea view','Electricity included','Close to the beach'] },
+          { tier:'C', name:'Pitch C, mid terraces', img:'[ Pitch C · mid terraces ]', desc:'Quiet mid terraces in pleasant shade, a short walk from the water.', price:'from €34/night', specs:['Up to 6 persons','Partial shade','Electricity included','Quiet location'] },
+          { tier:'D', name:'Pitch D, olive-grove shade', img:'[ Pitch D · olive grove ]', desc:'Upper terraces in the deep shade of the olives, the coolest and best-value spot.', price:'from €32/night', specs:['Up to 6 persons','Deep natural shade','Electricity included','Parking by the pitch'] }
         ],
         facilities:['Modern sanitary block, hot water 24/7','Free Wi-Fi across the camp','Electricity included in the pitch price','One vehicle per pitch','Access to the beach by the camp','Drinking-water point nearby','Pet-friendly','Supermarket in Lovište, minutes away'],
         extrasTitle:'Optional extras',
-        extrasSub:'Every pitch shares the same camp facilities. For a small fee you can rent a fridge with a lockable compartment, a washing machine or a dryer — see the price list for details.',
+        extrasSub:'Every pitch shares the same camp facilities. For a small fee you can rent a fridge with a lockable compartment, a washing machine or a dryer, see the price list for details.',
         extrasChips:['Fridge (lockable)','Washing machine','Dryer']
       },
       activities: {
         hero: { sub:'Plenty of things to do in and around the camp', title:'Activities at Camping Lovište Paradise', intro:'When it comes to a holiday in the great outdoors, camping at Lovište Paradise really does have it all.' },
         enlarge:'Click on the images to enlarge', videoLabel:'[ Camp video ]',
         items:[
-          { name:'Beach', img:'[ Beach & bay from above ]', video:true, thumbs:5, paras:['We all picture the perfect beach — crystal-clear water, gentle waves and beautiful surroundings. The pebble beach below the camp has all three, with the calm, warm water of Lovište bay just steps from your pitch.','Swim, snorkel or try paddleboarding and kayaking, then dry off in the sun. It is one of the quietest, clearest stretches of coast on the Pelješac peninsula.'] },
-          { name:'Restaurant & gastronomy', img:'[ Tavern terrace by the sea ]', thumbs:0, paras:['Gastronomy is a big part of this region. The taverns of Lovište serve characteristic Dalmatian dishes — fresh fish, shellfish from the Mali Ston bay and meat slow-cooked under the bell, with local olive oil and Mediterranean vegetables.','Pair it all with the celebrated Pelješac reds, Plavac and Dingač, or a crisp Pošip from neighbouring Korčula.'] },
-          { name:'Beach bar', img:'[ Beach bar by the shore ]', thumbs:0, paras:['The beach bar is the spot to slow down — knock back a cold drink with friends, grab a snack during your beach day, or sip an afternoon coffee in the shade with a stunning sea view.','On calm evenings the bar is the natural gathering point to share a few laughs and camping tales as the sun goes down.'] },
+          { name:'Beach', img:'[ Beach & bay from above ]', video:true, thumbs:5, paras:['We all picture the perfect beach, crystal-clear water, gentle waves and beautiful surroundings. The pebble beach below the camp has all three, with the calm, warm water of Lovište bay just steps from your pitch.','Swim, snorkel or try paddleboarding and kayaking, then dry off in the sun. It is one of the quietest, clearest stretches of coast on the Pelješac peninsula.'] },
+          { name:'Restaurant & gastronomy', img:'[ Tavern terrace by the sea ]', thumbs:0, paras:['Gastronomy is a big part of this region. The taverns of Lovište serve characteristic Dalmatian dishes, fresh fish, shellfish from the Mali Ston bay and meat slow-cooked under the bell, with local olive oil and Mediterranean vegetables.','Pair it all with the celebrated Pelješac reds, Plavac and Dingač, or a crisp Pošip from neighbouring Korčula.'] },
+          { name:'Beach bar', img:'[ Beach bar by the shore ]', thumbs:0, paras:['The beach bar is the spot to slow down, knock back a cold drink with friends, grab a snack during your beach day, or sip an afternoon coffee in the shade with a stunning sea view.','On calm evenings the bar is the natural gathering point to share a few laughs and camping tales as the sun goes down.'] },
           { name:'Poolside & relaxing', img:'[ Pool / loungers ]', thumbs:1, paras:['Sometimes the best activity is none at all. Settle into the shade of the olive terraces with a book, listen to the cicadas and let the day drift by.','Loungers, quiet corners and greenery throughout the camp give every age a place to unwind.'] },
           { name:'Sports & watersports', img:'[ Sports courts from above ]', thumbs:5, paras:['Active guests will not be bored. There is space for football, volleyball and table tennis, and the flat bay is ideal for paddleboarding, kayaking and windsurfing.','Rent a kayak or SUP right by the camp, or hop on a boat for an island-hopping adventure along the Pelješac channel.'] },
-          { name:'Trails & exploring', img:'[ Cycling trail / viewpoint ]', thumbs:0, paras:['Beyond the camp, cycling and walking trails wind through the vineyards and olive groves of Pelješac, all the way to Orebić and viewpoints overlooking Korčula.','It is a great base for day trips — the salt pans and walls of Ston, the wineries of Dingač, and the ferry to Korčula are all within easy reach.'] }
+          { name:'Trails & exploring', img:'[ Cycling trail / viewpoint ]', thumbs:0, paras:['Beyond the camp, cycling and walking trails wind through the vineyards and olive groves of Pelješac, all the way to Orebić and viewpoints overlooking Korčula.','It is a great base for day trips, the salt pans and walls of Ston, the wineries of Dingač, and the ferry to Korčula are all within easy reach.'] }
         ]
       },
       request: {
         hero: { title:'Send a request', sub:'Tell us your dates, party and accommodation. We reply personally, usually the same day.' },
-        f: { name:'Your name', namePh:'Your name', email:'E-mail', emailPh:'you@example.com', accommodation:'Choose accommodation', vehicle:'Vehicle type', vlength:'Length of the vehicle', campingcard:'CampingCard / Low season', arrive:'Date of arrival', depart:'Date of departure', country:'Country', phone:'Contact number', phonePh:'+385 …', message:'Your message', messagePh:'Tell us anything that helps us prepare your offer…', choose:'— Please choose an option —', submit:'Send request', gdpr:'GDPR — your details are collected only to answer this request and for eVisitor registration.' },
-        accOptions:['Pitch A — seafront','Pitch B — near the sea','Pitch C — mid terraces','Pitch D — olive-grove shade','Not sure yet'],
+        f: { name:'Your name', namePh:'Your name', email:'E-mail', emailPh:'you@example.com', accommodation:'Choose accommodation', vehicle:'Vehicle type', vlength:'Length of the vehicle', campingcard:'CampingCard / Low season', arrive:'Date of arrival', depart:'Date of departure', country:'Country', phone:'Contact number', phonePh:'+385 …', message:'Your message', messagePh:'Tell us anything that helps us prepare your offer…', choose:'Please choose an option', submit:'Send request', gdpr:'GDPR, your details are collected only to answer this request and for eVisitor registration.' },
+        accOptions:['Pitch A, seafront','Pitch B, near the sea','Pitch C, mid terraces','Pitch D, olive-grove shade','Not sure yet'],
         vehicleOptions:['Tent','Caravan','Camper / motorhome','Car + roof tent','None'],
         lengthOptions:['up to 5 m','5–6 m','6–7 m','7–8 m','over 8 m'],
         yesnoOptions:['Yes','No'],
@@ -1048,12 +1072,12 @@ class Component extends DCLogic {
         extras: { title:'Optional extras (rental)', sub:'Available to rent at reception.', note:'VAT included.', cols:['Item','Price'], rows:[ ['Washing machine','8 €'],['Dryer','8 €'],['Fridge (lockable compartment)','4 €'] ] },
         tax: { title:'Tourist tax', sub:'Per person, per day. Not included in the pitch price.', note:'', cols:['Person','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Person 18+','1,70 €','1,10 €'],['Person 12–18','0,85 €','0,55 €'],['Child 0–12','0,00 €','0,00 €'] ] },
         included: { title:'Included in the price', items:['Electricity included in the pitch price','Hot showers & sanitary facilities','Free Wi-Fi across the camp','One vehicle per pitch','Access to the beach by the camp'] },
-        good: { title:'Good to know', items:['VAT is included in the prices','Tourist tax is charged separately','One-time registration €2 per booking','Children under 5 stay free','Dogs welcome — €4–6 / night'] },
+        good: { title:'Good to know', items:['VAT is included in the prices','Tourist tax is charged separately','One-time registration €2 per booking','Children under 5 stay free','Dogs welcome, €4–6 / night'] },
         reserveBtn:'Send a reservation request'
       },
       map: {
         hero: { eyebrow:'Find your way', title:'Interactive camp map', sub:'Explore the camp layout, facilities and accommodation. The interactive map is coming soon.' },
-        intro:'We are building a digital map of the camp as part of our online experience. For now this space is reserved — once it is live, you will be able to:',
+        intro:'We are building a digital map of the camp as part of our online experience. For now this space is reserved, once it is live, you will be able to:',
         bullets:['Search for facilities and accommodation units','View only certain facility or accommodation types','Pick your exact unit and inquire via the contact form','Switch the map language'],
         placeholderTitle:'Interactive map coming soon',
         placeholder:'[ camp map embed will go here ]'
@@ -1074,18 +1098,18 @@ class Component extends DCLogic {
       intro: {
         eyebrow: 'Welcome',
         title: 'A quiet corner of the Adriatic, run by one family for over twenty years.',
-        body: 'Camping Lovište Paradise is not a large resort, and never wants to be. It is a terraced olive grove sloping down to crystal-clear water, with shaded pitches — from the front row by the sea to quiet corners in the greenery. Close enough to hear the waves, far enough from everything else.'
+        body: 'Camping Lovište Paradise is not a large resort, and never wants to be. It is a terraced olive grove sloping down to crystal-clear water, with shaded pitches, from the front row by the sea to quiet corners in the greenery. Close enough to hear the waves, far enough from everything else.'
       },
       acc: {
         eyebrow: 'Accommodation',
         title: 'Find your spot',
-        sub: 'The same comfortable pitch in four tiers — A, B, C and D — differing mostly by position and sea view.',
+        sub: 'The same comfortable pitch in four tiers, A, B, C and D, differing mostly by position and sea view.',
         cta: 'Inquire',
         items: [
-          { name:'Pitch A — seafront', guests:'up to 6 guests', price:'from €38/night', tag:'Front row', img:'[ Pitch A · seafront ]', amenities:['Electricity incl.','Front row by sea','Natural shade','Wi-Fi'] },
-          { name:'Pitch B — near the sea', guests:'up to 6 guests', price:'from €36/night', tag:'', img:'[ Pitch B · near sea ]', amenities:['Electricity incl.','Sea view','Close to beach','Wi-Fi'] },
-          { name:'Pitch C — mid terraces', guests:'up to 6 guests', price:'from €34/night', tag:'', img:'[ Pitch C · mid terraces ]', amenities:['Electricity incl.','Partial shade','Quiet location','Wi-Fi'] },
-          { name:'Pitch D — olive shade', guests:'up to 6 guests', price:'from €32/night', tag:'Best value', img:'[ Pitch D · olive grove ]', amenities:['Electricity incl.','Deep olive shade','Parking by pitch','Wi-Fi'] }
+          { name:'Pitch A, seafront', guests:'up to 6 guests', price:'from €38/night', tag:'Front row', img:'[ Pitch A · seafront ]', amenities:['Electricity incl.','Front row by sea','Natural shade','Wi-Fi'] },
+          { name:'Pitch B, near the sea', guests:'up to 6 guests', price:'from €36/night', tag:'', img:'[ Pitch B · near sea ]', amenities:['Electricity incl.','Sea view','Close to beach','Wi-Fi'] },
+          { name:'Pitch C, mid terraces', guests:'up to 6 guests', price:'from €34/night', tag:'', img:'[ Pitch C · mid terraces ]', amenities:['Electricity incl.','Partial shade','Quiet location','Wi-Fi'] },
+          { name:'Pitch D, olive shade', guests:'up to 6 guests', price:'from €32/night', tag:'Best value', img:'[ Pitch D · olive grove ]', amenities:['Electricity incl.','Deep olive shade','Parking by pitch','Wi-Fi'] }
         ]
       },
       fac: {
@@ -1136,8 +1160,8 @@ class Component extends DCLogic {
         hero: { eyebrow:'About the camp', title:'A quiet camp above the bay.', sub:'A terraced olive grove on the edge of Lovište, shaped over the years into a calm seaside camp.' },
         story: { title:'About the camp', img:'[ Camp terraces above the sea ]', paras:[
           'Camping Lovište Paradise sits on a gentle slope of olive trees stepping down to the clear water of Lovište bay. The terraced layout means almost every pitch has its own shade, privacy and view of the sea.',
-          'The camp covers roughly three hectares of greenery, with terraced pitches woven between the olives and pines — from the front row by the sea to quiet corners in the olive shade. A pebble beach lies just thirty metres from the lowest terrace.',
-          'Modern sanitary facilities, free Wi-Fi across the grounds, a parking space by every pitch and a beach on the doorstep keep things simple — a small, well-kept camp built for slow seaside days.'
+          'The camp covers roughly three hectares of greenery, with terraced pitches woven between the olives and pines, from the front row by the sea to quiet corners in the olive shade. A pebble beach lies just thirty metres from the lowest terrace.',
+          'Modern sanitary facilities, free Wi-Fi across the grounds, a parking space by every pitch and a beach on the doorstep keep things simple, a small, well-kept camp built for slow seaside days.'
         ] },
         diff: { title:'What makes us different', items:[
           { no:'01', title:'Small and quiet', body:'A limited number of pitches means calm, space, and the feeling of being a guest, not a number.' },
@@ -1183,35 +1207,35 @@ class Component extends DCLogic {
       accPage: {
         overview:'Stellplätze', viewPrices:'Preise ansehen', learnMore:'Anfragen',
         title:'Campingstellplätze',
-        sub:'Derselbe komfortable Stellplatz in vier Kategorien — A, B, C und D — die sich vor allem durch Lage und Meerblick unterscheiden. Von der ersten Reihe am Wasser bis zum kühlen Schatten des Olivenhains.',
+        sub:'Derselbe komfortable Stellplatz in vier Kategorien, A, B, C und D, die sich vor allem durch Lage und Meerblick unterscheiden. Von der ersten Reihe am Wasser bis zum kühlen Schatten des Olivenhains.',
         facTitle:'Jeder Stellplatz umfasst',
         tiers:[
-          { tier:'A', name:'Stellplatz A — am Meer', img:'[ Stellplatz A · erste Reihe ]', desc:'Die beste Lage, in der ersten Reihe direkt am Meer — wachen Sie zum Klang der Wellen auf.', price:'ab 38 €/Nacht', specs:['Bis zu 6 Personen','Erste Reihe am Meer','Strom inklusive','Natürlicher Schatten'] },
-          { tier:'B', name:'Stellplatz B — nah am Meer', img:'[ Stellplatz B · nah am Meer ]', desc:'Ein paar Schritte von der Küste entfernt, mit offenem Blick über die Bucht.', price:'ab 36 €/Nacht', specs:['Bis zu 6 Personen','Meerblick','Strom inklusive','Nah am Strand'] },
-          { tier:'C', name:'Stellplatz C — mittlere Terrassen', img:'[ Stellplatz C · mittlere Terrassen ]', desc:'Ruhige mittlere Terrassen im angenehmen Schatten, ein kurzer Weg zum Wasser.', price:'ab 34 €/Nacht', specs:['Bis zu 6 Personen','Teilweise Schatten','Strom inklusive','Ruhige Lage'] },
-          { tier:'D', name:'Stellplatz D — im Olivenschatten', img:'[ Stellplatz D · Olivenhain ]', desc:'Obere Terrassen im tiefen Schatten der Oliven — der kühlste und günstigste Platz.', price:'ab 32 €/Nacht', specs:['Bis zu 6 Personen','Tiefer natürlicher Schatten','Strom inklusive','Parken am Stellplatz'] }
+          { tier:'A', name:'Stellplatz A, am Meer', img:'[ Stellplatz A · erste Reihe ]', desc:'Die beste Lage, in der ersten Reihe direkt am Meer, wachen Sie zum Klang der Wellen auf.', price:'ab 38 €/Nacht', specs:['Bis zu 6 Personen','Erste Reihe am Meer','Strom inklusive','Natürlicher Schatten'] },
+          { tier:'B', name:'Stellplatz B, nah am Meer', img:'[ Stellplatz B · nah am Meer ]', desc:'Ein paar Schritte von der Küste entfernt, mit offenem Blick über die Bucht.', price:'ab 36 €/Nacht', specs:['Bis zu 6 Personen','Meerblick','Strom inklusive','Nah am Strand'] },
+          { tier:'C', name:'Stellplatz C, mittlere Terrassen', img:'[ Stellplatz C · mittlere Terrassen ]', desc:'Ruhige mittlere Terrassen im angenehmen Schatten, ein kurzer Weg zum Wasser.', price:'ab 34 €/Nacht', specs:['Bis zu 6 Personen','Teilweise Schatten','Strom inklusive','Ruhige Lage'] },
+          { tier:'D', name:'Stellplatz D, im Olivenschatten', img:'[ Stellplatz D · Olivenhain ]', desc:'Obere Terrassen im tiefen Schatten der Oliven, der kühlste und günstigste Platz.', price:'ab 32 €/Nacht', specs:['Bis zu 6 Personen','Tiefer natürlicher Schatten','Strom inklusive','Parken am Stellplatz'] }
         ],
         facilities:['Moderne Sanitäranlagen, 24/7 warmes Wasser','Kostenloses WLAN im ganzen Camp','Strom im Stellplatzpreis enthalten','Ein Fahrzeug pro Stellplatz','Zugang zum Strand am Camp','Trinkwasserstelle in der Nähe','Haustierfreundlich','Supermarkt in Lovište, wenige Minuten entfernt'],
         extrasTitle:'Zusatzausstattung nach Wunsch',
-        extrasSub:'Alle Stellplätze teilen sich dieselbe Camp-Ausstattung. Gegen einen kleinen Aufpreis können Sie einen Kühlschrank mit abschließbarem Fach, eine Waschmaschine oder einen Trockner mieten — Details in der Preisliste.',
+        extrasSub:'Alle Stellplätze teilen sich dieselbe Camp-Ausstattung. Gegen einen kleinen Aufpreis können Sie einen Kühlschrank mit abschließbarem Fach, eine Waschmaschine oder einen Trockner mieten, Details in der Preisliste.',
         extrasChips:['Kühlschrank (abschließbar)','Waschmaschine','Trockner']
       },
       activities: {
         hero: { sub:'Viel zu erleben im und rund um das Camp', title:'Aktivitäten im Camping Lovište Paradise', intro:'Wenn es um Urlaub in der freien Natur geht, hat Camping bei Lovište Paradise wirklich alles zu bieten.' },
         enlarge:'Klicken Sie auf die Bilder zum Vergrößern', videoLabel:'[ Camp-Video ]',
         items:[
-          { name:'Strand', img:'[ Strand & Bucht von oben ]', video:true, thumbs:5, paras:['Wir alle stellen uns den perfekten Strand vor — kristallklares Wasser, sanfte Wellen und eine schöne Umgebung. Der Kiesstrand unterhalb des Camps hat alle drei, mit dem ruhigen, warmen Wasser der Bucht von Lovište nur wenige Schritte von Ihrem Stellplatz.','Schwimmen, schnorcheln oder SUP und Kajak ausprobieren, dann in der Sonne trocknen. Es ist einer der ruhigsten und klarsten Küstenabschnitte der Halbinsel Pelješac.'] },
-          { name:'Restaurant & Gastronomie', img:'[ Taverne mit Terrasse am Meer ]', thumbs:0, paras:['Die Gastronomie ist ein großer Teil dieser Region. Die Tavernen von Lovište servieren typische dalmatinische Gerichte — frischen Fisch, Meeresfrüchte aus der Bucht von Mali Ston und Fleisch unter der Peka, mit lokalem Olivenöl und mediterranem Gemüse.','Dazu die berühmten Pelješac-Rotweine Plavac und Dingač oder ein frischer Pošip vom benachbarten Korčula.'] },
-          { name:'Beach Bar', img:'[ Beach Bar am Ufer ]', thumbs:0, paras:['Die Beach Bar ist der Ort zum Entschleunigen — ein kühles Getränk mit Freunden, ein Snack während des Strandtags oder ein Nachmittagskaffee im Schatten mit traumhaftem Meerblick.','An ruhigen Abenden ist die Bar der natürliche Treffpunkt für ein paar Lacher und Camping-Geschichten bei Sonnenuntergang.'] },
+          { name:'Strand', img:'[ Strand & Bucht von oben ]', video:true, thumbs:5, paras:['Wir alle stellen uns den perfekten Strand vor, kristallklares Wasser, sanfte Wellen und eine schöne Umgebung. Der Kiesstrand unterhalb des Camps hat alle drei, mit dem ruhigen, warmen Wasser der Bucht von Lovište nur wenige Schritte von Ihrem Stellplatz.','Schwimmen, schnorcheln oder SUP und Kajak ausprobieren, dann in der Sonne trocknen. Es ist einer der ruhigsten und klarsten Küstenabschnitte der Halbinsel Pelješac.'] },
+          { name:'Restaurant & Gastronomie', img:'[ Taverne mit Terrasse am Meer ]', thumbs:0, paras:['Die Gastronomie ist ein großer Teil dieser Region. Die Tavernen von Lovište servieren typische dalmatinische Gerichte, frischen Fisch, Meeresfrüchte aus der Bucht von Mali Ston und Fleisch unter der Peka, mit lokalem Olivenöl und mediterranem Gemüse.','Dazu die berühmten Pelješac-Rotweine Plavac und Dingač oder ein frischer Pošip vom benachbarten Korčula.'] },
+          { name:'Beach Bar', img:'[ Beach Bar am Ufer ]', thumbs:0, paras:['Die Beach Bar ist der Ort zum Entschleunigen, ein kühles Getränk mit Freunden, ein Snack während des Strandtags oder ein Nachmittagskaffee im Schatten mit traumhaftem Meerblick.','An ruhigen Abenden ist die Bar der natürliche Treffpunkt für ein paar Lacher und Camping-Geschichten bei Sonnenuntergang.'] },
           { name:'Pool & Entspannung', img:'[ Pool / Liegen ]', thumbs:1, paras:['Manchmal ist die beste Aktivität gar keine. Machen Sie es sich im Schatten der Oliventerrassen mit einem Buch gemütlich, lauschen Sie den Zikaden und lassen Sie den Tag verstreichen.','Liegen, ruhige Ecken und Grün im ganzen Camp bieten jedem Alter einen Platz zum Ausspannen.'] },
           { name:'Sport & Wassersport', img:'[ Sportplätze von oben ]', thumbs:5, paras:['Aktive Gäste langweilen sich nicht. Es gibt Platz für Fußball, Volleyball und Tischtennis, und die flache Bucht ist ideal für SUP, Kajak und Windsurfen.','Mieten Sie ein Kajak oder SUP direkt am Camp oder steigen Sie für ein Insel-Hopping entlang des Pelješac-Kanals aufs Boot.'] },
-          { name:'Wege & Entdecken', img:'[ Radweg / Aussichtspunkt ]', thumbs:0, paras:['Außerhalb des Camps führen Rad- und Wanderwege durch die Weinberge und Olivenhaine von Pelješac, bis nach Orebić und zu Aussichtspunkten mit Blick auf Korčula.','Eine ideale Basis für Tagesausflüge — die Salinen und Mauern von Ston, die Weingüter von Dingač und die Fähre nach Korčula sind alle leicht erreichbar.'] }
+          { name:'Wege & Entdecken', img:'[ Radweg / Aussichtspunkt ]', thumbs:0, paras:['Außerhalb des Camps führen Rad- und Wanderwege durch die Weinberge und Olivenhaine von Pelješac, bis nach Orebić und zu Aussichtspunkten mit Blick auf Korčula.','Eine ideale Basis für Tagesausflüge, die Salinen und Mauern von Ston, die Weingüter von Dingač und die Fähre nach Korčula sind alle leicht erreichbar.'] }
         ]
       },
       request: {
         hero: { title:'Anfrage senden', sub:'Nennen Sie uns Daten, Personenzahl und Unterkunft. Wir antworten persönlich, meist noch am selben Tag.' },
-        f: { name:'Ihr Name', namePh:'Ihr Name', email:'E-Mail', emailPh:'sie@beispiel.com', accommodation:'Unterkunft wählen', vehicle:'Fahrzeugtyp', vlength:'Länge des Fahrzeugs', campingcard:'CampingCard / Nebensaison', arrive:'Anreisedatum', depart:'Abreisedatum', country:'Land', phone:'Telefonnummer', phonePh:'+385 …', message:'Ihre Nachricht', messagePh:'Sagen Sie uns alles, was bei der Angebotserstellung hilft…', choose:'— Bitte wählen —', submit:'Anfrage senden', gdpr:'DSGVO — Ihre Daten werden nur zur Beantwortung dieser Anfrage und für die eVisitor-Registrierung erhoben.' },
-        accOptions:['Stellplatz A — am Meer','Stellplatz B — nah am Meer','Stellplatz C — mittlere Terrassen','Stellplatz D — im Olivenschatten','Noch unsicher'],
+        f: { name:'Ihr Name', namePh:'Ihr Name', email:'E-Mail', emailPh:'sie@beispiel.com', accommodation:'Unterkunft wählen', vehicle:'Fahrzeugtyp', vlength:'Länge des Fahrzeugs', campingcard:'CampingCard / Nebensaison', arrive:'Anreisedatum', depart:'Abreisedatum', country:'Land', phone:'Telefonnummer', phonePh:'+385 …', message:'Ihre Nachricht', messagePh:'Sagen Sie uns alles, was bei der Angebotserstellung hilft…', choose:'Bitte wählen', submit:'Anfrage senden', gdpr:'DSGVO, Ihre Daten werden nur zur Beantwortung dieser Anfrage und für die eVisitor-Registrierung erhoben.' },
+        accOptions:['Stellplatz A, am Meer','Stellplatz B, nah am Meer','Stellplatz C, mittlere Terrassen','Stellplatz D, im Olivenschatten','Noch unsicher'],
         vehicleOptions:['Zelt','Wohnwagen','Wohnmobil','Auto + Dachzelt','Keines'],
         lengthOptions:['bis 5 m','5–6 m','6–7 m','7–8 m','über 8 m'],
         yesnoOptions:['Ja','Nein'],
@@ -1226,24 +1250,24 @@ class Component extends DCLogic {
         extras: { title:'Zusatzausstattung (Miete)', sub:'An der Rezeption mietbar.', note:'MwSt. inklusive.', cols:['Ausstattung','Preis'], rows:[ ['Waschmaschine','8 €'],['Trockner','8 €'],['Kühlschrank (abschließbares Fach)','4 €'] ] },
         tax: { title:'Kurtaxe', sub:'Pro Person, pro Tag. Nicht im Stellplatzpreis enthalten.', note:'', cols:['Person','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Person 18+','1,70 €','1,10 €'],['Person 12–18','0,85 €','0,55 €'],['Kind 0–12','0,00 €','0,00 €'] ] },
         included: { title:'Im Preis enthalten', items:['Strom im Stellplatzpreis enthalten','Warme Duschen & Sanitäranlagen','Kostenloses WLAN im ganzen Camp','Ein Fahrzeug pro Stellplatz','Zugang zum Strand am Camp'] },
-        good: { title:'Gut zu wissen', items:['MwSt. ist in den Preisen enthalten','Kurtaxe wird separat berechnet','Einmalige Anmeldung 2 € pro Buchung','Kinder unter 5 Jahren kostenlos','Hunde willkommen — 4–6 € / Nacht'] },
+        good: { title:'Gut zu wissen', items:['MwSt. ist in den Preisen enthalten','Kurtaxe wird separat berechnet','Einmalige Anmeldung 2 € pro Buchung','Kinder unter 5 Jahren kostenlos','Hunde willkommen, 4–6 € / Nacht'] },
         reserveBtn:'Reservierungsanfrage senden'
       },
       map: {
         hero: { eyebrow:'Finden Sie den Weg', title:'Interaktiver Lageplan', sub:'Entdecken Sie das Camp, die Ausstattung und die Unterkünfte. Die interaktive Karte kommt bald.' },
-        intro:'Wir erstellen eine digitale Karte des Camps als Teil des Online-Erlebnisses. Vorerst ist dieser Bereich reserviert — sobald sie live ist, können Sie:',
+        intro:'Wir erstellen eine digitale Karte des Camps als Teil des Online-Erlebnisses. Vorerst ist dieser Bereich reserviert, sobald sie live ist, können Sie:',
         bullets:['Nach Ausstattung und Unterkünften suchen','Nur bestimmte Ausstattungen oder Unterkunftstypen anzeigen','Ihre genaue Einheit wählen und über das Formular anfragen','Die Sprache der Karte ändern'],
         placeholderTitle:'Interaktive Karte kommt bald',
         placeholder:'[ hier kommt die Camp-Karte ]'
       },
       hero: { photo:'[ Hero Foto, Bucht im goldenen Licht ]', eyebrow:'Lovište · Halbinsel Pelješac · Kroatien', title:'Wachen Sie am Meer auf.', sub:'Ein kleiner familiengeführter Campingplatz, versteckt zwischen Olivenbäumen und Pinien, direkt am Rand der ruhigen Bucht von Lovište, weit weg vom Trubel, nur wenige Schritte vom Wasser.', primary:'Anfragen', secondary:'Platz entdecken' },
       stats: [ {num:'1998',label:'Familiengeführt seit'}, {num:'40',label:'Stellplätze & Häuser'}, {num:'3 ha',label:'Grün am Meer'}, {num:'30 m',label:'Zum Strand'} ],
-      intro: { eyebrow:'Willkommen', title:'Eine ruhige Ecke der Adria, seit über zwanzig Jahren von einer Familie geführt.', body:'Camping Lovište Paradise ist kein großes Resort, und will es auch nicht sein. Es ist ein terrassierter Olivenhain, der zum kristallklaren Wasser hin abfällt, mit schattigen Stellplätzen — von der ersten Reihe am Meer bis zu ruhigen Ecken im Grün. Nah genug, um die Wellen zu hören, weit genug von allem anderen entfernt.' },
-      acc: { eyebrow:'Unterkünfte', title:'Finden Sie Ihren Platz', sub:'Derselbe komfortable Stellplatz in vier Kategorien — A, B, C und D — die sich vor allem durch Lage und Meerblick unterscheiden.', cta:'Anfragen', items: [
-        { name:'Stellplatz A — am Meer', guests:'bis 6 Gäste', price:'ab 38 €/Nacht', tag:'Erste Reihe', img:'[ Stellplatz A · am Meer ]', amenities:['Strom inkl.','Erste Reihe am Meer','Natürlicher Schatten','WLAN'] },
-        { name:'Stellplatz B — nah am Meer', guests:'bis 6 Gäste', price:'ab 36 €/Nacht', tag:'', img:'[ Stellplatz B · nah am Meer ]', amenities:['Strom inkl.','Meerblick','Nah am Strand','WLAN'] },
-        { name:'Stellplatz C — mittlere Terrassen', guests:'bis 6 Gäste', price:'ab 34 €/Nacht', tag:'', img:'[ Stellplatz C · mittlere Terrassen ]', amenities:['Strom inkl.','Teilweise Schatten','Ruhige Lage','WLAN'] },
-        { name:'Stellplatz D — im Olivenschatten', guests:'bis 6 Gäste', price:'ab 32 €/Nacht', tag:'Günstig', img:'[ Stellplatz D · Olivenhain ]', amenities:['Strom inkl.','Tiefer Olivenschatten','Parken am Stellplatz','WLAN'] } ] },
+      intro: { eyebrow:'Willkommen', title:'Eine ruhige Ecke der Adria, seit über zwanzig Jahren von einer Familie geführt.', body:'Camping Lovište Paradise ist kein großes Resort, und will es auch nicht sein. Es ist ein terrassierter Olivenhain, der zum kristallklaren Wasser hin abfällt, mit schattigen Stellplätzen, von der ersten Reihe am Meer bis zu ruhigen Ecken im Grün. Nah genug, um die Wellen zu hören, weit genug von allem anderen entfernt.' },
+      acc: { eyebrow:'Unterkünfte', title:'Finden Sie Ihren Platz', sub:'Derselbe komfortable Stellplatz in vier Kategorien, A, B, C und D, die sich vor allem durch Lage und Meerblick unterscheiden.', cta:'Anfragen', items: [
+        { name:'Stellplatz A, am Meer', guests:'bis 6 Gäste', price:'ab 38 €/Nacht', tag:'Erste Reihe', img:'[ Stellplatz A · am Meer ]', amenities:['Strom inkl.','Erste Reihe am Meer','Natürlicher Schatten','WLAN'] },
+        { name:'Stellplatz B, nah am Meer', guests:'bis 6 Gäste', price:'ab 36 €/Nacht', tag:'', img:'[ Stellplatz B · nah am Meer ]', amenities:['Strom inkl.','Meerblick','Nah am Strand','WLAN'] },
+        { name:'Stellplatz C, mittlere Terrassen', guests:'bis 6 Gäste', price:'ab 34 €/Nacht', tag:'', img:'[ Stellplatz C · mittlere Terrassen ]', amenities:['Strom inkl.','Teilweise Schatten','Ruhige Lage','WLAN'] },
+        { name:'Stellplatz D, im Olivenschatten', guests:'bis 6 Gäste', price:'ab 32 €/Nacht', tag:'Günstig', img:'[ Stellplatz D · Olivenhain ]', amenities:['Strom inkl.','Tiefer Olivenschatten','Parken am Stellplatz','WLAN'] } ] },
       fac: { eyebrow:'Ausstattung', title:'Alles, was Sie brauchen, und nichts Überflüssiges', items: [
         { name:'Moderne Sanitäranlagen', desc:'Saubere, geräumige Anlagen mit Warmwasser rund um die Uhr.' },
         { name:'Kostenloses WLAN', desc:'Deckt den ganzen Platz ab, schnell genug zum Arbeiten.' },
@@ -1271,8 +1295,8 @@ class Component extends DCLogic {
         hero: { eyebrow:'Über das Camp', title:'Ein ruhiges Camp über der Bucht.', sub:'Ein terrassierter Olivenhain am Rand von Lovište, über die Jahre zu einem ruhigen Camp am Meer geformt.' },
         story: { title:'Über das Camp', img:'[ Camp-Terrassen über dem Meer ]', paras:[
           'Camping Lovište Paradise liegt an einem sanften Hang aus Olivenbäumen, der zum klaren Wasser der Bucht von Lovište abfällt. Durch die Terrassen hat fast jeder Stellplatz eigenen Schatten, Privatsphäre und Meerblick.',
-          'Das Camp erstreckt sich über rund drei Hektar Grün, mit terrassierten Stellplätzen zwischen Oliven und Pinien — von der ersten Reihe am Meer bis zu ruhigen Ecken im Olivenschatten. Ein Kiesstrand liegt nur dreißig Meter von der untersten Terrasse entfernt.',
-          'Moderne Sanitäranlagen, kostenloses WLAN auf dem ganzen Gelände, ein Parkplatz an jedem Stellplatz und ein Strand vor der Tür halten alles einfach — ein kleines, gepflegtes Camp für ruhige Tage am Meer.'
+          'Das Camp erstreckt sich über rund drei Hektar Grün, mit terrassierten Stellplätzen zwischen Oliven und Pinien, von der ersten Reihe am Meer bis zu ruhigen Ecken im Olivenschatten. Ein Kiesstrand liegt nur dreißig Meter von der untersten Terrasse entfernt.',
+          'Moderne Sanitäranlagen, kostenloses WLAN auf dem ganzen Gelände, ein Parkplatz an jedem Stellplatz und ein Strand vor der Tür halten alles einfach, ein kleines, gepflegtes Camp für ruhige Tage am Meer.'
         ] },
         diff: { title:'Was uns anders macht', items:[
           { no:'01', title:'Klein und ruhig', body:'Eine begrenzte Anzahl an Plätzen bedeutet Ruhe, Raum und das Gefühl, Gast zu sein, nicht eine Nummer.' },
@@ -1302,35 +1326,35 @@ class Component extends DCLogic {
       accPage: {
         overview:'Parcele kampa', viewPrices:'Poglej cene', learnMore:'Povpraševanje',
         title:'Parcele v kampu',
-        sub:'Iste udobne parcele v štirih kategorijah — A, B, C in D — ki se razlikujejo predvsem po legi in pogledu na morje. Od prve vrste ob vodi do sveže sence oljčnika.',
+        sub:'Iste udobne parcele v štirih kategorijah, A, B, C in D, ki se razlikujejo predvsem po legi in pogledu na morje. Od prve vrste ob vodi do sveže sence oljčnika.',
         facTitle:'Vse parcele vključujejo',
         tiers:[
-          { tier:'A', name:'Parcela A — ob morju', img:'[ Parcela A · prva vrsta ]', desc:'Najboljša lega, v prvi vrsti tik ob morju — zbudite se ob šumu valov.', price:'od 38 €/noč', specs:['Do 6 oseb','Prva vrsta ob morju','Elektrika vključena','Naravna senca'] },
-          { tier:'B', name:'Parcela B — blizu morja', img:'[ Parcela B · blizu morja ]', desc:'Nekaj korakov od obale, z odprtim pogledom na zaliv.', price:'od 36 €/noč', specs:['Do 6 oseb','Pogled na morje','Elektrika vključena','Blizu plaže'] },
-          { tier:'C', name:'Parcela C — srednje terase', img:'[ Parcela C · srednje terase ]', desc:'Mirne srednje terase v prijetni senci, kratek sprehod do vode.', price:'od 34 €/noč', specs:['Do 6 oseb','Delna senca','Elektrika vključena','Mirna lega'] },
-          { tier:'D', name:'Parcela D — v senci oljčnika', img:'[ Parcela D · oljčnik ]', desc:'Zgornje terase v gosti senci oljk — najbolj sveže in najugodnejše mesto.', price:'od 32 €/noč', specs:['Do 6 oseb','Gosta naravna senca','Elektrika vključena','Parkiranje ob parceli'] }
+          { tier:'A', name:'Parcela A, ob morju', img:'[ Parcela A · prva vrsta ]', desc:'Najboljša lega, v prvi vrsti tik ob morju, zbudite se ob šumu valov.', price:'od 38 €/noč', specs:['Do 6 oseb','Prva vrsta ob morju','Elektrika vključena','Naravna senca'] },
+          { tier:'B', name:'Parcela B, blizu morja', img:'[ Parcela B · blizu morja ]', desc:'Nekaj korakov od obale, z odprtim pogledom na zaliv.', price:'od 36 €/noč', specs:['Do 6 oseb','Pogled na morje','Elektrika vključena','Blizu plaže'] },
+          { tier:'C', name:'Parcela C, srednje terase', img:'[ Parcela C · srednje terase ]', desc:'Mirne srednje terase v prijetni senci, kratek sprehod do vode.', price:'od 34 €/noč', specs:['Do 6 oseb','Delna senca','Elektrika vključena','Mirna lega'] },
+          { tier:'D', name:'Parcela D, v senci oljčnika', img:'[ Parcela D · oljčnik ]', desc:'Zgornje terase v gosti senci oljk, najbolj sveže in najugodnejše mesto.', price:'od 32 €/noč', specs:['Do 6 oseb','Gosta naravna senca','Elektrika vključena','Parkiranje ob parceli'] }
         ],
         facilities:['Sodobne sanitarije s toplo vodo 0–24','Brezplačni Wi-Fi po vsem kampu','Elektrika vključena v ceno parcele','Eno vozilo na parcelo','Dostop do plaže ob kampu','Pitnik v bližini','Hišni ljubljenčki dobrodošli','Supermarket v Lovištu, nekaj minut stran'],
         extrasTitle:'Dodatna oprema po želji',
-        extrasSub:'Vse parcele imajo enako opremo kampa. Za majhno doplačilo lahko najamete hladilnik s predalom na ključ, pralni ali sušilni stroj — podrobnosti so v ceniku.',
+        extrasSub:'Vse parcele imajo enako opremo kampa. Za majhno doplačilo lahko najamete hladilnik s predalom na ključ, pralni ali sušilni stroj, podrobnosti so v ceniku.',
         extrasChips:['Hladilnik (s ključem)','Pralni stroj','Sušilni stroj']
       },
       activities: {
         hero: { sub:'Obilo dejavnosti v kampu in okolici', title:'Dejavnosti v kampu Lovište Paradise', intro:'Ko gre za počitnice v naravi, kampiranje v kampu Lovište Paradise res ponuja vse.' },
         enlarge:'Kliknite na slike za povečavo', videoLabel:'[ Video kampa ]',
         items:[
-          { name:'Plaža', img:'[ Plaža in zaliv od zgoraj ]', video:true, thumbs:5, paras:['Vsi si predstavljamo popolno plažo — bistro morje, nežni valovi in čudovita okolica. Prodnata plaža pod kampom ima vse troje, z mirnim in toplim morjem zaliva Lovište le korak od vaše parcele.','Plavajte, potapljajte se ali preizkusite SUP in kajak, nato pa se posušite na soncu. To je eden najmirnejših in najbistrejših delov obale na Pelješcu.'] },
-          { name:'Restavracija in gastronomija', img:'[ Gostilna s teraso ob morju ]', thumbs:0, paras:['Gastronomija je velik del te pokrajine. Gostilne v Lovištu ponujajo značilne dalmatinske jedi — svežo ribo, školjke iz Malostonskega zaliva in meso izpod peke, z domačim oljčnim oljem in sredozemsko zelenjavo.','Vse to ob cenjenih peljeških rdečih vinih, Plavcu in Dingaču, ali svežem Pošipu s sosednje Korčule.'] },
-          { name:'Beach bar', img:'[ Beach bar ob obali ]', thumbs:0, paras:['Beach bar je kraj za umiritev — hladna pijača z družbo, prigrizek med dnevom na plaži ali popoldanska kava v senci s čudovitim pogledom na morje.','Ob mirnih večerih je bar naravno zbirališče za smeh in kamperske zgodbe ob sončnem zahodu.'] },
-          { name:'Ob bazenu in sprostitev', img:'[ Bazen / ležalniki ]', thumbs:1, paras:['Včasih je najboljša dejavnost — nobena. Namestite se v senco oljčnih teras s knjigo, prisluhnite škržatom in pustite, da dan mineva.','Ležalniki, mirni kotički in zelenje po vsem kampu nudijo vsaki starosti prostor za počitek.'] },
+          { name:'Plaža', img:'[ Plaža in zaliv od zgoraj ]', video:true, thumbs:5, paras:['Vsi si predstavljamo popolno plažo, bistro morje, nežni valovi in čudovita okolica. Prodnata plaža pod kampom ima vse troje, z mirnim in toplim morjem zaliva Lovište le korak od vaše parcele.','Plavajte, potapljajte se ali preizkusite SUP in kajak, nato pa se posušite na soncu. To je eden najmirnejših in najbistrejših delov obale na Pelješcu.'] },
+          { name:'Restavracija in gastronomija', img:'[ Gostilna s teraso ob morju ]', thumbs:0, paras:['Gastronomija je velik del te pokrajine. Gostilne v Lovištu ponujajo značilne dalmatinske jedi, svežo ribo, školjke iz Malostonskega zaliva in meso izpod peke, z domačim oljčnim oljem in sredozemsko zelenjavo.','Vse to ob cenjenih peljeških rdečih vinih, Plavcu in Dingaču, ali svežem Pošipu s sosednje Korčule.'] },
+          { name:'Beach bar', img:'[ Beach bar ob obali ]', thumbs:0, paras:['Beach bar je kraj za umiritev, hladna pijača z družbo, prigrizek med dnevom na plaži ali popoldanska kava v senci s čudovitim pogledom na morje.','Ob mirnih večerih je bar naravno zbirališče za smeh in kamperske zgodbe ob sončnem zahodu.'] },
+          { name:'Ob bazenu in sprostitev', img:'[ Bazen / ležalniki ]', thumbs:1, paras:['Včasih je najboljša dejavnost, nobena. Namestite se v senco oljčnih teras s knjigo, prisluhnite škržatom in pustite, da dan mineva.','Ležalniki, mirni kotički in zelenje po vsem kampu nudijo vsaki starosti prostor za počitek.'] },
           { name:'Šport in vodni športi', img:'[ Športna igrišča od zgoraj ]', thumbs:5, paras:['Aktivni gostje se ne bodo dolgočasili. Prostor je za nogomet, odbojko in namizni tenis, miren zaliv pa je idealen za SUP, kajak in jadranje na deski.','Najemite kajak ali SUP tik ob kampu ali se vkrcajte na čoln za raziskovanje otokov ob pelješkem kanalu.'] },
-          { name:'Poti in raziskovanje', img:'[ Kolesarska pot / razgledišče ]', thumbs:0, paras:['Zunaj kampa kolesarske in pohodne poti vodijo skozi vinograde in oljčnike Pelješca, vse do Orebića in razgledišč s pogledom na Korčulo.','Odlična baza za izlete — solne ravnice in obzidje Stona, vinarji Dingača in trajekt za Korčulo so vsi zlahka dosegljivi.'] }
+          { name:'Poti in raziskovanje', img:'[ Kolesarska pot / razgledišče ]', thumbs:0, paras:['Zunaj kampa kolesarske in pohodne poti vodijo skozi vinograde in oljčnike Pelješca, vse do Orebića in razgledišč s pogledom na Korčulo.','Odlična baza za izlete, solne ravnice in obzidje Stona, vinarji Dingača in trajekt za Korčulo so vsi zlahka dosegljivi.'] }
         ]
       },
       request: {
         hero: { title:'Pošlji povpraševanje', sub:'Sporočite nam termine, število gostov in nastanitev. Odgovorimo osebno, običajno isti dan.' },
-        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-pošta', emailPh:'vi@primer.com', accommodation:'Izberite nastanitev', vehicle:'Vrsta vozila', vlength:'Dolžina vozila', campingcard:'CampingCard / Predsezona', arrive:'Datum prihoda', depart:'Datum odhoda', country:'Država', phone:'Kontaktna številka', phonePh:'+386 …', message:'Vaše sporočilo', messagePh:'Sporočite nam vse, kar pomaga pri pripravi ponudbe…', choose:'— Izberite možnost —', submit:'Pošlji povpraševanje', gdpr:'GDPR — vaši podatki se zbirajo izključno za odgovor na to povpraševanje in za eVisitor prijavo.' },
-        accOptions:['Parcela A — ob morju','Parcela B — blizu morja','Parcela C — srednje terase','Parcela D — v senci oljčnika','Še nisem prepričan/a'],
+        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-pošta', emailPh:'vi@primer.com', accommodation:'Izberite nastanitev', vehicle:'Vrsta vozila', vlength:'Dolžina vozila', campingcard:'CampingCard / Predsezona', arrive:'Datum prihoda', depart:'Datum odhoda', country:'Država', phone:'Kontaktna številka', phonePh:'+386 …', message:'Vaše sporočilo', messagePh:'Sporočite nam vse, kar pomaga pri pripravi ponudbe…', choose:'Izberite možnost', submit:'Pošlji povpraševanje', gdpr:'GDPR, vaši podatki se zbirajo izključno za odgovor na to povpraševanje in za eVisitor prijavo.' },
+        accOptions:['Parcela A, ob morju','Parcela B, blizu morja','Parcela C, srednje terase','Parcela D, v senci oljčnika','Še nisem prepričan/a'],
         vehicleOptions:['Šotor','Prikolica','Avtodom','Avto + strešni šotor','Brez vozila'],
         lengthOptions:['do 5 m','5–6 m','6–7 m','7–8 m','nad 8 m'],
         yesnoOptions:['Da','Ne'],
@@ -1345,24 +1369,24 @@ class Component extends DCLogic {
         extras: { title:'Dodatna oprema (najem)', sub:'Za najem na recepciji.', note:'DDV vključen.', cols:['Oprema','Cena'], rows:[ ['Pralni stroj','8 €'],['Sušilni stroj','8 €'],['Hladilnik (predal s ključavnico)','4 €'] ] },
         tax: { title:'Turistična taksa', sub:'Na osebo, na dan. Ni vključena v ceno parcele.', note:'', cols:['Oseba','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Oseba 18+','1,70 €','1,10 €'],['Oseba 12–18','0,85 €','0,55 €'],['Otrok 0–12','0,00 €','0,00 €'] ] },
         included: { title:'Vključeno v ceno', items:['Elektrika vključena v ceno parcele','Tople prhe in sanitarije','Brezplačni Wi-Fi po vsem kampu','Eno vozilo na parcelo','Dostop do plaže ob kampu'] },
-        good: { title:'Dobro je vedeti', items:['DDV je vključen v cene','Turistična taksa se plača ločeno','Enkratna prijava 2 € na rezervacijo','Otroci do 5 let brezplačno','Psi dobrodošli — 4–6 € / noč'] },
+        good: { title:'Dobro je vedeti', items:['DDV je vključen v cene','Turistična taksa se plača ločeno','Enkratna prijava 2 € na rezervacijo','Otroci do 5 let brezplačno','Psi dobrodošli, 4–6 € / noč'] },
         reserveBtn:'Pošlji povpraševanje za rezervacijo'
       },
       map: {
         hero: { eyebrow:'Poiščite pot', title:'Interaktivni zemljevid kampa', sub:'Raziščite razporeditev kampa, vsebine in nastanitve. Interaktivni zemljevid kmalu prihaja.' },
-        intro:'Pripravljamo digitalni zemljevid kampa kot del spletne izkušnje. Za zdaj je ta prostor rezerviran — ko bo na voljo, boste lahko:',
+        intro:'Pripravljamo digitalni zemljevid kampa kot del spletne izkušnje. Za zdaj je ta prostor rezerviran, ko bo na voljo, boste lahko:',
         bullets:['Iskali vsebine in nastanitvene enote','Prikazali samo določene vsebine ali tipe nastanitev','Izbrali točno enoto in poslali povpraševanje prek obrazca','Spremenili jezik zemljevida'],
         placeholderTitle:'Interaktivni zemljevid kmalu',
         placeholder:'[ tukaj bo zemljevid kampa ]'
       },
       hero: { photo:'[ Hero fotografija, zaliv v zlati uri ]', eyebrow:'Lovište · Polotok Pelješac · Hrvaška', title:'Zbudite se ob morju.', sub:'Majhen družinski kamp, skrit med oljkami in bori, na samem robu mirnega zaliva Lovište, stran od gneče, le korak od morja.', primary:'Povpraševanje', secondary:'Razišči kamp' },
       stats: [ {num:'1998',label:'Družinski od'}, {num:'40',label:'Parcel in hišic'}, {num:'3 ha',label:'Zelenja ob morju'}, {num:'30 m',label:'Do plaže'} ],
-      intro: { eyebrow:'Dobrodošli', title:'Miren kotiček Jadrana, ki ga ena družina vodi že več kot dvajset let.', body:'Camping Lovište Paradise ni velik resort in to si tudi ne želi biti. Je terasast oljčni nasad, ki se spušča do kristalno čistega morja, s senčnimi parcelami — od prve vrste ob morju do mirnih kotičkov v zelenju. Dovolj blizu, da slišite valove, dovolj daleč od vsega drugega.' },
-      acc: { eyebrow:'Nastanitev', title:'Poiščite svoj kotiček', sub:'Iste udobne parcele v štirih kategorijah — A, B, C in D — ki se razlikujejo predvsem po legi in pogledu na morje.', cta:'Povpraševanje', items: [
-        { name:'Parcela A — ob morju', guests:'do 6 oseb', price:'od 38 €/noč', tag:'Prva vrsta', img:'[ Parcela A · ob morju ]', amenities:['Elektrika vklj.','Prva vrsta ob morju','Naravna senca','Wi-Fi'] },
-        { name:'Parcela B — blizu morja', guests:'do 6 oseb', price:'od 36 €/noč', tag:'', img:'[ Parcela B · blizu morja ]', amenities:['Elektrika vklj.','Pogled na morje','Blizu plaže','Wi-Fi'] },
-        { name:'Parcela C — srednje terase', guests:'do 6 oseb', price:'od 34 €/noč', tag:'', img:'[ Parcela C · srednje terase ]', amenities:['Elektrika vklj.','Delna senca','Mirna lega','Wi-Fi'] },
-        { name:'Parcela D — v senci oljk', guests:'do 6 oseb', price:'od 32 €/noč', tag:'Ugodno', img:'[ Parcela D · oljčnik ]', amenities:['Elektrika vklj.','Gosta senca oljk','Parkiranje ob parceli','Wi-Fi'] } ] },
+      intro: { eyebrow:'Dobrodošli', title:'Miren kotiček Jadrana, ki ga ena družina vodi že več kot dvajset let.', body:'Camping Lovište Paradise ni velik resort in to si tudi ne želi biti. Je terasast oljčni nasad, ki se spušča do kristalno čistega morja, s senčnimi parcelami, od prve vrste ob morju do mirnih kotičkov v zelenju. Dovolj blizu, da slišite valove, dovolj daleč od vsega drugega.' },
+      acc: { eyebrow:'Nastanitev', title:'Poiščite svoj kotiček', sub:'Iste udobne parcele v štirih kategorijah, A, B, C in D, ki se razlikujejo predvsem po legi in pogledu na morje.', cta:'Povpraševanje', items: [
+        { name:'Parcela A, ob morju', guests:'do 6 oseb', price:'od 38 €/noč', tag:'Prva vrsta', img:'[ Parcela A · ob morju ]', amenities:['Elektrika vklj.','Prva vrsta ob morju','Naravna senca','Wi-Fi'] },
+        { name:'Parcela B, blizu morja', guests:'do 6 oseb', price:'od 36 €/noč', tag:'', img:'[ Parcela B · blizu morja ]', amenities:['Elektrika vklj.','Pogled na morje','Blizu plaže','Wi-Fi'] },
+        { name:'Parcela C, srednje terase', guests:'do 6 oseb', price:'od 34 €/noč', tag:'', img:'[ Parcela C · srednje terase ]', amenities:['Elektrika vklj.','Delna senca','Mirna lega','Wi-Fi'] },
+        { name:'Parcela D, v senci oljk', guests:'do 6 oseb', price:'od 32 €/noč', tag:'Ugodno', img:'[ Parcela D · oljčnik ]', amenities:['Elektrika vklj.','Gosta senca oljk','Parkiranje ob parceli','Wi-Fi'] } ] },
       fac: { eyebrow:'Oprema', title:'Vse, kar potrebujete, in nič odvečnega', items: [
         { name:'Sodobne sanitarije', desc:'Čiste, prostorne sanitarije s toplo vodo ves dan.' },
         { name:'Brezplačni Wi-Fi', desc:'Pokriva celoten kamp, dovolj hiter za delo.' },
@@ -1390,8 +1414,8 @@ class Component extends DCLogic {
         hero: { eyebrow:'O kampu', title:'Miren kamp nad zalivom.', sub:'Terasast oljčni nasad na robu Lovišta, skozi leta oblikovan v miren kamp ob morju.' },
         story: { title:'O kampu', img:'[ Terase kampa nad morjem ]', paras:[
           'Camping Lovište Paradise leži na blagem pobočju oljk, ki se spušča do bistrega morja zaliva Lovište. Terasasta razporeditev pomeni, da ima skoraj vsaka parcela svojo senco, zasebnost in pogled na morje.',
-          'Kamp se razprostira na približno treh hektarih zelenja, s terasastimi parcelami med oljkami in bori — od prve vrste ob morju do mirnih kotičkov v senci oljk. Prodnata plaža je le trideset metrov od najnižje terase.',
-          'Sodobne sanitarije, brezplačni Wi-Fi po vsem kampu, parkirno mesto ob vsaki parceli in plaža tik pred vrati poskrbijo, da je vse preprosto — majhen, urejen kamp za počasne dni ob morju.'
+          'Kamp se razprostira na približno treh hektarih zelenja, s terasastimi parcelami med oljkami in bori, od prve vrste ob morju do mirnih kotičkov v senci oljk. Prodnata plaža je le trideset metrov od najnižje terase.',
+          'Sodobne sanitarije, brezplačni Wi-Fi po vsem kampu, parkirno mesto ob vsaki parceli in plaža tik pred vrati poskrbijo, da je vse preprosto, majhen, urejen kamp za počasne dni ob morju.'
         ] },
         diff: { title:'Kaj nas dela drugačne', items:[
           { no:'01', title:'Majhen in miren', body:'Omejeno število parcel pomeni mir, prostor in občutek, da ste gost, ne številka.' },
@@ -1427,7 +1451,7 @@ class Component extends DCLogic {
     // Hide the mobile topbar when scrolling down, reveal it when scrolling up.
     // The runtime makes <body> the scroll container, so window.scrollY /
     // documentElement.scrollTop stay 0 while body.scrollTop holds the value.
-    // Scroll events also don't bubble — so listen in the capture phase and read
+    // Scroll events also don't bubble, so listen in the capture phase and read
     // the position as the max of every candidate to be container-agnostic.
     this._lastScroll = 0;
     this._scrollTop = (e) => {
@@ -1502,7 +1526,7 @@ class Component extends DCLogic {
   }
 
   go(page) {
-    this.setState({ page, mobileOpen: false });
+    this.setState({ page, mobileOpen: false, playingVideo: null });
     try { window.scrollTo({ top: 0, behavior: 'auto' }); } catch (e) {}
     // newly mounted page nodes need fresh reveal scan
     setTimeout(() => { this.setupReveal(); }, 30);
@@ -1628,13 +1652,39 @@ class Component extends DCLogic {
       style: segBase + (this.state.priceTab === tb.key ? 'background:#2E7CB8;color:#fff;' : 'background:transparent;color:#114B7C;')
     }));
 
-    const activitiesItems = ((t.activities && t.activities.items) || []).map((a, i) => ({
-      name:a.name, paras:a.paras, img:a.img, video: !!a.video,
-      videoLabel: (t.activities && t.activities.videoLabel) || '',
-      hasThumbs: (a.thumbs || 0) > 0,
-      thumbsArr: Array.from({ length: a.thumbs || 0 }, (_, k) => k),
-      dir: i % 2 === 1 ? 'flex-direction:row-reverse;' : ''
-    }));
+    // ─── VIDEOS ────────────────────────────────────────────────────────────
+    // Fill these in when the footage is ready; leave '' / null to keep the
+    // current placeholders. Nothing else needs changing.
+    //   • Hero + panorama: short, MUTED, self-hosted .mp4 loops (drone footage),
+    //     path relative to the site root, e.g. './uploads/drone-hero.mp4'.
+    //   • Activities: YouTube/Vimeo EMBED urls (the /embed/ form), one per
+    //     activity by list order: 0 Beach · 1 Restaurant · 2 Beach bar ·
+    //     3 Pool · 4 Sports & watersports · 5 Trails.
+    //     Use  null  to hide the slot, '' to keep a "video coming" placeholder,
+    //     or the embed url to make it playable, e.g.
+    //     'https://www.youtube.com/embed/XXXXXXXXXXX'.
+    const heroVideo = '';        // e.g. './uploads/drone-hero.mp4'  (muted loop)
+    const panoramaVideo = '';    // e.g. './uploads/drone-panorama.mp4'  (muted loop)
+    const activityVideos = ['', null, '', null, '', null];
+    // ───────────────────────────────────────────────────────────────────────
+
+    const activitiesItems = ((t.activities && t.activities.items) || []).map((a, i) => {
+      const vurl = activityVideos[i];
+      const hasVideo = !!vurl;
+      const playing = this.state.playingVideo === i && hasVideo;
+      return {
+        name:a.name, paras:a.paras, img:a.img,
+        videoLabel: (t.activities && t.activities.videoLabel) || '',
+        showVideo: vurl !== null && vurl !== undefined,
+        isPlaying: playing, showFacade: !playing,
+        cursor: hasVideo ? 'pointer' : 'default',
+        onPlay: hasVideo ? (() => this.setState({ playingVideo: i })) : (() => {}),
+        embedSrc: hasVideo ? (vurl + (vurl.indexOf('?') >= 0 ? '&' : '?') + 'autoplay=1') : '',
+        hasThumbs: (a.thumbs || 0) > 0,
+        thumbsArr: Array.from({ length: a.thumbs || 0 }, (_, k) => k),
+        dir: i % 2 === 1 ? 'flex-direction:row-reverse;' : ''
+      };
+    });
 
     const rq = t.request || {};
     const accommodationOptions = rq.accOptions || [];
@@ -1684,6 +1734,9 @@ class Component extends DCLogic {
       navItems, accommodations, facilities, things, contactInfo, distances, mailHref,
       priceTables, priceTabs, includedItems, goodItems, mapPinEl, eventsUrl, shellShift,
       accTiers, sharedFacilities, activitiesItems,
+      heroVideo, heroHasVideo: !!heroVideo, heroNoVideo: !heroVideo,
+      panoramaVideo, panoramaHasVideo: !!panoramaVideo, panoramaNoVideo: !panoramaVideo,
+      muteRef: (el) => { if (el) { el.muted = true; el.defaultMuted = true; try { const p = el.play && el.play(); if (p && p.catch) p.catch(function(){}); } catch (e) {} } },
       accommodationOptions, vehicleOptions, lengthOptions, yesnoOptions, countryOptions, successCheck,
       submitted: this.state.submitted, notSubmitted: !this.state.submitted,
       form: f,
