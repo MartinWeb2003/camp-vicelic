@@ -44,10 +44,6 @@
       <button onClick="{{ goContact }}" style="margin-top:22px;background:#2E7CB8;color:#fff;font-weight:700;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;padding:14px;border-radius:12px;transition:background .2s;" style-hover="background:#114B7C;">{{ t.cta }}</button>
 
       <div style="margin-top:auto;padding-top:24px;display:flex;flex-direction:column;align-items:center;gap:12px;">
-        <div style="display:flex;gap:9px;">
-          <a href="#" style="width:36px;height:36px;border-radius:10px;background:rgba(17,75,124,0.06);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#114B7C;transition:background .2s,color .2s;" style-hover="background:#2E7CB8;color:#fff;">FB</a>
-          <a href="#" style="width:36px;height:36px;border-radius:10px;background:rgba(17,75,124,0.06);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#114B7C;transition:background .2s,color .2s;" style-hover="background:#2E7CB8;color:#fff;">IG</a>
-        </div>
         <span style="font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:0.12em;color:#9aa7b0;text-transform:uppercase;text-align:center;">Lovište · Pelješac · HR</span>
       </div>
     </aside>
@@ -521,30 +517,20 @@
       <section style="padding:clamp(56px,7vw,96px) clamp(20px,5vw,40px);">
         <div style="max-width:1100px;margin:0 auto;">
 
-          <!-- Switch: pitches & rates / optional extras -->
-          <div data-reveal style="display:flex;justify-content:center;margin-bottom:clamp(32px,4vw,48px);">
-            <div style="display:inline-flex;gap:4px;background:#fff;border:1px solid rgba(17,75,124,0.12);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:999px;padding:5px;">
-              <sc-for list="{{ priceTabs }}" as="tb" hint-placeholder-count="2">
-                <button onClick="{{ tb.onClick }}" style="{{ tb.style }}">{{ tb.label }}</button>
-              </sc-for>
-            </div>
-          </div>
-
-          <sc-for list="{{ priceTables }}" as="tb" hint-placeholder-count="2">
-          <div data-reveal style="margin-bottom:clamp(40px,5vw,64px);">
-            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(22px,3vw,30px);letter-spacing:-0.01em;margin:0 0 6px;">{{ tb.title }}</h2>
-            <p style="font-size:15px;color:#6B7280;margin:0 0 22px;">{{ tb.sub }}</p>
+          <!-- MAIN PRICE TABLE (one single table) -->
+          <div data-reveal style="margin-bottom:clamp(26px,3vw,36px);">
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(22px,3vw,30px);letter-spacing:-0.01em;margin:0 0 22px;">{{ mainTable.title }}</h2>
 
             <!-- Desktop / wide: grid table -->
             <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
               <div style="overflow:hidden;border:1px solid rgba(17,75,124,0.12);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;">
-                <div style="display:grid;grid-template-columns:{{ tb.grid }};background:#2E7CB8;">
-                  <div style="padding:15px 18px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:#fff;">{{ tb.col0 }}</div>
-                  <sc-for list="{{ tb.heads }}" as="h" hint-placeholder-count="3">
+                <div style="display:grid;grid-template-columns:{{ mainTable.grid }};background:#2E7CB8;">
+                  <div style="padding:15px 18px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:#fff;">{{ mainTable.col0 }}</div>
+                  <sc-for list="{{ mainTable.heads }}" as="h" hint-placeholder-count="3">
                     <div style="padding:15px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:#fff;text-align:center;">{{ h }}</div>
                   </sc-for>
                 </div>
-                <sc-for list="{{ tb.rows }}" as="r" hint-placeholder-count="6">
+                <sc-for list="{{ mainTable.rows }}" as="r" hint-placeholder-count="6">
                   <div style="display:grid;grid-template-columns:{{ r.grid }};border-top:1px solid rgba(17,75,124,0.08);{{ r.rowBg }}">
                     <div style="padding:14px 18px;font-weight:700;font-size:14.5px;color:#114B7C;">{{ r.label }}</div>
                     <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="3">
@@ -558,7 +544,7 @@
             <!-- Mobile: stacked cards so no text is clipped -->
             <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
               <div style="display:flex;flex-direction:column;gap:12px;">
-                <sc-for list="{{ tb.rows }}" as="r" hint-placeholder-count="6">
+                <sc-for list="{{ mainTable.rows }}" as="r" hint-placeholder-count="6">
                   <div style="border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);padding:16px;{{ r.rowBg }}">
                     <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:15.5px;color:#114B7C;margin:0 0 12px;overflow-wrap:break-word;">{{ r.label }}</div>
                     <div style="display:flex;flex-wrap:wrap;gap:8px;">
@@ -573,39 +559,77 @@
                 </sc-for>
               </div>
             </sc-if>
+          </div>
 
-            <sc-if value="{{ tb.note }}" hint-placeholder-val="{{ true }}">
-              <p style="font-size:13.5px;color:#6B7280;margin:14px 2px 0;">{{ tb.note }}</p>
+          <!-- NOTES UNDER THE MAIN TABLE -->
+          <div data-reveal style="display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(44px,6vw,68px);">
+            <p style="font-size:14.5px;line-height:1.65;color:#3a4a52;margin:0;">{{ t.pricing.notes.includedLead }}</p>
+            <div style="display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;">
+              <sc-for list="{{ includedOptions }}" as="o" hint-placeholder-count="3">
+                <sc-if value="{{ o.sep }}" hint-placeholder-val="{{ false }}">
+                  <span style="display:flex;align-items:center;font-family:'Roboto Mono',monospace;font-weight:700;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#2E7CB8;padding:0 2px;">{{ t.pricing.notes.or }}</span>
+                </sc-if>
+                <span style="display:flex;align-items:center;justify-content:center;text-align:center;background:#2E7CB8;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(14px,1.8vw,16px);letter-spacing:-0.01em;padding:14px 22px;box-shadow:0 6px 22px -12px rgba(17,75,124,0.5);">{{ o.label }}</span>
+              </sc-for>
+            </div>
+            <p style="font-size:14.5px;line-height:1.65;color:#3a4a52;margin:0;">{{ t.pricing.notes.includedTail }}</p>
+            <p style="font-size:14.5px;line-height:1.65;color:#114B7C;margin:0;font-weight:700;">{{ t.pricing.notes.vat }}</p>
+            <p style="font-size:14.5px;line-height:1.65;color:#114B7C;margin:0;font-weight:700;">{{ t.pricing.notes.taxExcluded }}</p>
+          </div>
+
+          <!-- TOURIST TAX TABLE -->
+          <div data-reveal style="margin-bottom:clamp(28px,4vw,40px);">
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(22px,3vw,30px);letter-spacing:-0.01em;margin:0 0 22px;">{{ taxTable.title }}</h2>
+
+            <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+              <div style="overflow:hidden;border:1px solid rgba(17,75,124,0.12);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;">
+                <div style="display:grid;grid-template-columns:{{ taxTable.grid }};background:#2E7CB8;">
+                  <div style="padding:15px 18px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:#fff;">{{ taxTable.col0 }}</div>
+                  <sc-for list="{{ taxTable.heads }}" as="h" hint-placeholder-count="2">
+                    <div style="padding:15px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:#fff;text-align:center;">{{ h }}</div>
+                  </sc-for>
+                </div>
+                <sc-for list="{{ taxTable.rows }}" as="r" hint-placeholder-count="3">
+                  <div style="display:grid;grid-template-columns:{{ r.grid }};border-top:1px solid rgba(17,75,124,0.08);{{ r.rowBg }}">
+                    <div style="padding:14px 18px;font-weight:700;font-size:14.5px;color:#114B7C;">{{ r.label }}</div>
+                    <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="2">
+                      <div style="padding:14px 14px;text-align:center;font-size:14.5px;color:#3a4a52;">{{ c.value }}</div>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <sc-for list="{{ taxTable.rows }}" as="r" hint-placeholder-count="3">
+                  <div style="border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);padding:16px;{{ r.rowBg }}">
+                    <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:15.5px;color:#114B7C;margin:0 0 12px;overflow-wrap:break-word;">{{ r.label }}</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                      <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="2">
+                        <div style="flex:1 1 84px;min-width:0;background:rgba(91,176,222,0.1);padding:9px 11px;">
+                          <div style="font-family:'Roboto Mono',monospace;font-size:9.5px;letter-spacing:0.03em;text-transform:uppercase;color:#6B7280;margin-bottom:4px;overflow-wrap:break-word;">{{ c.header }}</div>
+                          <div style="font-size:15px;font-weight:700;color:#114B7C;">{{ c.value }}</div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
             </sc-if>
           </div>
-          </sc-for>
 
-          <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
-            <div style="background:#fff;border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;padding:clamp(26px,3vw,34px);">
-              <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:#2E7CB8;margin:0;">{{ t.pricing.included.title }}</h3>
-              <div style="display:flex;flex-direction:column;gap:12px;margin-top:18px;">
-                <sc-for list="{{ includedItems }}" as="i" hint-placeholder-count="5">
-                  <div style="display:flex;align-items:flex-start;gap:12px;">
-                    <span style="flex:0 0 auto;width:26px;height:26px;border-radius:8px;background:rgba(91,176,222,0.16);color:#2E7CB8;display:flex;align-items:center;justify-content:center;">{{ i.iconEl }}</span>
-                    <span style="font-size:15px;line-height:1.5;color:#3a4a52;">{{ i.text }}</span>
-                  </div>
-                </sc-for>
-              </div>
+          <!-- CHECK-IN / CHECK-OUT -->
+          <div data-reveal style="margin-bottom:clamp(40px,5vw,56px);">
+            <div style="background:rgba(91,176,222,0.16);border-left:5px solid #2E7CB8;padding:18px 22px;margin-bottom:14px;">
+              <p style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(18px,2.4vw,23px);color:#114B7C;margin:0;letter-spacing:-0.01em;">{{ t.pricing.checkin }}</p>
             </div>
-            <div style="background:#fff;border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;padding:clamp(26px,3vw,34px);">
-              <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:#2E7CB8;margin:0;">{{ t.pricing.good.title }}</h3>
-              <div style="display:flex;flex-direction:column;gap:12px;margin-top:18px;">
-                <sc-for list="{{ goodItems }}" as="i" hint-placeholder-count="5">
-                  <div style="display:flex;align-items:flex-start;gap:12px;">
-                    <span style="flex:0 0 auto;width:26px;height:26px;border-radius:8px;background:rgba(91,176,222,0.16);color:#2E7CB8;display:flex;align-items:center;justify-content:center;">{{ i.iconEl }}</span>
-                    <span style="font-size:15px;line-height:1.5;color:#3a4a52;">{{ i.text }}</span>
-                  </div>
-                </sc-for>
-              </div>
+            <div style="background:rgba(91,176,222,0.16);border-left:5px solid #2E7CB8;padding:18px 22px;">
+              <p style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(18px,2.4vw,23px);color:#114B7C;margin:0;letter-spacing:-0.01em;">{{ t.pricing.checkout }}</p>
             </div>
           </div>
 
-          <div data-reveal style="margin-top:clamp(40px,5vw,56px);text-align:center;">
+          <div data-reveal style="text-align:center;">
             <button onClick="{{ goContact }}" style="background:#5BB0DE;color:#08283D;font-weight:700;font-size:16px;padding:17px 36px;border-radius:999px;transition:transform .2s,background .2s;" style-hover="background:#86C6E8;transform:translateY(-2px);">{{ t.pricing.reserveBtn }}</button>
           </div>
 
@@ -769,13 +793,8 @@
                 </sc-for>
               </div>
             </div>
-            <div style="position:relative;overflow:hidden;height:200px;background:linear-gradient(150deg,#d2e5f3,#e7f2f9);border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);">
-              <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(17,75,124,0.05),rgba(17,75,124,0.05) 1px,transparent 1px,transparent 32px),repeating-linear-gradient(90deg,rgba(17,75,124,0.05),rgba(17,75,124,0.05) 1px,transparent 1px,transparent 32px);"></div>
-              <div style="position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:8px;">
-                <span style="width:16px;height:16px;background:#2E7CB8;border:3px solid #fff;border-radius:50%;box-shadow:0 6px 16px -4px rgba(17,75,124,0.6);"></span>
-                <span style="background:#114B7C;color:#fff;font-weight:600;font-size:12px;padding:5px 12px;border-radius:999px;">Lovište</span>
-              </div>
-              <span style="position:absolute;top:16px;left:16px;font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:0.06em;color:#5d6f7e;text-transform:uppercase;background:rgba(255,255,255,0.7);padding:5px 10px;">{{ t.contact.mapLabel }}</span>
+            <div style="position:relative;overflow:hidden;height:clamp(220px,30vw,300px);border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);">
+              <iframe title="Camping Lovište Paradise — Lovište 220" src="https://www.google.com/maps?q=43.0287,17.0333&z=14&output=embed" loading="lazy" allowFullScreen="allowfullscreen" referrerPolicy="no-referrer-when-downgrade" style="position:absolute;inset:0;width:100%;height:100%;border:0;display:block;"></iframe>
             </div>
           </div>
         </div>
@@ -794,11 +813,7 @@
             <img src="./uploads/logo.png" alt="Camping Lovište Paradise logo" style="width:46px;height:46px;object-fit:contain;flex:0 0 auto;display:block;">
             <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:18px;color:#fff;">Camping Lovište Paradise</span>
           </div>
-          <p style="font-size:14.5px;line-height:1.65;margin:0 0 20px;">{{ t.footer.tagline }}</p>
-          <div style="display:flex;gap:10px;">
-            <a href="#" style="width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#fff;transition:background .2s;" style-hover="background:#2E7CB8;">FB</a>
-            <a href="#" style="width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#fff;transition:background .2s;" style-hover="background:#2E7CB8;">IG</a>
-          </div>
+          <p style="font-size:14.5px;line-height:1.65;margin:0;">{{ t.footer.tagline }}</p>
         </div>
         <div style="flex:0 1 auto;">
           <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#BFE1F6;margin:0 0 18px;">{{ t.footer.explore }}</h4>
@@ -812,7 +827,7 @@
         <div style="flex:0 1 auto;">
           <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#BFE1F6;margin:0 0 18px;">{{ t.footer.contactHeading }}</h4>
           <div style="display:flex;flex-direction:column;gap:12px;font-size:14.5px;">
-            <span>Lovište 12, 20269 Lovište</span>
+            <span>Lovište 220, 20269 Lovište</span>
             <span>+385 20 000 000</span>
             <span>info@vicelic-camping.hr</span>
           </div>
@@ -835,7 +850,6 @@ class Component extends DCLogic {
     mobileOpen: false,
     langOpen: false,
     sidebarOpen: true,
-    priceTab: 'core',
     playingVideo: null,
     topbarHidden: false,
     isMobile: (typeof window !== 'undefined' && window.innerWidth < 1024),
@@ -888,13 +902,11 @@ class Component extends DCLogic {
       },
       pricing: {
         hero: { eyebrow:'Cjenik 2026', title:'Cijene i tarife', sub:'Dnevne cijene u EUR, PDV uključen. Cijena parcele ovisi o kategoriji (A–D) i sezoni. Boravišna pristojba plaća se zasebno.' },
-        tabs:{ core:'Parcele i tarife', extras:'Oprema i pristojbe' },
-        tiers: { title:'Cijena parcele po kategoriji', sub:'Cijena po parceli, po noći.', note:'Van sezone: 01.01.–31.05. i 01.10.–31.12. · Pred/posezona: 01.06.–30.06. i 01.09.–30.09. · Glavna sezona: 01.07.–31.08.', cols:['Parcela','Van sezone','Pred/posezona','Glavna sezona'], rows:[ ['Parcela A','38 €','40 €','55 €'],['Parcela B','36 €','38 €','50 €'],['Parcela C','34 €','36 €','48 €'],['Parcela D','32 €','34 €','45 €'] ] },
-        persons: { title:'Osobe i vozila', sub:'Naplaćuje se uz cijenu parcele, po noći.', note:'Djeca do 5 godina besplatno. Jedno vozilo uključeno je u cijenu parcele.', cols:['Stavka','Van sezone','Pred/posezona','Glavna sezona'], rows:[ ['Odrasli (12+)','6 €','8 €','10 €'],['Djeca (5–12)','5 €','6 €','8 €'],['Dijete do 5 god.','besplatno','besplatno','besplatno'],['Dodatni šator / auto / prikolica / motocikl','7 €','7 €','7 €'],['Pas','4 €','5 €','6 €'] ] },
-        extras: { title:'Dodatna oprema (najam)', sub:'Za najam na recepciji.', note:'PDV uključen u cijenu.', cols:['Oprema','Cijena'], rows:[ ['Perilica rublja','8 €'],['Sušilica rublja','8 €'],['Hladnjak (pretinac s ključem)','4 €'] ] },
-        tax: { title:'Boravišna pristojba', sub:'Po osobi, po danu. Nije uključena u cijenu parcele.', note:'', cols:['Osoba','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Osoba 18+','1,70 €','1,10 €'],['Osoba 12–18','0,85 €','0,55 €'],['Dijete 0–12','0,00 €','0,00 €'] ] },
-        included: { title:'Uključeno u cijenu', items:['Struja uključena u cijenu parcele','Topli tuševi i sanitarije','Besplatni Wi-Fi u cijelom kampu','Jedno vozilo po parceli','Pristup plaži uz kamp'] },
-        good: { title:'Dobro je znati', items:['PDV je uključen u cijene','Boravišna pristojba se plaća zasebno','Jednokratna prijava 2 € po rezervaciji','Djeca do 5 godina besplatno','Psi dobrodošli, 4–6 € / noć'] },
+        main: { title:'Cjenik 2026', cols:['Stavka','01.01.–31.05. / 01.10.–31.12.','01.06.–30.06. / 01.09.–30.09.','01.07.–31.08.'], rows:[ ['Parcela A','38 €','40 €','55 €'],['Parcela B','36 €','38 €','50 €'],['Parcela C','34 €','36 €','48 €'],['Parcela D','32 €','34 €','45 €'],['Odrasli (12+)','6 €','8 €','10 €'],['Djeca (5–12)','5 €','6 €','8 €'],['Dijete do 5 god.','besplatno','besplatno','besplatno'],['Dodatni šator / auto / prikolica / motocikl','7 €','7 €','7 €'],['Pas','4 €','5 €','6 €'],['Hladnjak (pretinac s ključem)','4 €','4 €','4 €'],['Jednokratna prijava','2 €','2 €','2 €'] ] },
+        tax: { title:'Boravišna pristojba', note:'', cols:['Osoba','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Osoba 18+','1,70 €','1,10 €'],['Osoba 12–18','0,85 €','0,55 €'],['Dijete 0–12','0,00 €','0,00 €'] ] },
+        notes: { includedLead:'U cijenu parcele uključena je jedna od sljedeće tri opcije:', includedOptions:['auto + šator','auto + kamp prikolica','kamper'], or:'ili', includedTail:'Cijena uključuje besplatni Wi-Fi, priključak na struju 16A, vodu i odvod ako postoji na parceli.', vat:'PDV je uključen u cijenu.', taxExcluded:'Boravišna pristojba nije uključena u cijenu.' },
+        checkin:'Prijava u kamp od 08:00 do 22:00',
+        checkout:'Odjava do 12:00, nakon 12:00 naplaćuje se +1 dan.',
         reserveBtn:'Pošalji upit za rezervaciju'
       },
       map: {
@@ -1066,13 +1078,11 @@ class Component extends DCLogic {
       },
       pricing: {
         hero: { eyebrow:'Price list 2026', title:'Prices & rates', sub:'Daily rates in EUR, VAT included. The pitch price depends on the tier (A–D) and season. Tourist tax is charged separately.' },
-        tabs:{ core:'Pitches & rates', extras:'Extras & taxes' },
-        tiers: { title:'Pitch price by tier', sub:'Price per pitch, per night.', note:'Off-season: 01.01.–31.05. & 01.10.–31.12. · Mid-season: 01.06.–30.06. & 01.09.–30.09. · Peak season: 01.07.–31.08.', cols:['Pitch','Off-season','Mid-season','Peak season'], rows:[ ['Pitch A','38 €','40 €','55 €'],['Pitch B','36 €','38 €','50 €'],['Pitch C','34 €','36 €','48 €'],['Pitch D','32 €','34 €','45 €'] ] },
-        persons: { title:'People & vehicles', sub:'Charged on top of the pitch price, per night.', note:'Children under 5 stay free. One vehicle is included in the pitch price.', cols:['Item','Off-season','Mid-season','Peak season'], rows:[ ['Adult (12+)','6 €','8 €','10 €'],['Child (5–12)','5 €','6 €','8 €'],['Child under 5','free','free','free'],['Extra tent / car / trailer / motorbike','7 €','7 €','7 €'],['Dog','4 €','5 €','6 €'] ] },
-        extras: { title:'Optional extras (rental)', sub:'Available to rent at reception.', note:'VAT included.', cols:['Item','Price'], rows:[ ['Washing machine','8 €'],['Dryer','8 €'],['Fridge (lockable compartment)','4 €'] ] },
-        tax: { title:'Tourist tax', sub:'Per person, per day. Not included in the pitch price.', note:'', cols:['Person','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Person 18+','1,70 €','1,10 €'],['Person 12–18','0,85 €','0,55 €'],['Child 0–12','0,00 €','0,00 €'] ] },
-        included: { title:'Included in the price', items:['Electricity included in the pitch price','Hot showers & sanitary facilities','Free Wi-Fi across the camp','One vehicle per pitch','Access to the beach by the camp'] },
-        good: { title:'Good to know', items:['VAT is included in the prices','Tourist tax is charged separately','One-time registration €2 per booking','Children under 5 stay free','Dogs welcome, €4–6 / night'] },
+        main: { title:'Price list 2026', cols:['Item','01.01.–31.05. / 01.10.–31.12.','01.06.–30.06. / 01.09.–30.09.','01.07.–31.08.'], rows:[ ['Pitch A','38 €','40 €','55 €'],['Pitch B','36 €','38 €','50 €'],['Pitch C','34 €','36 €','48 €'],['Pitch D','32 €','34 €','45 €'],['Adult (12+)','6 €','8 €','10 €'],['Child (5–12)','5 €','6 €','8 €'],['Child under 5','free','free','free'],['Extra tent / car / trailer / motorbike','7 €','7 €','7 €'],['Dog','4 €','5 €','6 €'],['Fridge (lockable compartment)','4 €','4 €','4 €'],['One-time registration','2 €','2 €','2 €'] ] },
+        tax: { title:'Tourist tax', note:'', cols:['Person','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Person 18+','1,70 €','1,10 €'],['Person 12–18','0,85 €','0,55 €'],['Child 0–12','0,00 €','0,00 €'] ] },
+        notes: { includedLead:'The pitch price includes one of the following three options:', includedOptions:['car + tent','car + caravan','motorhome'], or:'or', includedTail:'The price includes free Wi-Fi, a 16A electricity connection, water and drainage where available on the pitch.', vat:'VAT is included in the price.', taxExcluded:'Tourist tax is not included in the price.' },
+        checkin:'Check-in from 08:00 to 22:00',
+        checkout:'Check-out by 12:00, after 12:00 one extra day is charged.',
         reserveBtn:'Send a reservation request'
       },
       map: {
@@ -1244,13 +1254,11 @@ class Component extends DCLogic {
       },
       pricing: {
         hero: { eyebrow:'Preisliste 2026', title:'Preise & Tarife', sub:'Tagespreise in EUR, inkl. MwSt. Der Stellplatzpreis richtet sich nach Kategorie (A–D) und Saison. Die Kurtaxe wird separat berechnet.' },
-        tabs:{ core:'Stellplätze & Tarife', extras:'Ausstattung & Gebühren' },
-        tiers: { title:'Stellplatzpreis nach Kategorie', sub:'Preis pro Stellplatz, pro Nacht.', note:'Nebensaison: 01.01.–31.05. & 01.10.–31.12. · Zwischensaison: 01.06.–30.06. & 01.09.–30.09. · Hauptsaison: 01.07.–31.08.', cols:['Stellplatz','Nebensaison','Zwischensaison','Hauptsaison'], rows:[ ['Stellplatz A','38 €','40 €','55 €'],['Stellplatz B','36 €','38 €','50 €'],['Stellplatz C','34 €','36 €','48 €'],['Stellplatz D','32 €','34 €','45 €'] ] },
-        persons: { title:'Personen & Fahrzeuge', sub:'Zusätzlich zum Stellplatzpreis, pro Nacht.', note:'Kinder unter 5 Jahren kostenlos. Ein Fahrzeug ist im Stellplatzpreis enthalten.', cols:['Position','Nebensaison','Zwischensaison','Hauptsaison'], rows:[ ['Erwachsene (12+)','6 €','8 €','10 €'],['Kind (5–12)','5 €','6 €','8 €'],['Kind unter 5','kostenlos','kostenlos','kostenlos'],['Zusätzl. Zelt / Auto / Anhänger / Motorrad','7 €','7 €','7 €'],['Hund','4 €','5 €','6 €'] ] },
-        extras: { title:'Zusatzausstattung (Miete)', sub:'An der Rezeption mietbar.', note:'MwSt. inklusive.', cols:['Ausstattung','Preis'], rows:[ ['Waschmaschine','8 €'],['Trockner','8 €'],['Kühlschrank (abschließbares Fach)','4 €'] ] },
-        tax: { title:'Kurtaxe', sub:'Pro Person, pro Tag. Nicht im Stellplatzpreis enthalten.', note:'', cols:['Person','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Person 18+','1,70 €','1,10 €'],['Person 12–18','0,85 €','0,55 €'],['Kind 0–12','0,00 €','0,00 €'] ] },
-        included: { title:'Im Preis enthalten', items:['Strom im Stellplatzpreis enthalten','Warme Duschen & Sanitäranlagen','Kostenloses WLAN im ganzen Camp','Ein Fahrzeug pro Stellplatz','Zugang zum Strand am Camp'] },
-        good: { title:'Gut zu wissen', items:['MwSt. ist in den Preisen enthalten','Kurtaxe wird separat berechnet','Einmalige Anmeldung 2 € pro Buchung','Kinder unter 5 Jahren kostenlos','Hunde willkommen, 4–6 € / Nacht'] },
+        main: { title:'Preisliste 2026', cols:['Position','01.01.–31.05. / 01.10.–31.12.','01.06.–30.06. / 01.09.–30.09.','01.07.–31.08.'], rows:[ ['Stellplatz A','38 €','40 €','55 €'],['Stellplatz B','36 €','38 €','50 €'],['Stellplatz C','34 €','36 €','48 €'],['Stellplatz D','32 €','34 €','45 €'],['Erwachsene (12+)','6 €','8 €','10 €'],['Kind (5–12)','5 €','6 €','8 €'],['Kind unter 5','kostenlos','kostenlos','kostenlos'],['Zusätzl. Zelt / Auto / Anhänger / Motorrad','7 €','7 €','7 €'],['Hund','4 €','5 €','6 €'],['Kühlschrank (abschließbares Fach)','4 €','4 €','4 €'],['Einmalige Anmeldung','2 €','2 €','2 €'] ] },
+        tax: { title:'Kurtaxe', note:'', cols:['Person','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Person 18+','1,70 €','1,10 €'],['Person 12–18','0,85 €','0,55 €'],['Kind 0–12','0,00 €','0,00 €'] ] },
+        notes: { includedLead:'Im Stellplatzpreis ist eine der folgenden drei Optionen enthalten:', includedOptions:['Auto + Zelt','Auto + Wohnwagen','Wohnmobil'], or:'oder', includedTail:'Der Preis umfasst kostenloses WLAN, einen 16A-Stromanschluss, Wasser und Abwasser, sofern am Stellplatz vorhanden.', vat:'Die MwSt. ist im Preis enthalten.', taxExcluded:'Die Kurtaxe ist nicht im Preis enthalten.' },
+        checkin:'Check-in ins Camp von 08:00 bis 22:00 Uhr',
+        checkout:'Check-out bis 12:00 Uhr, nach 12:00 Uhr wird +1 Tag berechnet.',
         reserveBtn:'Reservierungsanfrage senden'
       },
       map: {
@@ -1363,13 +1371,11 @@ class Component extends DCLogic {
       },
       pricing: {
         hero: { eyebrow:'Cenik 2026', title:'Cene in tarife', sub:'Dnevne cene v EUR, DDV vključen. Cena parcele je odvisna od kategorije (A–D) in sezone. Turistična taksa se plača ločeno.' },
-        tabs:{ core:'Parcele in tarife', extras:'Oprema in takse' },
-        tiers: { title:'Cena parcele po kategoriji', sub:'Cena na parcelo, na noč.', note:'Izven sezone: 01.01.–31.05. in 01.10.–31.12. · Medsezona: 01.06.–30.06. in 01.09.–30.09. · Glavna sezona: 01.07.–31.08.', cols:['Parcela','Izven sezone','Medsezona','Glavna sezona'], rows:[ ['Parcela A','38 €','40 €','55 €'],['Parcela B','36 €','38 €','50 €'],['Parcela C','34 €','36 €','48 €'],['Parcela D','32 €','34 €','45 €'] ] },
-        persons: { title:'Osebe in vozila', sub:'Zaračuna se poleg cene parcele, na noč.', note:'Otroci do 5 let brezplačno. Eno vozilo je vključeno v ceno parcele.', cols:['Postavka','Izven sezone','Medsezona','Glavna sezona'], rows:[ ['Odrasli (12+)','6 €','8 €','10 €'],['Otrok (5–12)','5 €','6 €','8 €'],['Otrok do 5 let','brezplačno','brezplačno','brezplačno'],['Dodatni šotor / avto / prikolica / motor','7 €','7 €','7 €'],['Pes','4 €','5 €','6 €'] ] },
-        extras: { title:'Dodatna oprema (najem)', sub:'Za najem na recepciji.', note:'DDV vključen.', cols:['Oprema','Cena'], rows:[ ['Pralni stroj','8 €'],['Sušilni stroj','8 €'],['Hladilnik (predal s ključavnico)','4 €'] ] },
-        tax: { title:'Turistična taksa', sub:'Na osebo, na dan. Ni vključena v ceno parcele.', note:'', cols:['Oseba','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Oseba 18+','1,70 €','1,10 €'],['Oseba 12–18','0,85 €','0,55 €'],['Otrok 0–12','0,00 €','0,00 €'] ] },
-        included: { title:'Vključeno v ceno', items:['Elektrika vključena v ceno parcele','Tople prhe in sanitarije','Brezplačni Wi-Fi po vsem kampu','Eno vozilo na parcelo','Dostop do plaže ob kampu'] },
-        good: { title:'Dobro je vedeti', items:['DDV je vključen v cene','Turistična taksa se plača ločeno','Enkratna prijava 2 € na rezervacijo','Otroci do 5 let brezplačno','Psi dobrodošli, 4–6 € / noč'] },
+        main: { title:'Cenik 2026', cols:['Postavka','01.01.–31.05. / 01.10.–31.12.','01.06.–30.06. / 01.09.–30.09.','01.07.–31.08.'], rows:[ ['Parcela A','38 €','40 €','55 €'],['Parcela B','36 €','38 €','50 €'],['Parcela C','34 €','36 €','48 €'],['Parcela D','32 €','34 €','45 €'],['Odrasli (12+)','6 €','8 €','10 €'],['Otrok (5–12)','5 €','6 €','8 €'],['Otrok do 5 let','brezplačno','brezplačno','brezplačno'],['Dodatni šotor / avto / prikolica / motor','7 €','7 €','7 €'],['Pes','4 €','5 €','6 €'],['Hladilnik (predal s ključavnico)','4 €','4 €','4 €'],['Enkratna prijava','2 €','2 €','2 €'] ] },
+        tax: { title:'Turistična taksa', note:'', cols:['Oseba','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Oseba 18+','1,70 €','1,10 €'],['Oseba 12–18','0,85 €','0,55 €'],['Otrok 0–12','0,00 €','0,00 €'] ] },
+        notes: { includedLead:'V ceno parcele je vključena ena od naslednjih treh možnosti:', includedOptions:['avto + šotor','avto + prikolica','avtodom'], or:'ali', includedTail:'Cena vključuje brezplačni Wi-Fi, priključek na elektriko 16A, vodo in odtok, če je na parceli.', vat:'DDV je vključen v ceno.', taxExcluded:'Turistična taksa ni vključena v ceno.' },
+        checkin:'Prijava v kamp od 08:00 do 22:00',
+        checkout:'Odjava do 12:00, po 12:00 se zaračuna +1 dan.',
         reserveBtn:'Pošlji povpraševanje za rezervacijo'
       },
       map: {
@@ -1564,7 +1570,7 @@ class Component extends DCLogic {
     const page = this.state.page;
     const navDef = [
       { key:'home', label:t.nav.home }, { key:'about', label:t.nav.about },
-      { key:'accommodations', label:t.nav.accommodations }, { key:'activities', label:t.nav.activities },
+      { key:'activities', label:t.nav.activities },
       { key:'pricing', label:t.nav.pricing },
       { key:'request', label:t.nav.request }, { key:'contact', label:t.nav.contact }
     ];
@@ -1608,8 +1614,6 @@ class Component extends DCLogic {
       dir: i % 2 === 1 ? 'flex-direction:row-reverse;' : ''
     }));
 
-    const includedItems = ((t.pricing && t.pricing.included.items) || []).map((x) => ({ text:x, iconEl: this.icon('check', 16) }));
-    const goodItems = ((t.pricing && t.pricing.good.items) || []).map((x) => ({ text:x, iconEl: this.icon('check', 16) }));
     const mapPinEl = this.icon('pin', 30);
     const eventsUrl = 'https://visitorebic-croatia.hr';
     const sbOpen = this.state.sidebarOpen;
@@ -1624,11 +1628,10 @@ class Component extends DCLogic {
     }));
     const sharedFacIcons = ['droplet','wifi','waves','parking','basket','paw','house','zap'];
     const sharedFacilities = (ap.facilities || []).map((x, i) => ({ text:x, iconEl: this.icon(sharedFacIcons[i % sharedFacIcons.length], 18) }));
-    const segBase = 'font-family:\'Plus Jakarta Sans\',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;padding:11px 24px;border-radius:999px;transition:background .2s,color .2s;';
 
     // Pricing tables are column-count agnostic: cols[0] is the row-label column,
-    // cols[1..] are value columns. Handles 4-col season tables, the 3-col tax
-    // table and the 2-col extras table with one code path.
+    // cols[1..] are value columns. Handles the 4-col main table and the 3-col
+    // tourist-tax table with one code path.
     const pr = t.pricing || {};
     const mkTable = (src) => {
       const s = src || {};
@@ -1643,14 +1646,9 @@ class Component extends DCLogic {
       }));
       return { title:s.title, sub:s.sub, note:s.note, col0: cols[0], heads, grid, rows };
     };
-    const priceTables = this.state.priceTab === 'extras'
-      ? [mkTable(pr.extras), mkTable(pr.tax)]
-      : [mkTable(pr.tiers), mkTable(pr.persons)];
-    const priceTabs = [ { key:'core', label:(pr.tabs||{}).core }, { key:'extras', label:(pr.tabs||{}).extras } ].map((tb) => ({
-      label: tb.label,
-      onClick: () => this.setState({ priceTab: tb.key }),
-      style: segBase + (this.state.priceTab === tb.key ? 'background:#2E7CB8;color:#fff;' : 'background:transparent;color:#114B7C;')
-    }));
+    const mainTable = mkTable(pr.main);
+    const taxTable = mkTable(pr.tax);
+    const includedOptions = (((pr.notes || {}).includedOptions) || []).map((label, i) => ({ label, sep: i > 0 }));
 
     // ─── VIDEOS ────────────────────────────────────────────────────────────
     // Fill these in when the footage is ready; leave '' / null to keep the
@@ -1702,7 +1700,7 @@ class Component extends DCLogic {
     }));
 
     const contactInfo = [
-      { label: isHr ? 'Adresa' : 'Address', value: 'Lovište 12, 20269 Lovište', iconEl: this.icon('pin', 20) },
+      { label: isHr ? 'Adresa' : 'Address', value: 'Lovište 220, 20269 Lovište', iconEl: this.icon('pin', 20) },
       { label: isHr ? 'Telefon' : 'Phone', value: '+385 20 000 000', iconEl: this.icon('phone', 20) },
       { label: 'E-mail', value: 'info@vicelic-camping.hr', iconEl: this.icon('mail', 20) }
     ];
@@ -1732,7 +1730,7 @@ class Component extends DCLogic {
       toggleLang: () => this.setState({ langOpen: !this.state.langOpen }),
       closeLang: () => this.setState({ langOpen: false }),
       navItems, accommodations, facilities, things, contactInfo, distances, mailHref,
-      priceTables, priceTabs, includedItems, goodItems, mapPinEl, eventsUrl, shellShift,
+      mainTable, taxTable, includedOptions, mapPinEl, eventsUrl, shellShift,
       accTiers, sharedFacilities, activitiesItems,
       heroVideo, heroHasVideo: !!heroVideo, heroNoVideo: !heroVideo,
       panoramaVideo, panoramaHasVideo: !!panoramaVideo, panoramaNoVideo: !panoramaVideo,
