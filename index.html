@@ -136,11 +136,10 @@
       <section style="padding:clamp(64px,8vw,120px) clamp(20px,5vw,40px);">
         <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:center;">
           <div style="flex:1 1 380px;min-width:300px;" data-reveal="left">
-            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.2vw,44px);line-height:1.12;letter-spacing:-0.02em;margin:0 0 22px;text-wrap:balance;">{{ t.intro.title }}</h2>
-            <p style="font-size:clamp(16px,1.9vw,18px);line-height:1.75;color:#6B7280;margin:0;text-wrap:pretty;">{{ t.intro.body }}</p>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.2vw,44px);line-height:1.12;letter-spacing:-0.02em;margin:0;text-wrap:balance;">{{ t.intro.title }}</h2>
           </div>
           <div style="flex:1 1 420px;min-width:300px;height:clamp(300px,38vw,440px);overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);" data-reveal="right">
-            <img src="./uploads/reception.jpg" alt="Recepcija — Camping Lovište Paradise" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
+            <img src="./uploads/camp8.jpg" alt="Camping Lovište Paradise" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
           </div>
         </div>
       </section>
@@ -182,14 +181,14 @@
             </div>
             <div style="flex:1 1 420px;min-width:300px;height:clamp(320px,42vw,480px);position:relative;overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);" data-reveal="right">
               <sc-for list="{{ sanitarySlides }}" as="s" hint-placeholder-count="1">
-                <img src="{{ s.src }}" alt="{{ t.sanitary.title }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:{{ s.opacity }};z-index:{{ s.z }};transition:opacity .9s ease;" />
+                <img src="{{ s.src }}" onClick="{{ s.onOpen }}" alt="{{ t.sanitary.title }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:{{ s.opacity }};z-index:{{ s.z }};transition:opacity .9s ease;cursor:zoom-in;" />
               </sc-for>
             </div>
           </div>
           <div style="margin-top:clamp(34px,4vw,54px);display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;">
             <sc-for list="{{ facilityShots }}" as="s" hint-placeholder-count="8">
-              <div data-reveal style="position:relative;aspect-ratio:4/3;overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);">
-                <img src="{{ s }}" alt="{{ t.sanitary.title }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;" style-hover="transform:scale(1.06);" />
+              <div data-reveal onClick="{{ s.onOpen }}" style="position:relative;aspect-ratio:4/3;overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);cursor:zoom-in;">
+                <img src="{{ s.src }}" alt="{{ t.sanitary.title }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;" style-hover="transform:scale(1.06);" />
               </div>
             </sc-for>
           </div>
@@ -237,13 +236,8 @@
               </sc-for>
             </div>
           </div>
-          <div style="flex:1 1 420px;min-width:300px;position:relative;border-radius:0;overflow:hidden;min-height:380px;background:linear-gradient(150deg,#d2e5f3,#e7f2f9);border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);" data-reveal>
-            <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(17,75,124,0.05),rgba(17,75,124,0.05) 1px,transparent 1px,transparent 38px),repeating-linear-gradient(90deg,rgba(17,75,124,0.05),rgba(17,75,124,0.05) 1px,transparent 1px,transparent 38px);"></div>
-            <div style="position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:10px;">
-              <span style="width:18px;height:18px;background:#2E7CB8;border:3px solid #fff;border-radius:50%;box-shadow:0 6px 16px -4px rgba(17,75,124,0.6);"></span>
-              <span style="background:#114B7C;color:#fff;font-weight:600;font-size:13px;padding:6px 14px;border-radius:999px;white-space:nowrap;">Camping Lovište Paradise</span>
-            </div>
-            <span style="position:absolute;top:24px;left:24px;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#5d6f7e;text-transform:uppercase;background:rgba(255,255,255,0.7);padding:6px 12px;border-radius:999px;">{{ t.area.mapLabel }}</span>
+          <div style="flex:1 1 420px;min-width:300px;position:relative;border-radius:0;overflow:hidden;min-height:380px;border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);" data-reveal>
+            <iframe title="Camping Lovište Paradise — Lovište 220" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21480.435064221154!2d17.00368584106591!3d43.026258800000015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x134a5b8609c3df9b%3A0x8a24b9f2efa237d4!2sCamping%20Lovi%C5%A1te%20Paradise!5e1!3m2!1sen!2sus!4v1783691159461!5m2!1sen!2sus" loading="lazy" allowFullScreen="allowfullscreen" referrerPolicy="strict-origin-when-cross-origin" style="position:absolute;inset:0;width:100%;height:100%;border:0;display:block;"></iframe>
           </div>
         </div>
       </section>
@@ -286,12 +280,11 @@
               <span style="font-size:14px;color:#114B7C;font-weight:600;">{{ t.apart.note }}</span>
             </div>
             <div style="display:flex;flex-wrap:wrap;gap:12px;">
-              <a href="https://share.google/OHEpVMwl5CKIDETnV" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#2E7CB8;color:#fff;font-weight:600;font-size:14px;padding:13px 22px;border-radius:999px;transition:background .2s;" style-hover="background:#114B7C;">{{ t.apart.btn1 }} <span style="font-size:14px;">↗</span></a>
-              <a href="https://share.google/JNdqiwMFTgmjvVUkw" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:rgba(17,75,124,0.06);color:#114B7C;font-weight:600;font-size:14px;padding:13px 22px;border-radius:999px;transition:background .2s;" style-hover="background:rgba(17,75,124,0.12);">{{ t.apart.btn2 }} <span style="font-size:14px;">↗</span></a>
+              <a href="https://share.google/4OUGIWb0UEnocFVLh" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#2E7CB8;color:#fff;font-weight:600;font-size:14px;padding:13px 22px;border-radius:999px;transition:background .2s;" style-hover="background:#114B7C;">{{ t.apart.btn1 }} <span style="font-size:14px;">↗</span></a>
             </div>
           </div>
           <div style="flex:1 1 360px;min-width:300px;height:clamp(320px,40vw,440px);overflow:hidden;background:#e8f2f9;" data-reveal="right">
-            <img src="./uploads/loviste-3.webp" alt="Lovište" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
+            <img src="./uploads/villa.webp" alt="Villa Lovište Paradise" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
           </div>
         </div>
       </section>
@@ -308,21 +301,6 @@
           </div>
           <div style="flex:1 1 360px;min-width:300px;height:clamp(320px,40vw,460px);overflow:hidden;background:#e8f2f9;" data-reveal="right">
             <img src="./uploads/camp2.jpg" alt="Camping Lovište Paradise" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
-          </div>
-        </div>
-      </section>
-
-      <section style="background:#fff;padding:clamp(64px,8vw,110px) clamp(20px,5vw,40px);border-top:1px solid rgba(17,75,124,0.06);border-bottom:1px solid rgba(17,75,124,0.06);">
-        <div style="max-width:1180px;margin:0 auto;">
-          <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(26px,3.6vw,38px);line-height:1.12;letter-spacing:-0.02em;margin:0 0 clamp(36px,5vw,52px);max-width:560px;" data-reveal>{{ t.about.diff.title }}</h2>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;">
-            <sc-for list="{{ t.about.diff.items }}" as="d" hint-placeholder-count="3">
-              <div data-reveal style="display:flex;flex-direction:column;gap:14px;padding:28px;background:#ffffff;border-radius:0;border:1px solid rgba(17,75,124,0.07);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);">
-                <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:14px;color:#5BB0DE;letter-spacing:0.04em;">{{ d.no }}</span>
-                <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:20px;color:#114B7C;margin:0;">{{ d.title }}</h3>
-                <p style="font-size:15px;line-height:1.65;color:#6B7280;margin:0;">{{ d.body }}</p>
-              </div>
-            </sc-for>
           </div>
         </div>
       </section>
@@ -816,7 +794,7 @@
 
           <div style="flex:1 1 360px;min-width:300px;display:flex;flex-direction:column;gap:20px;" data-reveal="right">
             <div style="height:clamp(220px,26vw,300px);overflow:hidden;background:#e8f2f9;">
-              <img src="./uploads/loviste-5.webp" alt="Lovište" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
+              <img src="./uploads/reception.jpg" alt="Recepcija — Camping Lovište Paradise" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
             </div>
             <div style="background:#fff;border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;padding:24px;">
               <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#114B7C;margin:0 0 14px;">{{ t.contact.hoursHeading }}</h3>
@@ -843,7 +821,11 @@
   <!-- ============ LIGHTBOX ============ -->
   <sc-if value="{{ lightbox }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ closeLightbox }}" style="position:fixed;inset:0;z-index:200;background:rgba(8,28,45,0.92);display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px);cursor:zoom-out;">
-      <img src="{{ lightbox }}" alt="Camping Lovište Paradise" style="max-width:96%;max-height:92%;object-fit:contain;box-shadow:0 24px 70px -20px rgba(0,0,0,0.7);" />
+      <img src="{{ lightboxSrc }}" onClick="{{ lightboxImgClick }}" alt="Camping Lovište Paradise" style="max-width:96%;max-height:92%;object-fit:contain;box-shadow:0 24px 70px -20px rgba(0,0,0,0.7);cursor:pointer;" />
+      <sc-if value="{{ lightboxMulti }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ lightboxPrev }}" aria-label="Previous" style="position:absolute;left:clamp(12px,3vw,32px);top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.14);color:#fff;font-size:30px;line-height:1;display:flex;align-items:center;justify-content:center;transition:background .2s;" style-hover="background:rgba(255,255,255,0.28);">‹</button>
+        <button onClick="{{ lightboxNext }}" aria-label="Next" style="position:absolute;right:clamp(12px,3vw,32px);top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.14);color:#fff;font-size:30px;line-height:1;display:flex;align-items:center;justify-content:center;transition:background .2s;" style-hover="background:rgba(255,255,255,0.28);">›</button>
+      </sc-if>
       <button onClick="{{ closeLightbox }}" aria-label="Close" style="position:absolute;top:20px;right:24px;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,0.14);color:#fff;font-size:26px;line-height:1;display:flex;align-items:center;justify-content:center;">×</button>
     </div>
   </sc-if>
@@ -871,7 +853,7 @@
         <div style="flex:0 1 auto;">
           <h4 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#BFE1F6;margin:0 0 18px;">{{ t.footer.contactHeading }}</h4>
           <div style="display:flex;flex-direction:column;gap:12px;font-size:14.5px;">
-            <span>Lovište 220, 20269 Lovište</span>
+            <span>Lovište 220, 20250 Lovište</span>
             <span>+385 91 502 9253</span>
             <span>camp.lovisteparadise@gmail.com</span>
           </div>
@@ -897,6 +879,7 @@ class Component extends DCLogic {
     playingVideo: null,
     slideTick: 0,
     lightbox: null,
+    lightboxIdx: 0,
     topbarHidden: false,
     isMobile: (typeof window !== 'undefined' && window.innerWidth < 1024),
     faqOpen: 0,
@@ -936,7 +919,7 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Pošalji upit', sub:'Recite nam termine, broj gostiju i smještaj. Javljamo se osobno, najčešće isti dan.' },
-        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', accommodation:'Odaberite smještaj', vehicle:'Vrsta vozila', vlength:'Duljina vozila', campingcard:'CampingCard / Predsezona', arrive:'Datum dolaska', depart:'Datum odlaska', country:'Država', phone:'Kontakt broj', phonePh:'+385 …', message:'Vaša poruka', messagePh:'Recite nam sve što nam pomaže pripremiti ponudu…', choose:'Odaberite opciju', submit:'Pošalji upit', gdpr:'GDPR, vaši se podaci prikupljaju isključivo za odgovor na ovaj upit i za eVisitor prijavu.' },
+        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', accommodation:'Odaberite smještaj', vehicle:'Vrsta vozila', vlength:'Duljina vozila', campingcard:'CampingCard / Predsezona', arrive:'Datum dolaska', depart:'Datum odlaska', country:'Država', phone:'Kontakt broj', phonePh:'091 234 5678', message:'Vaša poruka', messagePh:'Recite nam sve što nam pomaže pripremiti ponudu…', choose:'Odaberite opciju', submit:'Pošalji upit', gdpr:'GDPR, vaši se podaci prikupljaju isključivo za odgovor na ovaj upit i za eVisitor prijavu.' },
         accOptions:['Parcela A, uz more','Parcela B, blizu mora','Parcela C, srednje terase','Parcela D, u hladu borova','Nisam siguran/a'],
         vehicleOptions:['Šator','Kamp-kućica','Kamper / autodom','Auto + krovni šator','Bez vozila'],
         lengthOptions:['do 5 m','5–6 m','6–7 m','7–8 m','preko 8 m'],
@@ -964,7 +947,7 @@ class Component extends DCLogic {
         photo: '[ Hero foto, uvala u zlatno doba ]',
         eyebrow: 'Lovište · Poluotok Pelješac · Hrvatska',
         title: 'Probudite se uz more.',
-        sub: 'Mali obiteljski kamp skriven među borovima, na samom rubu mirne uvale Lovište, daleko od gužve, korak od mora.',
+        sub: 'Mali obiteljski kamp skriven među borovima, u srcu mirne uvale Lovište, daleko od gužve, korak do mora.',
         primary: 'Pošalji upit', secondary: 'Istraži kamp'
       },
       stats: [
@@ -975,7 +958,7 @@ class Component extends DCLogic {
       ],
       intro: {
         eyebrow: 'Dobrodošli',
-        title: 'Tih kutak Jadrana, vođen jednom obitelji već više od dvadeset godina.',
+        title: 'Camping Lovište Paradise je terasasti kamp koji se spušta prema kristalnom moru.',
         body: 'Camping Lovište Paradise nije veliki resort, i ne želi to biti. To je terasasti borik koji se spušta prema kristalnom moru, s parcelama u hladu, od prvog reda uz more do mirnih kutaka u zelenilu. Dovoljno blizu da čujete valove, dovoljno daleko od svega ostalog.'
       },
       acc: {
@@ -1043,14 +1026,13 @@ class Component extends DCLogic {
           { stars:'★★★★★', quote:'Terasaste parcele znače da svi imaju pogled i privatnost. Sanitarije besprijekorne. Dolazimo i sljedeće ljeto.', name:'Markus W.', place:'München, DE', initial:'M' },
           { stars:'★★★★★', quote:'Mali, tih i autentičan, točno ono što smo tražili daleko od velikih resorta. Plaža je san.', name:'Sophie L.', place:'Lyon, FR', initial:'S' }
         ] },
-      apart: { eyebrow:'Novootvoreni kamp', title:'Novi kamp, provjereno gostoljublje', body:'Camping Lovište Paradise otvara svoja vrata ovog ljeta, pa kamp tek prikuplja prve recenzije. No naša obitelj već godinama ugošćuje goste u svojim apartmanima u Lovištu, s izvrsnim ocjenama na Googleu. Ista briga i toplina čekaju vas i u kampu.', note:'Pogledajte recenzije naših apartmana', btn1:'Recenzije · Apartman 1', btn2:'Recenzije · Apartman 2', img:'[ Apartmani / zadovoljni gosti ]' },
+      apart: { eyebrow:'Novootvoreni kamp', title:'Novi kamp, provjereno gostoljublje', body:'Camping Lovište Paradise otvara svoja vrata ovog ljeta, pa kamp tek prikuplja prve recenzije. No naša obitelj već godinama ugošćuje goste u Lovištu, s izvrsnim ocjenama na Googleu. Ista briga i toplina čekaju vas i u kampu.', note:'Pogledajte recenzije naše vile', btn1:'Recenzije · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
       ctaBand: { title:'Spremni za savršeno ljeto?', sub:'Odgovaramo osobno, u najkraćem mogućem roku.', button:'Pošalji upit' },
       footer: { tagline:'Obiteljski kamp u uvali Lovište na poluotoku Pelješcu.', explore:'Stranice', contactHeading:'Kontakt', rights:'Sva prava pridržana.' },
       about: {
-        hero: { eyebrow:'O kampu', title:'Tih kamp iznad uvale.', sub:'Terasasti borik na rubu Lovišta, godinama oblikovan u miran kamp uz more.' },
+        hero: { eyebrow:'O kampu', title:'Tih kamp iznad uvale.', sub:'Terasasti kamp na rubu Lovišta, godinama oblikovan u miran kamp uz more.' },
         story: { title:'O kampu', img:'[ Terase kampa iznad mora ]', paras:[
           'Camping Lovište Paradise smjestio se na blagoj padini borova koja se spušta do bistrog mora uvale Lovište. Terasasti raspored znači da gotovo svaka parcela ima vlastiti hlad, privatnost i pogled na more.',
-          'Kamp se prostire na otprilike tri hektara zelenila, s terasastim parcelama isprepletenima među borovima, od prvog reda uz more do mirnih kutaka u hladu borova. More je svega desetak metara od kampa.',
           'Moderne sanitarije, besplatni Wi-Fi po cijelom kampu i plaža na korak čine boravak jednostavnim, mali, uredan kamp stvoren za spore dane uz more.'
         ] },
         diff: { title:'Što nas čini drugačijima', items:[
@@ -1122,7 +1104,7 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Send a request', sub:'Tell us your dates, party and accommodation. We reply personally, usually the same day.' },
-        f: { name:'Your name', namePh:'Your name', email:'E-mail', emailPh:'you@example.com', accommodation:'Choose accommodation', vehicle:'Vehicle type', vlength:'Length of the vehicle', campingcard:'CampingCard / Low season', arrive:'Date of arrival', depart:'Date of departure', country:'Country', phone:'Contact number', phonePh:'+385 …', message:'Your message', messagePh:'Tell us anything that helps us prepare your offer…', choose:'Please choose an option', submit:'Send request', gdpr:'GDPR, your details are collected only to answer this request and for eVisitor registration.' },
+        f: { name:'Your name', namePh:'Your name', email:'E-mail', emailPh:'you@example.com', accommodation:'Choose accommodation', vehicle:'Vehicle type', vlength:'Length of the vehicle', campingcard:'CampingCard / Low season', arrive:'Date of arrival', depart:'Date of departure', country:'Country', phone:'Contact number', phonePh:'091 234 5678', message:'Your message', messagePh:'Tell us anything that helps us prepare your offer…', choose:'Please choose an option', submit:'Send request', gdpr:'GDPR, your details are collected only to answer this request and for eVisitor registration.' },
         accOptions:['Pitch A, seafront','Pitch B, near the sea','Pitch C, mid terraces','Pitch D, pine shade','Not sure yet'],
         vehicleOptions:['Tent','Caravan','Camper / motorhome','Car + roof tent','None'],
         lengthOptions:['up to 5 m','5–6 m','6–7 m','7–8 m','over 8 m'],
@@ -1161,7 +1143,7 @@ class Component extends DCLogic {
       ],
       intro: {
         eyebrow: 'Welcome',
-        title: 'A quiet corner of the Adriatic, run by one family for over twenty years.',
+        title: 'Camping Lovište Paradise is a terraced camp that slopes down towards the crystal-clear sea.',
         body: 'Camping Lovište Paradise is not a large resort, and never wants to be. It is a terraced pine grove sloping down to crystal-clear water, with shaded pitches, from the front row by the sea to quiet corners in the greenery. Close enough to hear the waves, far enough from everything else.'
       },
       acc: {
@@ -1229,7 +1211,7 @@ class Component extends DCLogic {
           { stars:'★★★★★', quote:'The terraced pitches mean everyone gets a view and privacy. Spotless facilities. We are coming back next summer.', name:'Markus W.', place:'Munich, DE', initial:'M' },
           { stars:'★★★★★', quote:'Small, quiet and authentic, exactly what we wanted away from the big resorts. The beach is a dream.', name:'Sophie L.', place:'Lyon, FR', initial:'S' }
         ] },
-      apart: { eyebrow:'Newly opening', title:'A new camp, a proven welcome', body:'Camping Lovište Paradise opens its doors this summer, so the camp is only gathering its first reviews. But our family has hosted guests in our apartments in Lovište for years, with excellent ratings on Google. The same care and warmth await you at the camp.', note:'See the reviews for our apartments', btn1:'Reviews · Apartment 1', btn2:'Reviews · Apartment 2', img:'[ Apartments / happy guests ]' },
+      apart: { eyebrow:'Newly opening', title:'A new camp, a proven welcome', body:'Camping Lovište Paradise opens its doors this summer, so the camp is only gathering its first reviews. But our family has hosted guests in our apartments in Lovište for years, with excellent ratings on Google. The same care and warmth await you at the camp.', note:'See the reviews for our villa', btn1:'Reviews · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
       ctaBand: { title:'Ready for a perfect summer?', sub:'We reply personally, as soon as possible.', button:'Inquire' },
       footer: { tagline:'A family camp in the bay of Lovište on the Pelješac peninsula.', explore:'Pages', contactHeading:'Contact', rights:'All rights reserved.' },
       about: {
@@ -1308,7 +1290,7 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Anfrage senden', sub:'Nennen Sie uns Daten, Personenzahl und Unterkunft. Wir antworten persönlich, meist noch am selben Tag.' },
-        f: { name:'Ihr Name', namePh:'Ihr Name', email:'E-Mail', emailPh:'sie@beispiel.com', accommodation:'Unterkunft wählen', vehicle:'Fahrzeugtyp', vlength:'Länge des Fahrzeugs', campingcard:'CampingCard / Nebensaison', arrive:'Anreisedatum', depart:'Abreisedatum', country:'Land', phone:'Telefonnummer', phonePh:'+385 …', message:'Ihre Nachricht', messagePh:'Sagen Sie uns alles, was bei der Angebotserstellung hilft…', choose:'Bitte wählen', submit:'Anfrage senden', gdpr:'DSGVO, Ihre Daten werden nur zur Beantwortung dieser Anfrage und für die eVisitor-Registrierung erhoben.' },
+        f: { name:'Ihr Name', namePh:'Ihr Name', email:'E-Mail', emailPh:'sie@beispiel.com', accommodation:'Unterkunft wählen', vehicle:'Fahrzeugtyp', vlength:'Länge des Fahrzeugs', campingcard:'CampingCard / Nebensaison', arrive:'Anreisedatum', depart:'Abreisedatum', country:'Land', phone:'Telefonnummer', phonePh:'091 234 5678', message:'Ihre Nachricht', messagePh:'Sagen Sie uns alles, was bei der Angebotserstellung hilft…', choose:'Bitte wählen', submit:'Anfrage senden', gdpr:'DSGVO, Ihre Daten werden nur zur Beantwortung dieser Anfrage und für die eVisitor-Registrierung erhoben.' },
         accOptions:['Stellplatz A, am Meer','Stellplatz B, nah am Meer','Stellplatz C, mittlere Terrassen','Stellplatz D, im Pinienschatten','Noch unsicher'],
         vehicleOptions:['Zelt','Wohnwagen','Wohnmobil','Auto + Dachzelt','Keines'],
         lengthOptions:['bis 5 m','5–6 m','6–7 m','7–8 m','über 8 m'],
@@ -1334,7 +1316,7 @@ class Component extends DCLogic {
       },
       hero: { photo:'[ Hero Foto, Bucht im goldenen Licht ]', eyebrow:'Lovište · Halbinsel Pelješac · Kroatien', title:'Wachen Sie am Meer auf.', sub:'Ein kleiner familiengeführter Campingplatz, versteckt zwischen Pinien, direkt am Rand der ruhigen Bucht von Lovište, weit weg vom Trubel, nur wenige Schritte vom Wasser.', primary:'Anfragen', secondary:'Platz entdecken' },
       stats: [ {num:'1998',label:'Familiengeführt seit'}, {num:'40',label:'Stellplätze & Häuser'}, {num:'3 ha',label:'Grün am Meer'}, {num:'30 m',label:'Zum Strand'} ],
-      intro: { eyebrow:'Willkommen', title:'Eine ruhige Ecke der Adria, seit über zwanzig Jahren von einer Familie geführt.', body:'Camping Lovište Paradise ist kein großes Resort, und will es auch nicht sein. Es ist ein terrassierter Pinienhain, der zum kristallklaren Wasser hin abfällt, mit schattigen Stellplätzen, von der ersten Reihe am Meer bis zu ruhigen Ecken im Grün. Nah genug, um die Wellen zu hören, weit genug von allem anderen entfernt.' },
+      intro: { eyebrow:'Willkommen', title:'Camping Lovište Paradise ist ein terrassierter Campingplatz, der sich zum kristallklaren Meer hinabzieht.', body:'Camping Lovište Paradise ist kein großes Resort, und will es auch nicht sein. Es ist ein terrassierter Pinienhain, der zum kristallklaren Wasser hin abfällt, mit schattigen Stellplätzen, von der ersten Reihe am Meer bis zu ruhigen Ecken im Grün. Nah genug, um die Wellen zu hören, weit genug von allem anderen entfernt.' },
       acc: { eyebrow:'Unterkünfte', title:'Finden Sie Ihren Platz', sub:'Derselbe komfortable Stellplatz in vier Kategorien, A, B, C und D, die sich vor allem durch Lage und Meerblick unterscheiden.', cta:'Anfragen', items: [
         { name:'Stellplatz A, am Meer', guests:'bis 6 Gäste', price:'ab 38 €/Nacht', tag:'Erste Reihe', img:'[ Stellplatz A · am Meer ]', amenities:['Strom inkl.','Erste Reihe am Meer','Natürlicher Schatten','WLAN'] },
         { name:'Stellplatz B, nah am Meer', guests:'bis 6 Gäste', price:'ab 36 €/Nacht', tag:'', img:'[ Stellplatz B · nah am Meer ]', amenities:['Strom inkl.','Meerblick','Nah am Strand','WLAN'] },
@@ -1368,7 +1350,7 @@ class Component extends DCLogic {
         { name:'Rund ums Camp', paras:['Terrassierte Stellplätze im Schatten der Pinien, ruhige Ecken und Grün im ganzen Camp.','Für die Kleinsten gibt es einen Kinderspielplatz.'] },
         { name:'Der Weg zum Camp', paras:['Eine angenehme Straße führt durch die ruhige Landschaft von Lovište bis ans Meer zum Camp.'] }
       ],
-      apart: { eyebrow:'Neu eröffnet', title:'Ein neuer Platz, ein bewährtes Willkommen', body:'Camping Lovište Paradise öffnet diesen Sommer seine Tore, der Platz sammelt also gerade erst seine ersten Bewertungen. Doch unsere Familie beherbergt seit Jahren Gäste in unseren Apartments in Lovište, mit ausgezeichneten Bewertungen bei Google. Dieselbe Fürsorge und Wärme erwarten Sie auch auf dem Platz.', note:'Sehen Sie die Bewertungen unserer Apartments', btn1:'Bewertungen · Apartment 1', btn2:'Bewertungen · Apartment 2', img:'[ Apartments / zufriedene Gäste ]' },
+      apart: { eyebrow:'Neu eröffnet', title:'Ein neuer Platz, ein bewährtes Willkommen', body:'Camping Lovište Paradise öffnet diesen Sommer seine Tore, der Platz sammelt also gerade erst seine ersten Bewertungen. Doch unsere Familie beherbergt seit Jahren Gäste in unseren Apartments in Lovište, mit ausgezeichneten Bewertungen bei Google. Dieselbe Fürsorge und Wärme erwarten Sie auch auf dem Platz.', note:'Sehen Sie die Bewertungen unserer Villa', btn1:'Bewertungen · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
       ctaBand: { title:'Bereit für einen perfekten Sommer?', sub:'Wir antworten persönlich, so schnell wie möglich.', button:'Anfragen' },
       footer: { tagline:'Ein Familiencampingplatz in der Bucht von Lovište auf der Halbinsel Pelješac.', explore:'Seiten', contactHeading:'Kontakt', rights:'Alle Rechte vorbehalten.' },
       about: {
@@ -1431,7 +1413,7 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Pošlji povpraševanje', sub:'Sporočite nam termine, število gostov in nastanitev. Odgovorimo osebno, običajno isti dan.' },
-        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-pošta', emailPh:'vi@primer.com', accommodation:'Izberite nastanitev', vehicle:'Vrsta vozila', vlength:'Dolžina vozila', campingcard:'CampingCard / Predsezona', arrive:'Datum prihoda', depart:'Datum odhoda', country:'Država', phone:'Kontaktna številka', phonePh:'+386 …', message:'Vaše sporočilo', messagePh:'Sporočite nam vse, kar pomaga pri pripravi ponudbe…', choose:'Izberite možnost', submit:'Pošlji povpraševanje', gdpr:'GDPR, vaši podatki se zbirajo izključno za odgovor na to povpraševanje in za eVisitor prijavo.' },
+        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-pošta', emailPh:'vi@primer.com', accommodation:'Izberite nastanitev', vehicle:'Vrsta vozila', vlength:'Dolžina vozila', campingcard:'CampingCard / Predsezona', arrive:'Datum prihoda', depart:'Datum odhoda', country:'Država', phone:'Kontaktna številka', phonePh:'091 234 5678', message:'Vaše sporočilo', messagePh:'Sporočite nam vse, kar pomaga pri pripravi ponudbe…', choose:'Izberite možnost', submit:'Pošlji povpraševanje', gdpr:'GDPR, vaši podatki se zbirajo izključno za odgovor na to povpraševanje in za eVisitor prijavo.' },
         accOptions:['Parcela A, ob morju','Parcela B, blizu morja','Parcela C, srednje terase','Parcela D, v senci borov','Še nisem prepričan/a'],
         vehicleOptions:['Šotor','Prikolica','Avtodom','Avto + strešni šotor','Brez vozila'],
         lengthOptions:['do 5 m','5–6 m','6–7 m','7–8 m','nad 8 m'],
@@ -1457,7 +1439,7 @@ class Component extends DCLogic {
       },
       hero: { photo:'[ Hero fotografija, zaliv v zlati uri ]', eyebrow:'Lovište · Polotok Pelješac · Hrvaška', title:'Zbudite se ob morju.', sub:'Majhen družinski kamp, skrit med bori, na samem robu mirnega zaliva Lovište, stran od gneče, le korak od morja.', primary:'Povpraševanje', secondary:'Razišči kamp' },
       stats: [ {num:'1998',label:'Družinski od'}, {num:'40',label:'Parcel in hišic'}, {num:'3 ha',label:'Zelenja ob morju'}, {num:'30 m',label:'Do plaže'} ],
-      intro: { eyebrow:'Dobrodošli', title:'Miren kotiček Jadrana, ki ga ena družina vodi že več kot dvajset let.', body:'Camping Lovište Paradise ni velik resort in to si tudi ne želi biti. Je terasast borov gaj, ki se spušča do kristalno čistega morja, s senčnimi parcelami, od prve vrste ob morju do mirnih kotičkov v zelenju. Dovolj blizu, da slišite valove, dovolj daleč od vsega drugega.' },
+      intro: { eyebrow:'Dobrodošli', title:'Camping Lovište Paradise je terasast kamp, ki se spušča proti kristalno čistemu morju.', body:'Camping Lovište Paradise ni velik resort in to si tudi ne želi biti. Je terasast borov gaj, ki se spušča do kristalno čistega morja, s senčnimi parcelami, od prve vrste ob morju do mirnih kotičkov v zelenju. Dovolj blizu, da slišite valove, dovolj daleč od vsega drugega.' },
       acc: { eyebrow:'Nastanitev', title:'Poiščite svoj kotiček', sub:'Iste udobne parcele v štirih kategorijah, A, B, C in D, ki se razlikujejo predvsem po legi in pogledu na morje.', cta:'Povpraševanje', items: [
         { name:'Parcela A, ob morju', guests:'do 6 oseb', price:'od 38 €/noč', tag:'Prva vrsta', img:'[ Parcela A · ob morju ]', amenities:['Elektrika vklj.','Prva vrsta ob morju','Naravna senca','Wi-Fi'] },
         { name:'Parcela B, blizu morja', guests:'do 6 oseb', price:'od 36 €/noč', tag:'', img:'[ Parcela B · blizu morja ]', amenities:['Elektrika vklj.','Pogled na morje','Blizu plaže','Wi-Fi'] },
@@ -1491,7 +1473,7 @@ class Component extends DCLogic {
         { name:'Po kampu', paras:['Terasaste parcele v senci borov, mirni kotički in zelenje po vsem kampu.','Za najmlajše je tu tudi otroško igrišče.'] },
         { name:'Pot do kampa', paras:['Do kampa vodi prijetna cesta skozi mirno pokrajino Lovišta, vse do morja.'] }
       ],
-      apart: { eyebrow:'Na novo odprto', title:'Nov kamp, preverjena gostoljubnost', body:'Camping Lovište Paradise letos poleti odpira svoja vrata, zato kamp šele zbira prve ocene. A naša družina že leta gosti obiskovalce v svojih apartmajih v Lovištu, z odličnimi ocenami na Googlu. Enaka skrb in toplina vas čakata tudi v kampu.', note:'Oglejte si ocene naših apartmajev', btn1:'Ocene · Apartma 1', btn2:'Ocene · Apartma 2', img:'[ Apartmaji / zadovoljni gosti ]' },
+      apart: { eyebrow:'Na novo odprto', title:'Nov kamp, preverjena gostoljubnost', body:'Camping Lovište Paradise letos poleti odpira svoja vrata, zato kamp šele zbira prve ocene. A naša družina že leta gosti obiskovalce v svojih apartmajih v Lovištu, z odličnimi ocenami na Googlu. Enaka skrb in toplina vas čakata tudi v kampu.', note:'Oglejte si ocene naše vile', btn1:'Ocene · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
       ctaBand: { title:'Pripravljeni na popolno poletje?', sub:'Odgovorimo osebno, v najkrajšem možnem času.', button:'Povpraševanje' },
       footer: { tagline:'Družinski kamp v zalivu Lovište na polotoku Pelješac.', explore:'Strani', contactHeading:'Kontakt', rights:'Vse pravice pridržane.' },
       about: {
@@ -1564,6 +1546,17 @@ class Component extends DCLogic {
     };
     window.addEventListener('scroll', this._onScroll, { capture: true, passive: true });
 
+    // Keyboard control for the open lightbox: ← / → page through the gallery,
+    // Esc closes it.
+    this._onKey = (e) => {
+      const L = this.state.lightbox;
+      if (!L || !L.length) return;
+      if (e.key === 'Escape') { this.setState({ lightbox: null, lightboxIdx: 0 }); }
+      else if (e.key === 'ArrowRight' && L.length > 1) { this.setState({ lightboxIdx: (this.state.lightboxIdx + 1) % L.length }); }
+      else if (e.key === 'ArrowLeft' && L.length > 1) { this.setState({ lightboxIdx: (((this.state.lightboxIdx - 1) % L.length) + L.length) % L.length }); }
+    };
+    window.addEventListener('keydown', this._onKey);
+
     // Auto-advance image slideshows (activity big images) every 3s.
     if (!this.props.reduceMotion) {
       this._slide = setInterval(() => { this.setState({ slideTick: this.state.slideTick + 1 }); }, 3000);
@@ -1575,6 +1568,7 @@ class Component extends DCLogic {
   componentWillUnmount() {
     window.removeEventListener('resize', this._onResize);
     window.removeEventListener('scroll', this._onScroll, { capture: true });
+    window.removeEventListener('keydown', this._onKey);
     if (this._slide) clearInterval(this._slide);
   }
 
@@ -1696,25 +1690,26 @@ class Component extends DCLogic {
     const facIcons = ['droplet','wifi','waves','washer','basket','paw'];
     const facilities = t.fac.items.map((f, i) => ({ ...f, iconEl: this.icon(facIcons[i % facIcons.length], 22) }));
     // Real facility photography (locale-independent) shown as a gallery under the facilities cards.
-    const facilityShots = [
+    const facilityShotSrcs = [
       './uploads/toilet-building.jpg','./uploads/wc1.png','./uploads/wc2.jpg',
       './uploads/wc-kids.jpg','./uploads/wc-invalid.jpg','./uploads/shower.jpg','./uploads/shower-outside.jpg',
       './uploads/shower-outside2.jpg','./uploads/shower-dog.jpg','./uploads/chemical-toilet.jpg'
     ];
+    const facilityShots = facilityShotSrcs.map((src, k) => ({ src, onOpen: () => this.setState({ lightbox: facilityShotSrcs, lightboxIdx: k }) }));
     const sanitaryFeatures = (((t.sanitary || {}).features) || []).map((x) => ({ text:x, iconEl: this.icon('check', 16) }));
     // Continuously-cycling main image for the sanitary section (crossfade via slideTick).
     const sanitaryMain = ['./uploads/wc-main.jpg','./uploads/shower.jpg','./uploads/shower-outside.jpg','./uploads/wc-kids.jpg','./uploads/wc-invalid.jpg','./uploads/shower-dog.jpg'];
     const sanIdx = this.state.slideTick % sanitaryMain.length;
-    const sanitarySlides = sanitaryMain.map((src, k) => ({ src, opacity: (k === sanIdx ? '1' : '0'), z: (k === sanIdx ? '2' : '1') }));
+    const sanitarySlides = sanitaryMain.map((src, k) => ({ src, opacity: (k === sanIdx ? '1' : '0'), z: (k === sanIdx ? '2' : '1'), onOpen: () => this.setState({ lightbox: sanitaryMain, lightboxIdx: k }) }));
     // "Look around the camp" — activity-style sections, one per camp area.
     // Each has a cycling main image (crossfade via slideTick) + thumbnails, all
     // click-to-zoom. Order matches the campTour copy: reception · toilets ·
     // showers · around the camp · the road in.
     const campMedia = [
-      { main:['./uploads/reception.jpg'], thumbs:[] },
+      { main:['./uploads/camp8.jpg'], thumbs:[] },
       { main:['./uploads/wc-main.jpg','./uploads/wc1.png','./uploads/wc2.jpg','./uploads/wc-invalid.jpg'], thumbs:['./uploads/wc3.jpg','./uploads/wc4.jpg','./uploads/wc-kids.jpg','./uploads/wc-kids2.jpg','./uploads/chemical-toilet.jpg'] },
-      { main:['./uploads/shower.jpg','./uploads/shower-outside.jpg','./uploads/shower-outside2.jpg','./uploads/shower-dog.jpg'], thumbs:['./uploads/shower-outside3.jpg'] },
-      { main:['./uploads/camp3.jpg','./uploads/camp4.jpg','./uploads/camp5.jpg','./uploads/camp6.jpg','./uploads/camp7.jpg'], thumbs:['./uploads/camp8.jpg','./uploads/camp10.jpg','./uploads/camp2.jpg','./uploads/camp.png','./uploads/camp-playground.jpg'] },
+      { main:['./uploads/shower.jpg','./uploads/shower-outside.jpg','./uploads/shower-outside2.jpg','./uploads/shower-dog.jpg'], thumbs:['./uploads/shower.jpg','./uploads/shower-outside.jpg','./uploads/shower-outside2.jpg','./uploads/shower-outside3.jpg','./uploads/shower-dog.jpg'] },
+      { main:['./uploads/camp3.jpg','./uploads/camp4.jpg','./uploads/camp5.jpg','./uploads/camp6.jpg','./uploads/camp7.jpg','./uploads/camp11.jpg','./uploads/camp12.jpg'], thumbs:['./uploads/camp8.jpg','./uploads/camp10.jpg','./uploads/camp2.jpg','./uploads/camp.png','./uploads/camp-playground.jpg'] },
       { main:['./uploads/camp-road1.jpg','./uploads/camp-road2.jpg','./uploads/camp-road3.jpg','./uploads/camp-road4.jpg'], thumbs:[] }
     ];
     const campSections = ((t.campTour) || []).map((c, i) => {
@@ -1723,10 +1718,11 @@ class Component extends DCLogic {
       const thumbs = m.thumbs || [];
       const idx = main.length ? (this.state.slideTick % main.length) : 0;
       const slides = main.map((src, k) => ({ src, opacity: (k === idx ? '1' : '0'), z: (k === idx ? '2' : '1') }));
+      const gallery = main.concat(thumbs).filter((src, k, a) => a.indexOf(src) === k);
       return {
         name: c.name, paras: c.paras, slides,
-        onOpen: () => this.setState({ lightbox: main[idx] }),
-        thumbs: thumbs.map((src) => ({ src, onOpen: () => this.setState({ lightbox: src }) })),
+        onOpen: () => this.setState({ lightbox: gallery, lightboxIdx: gallery.indexOf(main[idx]) }),
+        thumbs: thumbs.map((src) => ({ src, onOpen: () => this.setState({ lightbox: gallery, lightboxIdx: gallery.indexOf(src) }) })),
         hasThumbs: thumbs.length > 0,
         dir: i % 2 === 1 ? 'flex-direction:row-reverse;' : ''
       };
@@ -1837,7 +1833,7 @@ class Component extends DCLogic {
     }));
 
     const contactInfo = [
-      { label: isHr ? 'Adresa' : 'Address', value: 'Lovište 220, 20269 Lovište', iconEl: this.icon('pin', 20) },
+      { label: isHr ? 'Adresa' : 'Address', value: 'Lovište 220, 20250 Lovište', iconEl: this.icon('pin', 20) },
       { label: isHr ? 'Telefon' : 'Phone', value: '+385 91 502 9253', iconEl: this.icon('phone', 20) },
       { label: 'E-mail', value: 'camp.lovisteparadise@gmail.com', iconEl: this.icon('mail', 20) }
     ];
@@ -1866,7 +1862,14 @@ class Component extends DCLogic {
       langItems, currentLangLabel, langOpen: this.state.langOpen,
       toggleLang: () => this.setState({ langOpen: !this.state.langOpen }),
       closeLang: () => this.setState({ langOpen: false }),
-      navItems, accommodations, facilities, facilityShots, sanitaryFeatures, sanitarySlides, campSections, lightbox: this.state.lightbox, closeLightbox: () => this.setState({ lightbox: null }), things, contactInfo, distances, mailHref,
+      navItems, accommodations, facilities, facilityShots, sanitaryFeatures, sanitarySlides, campSections, things, contactInfo, distances, mailHref,
+      lightbox: this.state.lightbox,
+      lightboxSrc: (this.state.lightbox && this.state.lightbox.length) ? this.state.lightbox[((this.state.lightboxIdx % this.state.lightbox.length) + this.state.lightbox.length) % this.state.lightbox.length] : null,
+      lightboxMulti: !!(this.state.lightbox && this.state.lightbox.length > 1),
+      closeLightbox: () => this.setState({ lightbox: null, lightboxIdx: 0 }),
+      lightboxImgClick: (e) => { if (e && e.stopPropagation) e.stopPropagation(); const L = this.state.lightbox; if (L && L.length > 1) { this.setState({ lightboxIdx: (this.state.lightboxIdx + 1) % L.length }); } else { this.setState({ lightbox: null, lightboxIdx: 0 }); } },
+      lightboxPrev: (e) => { if (e && e.stopPropagation) e.stopPropagation(); const L = this.state.lightbox; if (!L || !L.length) return; this.setState({ lightboxIdx: (((this.state.lightboxIdx - 1) % L.length) + L.length) % L.length }); },
+      lightboxNext: (e) => { if (e && e.stopPropagation) e.stopPropagation(); const L = this.state.lightbox; if (!L || !L.length) return; this.setState({ lightboxIdx: (this.state.lightboxIdx + 1) % L.length }); },
       mainTable, taxTable, includedOptions, mapPinEl, eventsUrl, shellShift,
       accTiers, sharedFacilities, activitiesItems,
       heroVideo, heroHasVideo: !!heroVideo, heroNoVideo: !heroVideo,
