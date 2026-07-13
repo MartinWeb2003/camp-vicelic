@@ -512,11 +512,8 @@
       <section style="padding:clamp(48px,6vw,80px) clamp(20px,5vw,40px) 0;">
         <div style="max-width:1100px;margin:0 auto;" data-reveal>
           <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(22px,3vw,30px);letter-spacing:-0.01em;margin:0 0 18px;text-align:center;">{{ t.map.hero.title }}</h2>
-          <div style="position:relative;border:2px dashed rgba(17,75,124,0.22);min-height:clamp(320px,44vw,520px);background:linear-gradient(150deg,#e7f2f9,#d8e9f4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;overflow:hidden;">
-            <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(17,75,124,0.05),rgba(17,75,124,0.05) 1px,transparent 1px,transparent 44px),repeating-linear-gradient(90deg,rgba(17,75,124,0.05),rgba(17,75,124,0.05) 1px,transparent 1px,transparent 44px);"></div>
-            <span style="position:relative;width:56px;height:56px;background:rgba(91,176,222,0.18);color:#2E7CB8;display:flex;align-items:center;justify-content:center;">{{ mapPinEl }}</span>
-            <span style="position:relative;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(20px,2.6vw,26px);color:#114B7C;">{{ t.map.placeholderTitle }}</span>
-            <span style="position:relative;font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#7a8b9a;background:rgba(255,255,255,0.72);padding:7px 14px;border-radius:999px;text-align:center;">{{ t.map.placeholder }}</span>
+          <div style="border:1px solid rgba(17,75,124,0.12);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);overflow:hidden;background:#fff;">
+            <img src="./uploads/map.jpeg" alt="{{ t.map.hero.title }}" loading="lazy" style="width:100%;height:auto;display:block;" />
           </div>
         </div>
       </section>
@@ -706,14 +703,6 @@
                 </label>
               </div>
 
-              <label style="display:block;">
-                <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.campingcard }}</span>
-                <select value="{{ form.campingcard }}" onChange="{{ onCampingcard }}" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;cursor:pointer;">
-                  <option value="">{{ t.request.f.choose }}</option>
-                  <sc-for list="{{ yesnoOptions }}" as="o" hint-placeholder-count="2"><option value="{{ o }}">{{ o }}</option></sc-for>
-                </select>
-              </label>
-
               <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
                 <label style="display:block;">
                   <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.arrive }} *</span>
@@ -744,7 +733,10 @@
                 <textarea value="{{ form.message }}" onChange="{{ onMessage }}" rows="5" placeholder="{{ t.request.f.messagePh }}" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;resize:vertical;min-height:120px;" style-focus="border-color:#2E7CB8;"></textarea>
               </label>
 
-              <button type="submit" style="background:#2E7CB8;color:#fff;font-weight:700;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;padding:17px;border-radius:12px;width:100%;transition:background .2s;" style-hover="background:#114B7C;">{{ t.request.f.submit }}</button>
+              <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
+                <p style="background:rgba(176,52,43,0.08);border:1px solid rgba(176,52,43,0.28);color:#b0342b;font-size:14px;line-height:1.5;padding:12px 15px;border-radius:10px;margin:0;">{{ errorMsg }}</p>
+              </sc-if>
+              <button type="submit" style="background:#2E7CB8;color:#fff;font-weight:700;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;padding:17px;border-radius:12px;width:100%;transition:background .2s;" style-hover="background:#114B7C;">{{ submitLabel }}</button>
               <p style="font-size:12.5px;line-height:1.5;color:#9aa7b0;margin:0;">{{ t.request.f.gdpr }}</p>
             </form>
           </sc-if>
@@ -884,7 +876,9 @@ class Component extends DCLogic {
     isMobile: (typeof window !== 'undefined' && window.innerWidth < 1024),
     faqOpen: 0,
     submitted: false,
-    form: { name:'', email:'', accommodation:'', vehicle:'', vlength:'', campingcard:'', arrive:'', depart:'', country:'', phone:'', message:'', company:'' }
+    sending: false,
+    submitErr: false,
+    form: { name:'', email:'', accommodation:'', vehicle:'', vlength:'', arrive:'', depart:'', country:'', phone:'', message:'', company:'' }
   };
 
   copy = {
@@ -919,13 +913,13 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Pošalji upit', sub:'Recite nam termine, broj gostiju i smještaj. Javljamo se osobno, najčešće isti dan.' },
-        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', accommodation:'Odaberite smještaj', vehicle:'Vrsta vozila', vlength:'Duljina vozila', campingcard:'CampingCard / Predsezona', arrive:'Datum dolaska', depart:'Datum odlaska', country:'Država', phone:'Kontakt broj', phonePh:'091 234 5678', message:'Vaša poruka', messagePh:'Recite nam sve što nam pomaže pripremiti ponudu…', choose:'Odaberite opciju', submit:'Pošalji upit', gdpr:'GDPR, vaši se podaci prikupljaju isključivo za odgovor na ovaj upit i za eVisitor prijavu.' },
+        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', accommodation:'Odaberite smještaj', vehicle:'Vrsta vozila', vlength:'Duljina vozila', arrive:'Datum dolaska', depart:'Datum odlaska', country:'Država', phone:'Kontakt broj', phonePh:'091 234 5678', message:'Vaša poruka', messagePh:'Recite nam sve što nam pomaže pripremiti ponudu…', choose:'Odaberite opciju', submit:'Pošalji upit', sending:'Šalje se…', error:'Slanje nije uspjelo. Pokušajte ponovno ili nam pišite izravno e-mailom.', gdpr:'GDPR, vaši se podaci prikupljaju isključivo za odgovor na ovaj upit i za eVisitor prijavu.' },
         accOptions:['Parcela A, uz more','Parcela B, blizu mora','Parcela C, srednje terase','Parcela D, u hladu borova','Nisam siguran/a'],
         vehicleOptions:['Šator','Kamp-kućica','Kamper / autodom','Auto + krovni šator','Bez vozila'],
         lengthOptions:['do 5 m','5–6 m','6–7 m','7–8 m','preko 8 m'],
         yesnoOptions:['Da','Ne'],
         countryOptions:['Hrvatska','Slovenija','Njemačka','Austrija','Italija','Češka','Poljska','Nizozemska','Ostalo'],
-        success: { title:'Upit je poslan!', body:'Hvala vam. Vaš upit je zaprimljen i javit ćemo se u najkraćem roku, najčešće isti dan.', again:'Pošalji novi upit' }
+        success: { title:'Upit je poslan!', body:'Hvala vam. Vaš upit je zaprimljen i javit ćemo se u najkraćem roku.', again:'Pošalji novi upit' }
       },
       pricing: {
         hero: { eyebrow:'Cjenik 2026', title:'Cijene i tarife', sub:'Dnevne cijene u EUR, PDV uključen. Cijena parcele ovisi o kategoriji (A–D) i sezoni. Boravišna pristojba plaća se zasebno.' },
@@ -937,7 +931,7 @@ class Component extends DCLogic {
         reserveBtn:'Pošalji upit za rezervaciju'
       },
       map: {
-        hero: { eyebrow:'Pronađite put', title:'Interaktivna karta kampa', sub:'Istražite raspored kampa, sadržaje i smještaj. Interaktivna karta uskoro stiže.' },
+        hero: { eyebrow:'Pronađite put', title:'Karta kampa', sub:'Istražite raspored kampa, sadržaje i smještaj.' },
         intro:'Pripremamo digitalnu kartu kampa kao dio online doživljaja. Za sada je ovaj prostor rezerviran, kad zaživi, moći ćete:',
         bullets:['Pretraživati sadržaje i smještajne jedinice','Prikazati samo određene sadržaje ili tipove smještaja','Odabrati točnu jedinicu i poslati upit putem obrasca','Promijeniti jezik karte'],
         placeholderTitle:'Interaktivna karta uskoro',
@@ -1003,10 +997,9 @@ class Component extends DCLogic {
         sub: 'Pelješac je tek početak. S Lovišta su nadohvat neki od najljepših dijelova južne Dalmacije.',
         mapLabel: '[ Interaktivna karta, Leaflet ]',
         distances: [
-          { place:'Mjesto Lovište', time:'5 min hoda' },
-          { place:'Orebić', time:'35 km · 45 min' },
-          { place:'Otok Korčula', time:'trajekt 25 min' },
-          { place:'NP Mljet', time:'≈ 1 h' },
+          { place:'Mjesto Lovište', time:'tu ste' },
+          { place:'Orebić', time:'19 km · ≈ 20 min vožnje' },
+          { place:'Otok Korčula', time:'trajekt iz Orebića · ≈ 15 min plovidbe' },
           { place:'Ston (zidine, kamenice)', time:'≈ 1 h' },
           { place:'Dubrovnik', time:'≈ 2 h' }
         ]
@@ -1058,7 +1051,7 @@ class Component extends DCLogic {
           { q:'Ima li parkinga?', a:'Da, jedno parkirno mjesto uz svaku parcelu i smještajnu jedinicu uključeno je u cijenu. Dodatna vozila uz najavu.' },
           { q:'Postoji li Wi-Fi?', a:'Besplatni Wi-Fi pokriva cijeli kamp i dovoljno je brz za video pozive i rad na daljinu.' },
           { q:'Kakva je politika otkazivanja?', a:'Besplatno otkazivanje do 14 dana prije dolaska uz povrat akontacije. Detalje šaljemo uz svaku ponudu.' },
-          { q:'Što je u blizini?', a:'Mjesto Lovište s konobama i trgovinom je 5 minuta hoda. Orebić, trajekt za Korčulu i NP Mljet su izletu na dohvat ruke.' }
+          { q:'Što je u blizini?', a:'Mjesto Lovište s konobama i trgovinom je 5 minuta hoda. Orebić i trajekt za Korčulu su izleti na dohvat ruke.' }
         ]
       },
       contact: {
@@ -1067,7 +1060,7 @@ class Component extends DCLogic {
         intro:'Javite nam se', emailBtn:'Pošaljite e-mail', respNote:'Odgovaramo osobno, najčešće isti dan. Kliknite gumb ispod za slanje e-maila.', locImg:'[ Lovište / uvala ]',
         f: { name:'Ime i prezime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', arrive:'Dolazak (opcionalno)', depart:'Odlazak (opcionalno)', party:'Broj gostiju', message:'Poruka', messagePh:'Recite nam tip smještaja, posebne želje…', submit:'Pošalji upit', privacy:'Vaše podatke koristimo isključivo za odgovor na ovaj upit.' },
         partyOptions:['1 osoba','2 osobe','3 osobe','4 osobe','5 osoba','6+ osoba'],
-        success: { title:'Upit je poslan!', body:'Hvala vam. Vaš upit je zaprimljen i javit ćemo se u najkraćem roku, najčešće isti dan.', again:'Pošalji novi upit' },
+        success: { title:'Upit je poslan!', body:'Hvala vam. Vaš upit je zaprimljen i javit ćemo se u najkraćem roku.', again:'Pošalji novi upit' },
         hoursHeading:'Prijava i odjava',
         hours:[ { day:'Prijava (check-in)', time:'08:00 – 22:00' }, { day:'Odjava (check-out)', time:'do 12:00' } ],
         mapLabel:'[ Karta, Lovište ]'
@@ -1104,13 +1097,13 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Send a request', sub:'Tell us your dates, party and accommodation. We reply personally, usually the same day.' },
-        f: { name:'Your name', namePh:'Your name', email:'E-mail', emailPh:'you@example.com', accommodation:'Choose accommodation', vehicle:'Vehicle type', vlength:'Length of the vehicle', campingcard:'CampingCard / Low season', arrive:'Date of arrival', depart:'Date of departure', country:'Country', phone:'Contact number', phonePh:'091 234 5678', message:'Your message', messagePh:'Tell us anything that helps us prepare your offer…', choose:'Please choose an option', submit:'Send request', gdpr:'GDPR, your details are collected only to answer this request and for eVisitor registration.' },
+        f: { name:'Your name', namePh:'Your name', email:'E-mail', emailPh:'you@example.com', accommodation:'Choose accommodation', vehicle:'Vehicle type', vlength:'Length of the vehicle', arrive:'Date of arrival', depart:'Date of departure', country:'Country', phone:'Contact number', phonePh:'091 234 5678', message:'Your message', messagePh:'Tell us anything that helps us prepare your offer…', choose:'Please choose an option', submit:'Send request', sending:'Sending…', error:'Sending failed. Please try again or email us directly.', gdpr:'GDPR, your details are collected only to answer this request and for eVisitor registration.' },
         accOptions:['Pitch A, seafront','Pitch B, near the sea','Pitch C, mid terraces','Pitch D, pine shade','Not sure yet'],
         vehicleOptions:['Tent','Caravan','Camper / motorhome','Car + roof tent','None'],
         lengthOptions:['up to 5 m','5–6 m','6–7 m','7–8 m','over 8 m'],
         yesnoOptions:['Yes','No'],
         countryOptions:['Croatia','Slovenia','Germany','Austria','Italy','Czechia','Poland','Netherlands','Other'],
-        success: { title:'Request sent!', body:'Thank you. Your request has been received and we will get back to you as soon as possible, usually the same day.', again:'Send another request' }
+        success: { title:'Request sent!', body:'Thank you. Your request has been received and we will get back to you as soon as possible.', again:'Send another request' }
       },
       pricing: {
         hero: { eyebrow:'Price list 2026', title:'Prices & rates', sub:'Daily rates in EUR, VAT included. The pitch price depends on the tier (A–D) and season. Tourist tax is charged separately.' },
@@ -1122,7 +1115,7 @@ class Component extends DCLogic {
         reserveBtn:'Send a reservation request'
       },
       map: {
-        hero: { eyebrow:'Find your way', title:'Interactive camp map', sub:'Explore the camp layout, facilities and accommodation. The interactive map is coming soon.' },
+        hero: { eyebrow:'Find your way', title:'Camp map', sub:'Explore the camp layout, facilities and accommodation.' },
         intro:'We are building a digital map of the camp as part of our online experience. For now this space is reserved, once it is live, you will be able to:',
         bullets:['Search for facilities and accommodation units','View only certain facility or accommodation types','Pick your exact unit and inquire via the contact form','Switch the map language'],
         placeholderTitle:'Interactive map coming soon',
@@ -1188,10 +1181,9 @@ class Component extends DCLogic {
         sub: 'Pelješac is only the beginning. From Lovište, some of the most beautiful parts of southern Dalmatia are within easy reach.',
         mapLabel: '[ Interactive map, Leaflet ]',
         distances: [
-          { place:'Lovište village', time:'5 min walk' },
-          { place:'Orebić', time:'35 km · 45 min' },
-          { place:'Korčula island', time:'25 min by ferry' },
-          { place:'Mljet National Park', time:'≈ 1 h' },
+          { place:'Lovište village', time:'you are here' },
+          { place:'Orebić', time:'19 km · ≈ 20 min drive' },
+          { place:'Korčula island', time:'ferry from Orebić · ≈ 15 min crossing' },
           { place:'Ston (walls, oysters)', time:'≈ 1 h' },
           { place:'Dubrovnik', time:'≈ 2 h' }
         ]
@@ -1244,7 +1236,7 @@ class Component extends DCLogic {
           { q:'Is there parking?', a:'Yes, one parking space per pitch and accommodation unit is included in the price. Additional vehicles by arrangement.' },
           { q:'Is there Wi-Fi?', a:'Free Wi-Fi covers the whole camp and is fast enough for video calls and remote work.' },
           { q:'What is the cancellation policy?', a:'Free cancellation up to 14 days before arrival with a full deposit refund. Full details are sent with each offer.' },
-          { q:'What is nearby?', a:'Lovište village, with taverns and a shop, is a 5-minute walk. Orebić, the ferry to Korčula and Mljet National Park are all easy day trips.' }
+          { q:'What is nearby?', a:'Lovište village, with taverns and a shop, is a 5-minute walk. Orebić and the ferry to Korčula are both easy day trips.' }
         ]
       },
       contact: {
@@ -1253,7 +1245,7 @@ class Component extends DCLogic {
         intro:'Get in touch', emailBtn:'Send us an email', respNote:'We reply personally, usually the same day. Click the button below to send us an email.', locImg:'[ Lovište / the bay ]',
         f: { name:'Full name', namePh:'Your name', email:'Email', emailPh:'you@example.com', arrive:'Arrival (optional)', depart:'Departure (optional)', party:'Party size', message:'Message', messagePh:'Tell us your preferred accommodation, special requests…', submit:'Send inquiry', privacy:'We use your details only to reply to this inquiry.' },
         partyOptions:['1 guest','2 guests','3 guests','4 guests','5 guests','6+ guests'],
-        success: { title:'Inquiry sent!', body:'Thank you. Your inquiry has been received and we\u2019ll get back to you as soon as possible, usually the same day.', again:'Send another inquiry' },
+        success: { title:'Inquiry sent!', body:'Thank you. Your inquiry has been received and we\u2019ll get back to you as soon as possible.', again:'Send another inquiry' },
         hoursHeading:'Check-in & check-out',
         hours:[ { day:'Check-in', time:'08:00 – 22:00' }, { day:'Check-out', time:'by 12:00' } ],
         mapLabel:'[ Map, Lovište ]'
@@ -1290,13 +1282,13 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Anfrage senden', sub:'Nennen Sie uns Daten, Personenzahl und Unterkunft. Wir antworten persönlich, meist noch am selben Tag.' },
-        f: { name:'Ihr Name', namePh:'Ihr Name', email:'E-Mail', emailPh:'sie@beispiel.com', accommodation:'Unterkunft wählen', vehicle:'Fahrzeugtyp', vlength:'Länge des Fahrzeugs', campingcard:'CampingCard / Nebensaison', arrive:'Anreisedatum', depart:'Abreisedatum', country:'Land', phone:'Telefonnummer', phonePh:'091 234 5678', message:'Ihre Nachricht', messagePh:'Sagen Sie uns alles, was bei der Angebotserstellung hilft…', choose:'Bitte wählen', submit:'Anfrage senden', gdpr:'DSGVO, Ihre Daten werden nur zur Beantwortung dieser Anfrage und für die eVisitor-Registrierung erhoben.' },
+        f: { name:'Ihr Name', namePh:'Ihr Name', email:'E-Mail', emailPh:'sie@beispiel.com', accommodation:'Unterkunft wählen', vehicle:'Fahrzeugtyp', vlength:'Länge des Fahrzeugs', arrive:'Anreisedatum', depart:'Abreisedatum', country:'Land', phone:'Telefonnummer', phonePh:'091 234 5678', message:'Ihre Nachricht', messagePh:'Sagen Sie uns alles, was bei der Angebotserstellung hilft…', choose:'Bitte wählen', submit:'Anfrage senden', sending:'Wird gesendet…', error:'Senden fehlgeschlagen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.', gdpr:'DSGVO, Ihre Daten werden nur zur Beantwortung dieser Anfrage und für die eVisitor-Registrierung erhoben.' },
         accOptions:['Stellplatz A, am Meer','Stellplatz B, nah am Meer','Stellplatz C, mittlere Terrassen','Stellplatz D, im Pinienschatten','Noch unsicher'],
         vehicleOptions:['Zelt','Wohnwagen','Wohnmobil','Auto + Dachzelt','Keines'],
         lengthOptions:['bis 5 m','5–6 m','6–7 m','7–8 m','über 8 m'],
         yesnoOptions:['Ja','Nein'],
         countryOptions:['Kroatien','Slowenien','Deutschland','Österreich','Italien','Tschechien','Polen','Niederlande','Andere'],
-        success: { title:'Anfrage gesendet!', body:'Vielen Dank. Ihre Anfrage ist eingegangen und wir melden uns so schnell wie möglich, meist noch am selben Tag.', again:'Weitere Anfrage senden' }
+        success: { title:'Anfrage gesendet!', body:'Vielen Dank. Ihre Anfrage ist eingegangen und wir melden uns so schnell wie möglich.', again:'Weitere Anfrage senden' }
       },
       pricing: {
         hero: { eyebrow:'Preisliste 2026', title:'Preise & Tarife', sub:'Tagespreise in EUR, inkl. MwSt. Der Stellplatzpreis richtet sich nach Kategorie (A–D) und Saison. Die Kurtaxe wird separat berechnet.' },
@@ -1308,7 +1300,7 @@ class Component extends DCLogic {
         reserveBtn:'Reservierungsanfrage senden'
       },
       map: {
-        hero: { eyebrow:'Finden Sie den Weg', title:'Interaktiver Lageplan', sub:'Entdecken Sie das Camp, die Ausstattung und die Unterkünfte. Die interaktive Karte kommt bald.' },
+        hero: { eyebrow:'Finden Sie den Weg', title:'Lageplan', sub:'Entdecken Sie das Camp, die Ausstattung und die Unterkünfte.' },
         intro:'Wir erstellen eine digitale Karte des Camps als Teil des Online-Erlebnisses. Vorerst ist dieser Bereich reserviert, sobald sie live ist, können Sie:',
         bullets:['Nach Ausstattung und Unterkünften suchen','Nur bestimmte Ausstattungen oder Unterkunftstypen anzeigen','Ihre genaue Einheit wählen und über das Formular anfragen','Die Sprache der Karte ändern'],
         placeholderTitle:'Interaktive Karte kommt bald',
@@ -1336,10 +1328,9 @@ class Component extends DCLogic {
         { no:'03', img:'[ Sport & Wassersport ]', name:'Sport & Wassersport', body:'SUPs und Kajaks in der ruhigen Bucht, dazu Bootsausflüge und Scuba-Diving.' },
         { no:'04', img:'[ Wege ]', name:'Wege & Erkundung', body:'Rad- und Wanderwege durch Weinberge, bis nach Orebić.' } ] },
       area: { eyebrow:'Die Umgebung', title:'Eine perfekte Basis zum Entdecken', sub:'Pelješac ist nur der Anfang. Von Lovište aus sind einige der schönsten Teile Süddalmatiens leicht erreichbar.', mapLabel:'[ Interaktive Karte, Leaflet ]', distances: [
-        { place:'Dorf Lovište', time:'5 Min. zu Fuß' },
-        { place:'Orebić', time:'35 km · 45 Min.' },
-        { place:'Insel Korčula', time:'25 Min. mit der Fähre' },
-        { place:'Nationalpark Mljet', time:'≈ 1 Std.' },
+        { place:'Dorf Lovište', time:'Sie sind hier' },
+        { place:'Orebić', time:'19 km · ≈ 20 Min. Fahrt' },
+        { place:'Insel Korčula', time:'Fähre ab Orebić · ≈ 15 Min. Überfahrt' },
         { place:'Ston (Mauern, Austern)', time:'≈ 1 Std.' },
         { place:'Dubrovnik', time:'≈ 2 Std.' } ] },
       gallery: { eyebrow:'Galerie', title:'Ein Blick über den Platz', items:['Blick auf die Bucht','Olivenhain','Strand','Mobilheim','Sonnenuntergang','Pool','Terrasse','Weg'] },
@@ -1377,7 +1368,7 @@ class Component extends DCLogic {
           { q:'Gibt es Parkplätze?', a:'Ja, ein Parkplatz pro Stellplatz und Unterkunft ist im Preis enthalten. Weitere Fahrzeuge nach Absprache.' },
           { q:'Gibt es WLAN?', a:'Kostenloses WLAN deckt den ganzen Platz ab und ist schnell genug für Videoanrufe und Arbeit.' },
           { q:'Wie ist die Stornobedingung?', a:'Kostenlose Stornierung bis 14 Tage vor Anreise mit voller Rückerstattung der Anzahlung. Details senden wir mit jedem Angebot.' },
-          { q:'Was gibt es in der Nähe?', a:'Das Dorf Lovište mit Tavernen und einem Laden ist 5 Minuten zu Fuß entfernt. Orebić, die Fähre nach Korčula und der Nationalpark Mljet sind leichte Tagesausflüge.' }
+          { q:'Was gibt es in der Nähe?', a:'Das Dorf Lovište mit Tavernen und einem Laden ist 5 Minuten zu Fuß entfernt. Orebić und die Fähre nach Korčula sind leichte Tagesausflüge.' }
         ]
       },
       contact: { hero:{ eyebrow:'Kontakt', title:'Senden Sie eine Anfrage', sub:'Nennen Sie uns Ihre Daten und die Anzahl der Gäste, wir antworten persönlich, meist noch am selben Tag.' }, formHeading:'Buchungsanfrage', intro:'Melden Sie sich', emailBtn:'Senden Sie uns eine E-Mail', respNote:'Wir antworten persönlich, meist noch am selben Tag. Klicken Sie unten, um uns eine E-Mail zu senden.', locImg:'[ Lovište / die Bucht ]', hoursHeading:'Check-in & Check-out', hours:[ {day:'Check-in',time:'08:00 – 22:00'}, {day:'Check-out',time:'bis 12:00'} ], mapLabel:'[ Karte, Lovište ]' }
@@ -1413,13 +1404,13 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Pošlji povpraševanje', sub:'Sporočite nam termine, število gostov in nastanitev. Odgovorimo osebno, običajno isti dan.' },
-        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-pošta', emailPh:'vi@primer.com', accommodation:'Izberite nastanitev', vehicle:'Vrsta vozila', vlength:'Dolžina vozila', campingcard:'CampingCard / Predsezona', arrive:'Datum prihoda', depart:'Datum odhoda', country:'Država', phone:'Kontaktna številka', phonePh:'091 234 5678', message:'Vaše sporočilo', messagePh:'Sporočite nam vse, kar pomaga pri pripravi ponudbe…', choose:'Izberite možnost', submit:'Pošlji povpraševanje', gdpr:'GDPR, vaši podatki se zbirajo izključno za odgovor na to povpraševanje in za eVisitor prijavo.' },
+        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-pošta', emailPh:'vi@primer.com', accommodation:'Izberite nastanitev', vehicle:'Vrsta vozila', vlength:'Dolžina vozila', arrive:'Datum prihoda', depart:'Datum odhoda', country:'Država', phone:'Kontaktna številka', phonePh:'091 234 5678', message:'Vaše sporočilo', messagePh:'Sporočite nam vse, kar pomaga pri pripravi ponudbe…', choose:'Izberite možnost', submit:'Pošlji povpraševanje', sending:'Pošiljanje…', error:'Pošiljanje ni uspelo. Poskusite znova ali nam pišite neposredno.', gdpr:'GDPR, vaši podatki se zbirajo izključno za odgovor na to povpraševanje in za eVisitor prijavo.' },
         accOptions:['Parcela A, ob morju','Parcela B, blizu morja','Parcela C, srednje terase','Parcela D, v senci borov','Še nisem prepričan/a'],
         vehicleOptions:['Šotor','Prikolica','Avtodom','Avto + strešni šotor','Brez vozila'],
         lengthOptions:['do 5 m','5–6 m','6–7 m','7–8 m','nad 8 m'],
         yesnoOptions:['Da','Ne'],
         countryOptions:['Hrvaška','Slovenija','Nemčija','Avstrija','Italija','Češka','Poljska','Nizozemska','Drugo'],
-        success: { title:'Povpraševanje poslano!', body:'Hvala. Vaše povpraševanje je prejeto in odgovorili vam bomo v najkrajšem možnem času, običajno isti dan.', again:'Pošlji novo povpraševanje' }
+        success: { title:'Povpraševanje poslano!', body:'Hvala. Vaše povpraševanje je prejeto in odgovorili vam bomo v najkrajšem možnem času.', again:'Pošlji novo povpraševanje' }
       },
       pricing: {
         hero: { eyebrow:'Cenik 2026', title:'Cene in tarife', sub:'Dnevne cene v EUR, DDV vključen. Cena parcele je odvisna od kategorije (A–D) in sezone. Turistična taksa se plača ločeno.' },
@@ -1431,7 +1422,7 @@ class Component extends DCLogic {
         reserveBtn:'Pošlji povpraševanje za rezervacijo'
       },
       map: {
-        hero: { eyebrow:'Poiščite pot', title:'Interaktivni zemljevid kampa', sub:'Raziščite razporeditev kampa, vsebine in nastanitve. Interaktivni zemljevid kmalu prihaja.' },
+        hero: { eyebrow:'Poiščite pot', title:'Zemljevid kampa', sub:'Raziščite razporeditev kampa, vsebine in nastanitve.' },
         intro:'Pripravljamo digitalni zemljevid kampa kot del spletne izkušnje. Za zdaj je ta prostor rezerviran, ko bo na voljo, boste lahko:',
         bullets:['Iskali vsebine in nastanitvene enote','Prikazali samo določene vsebine ali tipe nastanitev','Izbrali točno enoto in poslali povpraševanje prek obrazca','Spremenili jezik zemljevida'],
         placeholderTitle:'Interaktivni zemljevid kmalu',
@@ -1459,10 +1450,9 @@ class Component extends DCLogic {
         { no:'03', img:'[ Šport & vodni športi ]', name:'Šport in vodni športi', body:'SUP-i in kajaki v mirnem zalivu, poleg tega izleti z ladjami in potapljanje.' },
         { no:'04', img:'[ Poti ]', name:'Poti in raziskovanje', body:'Kolesarske in pohodne poti skozi vinograde, vse do Orebića.' } ] },
       area: { eyebrow:'Okolica', title:'Odlična baza za raziskovanje', sub:'Pelješac je šele začetek. Iz Lovišta so na dosegu nekateri najlepši deli južne Dalmacije.', mapLabel:'[ Interaktivni zemljevid, Leaflet ]', distances: [
-        { place:'Vas Lovište', time:'5 min hoje' },
-        { place:'Orebić', time:'35 km · 45 min' },
-        { place:'Otok Korčula', time:'25 min s trajektom' },
-        { place:'NP Mljet', time:'≈ 1 h' },
+        { place:'Vas Lovište', time:'tu ste' },
+        { place:'Orebić', time:'19 km · ≈ 20 min vožnje' },
+        { place:'Otok Korčula', time:'trajekt iz Orebića · ≈ 15 min plovbe' },
         { place:'Ston (obzidje, ostrige)', time:'≈ 1 h' },
         { place:'Dubrovnik', time:'≈ 2 h' } ] },
       gallery: { eyebrow:'Galerija', title:'Pogled po kampu', items:['Pogled na zaliv','Oljčnik','Plaža','Mobilna hišica','Sončni zahod','Bazen','Terasa','Pot'] },
@@ -1500,7 +1490,7 @@ class Component extends DCLogic {
           { q:'Je na voljo parkirišče?', a:'Da, eno parkirno mesto na parcelo in nastanitveno enoto je vključeno v ceno. Dodatna vozila po dogovoru.' },
           { q:'Je na voljo Wi-Fi?', a:'Brezplačni Wi-Fi pokriva celoten kamp in je dovolj hiter za videoklice in delo.' },
           { q:'Kakšna je politika odpovedi?', a:'Brezplačna odpoved do 14 dni pred prihodom z vračilom celotne akontacije. Podrobnosti pošljemo z vsako ponudbo.' },
-          { q:'Kaj je v bližini?', a:'Vas Lovište z gostilnami in trgovino je 5 minut hoje. Orebić, trajekt za Korčulo in NP Mljet so enostavni dnevni izleti.' }
+          { q:'Kaj je v bližini?', a:'Vas Lovište z gostilnami in trgovino je 5 minut hoje. Orebić, trajekt za Korčulo sta enostavna dnevna izleta.' }
         ]
       },
       contact: { hero:{ eyebrow:'Kontakt', title:'Pošljite povpraševanje', sub:'Sporočite nam svoje termine in število gostov, odgovorimo osebno, običajno isti dan.' }, formHeading:'Povpraševanje za rezervacijo', intro:'Pišite nam', emailBtn:'Pošljite nam e-pošto', respNote:'Odgovorimo osebno, običajno isti dan. Kliknite spodaj za pošiljanje e-pošte.', locImg:'[ Lovište / zaliv ]', hoursHeading:'Prijava in odjava', hours:[ {day:'Prijava (check-in)',time:'08:00 – 22:00'}, {day:'Odjava (check-out)',time:'do 12:00'} ], mapLabel:'[ Zemljevid, Lovište ]' }
@@ -1877,18 +1867,54 @@ class Component extends DCLogic {
       muteRef: (el) => { if (el) { el.muted = true; el.defaultMuted = true; try { const p = el.play && el.play(); if (p && p.catch) p.catch(function(){}); } catch (e) {} } },
       accommodationOptions, vehicleOptions, lengthOptions, yesnoOptions, countryOptions, successCheck,
       submitted: this.state.submitted, notSubmitted: !this.state.submitted,
+      submitLabel: this.state.sending ? (rq.f && rq.f.sending) : (rq.f && rq.f.submit),
+      hasError: !!this.state.submitErr, errorMsg: rq.f && rq.f.error,
       form: f,
       onName: setF('name'), onEmail: setF('email'), onArrive: setF('arrive'),
       onDepart: setF('depart'), onParty: setF('party'), onMessage: setF('message'), onCompany: setF('company'),
       onAccommodation: setF('accommodation'), onVehicle: setF('vehicle'), onVlength: setF('vlength'),
-      onCampingcard: setF('campingcard'), onCountry: setF('country'), onPhone: setF('phone'),
+      onCountry: setF('country'), onPhone: setF('phone'),
       onSubmit: (e) => {
         e.preventDefault();
         if (this.state.form.company) return; // honeypot
-        this.setState({ submitted: true });
-        try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (er) {}
+        if (this.state.sending) return;
+        // Web3Forms — paste the access key emailed to you from https://web3forms.com
+        const ACCESS_KEY = '8fa56f3a-99fc-452f-8f57-8ece895e79e8';
+        const fm = this.state.form;
+        const payload = {
+          access_key: ACCESS_KEY,
+          subject: 'Novi upit s webstranice — Vicelić Camping',
+          from_name: 'Vicelić Camping',
+          name: fm.name,
+          email: fm.email,
+          'Telefon': fm.phone,
+          'Država': fm.country,
+          'Smještaj': fm.accommodation,
+          'Vozilo': fm.vehicle,
+          'Duljina vozila': fm.vlength,
+          'Dolazak': fm.arrive,
+          'Odlazak': fm.depart,
+          'Poruka': fm.message,
+          botcheck: ''
+        };
+        this.setState({ sending: true, submitErr: false });
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+          .then((r) => r.json())
+          .then((data) => {
+            if (data && data.success) {
+              this.setState({ sending: false, submitted: true });
+              try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (er) {}
+            } else {
+              this.setState({ sending: false, submitErr: true });
+            }
+          })
+          .catch(() => this.setState({ sending: false, submitErr: true }));
       },
-      resetForm: () => this.setState({ submitted: false, form: { name:'', email:'', accommodation:'', vehicle:'', vlength:'', campingcard:'', arrive:'', depart:'', country:'', phone:'', message:'', company:'' } }),
+      resetForm: () => this.setState({ submitted: false, sending: false, submitErr: false, form: { name:'', email:'', accommodation:'', vehicle:'', vlength:'', arrive:'', depart:'', country:'', phone:'', message:'', company:'' } }),
       year: new Date().getFullYear()
     };
   }
