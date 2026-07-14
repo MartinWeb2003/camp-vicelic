@@ -269,27 +269,7 @@
         </div>
       </section>
 
-      <!-- REVIEWS / APARTMENTS -->
-      <section style="padding:clamp(64px,8vw,110px) clamp(20px,5vw,40px) clamp(48px,6vw,72px);">
-        <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:center;">
-          <div style="flex:1 1 360px;min-width:300px;" data-reveal="left">
-            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.2vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0 0 18px;">{{ t.apart.title }}</h2>
-            <p style="font-size:16.5px;line-height:1.7;color:#6B7280;margin:0 0 26px;text-wrap:pretty;">{{ t.apart.body }}</p>
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
-              <span style="color:#5BB0DE;font-size:15px;letter-spacing:3px;">★★★★★</span>
-              <span style="font-size:14px;color:#114B7C;font-weight:600;">{{ t.apart.note }}</span>
-            </div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;">
-              <a href="https://share.google/4OUGIWb0UEnocFVLh" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#2E7CB8;color:#fff;font-weight:600;font-size:14px;padding:13px 22px;border-radius:999px;transition:background .2s;" style-hover="background:#114B7C;">{{ t.apart.btn1 }} <span style="font-size:14px;">↗</span></a>
-            </div>
-          </div>
-          <div style="flex:1 1 360px;min-width:300px;height:clamp(320px,40vw,440px);overflow:hidden;background:#e8f2f9;" data-reveal="right">
-            <img src="./uploads/villa.webp" alt="Villa Lovište Paradise" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
-          </div>
-        </div>
-      </section>
-
-      <section style="padding:clamp(48px,6vw,80px) clamp(20px,5vw,40px) clamp(64px,8vw,110px);border-top:1px solid rgba(17,75,124,0.06);">
+      <section style="padding:clamp(64px,8vw,110px) clamp(20px,5vw,40px) clamp(64px,8vw,110px);">
         <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:center;">
           <div style="flex:1 1 360px;min-width:300px;" data-reveal>
             <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(26px,3.6vw,38px);line-height:1.12;letter-spacing:-0.02em;margin:0 0 24px;">{{ t.about.story.title }}</h2>
@@ -315,7 +295,7 @@
           <div style="display:flex;flex-direction:column;gap:clamp(40px,5vw,72px);">
             <sc-for list="{{ campSections }}" as="c" hint-placeholder-count="5">
               <div data-reveal style="display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,56px);align-items:center;{{ c.dir }}">
-                <button onClick="{{ c.onOpen }}" style="flex:1 1 380px;min-width:280px;height:clamp(280px,34vw,420px);position:relative;overflow:hidden;background:#e8f2f9;cursor:zoom-in;padding:0;border:0;display:block;">
+                <button onClick="{{ c.onOpen }}" style="flex:1 1 380px;min-width:280px;{{ c.box }}position:relative;overflow:hidden;background:#e8f2f9;cursor:zoom-in;padding:0;border:0;display:block;">
                   <sc-for list="{{ c.slides }}" as="s" hint-placeholder-count="1">
                     <img src="{{ s.src }}" alt="{{ c.name }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:{{ s.opacity }};z-index:{{ s.z }};transition:opacity .9s ease;" />
                   </sc-for>
@@ -339,6 +319,26 @@
                 </div>
               </div>
             </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- REVIEWS / APARTMENTS -->
+      <section style="padding:clamp(56px,7vw,100px) clamp(20px,5vw,40px) clamp(56px,7vw,100px);border-top:1px solid rgba(17,75,124,0.06);">
+        <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:center;">
+          <div style="flex:1 1 360px;min-width:300px;" data-reveal="left">
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.2vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0 0 18px;">{{ t.apart.title }}</h2>
+            <p style="font-size:16.5px;line-height:1.7;color:#6B7280;margin:0 0 26px;text-wrap:pretty;">{{ t.apart.body }}</p>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+              <span style="color:#5BB0DE;font-size:15px;letter-spacing:3px;">★★★★★</span>
+              <span style="font-size:14px;color:#114B7C;font-weight:600;">{{ t.apart.note }}</span>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;">
+              <a href="https://share.google/4OUGIWb0UEnocFVLh" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#2E7CB8;color:#fff;font-weight:600;font-size:14px;padding:13px 22px;border-radius:999px;transition:background .2s;" style-hover="background:#114B7C;">{{ t.apart.btn1 }} <span style="font-size:14px;">↗</span></a>
+            </div>
+          </div>
+          <div style="flex:1 1 360px;min-width:300px;height:clamp(320px,40vw,440px);overflow:hidden;background:#e8f2f9;" data-reveal="right">
+            <img src="./uploads/villa.webp" alt="Villa Lovište Paradise" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
           </div>
         </div>
       </section>
@@ -912,7 +912,7 @@ class Component extends DCLogic {
         ]
       },
       request: {
-        hero: { title:'Pošalji upit', sub:'Recite nam termine, broj gostiju i smještaj. Javljamo se osobno, najčešće isti dan.' },
+        hero: { title:'Pošalji upit', sub:'Recite nam termine, broj gostiju i smještaj. Javljamo se osobno.' },
         f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', accommodation:'Odaberite smještaj', vehicle:'Vrsta vozila', vlength:'Duljina vozila', arrive:'Datum dolaska', depart:'Datum odlaska', country:'Država', phone:'Kontakt broj', phonePh:'091 234 5678', message:'Vaša poruka', messagePh:'Recite nam sve što nam pomaže pripremiti ponudu…', choose:'Odaberite opciju', submit:'Pošalji upit', sending:'Šalje se…', error:'Slanje nije uspjelo. Pokušajte ponovno ili nam pišite izravno e-mailom.', gdpr:'GDPR, vaši se podaci prikupljaju isključivo za odgovor na ovaj upit i za eVisitor prijavu.' },
         accOptions:['Parcela A, uz more','Parcela B, blizu mora','Parcela C, srednje terase','Parcela D, u hladu borova','Nisam siguran/a'],
         vehicleOptions:['Šator','Kamp-kućica','Kamper / autodom','Auto + krovni šator','Bez vozila'],
@@ -1011,7 +1011,7 @@ class Component extends DCLogic {
         { name:'Sanitarije', paras:['Moderni i besprijekorno održavani sanitarni čvorovi s WC-ima, obiteljskim kupaonicama te posebnom kupaonicom za osobe s invaliditetom.','Za najmlađe je tu i kupaonica prilagođena djeci.'] },
         { name:'Tuševi', paras:['Topli tuševi u zatvorenim kabinama te praktični vanjski tuševi za osvježenje nakon plaže.','Tu je i vanjski tuš za vaše kućne ljubimce.'] },
         { name:'Kroz kamp', paras:['Terasaste parcele u hladu borova, mirni kutci i zelenilo po cijelom kampu.','Za najmlađe je tu i dječje igralište.'] },
-        { name:'Put do kampa', paras:['Do kampa vodi ugodna cesta kroz mirni krajolik Lovišta, sve do samog mora.'] }
+        { name:'Put do kampa', paras:['Kamp ima 2 ulaza što znači da mu se može pristupiti s obje prometnice u mjestu.'] }
       ],
       reviews: { eyebrow:'Dojmovi gostiju', title:'Vraćaju se iz godine u godinu',
         items:[
@@ -1019,7 +1019,7 @@ class Component extends DCLogic {
           { stars:'★★★★★', quote:'Terasaste parcele znače da svi imaju pogled i privatnost. Sanitarije besprijekorne. Dolazimo i sljedeće ljeto.', name:'Markus W.', place:'München, DE', initial:'M' },
           { stars:'★★★★★', quote:'Mali, tih i autentičan, točno ono što smo tražili daleko od velikih resorta. Plaža je san.', name:'Sophie L.', place:'Lyon, FR', initial:'S' }
         ] },
-      apart: { eyebrow:'Novootvoreni kamp', title:'Novi kamp, provjereno gostoljublje', body:'Camping Lovište Paradise otvara svoja vrata ovog ljeta, pa kamp tek prikuplja prve recenzije. No naša obitelj već godinama ugošćuje goste u Lovištu, s izvrsnim ocjenama na Googleu. Ista briga i toplina čekaju vas i u kampu.', note:'Pogledajte recenzije naše vile', btn1:'Recenzije · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
+      apart: { eyebrow:'Novootvoreni kamp', title:'Provjerena gostoljubivost', body:'Camping Lovište Paradise otvara svoja vrata ovog ljeta, pa kamp tek prikuplja prve recenzije. No naša obitelj već godinama ugošćuje goste u Lovištu, s izvrsnim ocjenama na Googleu. Ista briga i toplina čekaju vas i u kampu.', note:'Pogledajte recenzije naše vile', btn1:'Recenzije · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
       ctaBand: { title:'Spremni za savršeno ljeto?', sub:'Odgovaramo osobno, u najkraćem mogućem roku.', button:'Pošalji upit' },
       footer: { tagline:'Obiteljski kamp u uvali Lovište na poluotoku Pelješcu.', explore:'Stranice', contactHeading:'Kontakt', rights:'Sva prava pridržana.' },
       about: {
@@ -1042,7 +1042,7 @@ class Component extends DCLogic {
       },
       faqPage: {
         hero: { eyebrow:'Česta pitanja', title:'Sve što trebate znati', sub:'Niste pronašli odgovor? Javite nam se, rado pomažemo.' },
-        ctaTitle:'Još pitanja?', ctaSub:'Pošaljite nam poruku i odgovaramo, najčešće isti dan.',
+        ctaTitle:'Još pitanja?', ctaSub:'Pošaljite nam poruku i odgovaramo.',
         items:[
           { q:'Kada su prijava i odjava?', a:'Prijava je od 14:00, a odjava do 11:00. Ranija prijava ili kasnija odjava mogući su prema dostupnosti, samo nam javite unaprijed.' },
           { q:'Jesu li kućni ljubimci dozvoljeni?', a:'Da! Psi su dobrodošli na parcelama i u većini smještaja uz malu naknadu. Molimo da ih držite na povodcu u zajedničkim prostorima.' },
@@ -1055,9 +1055,9 @@ class Component extends DCLogic {
         ]
       },
       contact: {
-        hero: { eyebrow:'Kontakt', title:'Pošaljite upit', sub:'Recite nam termine i broj gostiju, javljamo se osobno, obično isti dan.' },
+        hero: { eyebrow:'Kontakt', title:'Pošaljite upit', sub:'Recite nam termine i broj gostiju, javljamo se osobno.' },
         formHeading:'Upit za rezervaciju',
-        intro:'Javite nam se', emailBtn:'Pošaljite e-mail', respNote:'Odgovaramo osobno, najčešće isti dan. Kliknite gumb ispod za slanje e-maila.', locImg:'[ Lovište / uvala ]',
+        intro:'Javite nam se', emailBtn:'Pošaljite e-mail', respNote:'Odgovaramo osobno. Kliknite gumb ispod za slanje e-maila.', locImg:'[ Lovište / uvala ]',
         f: { name:'Ime i prezime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', arrive:'Dolazak (opcionalno)', depart:'Odlazak (opcionalno)', party:'Broj gostiju', message:'Poruka', messagePh:'Recite nam tip smještaja, posebne želje…', submit:'Pošalji upit', privacy:'Vaše podatke koristimo isključivo za odgovor na ovaj upit.' },
         partyOptions:['1 osoba','2 osobe','3 osobe','4 osobe','5 osoba','6+ osoba'],
         success: { title:'Upit je poslan!', body:'Hvala vam. Vaš upit je zaprimljen i javit ćemo se u najkraćem roku.', again:'Pošalji novi upit' },
@@ -1096,7 +1096,7 @@ class Component extends DCLogic {
         ]
       },
       request: {
-        hero: { title:'Send a request', sub:'Tell us your dates, party and accommodation. We reply personally, usually the same day.' },
+        hero: { title:'Send a request', sub:'Tell us your dates, party and accommodation. We reply personally.' },
         f: { name:'Your name', namePh:'Your name', email:'E-mail', emailPh:'you@example.com', accommodation:'Choose accommodation', vehicle:'Vehicle type', vlength:'Length of the vehicle', arrive:'Date of arrival', depart:'Date of departure', country:'Country', phone:'Contact number', phonePh:'091 234 5678', message:'Your message', messagePh:'Tell us anything that helps us prepare your offer…', choose:'Please choose an option', submit:'Send request', sending:'Sending…', error:'Sending failed. Please try again or email us directly.', gdpr:'GDPR, your details are collected only to answer this request and for eVisitor registration.' },
         accOptions:['Pitch A, seafront','Pitch B, near the sea','Pitch C, mid terraces','Pitch D, pine shade','Not sure yet'],
         vehicleOptions:['Tent','Caravan','Camper / motorhome','Car + roof tent','None'],
@@ -1195,7 +1195,7 @@ class Component extends DCLogic {
         { name:'Toilets', paras:['Modern, impeccably maintained sanitary blocks with WCs, family bathrooms and a dedicated bathroom for guests with disabilities.','For the youngest there is a child-friendly bathroom too.'] },
         { name:'Showers', paras:['Hot showers in enclosed cabins and handy outdoor showers to freshen up after the beach.','There is also an outdoor shower for your pets.'] },
         { name:'Around the camp', paras:['Terraced pitches in the shade of the pines, quiet corners and greenery throughout the camp.','For the youngest there is a children’s playground.'] },
-        { name:'The way in', paras:['A pleasant road leads to the camp through the calm landscape of Lovište, all the way to the sea.'] }
+        { name:'The way in', paras:['The camp has 2 entrances, meaning it can be accessed from both roads in the village.'] }
       ],
       reviews: { eyebrow:'Guest stories', title:'They come back, year after year',
         items:[
@@ -1203,7 +1203,7 @@ class Component extends DCLogic {
           { stars:'★★★★★', quote:'The terraced pitches mean everyone gets a view and privacy. Spotless facilities. We are coming back next summer.', name:'Markus W.', place:'Munich, DE', initial:'M' },
           { stars:'★★★★★', quote:'Small, quiet and authentic, exactly what we wanted away from the big resorts. The beach is a dream.', name:'Sophie L.', place:'Lyon, FR', initial:'S' }
         ] },
-      apart: { eyebrow:'Newly opening', title:'A new camp, a proven welcome', body:'Camping Lovište Paradise opens its doors this summer, so the camp is only gathering its first reviews. But our family has hosted guests in our apartments in Lovište for years, with excellent ratings on Google. The same care and warmth await you at the camp.', note:'See the reviews for our villa', btn1:'Reviews · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
+      apart: { eyebrow:'Newly opening', title:'Verified hospitality', body:'Camping Lovište Paradise opens its doors this summer, so the camp is only gathering its first reviews. But our family has hosted guests in our apartments in Lovište for years, with excellent ratings on Google. The same care and warmth await you at the camp.', note:'See the reviews for our villa', btn1:'Reviews · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
       ctaBand: { title:'Ready for a perfect summer?', sub:'We reply personally, as soon as possible.', button:'Inquire' },
       footer: { tagline:'A family camp in the bay of Lovište on the Pelješac peninsula.', explore:'Pages', contactHeading:'Contact', rights:'All rights reserved.' },
       about: {
@@ -1227,7 +1227,7 @@ class Component extends DCLogic {
       },
       faqPage: {
         hero: { eyebrow:'FAQ', title:'Everything you need to know', sub:'Didn\u2019t find your answer? Get in touch, we\u2019re happy to help.' },
-        ctaTitle:'Still have questions?', ctaSub:'Send us a message and we\u2019ll reply, usually the same day.',
+        ctaTitle:'Still have questions?', ctaSub:'Send us a message and we\u2019ll reply.',
         items:[
           { q:'When are check-in and check-out?', a:'Check-in is from 2:00 PM and check-out is by 11:00 AM. Earlier check-in or later check-out is possible subject to availability, just let us know in advance.' },
           { q:'Are pets allowed?', a:'Yes! Dogs are welcome on pitches and in most accommodation for a small fee. Please keep them on a leash in common areas.' },
@@ -1240,9 +1240,9 @@ class Component extends DCLogic {
         ]
       },
       contact: {
-        hero: { eyebrow:'Contact', title:'Send an inquiry', sub:'Tell us your dates and party size, we reply personally, usually the same day.' },
+        hero: { eyebrow:'Contact', title:'Send an inquiry', sub:'Tell us your dates and party size, we reply personally.' },
         formHeading:'Booking inquiry',
-        intro:'Get in touch', emailBtn:'Send us an email', respNote:'We reply personally, usually the same day. Click the button below to send us an email.', locImg:'[ Lovište / the bay ]',
+        intro:'Get in touch', emailBtn:'Send us an email', respNote:'We reply personally. Click the button below to send us an email.', locImg:'[ Lovište / the bay ]',
         f: { name:'Full name', namePh:'Your name', email:'Email', emailPh:'you@example.com', arrive:'Arrival (optional)', depart:'Departure (optional)', party:'Party size', message:'Message', messagePh:'Tell us your preferred accommodation, special requests…', submit:'Send inquiry', privacy:'We use your details only to reply to this inquiry.' },
         partyOptions:['1 guest','2 guests','3 guests','4 guests','5 guests','6+ guests'],
         success: { title:'Inquiry sent!', body:'Thank you. Your inquiry has been received and we\u2019ll get back to you as soon as possible.', again:'Send another inquiry' },
@@ -1281,7 +1281,7 @@ class Component extends DCLogic {
         ]
       },
       request: {
-        hero: { title:'Anfrage senden', sub:'Nennen Sie uns Daten, Personenzahl und Unterkunft. Wir antworten persönlich, meist noch am selben Tag.' },
+        hero: { title:'Anfrage senden', sub:'Nennen Sie uns Daten, Personenzahl und Unterkunft. Wir antworten persönlich.' },
         f: { name:'Ihr Name', namePh:'Ihr Name', email:'E-Mail', emailPh:'sie@beispiel.com', accommodation:'Unterkunft wählen', vehicle:'Fahrzeugtyp', vlength:'Länge des Fahrzeugs', arrive:'Anreisedatum', depart:'Abreisedatum', country:'Land', phone:'Telefonnummer', phonePh:'091 234 5678', message:'Ihre Nachricht', messagePh:'Sagen Sie uns alles, was bei der Angebotserstellung hilft…', choose:'Bitte wählen', submit:'Anfrage senden', sending:'Wird gesendet…', error:'Senden fehlgeschlagen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.', gdpr:'DSGVO, Ihre Daten werden nur zur Beantwortung dieser Anfrage und für die eVisitor-Registrierung erhoben.' },
         accOptions:['Stellplatz A, am Meer','Stellplatz B, nah am Meer','Stellplatz C, mittlere Terrassen','Stellplatz D, im Pinienschatten','Noch unsicher'],
         vehicleOptions:['Zelt','Wohnwagen','Wohnmobil','Auto + Dachzelt','Keines'],
@@ -1339,9 +1339,9 @@ class Component extends DCLogic {
         { name:'Sanitär', paras:['Moderne, tadellos gepflegte Sanitäranlagen mit WCs, Familienbädern und einem eigenen Bad für Gäste mit Behinderung.','Für die Kleinsten gibt es ein kindgerechtes Bad.'] },
         { name:'Duschen', paras:['Warme Duschen in geschlossenen Kabinen sowie praktische Außenduschen zum Erfrischen nach dem Strand.','Es gibt auch eine Außendusche für Ihre Haustiere.'] },
         { name:'Rund ums Camp', paras:['Terrassierte Stellplätze im Schatten der Pinien, ruhige Ecken und Grün im ganzen Camp.','Für die Kleinsten gibt es einen Kinderspielplatz.'] },
-        { name:'Der Weg zum Camp', paras:['Eine angenehme Straße führt durch die ruhige Landschaft von Lovište bis ans Meer zum Camp.'] }
+        { name:'Der Weg zum Camp', paras:['Das Camp hat 2 Eingänge, das heißt, es ist von beiden Straßen im Ort erreichbar.'] }
       ],
-      apart: { eyebrow:'Neu eröffnet', title:'Ein neuer Platz, ein bewährtes Willkommen', body:'Camping Lovište Paradise öffnet diesen Sommer seine Tore, der Platz sammelt also gerade erst seine ersten Bewertungen. Doch unsere Familie beherbergt seit Jahren Gäste in unseren Apartments in Lovište, mit ausgezeichneten Bewertungen bei Google. Dieselbe Fürsorge und Wärme erwarten Sie auch auf dem Platz.', note:'Sehen Sie die Bewertungen unserer Villa', btn1:'Bewertungen · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
+      apart: { eyebrow:'Neu eröffnet', title:'Geprüfte Gastfreundschaft', body:'Camping Lovište Paradise öffnet diesen Sommer seine Tore, der Platz sammelt also gerade erst seine ersten Bewertungen. Doch unsere Familie beherbergt seit Jahren Gäste in unseren Apartments in Lovište, mit ausgezeichneten Bewertungen bei Google. Dieselbe Fürsorge und Wärme erwarten Sie auch auf dem Platz.', note:'Sehen Sie die Bewertungen unserer Villa', btn1:'Bewertungen · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
       ctaBand: { title:'Bereit für einen perfekten Sommer?', sub:'Wir antworten persönlich, so schnell wie möglich.', button:'Anfragen' },
       footer: { tagline:'Ein Familiencampingplatz in der Bucht von Lovište auf der Halbinsel Pelješac.', explore:'Seiten', contactHeading:'Kontakt', rights:'Alle Rechte vorbehalten.' },
       about: {
@@ -1359,7 +1359,7 @@ class Component extends DCLogic {
       },
       faqPage: {
         hero: { eyebrow:'FAQ', title:'Alles, was Sie wissen müssen', sub:'Keine Antwort gefunden? Melden Sie sich, wir helfen gern.' },
-        ctaTitle:'Noch Fragen?', ctaSub:'Senden Sie uns eine Nachricht, wir antworten meist noch am selben Tag.',
+        ctaTitle:'Noch Fragen?', ctaSub:'Senden Sie uns eine Nachricht, wir antworten Ihnen.',
         items:[
           { q:'Wann sind Check-in und Check-out?', a:'Check-in ist ab 14:00 Uhr, Check-out bis 11:00 Uhr. Früherer Check-in oder späterer Check-out ist je nach Verfügbarkeit möglich, sagen Sie uns einfach vorab Bescheid.' },
           { q:'Sind Haustiere erlaubt?', a:'Ja! Hunde sind auf den Stellplätzen und in den meisten Unterkünften gegen eine kleine Gebühr willkommen. Bitte halten Sie sie in Gemeinschaftsbereichen an der Leine.' },
@@ -1371,7 +1371,7 @@ class Component extends DCLogic {
           { q:'Was gibt es in der Nähe?', a:'Das Dorf Lovište mit Tavernen und einem Laden ist 5 Minuten zu Fuß entfernt. Orebić und die Fähre nach Korčula sind leichte Tagesausflüge.' }
         ]
       },
-      contact: { hero:{ eyebrow:'Kontakt', title:'Senden Sie eine Anfrage', sub:'Nennen Sie uns Ihre Daten und die Anzahl der Gäste, wir antworten persönlich, meist noch am selben Tag.' }, formHeading:'Buchungsanfrage', intro:'Melden Sie sich', emailBtn:'Senden Sie uns eine E-Mail', respNote:'Wir antworten persönlich, meist noch am selben Tag. Klicken Sie unten, um uns eine E-Mail zu senden.', locImg:'[ Lovište / die Bucht ]', hoursHeading:'Check-in & Check-out', hours:[ {day:'Check-in',time:'08:00 – 22:00'}, {day:'Check-out',time:'bis 12:00'} ], mapLabel:'[ Karte, Lovište ]' }
+      contact: { hero:{ eyebrow:'Kontakt', title:'Senden Sie eine Anfrage', sub:'Nennen Sie uns Ihre Daten und die Anzahl der Gäste, wir antworten persönlich.' }, formHeading:'Buchungsanfrage', intro:'Melden Sie sich', emailBtn:'Senden Sie uns eine E-Mail', respNote:'Wir antworten persönlich. Klicken Sie unten, um uns eine E-Mail zu senden.', locImg:'[ Lovište / die Bucht ]', hoursHeading:'Check-in & Check-out', hours:[ {day:'Check-in',time:'08:00 – 22:00'}, {day:'Check-out',time:'bis 12:00'} ], mapLabel:'[ Karte, Lovište ]' }
     },
     sl: {
       cta: 'Povpraševanje',
@@ -1403,7 +1403,7 @@ class Component extends DCLogic {
         ]
       },
       request: {
-        hero: { title:'Pošlji povpraševanje', sub:'Sporočite nam termine, število gostov in nastanitev. Odgovorimo osebno, običajno isti dan.' },
+        hero: { title:'Pošlji povpraševanje', sub:'Sporočite nam termine, število gostov in nastanitev. Odgovorimo osebno.' },
         f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-pošta', emailPh:'vi@primer.com', accommodation:'Izberite nastanitev', vehicle:'Vrsta vozila', vlength:'Dolžina vozila', arrive:'Datum prihoda', depart:'Datum odhoda', country:'Država', phone:'Kontaktna številka', phonePh:'091 234 5678', message:'Vaše sporočilo', messagePh:'Sporočite nam vse, kar pomaga pri pripravi ponudbe…', choose:'Izberite možnost', submit:'Pošlji povpraševanje', sending:'Pošiljanje…', error:'Pošiljanje ni uspelo. Poskusite znova ali nam pišite neposredno.', gdpr:'GDPR, vaši podatki se zbirajo izključno za odgovor na to povpraševanje in za eVisitor prijavo.' },
         accOptions:['Parcela A, ob morju','Parcela B, blizu morja','Parcela C, srednje terase','Parcela D, v senci borov','Še nisem prepričan/a'],
         vehicleOptions:['Šotor','Prikolica','Avtodom','Avto + strešni šotor','Brez vozila'],
@@ -1461,9 +1461,9 @@ class Component extends DCLogic {
         { name:'Sanitarije', paras:['Sodobni in brezhibno vzdrževani sanitarni prostori z WC-ji, družinskimi kopalnicami in posebno kopalnico za osebe z invalidnostjo.','Za najmlajše je na voljo tudi otrokom prilagojena kopalnica.'] },
         { name:'Tuši', paras:['Topli tuši v zaprtih kabinah in priročni zunanji tuši za osvežitev po plaži.','Na voljo je tudi zunanji tuš za vaše hišne ljubljenčke.'] },
         { name:'Po kampu', paras:['Terasaste parcele v senci borov, mirni kotički in zelenje po vsem kampu.','Za najmlajše je tu tudi otroško igrišče.'] },
-        { name:'Pot do kampa', paras:['Do kampa vodi prijetna cesta skozi mirno pokrajino Lovišta, vse do morja.'] }
+        { name:'Pot do kampa', paras:['Kamp ima 2 vhoda, kar pomeni, da je dostopen z obeh cest v kraju.'] }
       ],
-      apart: { eyebrow:'Na novo odprto', title:'Nov kamp, preverjena gostoljubnost', body:'Camping Lovište Paradise letos poleti odpira svoja vrata, zato kamp šele zbira prve ocene. A naša družina že leta gosti obiskovalce v svojih apartmajih v Lovištu, z odličnimi ocenami na Googlu. Enaka skrb in toplina vas čakata tudi v kampu.', note:'Oglejte si ocene naše vile', btn1:'Ocene · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
+      apart: { eyebrow:'Na novo odprto', title:'Preverjena gostoljubnost', body:'Camping Lovište Paradise letos poleti odpira svoja vrata, zato kamp šele zbira prve ocene. A naša družina že leta gosti obiskovalce v svojih apartmajih v Lovištu, z odličnimi ocenami na Googlu. Enaka skrb in toplina vas čakata tudi v kampu.', note:'Oglejte si ocene naše vile', btn1:'Ocene · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
       ctaBand: { title:'Pripravljeni na popolno poletje?', sub:'Odgovorimo osebno, v najkrajšem možnem času.', button:'Povpraševanje' },
       footer: { tagline:'Družinski kamp v zalivu Lovište na polotoku Pelješac.', explore:'Strani', contactHeading:'Kontakt', rights:'Vse pravice pridržane.' },
       about: {
@@ -1481,7 +1481,7 @@ class Component extends DCLogic {
       },
       faqPage: {
         hero: { eyebrow:'Pogosta vprašanja', title:'Vse, kar morate vedeti', sub:'Niste našli odgovora? Pišite nam, z veseljem pomagamo.' },
-        ctaTitle:'Še vprašanja?', ctaSub:'Pošljite nam sporočilo in odgovorimo, običajno isti dan.',
+        ctaTitle:'Še vprašanja?', ctaSub:'Pošljite nam sporočilo in odgovorimo.',
         items:[
           { q:'Kdaj sta prijava in odjava?', a:'Prijava je od 14:00, odjava do 11:00. Zgodnejša prijava ali poznejša odjava je mogoča glede na razpoložljivost, le vnaprej nam sporočite.' },
           { q:'So hišni ljubljenčki dovoljeni?', a:'Da! Psi so dobrodošli na parcelah in v večini nastanitev za majhno doplačilo. Prosimo, da jih v skupnih prostorih držite na povodcu.' },
@@ -1493,7 +1493,7 @@ class Component extends DCLogic {
           { q:'Kaj je v bližini?', a:'Vas Lovište z gostilnami in trgovino je 5 minut hoje. Orebić, trajekt za Korčulo sta enostavna dnevna izleta.' }
         ]
       },
-      contact: { hero:{ eyebrow:'Kontakt', title:'Pošljite povpraševanje', sub:'Sporočite nam svoje termine in število gostov, odgovorimo osebno, običajno isti dan.' }, formHeading:'Povpraševanje za rezervacijo', intro:'Pišite nam', emailBtn:'Pošljite nam e-pošto', respNote:'Odgovorimo osebno, običajno isti dan. Kliknite spodaj za pošiljanje e-pošte.', locImg:'[ Lovište / zaliv ]', hoursHeading:'Prijava in odjava', hours:[ {day:'Prijava (check-in)',time:'08:00 – 22:00'}, {day:'Odjava (check-out)',time:'do 12:00'} ], mapLabel:'[ Zemljevid, Lovište ]' }
+      contact: { hero:{ eyebrow:'Kontakt', title:'Pošljite povpraševanje', sub:'Sporočite nam svoje termine in število gostov, odgovorimo osebno.' }, formHeading:'Povpraševanje za rezervacijo', intro:'Pišite nam', emailBtn:'Pošljite nam e-pošto', respNote:'Odgovorimo osebno. Kliknite spodaj za pošiljanje e-pošte.', locImg:'[ Lovište / zaliv ]', hoursHeading:'Prijava in odjava', hours:[ {day:'Prijava (check-in)',time:'08:00 – 22:00'}, {day:'Odjava (check-out)',time:'do 12:00'} ], mapLabel:'[ Zemljevid, Lovište ]' }
     }
   };
 
@@ -1570,14 +1570,11 @@ class Component extends DCLogic {
       if (!this._obs) {
         this._obs = new IntersectionObserver((entries) => {
           entries.forEach((e) => {
+            if (!e.isIntersecting) return;
             const el = e.target;
-            if (e.isIntersecting) {
-              el.style.opacity = '1';
-              el.style.transform = 'none';
-            } else {
-              el.style.opacity = '0';
-              el.style.transform = el.__hide || 'translateY(28px)';
-            }
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+            this._obs.unobserve(el); // reveal once, then leave it visible
           });
         }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
       }
@@ -1696,11 +1693,11 @@ class Component extends DCLogic {
     // click-to-zoom. Order matches the campTour copy: reception · toilets ·
     // showers · around the camp · the road in.
     const campMedia = [
-      { main:['./uploads/camp8.jpg'], thumbs:[] },
-      { main:['./uploads/wc-main.jpg','./uploads/wc1.png','./uploads/wc2.jpg','./uploads/wc-invalid.jpg'], thumbs:['./uploads/wc3.jpg','./uploads/wc4.jpg','./uploads/wc-kids.jpg','./uploads/wc-kids2.jpg','./uploads/chemical-toilet.jpg'] },
-      { main:['./uploads/shower.jpg','./uploads/shower-outside.jpg','./uploads/shower-outside2.jpg','./uploads/shower-dog.jpg'], thumbs:['./uploads/shower.jpg','./uploads/shower-outside.jpg','./uploads/shower-outside2.jpg','./uploads/shower-outside3.jpg','./uploads/shower-dog.jpg'] },
+      { main:['./uploads/reception2.jpg','./uploads/reception3.jpg','./uploads/reception4.jpg'], thumbs:[] },
+      { main:['./uploads/wc7.jpg','./uploads/wc8.jpg'], thumbs:[] },
+      { main:['./uploads/shower2.jpg'], thumbs:[] },
       { main:['./uploads/camp3.jpg','./uploads/camp4.jpg','./uploads/camp5.jpg','./uploads/camp6.jpg','./uploads/camp7.jpg','./uploads/camp11.jpg','./uploads/camp12.jpg'], thumbs:['./uploads/camp8.jpg','./uploads/camp10.jpg','./uploads/camp2.jpg','./uploads/camp.png','./uploads/camp-playground.jpg'] },
-      { main:['./uploads/camp-road1.jpg','./uploads/camp-road2.jpg','./uploads/camp-road3.jpg','./uploads/camp-road4.jpg'], thumbs:[] }
+      { main:['./uploads/camp-map.png'], thumbs:[], square:true }
     ];
     const campSections = ((t.campTour) || []).map((c, i) => {
       const m = campMedia[i] || {};
@@ -1711,6 +1708,7 @@ class Component extends DCLogic {
       const gallery = main.concat(thumbs).filter((src, k, a) => a.indexOf(src) === k);
       return {
         name: c.name, paras: c.paras, slides,
+        box: m.square ? 'aspect-ratio:1/1;' : 'height:clamp(280px,34vw,420px);',
         onOpen: () => this.setState({ lightbox: gallery, lightboxIdx: gallery.indexOf(main[idx]) }),
         thumbs: thumbs.map((src) => ({ src, onOpen: () => this.setState({ lightbox: gallery, lightboxIdx: gallery.indexOf(src) }) })),
         hasThumbs: thumbs.length > 0,
