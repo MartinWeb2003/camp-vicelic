@@ -1778,7 +1778,7 @@ class Component extends DCLogic {
     const facilities = t.fac.items.map((f, i) => ({ ...f, iconEl: this.icon(facIcons[i % facIcons.length], 22) }));
     // Real facility photography (locale-independent) shown as a gallery under the facilities cards.
     const facilityShotSrcs = [
-      './uploads/toilet-building.jpg','./uploads/wc1.png','./uploads/wc2.jpg',
+      './uploads/toilet-building.jpg','./uploads/wc1.jpg','./uploads/wc2.jpg',
       './uploads/wc-kids.jpg','./uploads/wc-invalid.jpg','./uploads/shower.jpg','./uploads/shower-outside.jpg',
       './uploads/shower-outside2.jpg','./uploads/shower-dog.jpg','./uploads/chemical-toilet.jpg',
       './uploads/fridge.jpg','./uploads/washer.jpg'
@@ -1797,7 +1797,7 @@ class Component extends DCLogic {
       { main:['./uploads/reception.jpg','./uploads/reception3.jpg','./uploads/reception4.jpg'], thumbs:[] },
       { main:['./uploads/wc-main.jpg','./uploads/wc7.jpg','./uploads/wc8.jpg','./uploads/wc2.jpg','./uploads/wc3.jpg','./uploads/wc4.jpg','./uploads/wc5.jpg','./uploads/wc6.jpg','./uploads/wc-kids.jpg','./uploads/wc-kids2.jpg','./uploads/wc-invalid.jpg','./uploads/toilet-building.jpg','./uploads/fridge.jpg','./uploads/washer.jpg'], thumbs:[] },
       { main:['./uploads/shower.jpg','./uploads/shower-outside.jpg','./uploads/shower-dog.jpg'], thumbs:[] },
-      { main:['./uploads/camp3.jpg','./uploads/camp4.jpg','./uploads/camp5.jpg','./uploads/camp6.jpg','./uploads/camp7.jpg','./uploads/camp11.jpg','./uploads/camp12.jpg'], thumbs:['./uploads/camp8.jpg','./uploads/camp10.jpg','./uploads/camp2.jpg','./uploads/camp.png','./uploads/camp-playground.jpg'] },
+      { main:['./uploads/camp3.jpg','./uploads/camp4.jpg','./uploads/camp5.jpg','./uploads/camp6.jpg','./uploads/camp7.jpg','./uploads/camp11.jpg','./uploads/camp12.jpg'], thumbs:['./uploads/camp8.jpg','./uploads/camp10.jpg','./uploads/camp2.jpg','./uploads/camp.jpg','./uploads/camp-playground.jpg'] },
       { main:['./uploads/camp-map.png'], thumbs:[], square:true }
     ];
     const campSections = ((t.campTour) || []).map((c, i) => {
