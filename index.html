@@ -443,11 +443,12 @@
         <div style="max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(40px,5vw,72px);">
           <sc-for list="{{ activitiesItems }}" as="a" hint-placeholder-count="6">
             <div data-reveal style="display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,56px);align-items:center;{{ a.dir }}">
-              <div style="flex:1 1 380px;min-width:280px;height:clamp(280px,34vw,420px);position:relative;overflow:hidden;background:#e8f2f9;">
+              <button onClick="{{ a.onOpen }}" style="flex:1 1 380px;min-width:280px;height:clamp(280px,34vw,420px);position:relative;overflow:hidden;background:#e8f2f9;cursor:zoom-in;padding:0;border:0;display:block;">
                 <sc-for list="{{ a.slides }}" as="s" hint-placeholder-count="1">
                   <img src="{{ s.src }}" alt="{{ a.name }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:{{ s.opacity }};z-index:{{ s.z }};transition:opacity .9s ease;" />
                 </sc-for>
-              </div>
+                <span style="position:absolute;bottom:12px;right:12px;z-index:3;width:36px;height:36px;border-radius:50%;background:rgba(17,75,124,0.82);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;">⤢</span>
+              </button>
               <div style="flex:1 1 380px;min-width:280px;">
                 <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(22px,2.8vw,30px);color:#114B7C;letter-spacing:-0.01em;margin:0 0 12px;text-transform:uppercase;">{{ a.name }}</h2>
                 <div style="width:48px;height:3px;background:#5BB0DE;border-radius:2px;margin-bottom:20px;"></div>
@@ -474,7 +475,7 @@
                 <sc-if value="{{ a.hasThumbs }}" hint-placeholder-val="{{ false }}">
                   <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;">
                     <sc-for list="{{ a.thumbsArr }}" as="th" hint-placeholder-count="3">
-                      <img src="{{ th }}" alt="" loading="lazy" style="width:74px;height:54px;object-fit:cover;display:block;" />
+                      <img onClick="{{ th.onOpen }}" src="{{ th.src }}" alt="" loading="lazy" style="width:74px;height:54px;object-fit:cover;display:block;cursor:zoom-in;" />
                     </sc-for>
                   </div>
                 </sc-if>
@@ -912,7 +913,7 @@ class Component extends DCLogic {
         ]
       },
       request: {
-        hero: { title:'Pošalji upit', sub:'Recite nam termine, broj gostiju i smještaj. Javljamo se osobno.' },
+        hero: { title:'Pošalji upit', sub:'Javite nam termine i broj gostiju. Javljamo se osobno, u najkraćem mogućem roku.' },
         f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', accommodation:'Odaberite smještaj', vehicle:'Vrsta vozila', vlength:'Duljina vozila', arrive:'Datum dolaska', depart:'Datum odlaska', country:'Država', phone:'Kontakt broj', phonePh:'091 234 5678', message:'Vaša poruka', messagePh:'Recite nam sve što nam pomaže pripremiti ponudu…', choose:'Odaberite opciju', submit:'Pošalji upit', sending:'Šalje se…', error:'Slanje nije uspjelo. Pokušajte ponovno ili nam pišite izravno e-mailom.', gdpr:'GDPR, vaši se podaci prikupljaju isključivo za odgovor na ovaj upit i za eVisitor prijavu.' },
         accOptions:['Parcela A, uz more','Parcela B, blizu mora','Parcela C, srednje terase','Parcela D, u hladu borova','Nisam siguran/a'],
         vehicleOptions:['Šator','Kamp-kućica','Kamper / autodom','Auto + krovni šator','Bez vozila'],
@@ -1055,9 +1056,9 @@ class Component extends DCLogic {
         ]
       },
       contact: {
-        hero: { eyebrow:'Kontakt', title:'Pošaljite upit', sub:'Recite nam termine i broj gostiju, javljamo se osobno.' },
+        hero: { eyebrow:'Kontakt', title:'Pošaljite upit', sub:'Javite nam termine i broj gostiju. Javljamo se osobno, u najkraćem mogućem roku.' },
         formHeading:'Upit za rezervaciju',
-        intro:'Javite nam se', emailBtn:'Pošaljite e-mail', respNote:'Odgovaramo osobno. Kliknite gumb ispod za slanje e-maila.', locImg:'[ Lovište / uvala ]',
+        intro:'Javite nam se', emailBtn:'Pošaljite e-mail', respNote:'Kliknite gumb ispod za slanje e-maila.', locImg:'[ Lovište / uvala ]',
         f: { name:'Ime i prezime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', arrive:'Dolazak (opcionalno)', depart:'Odlazak (opcionalno)', party:'Broj gostiju', message:'Poruka', messagePh:'Recite nam tip smještaja, posebne želje…', submit:'Pošalji upit', privacy:'Vaše podatke koristimo isključivo za odgovor na ovaj upit.' },
         partyOptions:['1 osoba','2 osobe','3 osobe','4 osobe','5 osoba','6+ osoba'],
         success: { title:'Upit je poslan!', body:'Hvala vam. Vaš upit je zaprimljen i javit ćemo se u najkraćem roku.', again:'Pošalji novi upit' },
@@ -1096,7 +1097,7 @@ class Component extends DCLogic {
         ]
       },
       request: {
-        hero: { title:'Send a request', sub:'Tell us your dates, party and accommodation. We reply personally.' },
+        hero: { title:'Send a request', sub:'Tell us your dates and number of guests. We reply personally, as soon as possible.' },
         f: { name:'Your name', namePh:'Your name', email:'E-mail', emailPh:'you@example.com', accommodation:'Choose accommodation', vehicle:'Vehicle type', vlength:'Length of the vehicle', arrive:'Date of arrival', depart:'Date of departure', country:'Country', phone:'Contact number', phonePh:'091 234 5678', message:'Your message', messagePh:'Tell us anything that helps us prepare your offer…', choose:'Please choose an option', submit:'Send request', sending:'Sending…', error:'Sending failed. Please try again or email us directly.', gdpr:'GDPR, your details are collected only to answer this request and for eVisitor registration.' },
         accOptions:['Pitch A, seafront','Pitch B, near the sea','Pitch C, mid terraces','Pitch D, pine shade','Not sure yet'],
         vehicleOptions:['Tent','Caravan','Camper / motorhome','Car + roof tent','None'],
@@ -1240,9 +1241,9 @@ class Component extends DCLogic {
         ]
       },
       contact: {
-        hero: { eyebrow:'Contact', title:'Send an inquiry', sub:'Tell us your dates and party size, we reply personally.' },
+        hero: { eyebrow:'Contact', title:'Send an inquiry', sub:'Tell us your dates and number of guests. We reply personally, as soon as possible.' },
         formHeading:'Booking inquiry',
-        intro:'Get in touch', emailBtn:'Send us an email', respNote:'We reply personally. Click the button below to send us an email.', locImg:'[ Lovište / the bay ]',
+        intro:'Get in touch', emailBtn:'Send us an email', respNote:'Click the button below to send us an email.', locImg:'[ Lovište / the bay ]',
         f: { name:'Full name', namePh:'Your name', email:'Email', emailPh:'you@example.com', arrive:'Arrival (optional)', depart:'Departure (optional)', party:'Party size', message:'Message', messagePh:'Tell us your preferred accommodation, special requests…', submit:'Send inquiry', privacy:'We use your details only to reply to this inquiry.' },
         partyOptions:['1 guest','2 guests','3 guests','4 guests','5 guests','6+ guests'],
         success: { title:'Inquiry sent!', body:'Thank you. Your inquiry has been received and we\u2019ll get back to you as soon as possible.', again:'Send another inquiry' },
@@ -1281,7 +1282,7 @@ class Component extends DCLogic {
         ]
       },
       request: {
-        hero: { title:'Anfrage senden', sub:'Nennen Sie uns Daten, Personenzahl und Unterkunft. Wir antworten persönlich.' },
+        hero: { title:'Anfrage senden', sub:'Nennen Sie uns Ihre Termine und die Anzahl der Gäste. Wir antworten persönlich, so schnell wie möglich.' },
         f: { name:'Ihr Name', namePh:'Ihr Name', email:'E-Mail', emailPh:'sie@beispiel.com', accommodation:'Unterkunft wählen', vehicle:'Fahrzeugtyp', vlength:'Länge des Fahrzeugs', arrive:'Anreisedatum', depart:'Abreisedatum', country:'Land', phone:'Telefonnummer', phonePh:'091 234 5678', message:'Ihre Nachricht', messagePh:'Sagen Sie uns alles, was bei der Angebotserstellung hilft…', choose:'Bitte wählen', submit:'Anfrage senden', sending:'Wird gesendet…', error:'Senden fehlgeschlagen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.', gdpr:'DSGVO, Ihre Daten werden nur zur Beantwortung dieser Anfrage und für die eVisitor-Registrierung erhoben.' },
         accOptions:['Stellplatz A, am Meer','Stellplatz B, nah am Meer','Stellplatz C, mittlere Terrassen','Stellplatz D, im Pinienschatten','Noch unsicher'],
         vehicleOptions:['Zelt','Wohnwagen','Wohnmobil','Auto + Dachzelt','Keines'],
@@ -1371,7 +1372,7 @@ class Component extends DCLogic {
           { q:'Was gibt es in der Nähe?', a:'Das Dorf Lovište mit Tavernen und einem Laden ist 5 Minuten zu Fuß entfernt. Orebić und die Fähre nach Korčula sind leichte Tagesausflüge.' }
         ]
       },
-      contact: { hero:{ eyebrow:'Kontakt', title:'Senden Sie eine Anfrage', sub:'Nennen Sie uns Ihre Daten und die Anzahl der Gäste, wir antworten persönlich.' }, formHeading:'Buchungsanfrage', intro:'Melden Sie sich', emailBtn:'Senden Sie uns eine E-Mail', respNote:'Wir antworten persönlich. Klicken Sie unten, um uns eine E-Mail zu senden.', locImg:'[ Lovište / die Bucht ]', hoursHeading:'Check-in & Check-out', hours:[ {day:'Check-in',time:'08:00 – 22:00'}, {day:'Check-out',time:'bis 12:00'} ], mapLabel:'[ Karte, Lovište ]' }
+      contact: { hero:{ eyebrow:'Kontakt', title:'Senden Sie eine Anfrage', sub:'Nennen Sie uns Ihre Termine und die Anzahl der Gäste. Wir antworten persönlich, so schnell wie möglich.' }, formHeading:'Buchungsanfrage', intro:'Melden Sie sich', emailBtn:'Senden Sie uns eine E-Mail', respNote:'Klicken Sie unten, um uns eine E-Mail zu senden.', locImg:'[ Lovište / die Bucht ]', hoursHeading:'Check-in & Check-out', hours:[ {day:'Check-in',time:'08:00 – 22:00'}, {day:'Check-out',time:'bis 12:00'} ], mapLabel:'[ Karte, Lovište ]' }
     },
     sl: {
       cta: 'Povpraševanje',
@@ -1403,7 +1404,7 @@ class Component extends DCLogic {
         ]
       },
       request: {
-        hero: { title:'Pošlji povpraševanje', sub:'Sporočite nam termine, število gostov in nastanitev. Odgovorimo osebno.' },
+        hero: { title:'Pošlji povpraševanje', sub:'Sporočite nam termine in število gostov. Odgovorimo osebno, v najkrajšem možnem času.' },
         f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-pošta', emailPh:'vi@primer.com', accommodation:'Izberite nastanitev', vehicle:'Vrsta vozila', vlength:'Dolžina vozila', arrive:'Datum prihoda', depart:'Datum odhoda', country:'Država', phone:'Kontaktna številka', phonePh:'091 234 5678', message:'Vaše sporočilo', messagePh:'Sporočite nam vse, kar pomaga pri pripravi ponudbe…', choose:'Izberite možnost', submit:'Pošlji povpraševanje', sending:'Pošiljanje…', error:'Pošiljanje ni uspelo. Poskusite znova ali nam pišite neposredno.', gdpr:'GDPR, vaši podatki se zbirajo izključno za odgovor na to povpraševanje in za eVisitor prijavo.' },
         accOptions:['Parcela A, ob morju','Parcela B, blizu morja','Parcela C, srednje terase','Parcela D, v senci borov','Še nisem prepričan/a'],
         vehicleOptions:['Šotor','Prikolica','Avtodom','Avto + strešni šotor','Brez vozila'],
@@ -1493,7 +1494,7 @@ class Component extends DCLogic {
           { q:'Kaj je v bližini?', a:'Vas Lovište z gostilnami in trgovino je 5 minut hoje. Orebić, trajekt za Korčulo sta enostavna dnevna izleta.' }
         ]
       },
-      contact: { hero:{ eyebrow:'Kontakt', title:'Pošljite povpraševanje', sub:'Sporočite nam svoje termine in število gostov, odgovorimo osebno.' }, formHeading:'Povpraševanje za rezervacijo', intro:'Pišite nam', emailBtn:'Pošljite nam e-pošto', respNote:'Odgovorimo osebno. Kliknite spodaj za pošiljanje e-pošte.', locImg:'[ Lovište / zaliv ]', hoursHeading:'Prijava in odjava', hours:[ {day:'Prijava (check-in)',time:'08:00 – 22:00'}, {day:'Odjava (check-out)',time:'do 12:00'} ], mapLabel:'[ Zemljevid, Lovište ]' }
+      contact: { hero:{ eyebrow:'Kontakt', title:'Pošljite povpraševanje', sub:'Sporočite nam termine in število gostov. Odgovorimo osebno, v najkrajšem možnem času.' }, formHeading:'Povpraševanje za rezervacijo', intro:'Pišite nam', emailBtn:'Pošljite nam e-pošto', respNote:'Kliknite spodaj za pošiljanje e-pošte.', locImg:'[ Lovište / zaliv ]', hoursHeading:'Prijava in odjava', hours:[ {day:'Prijava (check-in)',time:'08:00 – 22:00'}, {day:'Odjava (check-out)',time:'do 12:00'} ], mapLabel:'[ Zemljevid, Lovište ]' }
     }
   };
 
@@ -1685,7 +1686,7 @@ class Component extends DCLogic {
     const facilityShots = facilityShotSrcs.map((src, k) => ({ src, onOpen: () => this.setState({ lightbox: facilityShotSrcs, lightboxIdx: k }) }));
     const sanitaryFeatures = (((t.sanitary || {}).features) || []).map((x) => ({ text:x, iconEl: this.icon('check', 16) }));
     // Continuously-cycling main image for the sanitary section (crossfade via slideTick).
-    const sanitaryMain = ['./uploads/wc-main.jpg','./uploads/shower.jpg','./uploads/shower-outside.jpg','./uploads/wc-kids.jpg','./uploads/wc-invalid.jpg','./uploads/shower-dog.jpg'];
+    const sanitaryMain = ['./uploads/wc-main.jpg','./uploads/shower.jpg','./uploads/shower-outside.jpg','./uploads/wc-kids.jpg','./uploads/wc-invalid.jpg','./uploads/shower-dog.jpg','./uploads/fridge.jpg','./uploads/washer.jpg'];
     const sanIdx = this.state.slideTick % sanitaryMain.length;
     const sanitarySlides = sanitaryMain.map((src, k) => ({ src, opacity: (k === sanIdx ? '1' : '0'), z: (k === sanIdx ? '2' : '1'), onOpen: () => this.setState({ lightbox: sanitaryMain, lightboxIdx: k }) }));
     // "Look around the camp" — activity-style sections, one per camp area.
@@ -1693,16 +1694,18 @@ class Component extends DCLogic {
     // click-to-zoom. Order matches the campTour copy: reception · toilets ·
     // showers · around the camp · the road in.
     const campMedia = [
-      { main:['./uploads/reception2.jpg','./uploads/reception3.jpg','./uploads/reception4.jpg'], thumbs:[] },
+      { main:['./uploads/reception.jpg','./uploads/reception3.jpg','./uploads/reception4.jpg'], thumbs:[] },
       { main:['./uploads/wc7.jpg','./uploads/wc8.jpg'], thumbs:[] },
-      { main:['./uploads/shower2.jpg'], thumbs:[] },
+      { main:['./uploads/shower.jpg','./uploads/shower-outside.jpg','./uploads/shower-dog.jpg'], thumbs:[] },
       { main:['./uploads/camp3.jpg','./uploads/camp4.jpg','./uploads/camp5.jpg','./uploads/camp6.jpg','./uploads/camp7.jpg','./uploads/camp11.jpg','./uploads/camp12.jpg'], thumbs:['./uploads/camp8.jpg','./uploads/camp10.jpg','./uploads/camp2.jpg','./uploads/camp.png','./uploads/camp-playground.jpg'] },
       { main:['./uploads/camp-map.png'], thumbs:[], square:true }
     ];
     const campSections = ((t.campTour) || []).map((c, i) => {
       const m = campMedia[i] || {};
       const main = m.main || [];
-      const thumbs = m.thumbs || [];
+      // Sections without their own thumbnail set fall back to showing mini
+      // versions of every rotating (main) image, like "Kroz kamp" does.
+      const thumbs = (m.thumbs && m.thumbs.length) ? m.thumbs : (main.length > 1 ? main : []);
       const idx = main.length ? (this.state.slideTick % main.length) : 0;
       const slides = main.map((src, k) => ({ src, opacity: (k === idx ? '1' : '0'), z: (k === idx ? '2' : '1') }));
       const gallery = main.concat(thumbs).filter((src, k, a) => a.indexOf(src) === k);
@@ -1799,8 +1802,9 @@ class Component extends DCLogic {
         cursor: hasVideo ? 'pointer' : 'default',
         onPlay: hasVideo ? (() => this.setState({ playingVideo: i })) : (() => {}),
         embedSrc: hasVideo ? (vurl + (vurl.indexOf('?') >= 0 ? '&' : '?') + 'autoplay=1') : '',
+        onOpen: () => this.setState({ lightbox: gallery, lightboxIdx: activeIdx }),
         hasThumbs: thumbs.length > 0,
-        thumbsArr: thumbs,
+        thumbsArr: thumbs.map((src) => ({ src, onOpen: () => this.setState({ lightbox: gallery, lightboxIdx: gallery.indexOf(src) }) })),
         dir: i % 2 === 1 ? 'flex-direction:row-reverse;' : ''
       };
     });
