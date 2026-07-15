@@ -1780,7 +1780,8 @@ class Component extends DCLogic {
     const facilityShotSrcs = [
       './uploads/toilet-building.jpg','./uploads/wc1.png','./uploads/wc2.jpg',
       './uploads/wc-kids.jpg','./uploads/wc-invalid.jpg','./uploads/shower.jpg','./uploads/shower-outside.jpg',
-      './uploads/shower-outside2.jpg','./uploads/shower-dog.jpg','./uploads/chemical-toilet.jpg'
+      './uploads/shower-outside2.jpg','./uploads/shower-dog.jpg','./uploads/chemical-toilet.jpg',
+      './uploads/fridge.jpg','./uploads/washer.jpg'
     ];
     const facilityShots = facilityShotSrcs.map((src, k) => ({ src, onOpen: () => this.setState({ lightbox: facilityShotSrcs, lightboxIdx: k }) }));
     const sanitaryFeatures = (((t.sanitary || {}).features) || []).map((x) => ({ text:x, iconEl: this.icon('check', 16) }));
