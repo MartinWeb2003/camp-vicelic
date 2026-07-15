@@ -1,15 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="hr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Camping Lovište Paradise · Pelješac, Croatia</title>
+<meta name="description" content="Camping Lovište Paradise – obiteljski kamp u uvali Lovište na poluotoku Pelješcu. Terasaste parcele u hladu borova, moderni sanitarni čvor i plaža uz kamp.">
+<!-- Domain of record (from CNAME). Change every occurrence together if the domain changes. -->
+<link rel="canonical" href="https://campinglovisteparadise.com/">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Camping Lovište Paradise">
+<meta name="theme-color" content="#114B7C">
+<meta name="geo.region" content="HR">
+<meta name="geo.placename" content="Lovište, Pelješac">
+<meta name="geo.position" content="43.0244;17.0353">
+<meta name="ICBM" content="43.0244, 17.0353">
+<link rel="manifest" href="./manifest.webmanifest">
+<!-- Open Graph -->
+<meta property="og:type" content="business.business">
+<meta property="og:site_name" content="Camping Lovište Paradise">
+<meta property="og:title" content="Camping Lovište Paradise · Pelješac, Croatia">
+<meta property="og:description" content="Obiteljski kamp u uvali Lovište na Pelješcu – terasaste parcele u hladu borova, moderni sanitarni čvor i plaža uz kamp.">
+<meta property="og:url" content="https://campinglovisteparadise.com/">
+<meta property="og:image" content="https://campinglovisteparadise.com/uploads/loviste1.jpg">
+<meta property="og:image:alt" content="Uvala Lovište i plaža uz kamp">
+<meta property="og:locale" content="hr_HR">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="sl_SI">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Camping Lovište Paradise · Pelješac, Croatia">
+<meta name="twitter:description" content="Obiteljski kamp u uvali Lovište na Pelješcu – terasaste parcele u hladu borova, moderni sanitarni čvor i plaža uz kamp.">
+<meta name="twitter:image" content="https://campinglovisteparadise.com/uploads/loviste1.jpg">
 <link rel="icon" href="./uploads/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="./uploads/favicon-32.png">
 <link rel="apple-touch-icon" href="./uploads/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Campground",
+  "name": "Camping Lovište Paradise",
+  "description": "Obiteljski kamp u uvali Lovište na poluotoku Pelješcu, Hrvatska. Terasaste parcele u hladu borova, moderni sanitarni čvor i plaža uz kamp.",
+  "url": "https://campinglovisteparadise.com/",
+  "image": "https://campinglovisteparadise.com/uploads/loviste1.jpg",
+  "logo": "https://campinglovisteparadise.com/uploads/logo.png",
+  "priceRange": "€€",
+  "currenciesAccepted": "EUR",
+  "petsAllowed": true,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "PLACEHOLDER – ulica i kućni broj",
+    "addressLocality": "Lovište",
+    "addressRegion": "Pelješac",
+    "postalCode": "20269",
+    "addressCountry": "HR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 43.0244,
+    "longitude": 17.0353
+  },
+  "telephone": "+385-00-000-0000",
+  "email": "PLACEHOLDER@example.com",
+  "amenityFeature": [
+    { "@type": "LocationFeatureSpecification", "name": "Besplatni Wi-Fi", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Moderni sanitarni čvor", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Plaža uz kamp", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Struja na parceli", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Dopušteni kućni ljubimci", "value": true },
+    { "@type": "LocationFeatureSpecification", "name": "Parking", "value": true }
+  ]
+}
+</script>
 <script src="./support.js"></script>
 </head>
 <body>
+<noscript>
+  <div style="max-width:760px;margin:0 auto;padding:48px 20px;font-family:Arial,Helvetica,sans-serif;color:#1f2a33;line-height:1.6;">
+    <h1 style="color:#114B7C;font-size:28px;">Camping Lovište Paradise — Lovište, Pelješac</h1>
+    <p>Obiteljski kamp u uvali Lovište na poluotoku Pelješcu u Hrvatskoj. Terasaste parcele u hladu borova, moderni i besprijekorno održavani sanitarni čvor te plaža uz sam kamp — mir daleko od velikih resorta.</p>
+    <p>Nudimo kamp parcele u četiri pozicije (A–D), toplu vodu 0–24, besplatni Wi-Fi, struju na parceli i pristup plaži. Kamp je prilagođen i kućnim ljubimcima.</p>
+    <p>Za prikaz cijele stranice — smještaj, cjenik, aktivnosti i obrazac za upit — uključite JavaScript u svom pregledniku.</p>
+    <p><strong>Lokacija:</strong> Lovište, 20269 Lovište, poluotok Pelješac, Hrvatska.</p>
+  </div>
+</noscript>
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1554,8 +1628,33 @@ class Component extends DCLogic {
     }
 
     this.setupReveal();
+    this.syncMeta();
   }
-  componentDidUpdate() { this.setupReveal(); }
+  componentDidUpdate() { this.setupReveal(); this.syncMeta(); }
+
+  // Keep <title> and <html lang> in sync with the current screen/locale, so each
+  // client-side "page" and language gets its own document title (SEO + browser tabs).
+  syncMeta() {
+    try {
+      const t = this.copy[this.state.locale] || this.copy.hr;
+      const brand = 'Camping Lovište Paradise';
+      const g = (o, d) => (o || d);
+      const titles = {
+        home: brand + ' · Kamp u uvali Lovište, Pelješac',
+        about: g(t.about && t.about.hero && t.about.hero.title, 'O nama') + ' — ' + brand,
+        accommodations: g(t.accPage && t.accPage.title, 'Smještaj') + ' — ' + brand,
+        activities: g(t.activities && t.activities.hero && t.activities.hero.title, 'Aktivnosti') + ' — ' + brand,
+        pricing: g(t.pricing && t.pricing.hero && t.pricing.hero.title, 'Cjenik') + ' — ' + brand,
+        request: g(t.request && t.request.hero && t.request.hero.title, 'Upit') + ' — ' + brand,
+        contact: g(t.contact && t.contact.hero && t.contact.hero.title, 'Kontakt') + ' — ' + brand
+      };
+      const title = titles[this.state.page] || (brand + ' · Pelješac, Croatia');
+      if (document.title !== title) document.title = title;
+      const lang = this.state.locale || 'hr';
+      const de = document.documentElement;
+      if (de && de.getAttribute('lang') !== lang) de.setAttribute('lang', lang);
+    } catch (e) {}
+  }
   componentWillUnmount() {
     window.removeEventListener('resize', this._onResize);
     window.removeEventListener('scroll', this._onScroll, { capture: true });
