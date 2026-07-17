@@ -1,0 +1,76 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never run two deploys at once; let a newer push supersede an in-flight one.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # The beacon token is public once the page ships, so it lives in a repo
+      # *variable* (Settings → Secrets and variables → Actions → Variables), not
+      # a secret. Injecting it here instead of committing it keeps localhost and
+      # file:// runs out of the stats. If the variable is missing the site still
+      # deploys, just without analytics.
+      # SPA route tracking needs no extra work: the beacon hooks pushState and
+      # popstate, which is exactly what the router in index.html drives.
+      - name: Inject Cloudflare Web Analytics beacon
+        env:
+          CF_BEACON_TOKEN: ${{ vars.CF_BEACON_TOKEN }}
+        run: |
+          grep -q '<!--CF-ANALYTICS-->' index.html || { echo "::error::CF-ANALYTICS marker missing from index.html"; exit 1; }
+          if [ -z "$CF_BEACON_TOKEN" ]; then
+            echo "::warning::CF_BEACON_TOKEN variable is not set — deploying without analytics."
+            exit 0
+          fi
+          # Mirrors the snippet Cloudflare's dashboard issues (type="module"),
+          # with "spa" stated explicitly: it already defaults to true, but this
+          # site depends on SPA route tracking, so it should not be implicit.
+          snippet="<!-- Cloudflare Web Analytics --><script type=\"module\" src=\"https://static.cloudflareinsights.com/beacon.min.js\" data-cf-beacon='{\"token\": \"${CF_BEACON_TOKEN}\", \"spa\": true}'></script><!-- End Cloudflare Web Analytics -->"
+          sed -i "s|<!--CF-ANALYTICS-->|${snippet}|" index.html
+          grep -q 'cloudflareinsights.com/beacon.min.js' index.html || { echo "::error::beacon snippet was not injected"; exit 1; }
+          echo "Beacon injected."
+
+      # GitHub Pages has no rewrite rules, so a cold hit on a client-side route
+      # (/cjenik, /smjestaj, ...) falls through to 404.html. Shipping a copy of
+      # the site there lets the router in index.html read the URL and open the
+      # right screen. <base href="/"> is injected because that copy is served
+      # from paths other than the root, where index.html's relative asset paths
+      # (./support.js, ./uploads/..., ./styles.css) would otherwise resolve
+      # against the wrong directory. It is generated here rather than committed
+      # so it can never drift out of sync with index.html.
+      - name: Generate 404.html SPA fallback
+        run: |
+          sed 's|<meta charset="utf-8">|<meta charset="utf-8">\n<base href="/">|' index.html > 404.html
+          grep -q '<base href="/">' 404.html || { echo "::error::<base> tag was not injected — did the charset meta tag in index.html change?"; exit 1; }
+          # Note the if/then: `cmp ... && { exit 1; }` as the final command would
+          # leak cmp's non-zero status (the success case here) and fail the step.
+          if cmp -s index.html 404.html; then
+            echo "::error::404.html is identical to index.html — injection silently did nothing"
+            exit 1
+          fi
+          echo "404.html generated."
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4
