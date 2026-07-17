@@ -8,8 +8,9 @@
   "theme_color": "#114B7C",
   "lang": "hr",
   "icons": [
-    { "src": "/uploads/favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/uploads/favicon-96.png", "sizes": "96x96", "type": "image/png" },
+    { "src": "/uploads/favicon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/uploads/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
-    { "src": "/uploads/logo.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "/uploads/logo.png", "sizes": "320x320", "type": "image/png" }
   ]
 }
