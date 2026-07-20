@@ -215,14 +215,25 @@
         </div>
       </section>
 
-      <!-- INTRO (text + reception image) -->
+      <!-- INTRO (text + rotating camp gallery) -->
       <section style="padding:clamp(64px,8vw,120px) clamp(20px,5vw,40px);">
         <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:center;">
           <div style="flex:1 1 380px;min-width:300px;" data-reveal="left">
             <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.2vw,44px);line-height:1.12;letter-spacing:-0.02em;margin:0;text-wrap:balance;">{{ t.intro.title }}</h2>
           </div>
-          <div style="flex:1 1 420px;min-width:300px;height:clamp(300px,38vw,440px);overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);" data-reveal="right">
-            <img src="./uploads/camp8.jpg" alt="Camping Lovište Paradise" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          <div style="flex:1 1 420px;min-width:300px;" data-reveal="right">
+            <div style="position:relative;height:clamp(300px,38vw,440px);overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);">
+              <sc-for list="{{ introSlides }}" as="s" hint-placeholder-count="1">
+                <img src="{{ s.src }}" onClick="{{ s.onOpen }}" alt="{{ t.intro.title }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:{{ s.opacity }};z-index:{{ s.z }};transition:opacity .9s ease;cursor:zoom-in;" />
+              </sc-for>
+            </div>
+            <div style="margin-top:12px;display:grid;grid-template-columns:repeat({{ introThumbCount }},1fr);gap:12px;">
+              <sc-for list="{{ introThumbs }}" as="th" hint-placeholder-count="3">
+                <div onClick="{{ th.onOpen }}" style="position:relative;aspect-ratio:4/3;overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);cursor:zoom-in;">
+                  <img src="{{ th.src }}" alt="{{ t.intro.title }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;" style-hover="transform:scale(1.06);" />
+                </div>
+              </sc-for>
+            </div>
           </div>
         </div>
       </section>
@@ -1863,6 +1874,13 @@ class Component extends DCLogic {
     const sanitaryMain = ['./uploads/wc-main.jpg','./uploads/shower.jpg','./uploads/shower-outside.jpg','./uploads/wc-kids.jpg','./uploads/wc-invalid.jpg','./uploads/shower-dog.jpg','./uploads/fridge.jpg','./uploads/washer.jpg'];
     const sanIdx = this.state.slideTick % sanitaryMain.length;
     const sanitarySlides = sanitaryMain.map((src, k) => ({ src, opacity: (k === sanIdx ? '1' : '0'), z: (k === sanIdx ? '2' : '1'), onOpen: () => this.setState({ lightbox: sanitaryMain, lightboxIdx: k }) }));
+    // Rotating intro gallery (crossfade via slideTick) + mini thumbnails of the
+    // same shots, all click-to-zoom — mirrors the sanitary section pattern.
+    const introMain = ['./uploads/camp10.jpg', './uploads/camp13.jpg', './uploads/camp14.jpg'];
+    const introIdx = this.state.slideTick % introMain.length;
+    const introSlides = introMain.map((src, k) => ({ src, opacity: (k === introIdx ? '1' : '0'), z: (k === introIdx ? '2' : '1'), onOpen: () => this.setState({ lightbox: introMain, lightboxIdx: k }) }));
+    const introThumbs = introMain.map((src, k) => ({ src, onOpen: () => this.setState({ lightbox: introMain, lightboxIdx: k }) }));
+    const introThumbCount = introThumbs.length;
     // "Look around the camp" — activity-style sections, one per camp area.
     // Each has a cycling main image (crossfade via slideTick) + thumbnails, all
     // click-to-zoom. Order matches the campTour copy: reception · toilets ·
@@ -2028,7 +2046,7 @@ class Component extends DCLogic {
       langItems, currentLangLabel, langOpen: this.state.langOpen,
       toggleLang: () => this.setState({ langOpen: !this.state.langOpen }),
       closeLang: () => this.setState({ langOpen: false }),
-      navItems, accommodations, facilities, facilityShots, sanitaryFeatures, sanitarySlides, campSections, things, contactInfo, distances, mailHref,
+      navItems, accommodations, facilities, facilityShots, sanitaryFeatures, sanitarySlides, introSlides, introThumbs, introThumbCount, campSections, things, contactInfo, distances, mailHref,
       lightbox: this.state.lightbox,
       lightboxSrc: (this.state.lightbox && this.state.lightbox.length) ? this.state.lightbox[((this.state.lightboxIdx % this.state.lightbox.length) + this.state.lightbox.length) % this.state.lightbox.length] : null,
       lightboxMulti: !!(this.state.lightbox && this.state.lightbox.length > 1),
