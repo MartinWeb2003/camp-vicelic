@@ -1876,7 +1876,7 @@ class Component extends DCLogic {
     const sanitarySlides = sanitaryMain.map((src, k) => ({ src, opacity: (k === sanIdx ? '1' : '0'), z: (k === sanIdx ? '2' : '1'), onOpen: () => this.setState({ lightbox: sanitaryMain, lightboxIdx: k }) }));
     // Rotating intro gallery (crossfade via slideTick) + mini thumbnails of the
     // same shots, all click-to-zoom — mirrors the sanitary section pattern.
-    const introMain = ['./uploads/camp10.jpg', './uploads/camp13.jpg', './uploads/camp14.jpg'];
+    const introMain = ['./uploads/camp8.jpg', './uploads/camp10.jpg', './uploads/camp13.jpg', './uploads/camp14.jpg'];
     const introIdx = this.state.slideTick % introMain.length;
     const introSlides = introMain.map((src, k) => ({ src, opacity: (k === introIdx ? '1' : '0'), z: (k === introIdx ? '2' : '1'), onOpen: () => this.setState({ lightbox: introMain, lightboxIdx: k }) }));
     const introThumbs = introMain.map((src, k) => ({ src, onOpen: () => this.setState({ lightbox: introMain, lightboxIdx: k }) }));
