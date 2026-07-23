@@ -27,6 +27,7 @@
 <meta property="og:locale:alternate" content="en_US">
 <meta property="og:locale:alternate" content="de_DE">
 <meta property="og:locale:alternate" content="sl_SI">
+<meta property="og:locale:alternate" content="pl_PL">
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Camping Lovište Paradise · Pelješac, Croatia">
@@ -118,10 +119,18 @@
         <a href="{{ eventsUrl }}" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#2E7CB8;padding:12px 8px;border-radius:10px;transition:background .2s;" style-hover="background:rgba(91,176,222,0.14);">{{ t.nav.events }} <span style="font-size:11px;">↗</span></a>
       </nav>
 
-      <div style="margin-top:22px;display:flex;justify-content:center;gap:6px;">
-        <sc-for list="{{ langItems }}" as="l" hint-placeholder-count="4">
-          <button onClick="{{ l.onClick }}" style="{{ l.chip }}">{{ l.label }}</button>
-        </sc-for>
+      <div style="margin-top:22px;position:relative;">
+        <button onClick="{{ toggleLang }}" aria-label="Language" style="display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:11px 14px;border-radius:10px;background:rgba(17,75,124,0.06);color:#114B7C;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;transition:background .2s;" style-hover="background:rgba(17,75,124,0.12);">
+          <span style="display:flex;align-items:center;gap:9px;"><span style="font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.04em;background:#2E7CB8;color:#fff;padding:3px 7px;border-radius:6px;">{{ currentLangLabel }}</span>{{ currentLangName }}</span>
+          <span style="font-size:9px;opacity:.6;">{{ langChevron }}</span>
+        </button>
+        <sc-if value="{{ langOpen }}" hint-placeholder-val="{{ false }}">
+          <div ref="{{ langMenuRef }}" style="margin-top:6px;display:flex;flex-direction:column;gap:2px;background:#fff;border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:10px;padding:6px;">
+            <sc-for list="{{ langItems }}" as="l" hint-placeholder-count="5">
+              <button onClick="{{ l.onClick }}" style="{{ l.style }}">{{ l.name }} <span style="font-family:'Roboto Mono',monospace;font-size:11px;opacity:.5;">{{ l.label }}</span></button>
+            </sc-for>
+          </div>
+        </sc-if>
       </div>
 
       <button onClick="{{ goContact }}" style="margin-top:22px;background:#2E7CB8;color:#fff;font-weight:700;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;padding:14px;border-radius:12px;transition:background .2s;" style-hover="background:#114B7C;">{{ t.cta }}</button>
@@ -175,10 +184,18 @@
         <a href="{{ eventsUrl }}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;text-align:left;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:20px;color:#114B7C;padding:11px 4px;">{{ t.nav.events }} <span style="font-size:15px;">↗</span></a>
       </nav>
       <div style="margin-top:28px;padding-bottom:8px;display:flex;flex-direction:column;gap:18px;flex:0 0 auto;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <sc-for list="{{ langItems }}" as="l" hint-placeholder-count="4">
-            <button onClick="{{ l.onClick }}" style="{{ l.style }}">{{ l.name }} <span style="font-family:'Roboto Mono',monospace;font-size:11px;opacity:.5;">{{ l.label }}</span></button>
-          </sc-for>
+        <div>
+          <button onClick="{{ toggleLang }}" aria-label="Language" style="display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:14px 16px;border-radius:12px;background:rgba(17,75,124,0.06);color:#114B7C;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;">
+            <span style="display:flex;align-items:center;gap:10px;"><span style="font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.04em;background:#2E7CB8;color:#fff;padding:4px 8px;border-radius:6px;">{{ currentLangLabel }}</span>{{ currentLangName }}</span>
+            <span style="font-size:11px;opacity:.6;">{{ langChevron }}</span>
+          </button>
+          <sc-if value="{{ langOpen }}" hint-placeholder-val="{{ false }}">
+            <div ref="{{ langMenuRef }}" style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <sc-for list="{{ langItems }}" as="l" hint-placeholder-count="5">
+                <button onClick="{{ l.onClick }}" style="{{ l.style }}">{{ l.name }} <span style="font-family:'Roboto Mono',monospace;font-size:11px;opacity:.5;">{{ l.label }}</span></button>
+              </sc-for>
+            </div>
+          </sc-if>
         </div>
         <button onClick="{{ goContact }}" style="background:#2E7CB8;color:#fff;font-weight:600;font-size:16px;padding:16px;border-radius:14px;width:100%;">{{ t.cta }}</button>
       </div>
@@ -955,7 +972,7 @@
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:860},&quot;defaultLocale&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;hr&quot;,&quot;en&quot;,&quot;de&quot;,&quot;sl&quot;],&quot;default&quot;:&quot;hr&quot;,&quot;tsType&quot;:&quot;'hr' | 'en' | 'de' | 'sl'&quot;},&quot;reduceMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:860},&quot;defaultLocale&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;hr&quot;,&quot;en&quot;,&quot;de&quot;,&quot;sl&quot;,&quot;pl&quot;],&quot;default&quot;:&quot;hr&quot;,&quot;tsType&quot;:&quot;'hr' | 'en' | 'de' | 'sl' | 'pl'&quot;},&quot;reduceMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
 class Component extends DCLogic {
   // Client-side routes, keyed by state.page. Slugs are Croatian (the default
   // locale). GitHub Pages has no rewrite rules, so a cold hit on /cjenik is
@@ -1603,6 +1620,128 @@ class Component extends DCLogic {
         ]
       },
       contact: { hero:{ eyebrow:'Kontakt', title:'Pošljite povpraševanje', sub:'Sporočite nam termine in število gostov. Odgovorimo osebno, v najkrajšem možnem času.' }, formHeading:'Povpraševanje za rezervacijo', intro:'Pišite nam', emailBtn:'Pošljite nam e-pošto', respNote:'Kliknite spodaj za pošiljanje e-pošte.', locImg:'[ Lovište / zaliv ]', hoursHeading:'Prijava in odjava', hours:[ {day:'Prijava (check-in)',time:'08:00 – 22:00'}, {day:'Odjava (check-out)',time:'do 12:00'} ], mapLabel:'[ Zemljevid, Lovište ]' }
+    },
+    pl: {
+      cta: 'Zapytanie',
+      nav: { home:'Start', about:'O nas', accommodations:'Zakwaterowanie', activities:'Atrakcje', pricing:'Cennik', map:'Mapa', events:'Wydarzenia w Orebiciu', request:'Wyślij zapytanie', contact:'Kontakt' },
+      accPage: {
+        overview:'Stanowiska kempingowe', viewPrices:'Zobacz ceny', learnMore:'Zapytanie',
+        title:'Stanowiska na kempingu',
+        sub:'Te same wygodne stanowiska w czterech kategoriach, A, B, C i D, różniące się głównie położeniem i widokiem na morze. Od pierwszej linii przy wodzie po świeży cień gaju oliwnego.',
+        facTitle:'Każde stanowisko obejmuje',
+        tiers:[
+          { tier:'A', name:'Stanowisko A, przy morzu', img:'[ Stanowisko A · pierwsza linia ]', desc:'Najlepsze położenie, w pierwszej linii tuż przy morzu, budź się przy szumie fal.', price:'od 38 €/noc', specs:['Do 6 osób','Pierwsza linia przy morzu','Prąd w cenie','Naturalny cień'] },
+          { tier:'B', name:'Stanowisko B, blisko morza', img:'[ Stanowisko B · blisko morza ]', desc:'Kilka kroków od brzegu, z otwartym widokiem na zatokę.', price:'od 36 €/noc', specs:['Do 6 osób','Widok na morze','Prąd w cenie','Blisko plaży'] },
+          { tier:'C', name:'Stanowisko C, środkowe tarasy', img:'[ Stanowisko C · środkowe tarasy ]', desc:'Spokojne środkowe tarasy w przyjemnym cieniu, krótki spacer do wody.', price:'od 34 €/noc', specs:['Do 6 osób','Częściowy cień','Prąd w cenie','Spokojne położenie'] },
+          { tier:'D', name:'Stanowisko D, w cieniu oliwek', img:'[ Stanowisko D · gaj oliwny ]', desc:'Górne tarasy w gęstym cieniu drzew oliwnych, najbardziej rześkie i najtańsze miejsce.', price:'od 32 €/noc', specs:['Do 6 osób','Gęsty naturalny cień','Prąd w cenie','Parking przy stanowisku'] }
+        ],
+        facilities:['Nowoczesne sanitariaty z ciepłą wodą 0–24','Bezpłatne Wi-Fi na całym kempingu','Prąd wliczony w cenę stanowiska','Jeden pojazd na stanowisko','Dostęp do plaży przy kempingu','Punkt z wodą pitną w pobliżu','Zwierzęta mile widziane','Supermarket w Lovište, kilka minut drogi'],
+        extrasTitle:'Dodatkowe wyposażenie na życzenie',
+        extrasSub:'Wszystkie stanowiska mają takie samo wyposażenie kempingowe. Za niewielką dopłatą możesz wynająć lodówkę z zamykaną szufladą, pralkę lub suszarkę, szczegóły w cenniku.',
+        extrasChips:['Lodówka (na klucz)','Pralka','Suszarka']
+      },
+      activities: {
+        hero: { sub:'Mnóstwo atrakcji na kempingu i w okolicy', title:'Atrakcje na kempingu Lovište Paradise', intro:'Jeśli chodzi o wakacje na łonie natury, kemping w Lovište Paradise naprawdę oferuje wszystko.' },
+        enlarge:'Kliknij zdjęcia, aby powiększyć', videoLabel:'[ Film z kempingu ]',
+        items:[
+          { name:'Plaża', img:'[ Plaża i zatoka z góry ]', video:true, thumbs:5, paras:['Wszyscy wyobrażamy sobie krystaliczne morze, relaks na plaży, delikatne fale i obcowanie z naturą. Na kempingu Lovište Paradise wszystko to jest w zasięgu ręki.','Pływaj i nurkuj w spokojnym, ciepłym morzu zatoki albo korzystaj z kąpieli słonecznych w jednym z najspokojniejszych i najczystszych zakątków wybrzeża Pelješca, a i całej Chorwacji.'] },
+          { name:'Restauracja i gastronomia', img:'[ Konoba z tarasem przy morzu ]', thumbs:0, paras:['Gastronomia to ważna część tego regionu. Konoby w Lovište serwują typowe dalmatyńskie potrawy, świeże ryby, małże z Zatoki Malostońskiej i mięso spod peki, z domową oliwą i śródziemnomorskimi warzywami.','A wszystko to w towarzystwie cenionych czerwonych win z Pelješca, Plavaca i Dingača, lub świeżego Pošipu z sąsiedniej Korčuli.','W pobliżu kempingu jest też cukiernia z pysznymi ciastami i lodami, idealnymi na upalne letnie dni.'] },
+          { name:'Sport i sporty wodne', img:'[ Boiska sportowe z góry ]', thumbs:5, paras:['Aktywni goście nie będą się nudzić, bo w pobliżu dostępne są deski SUP i kajaki, dla których spokojna zatoka Lovište to idealne miejsce.','Ponadto możliwe są wycieczki statkiem oraz nurkowanie (scuba-diving).'] },
+          { name:'Szlaki i zwiedzanie', img:'[ Trasa rowerowa / punkt widokowy ]', thumbs:0, paras:['Poza kempingiem trasy rowerowe i piesze prowadzą przez winnice Pelješca, aż do Orebicia i punktów widokowych z panoramą Korčuli.','Doskonała baza wypadowa na wycieczki i przygody oraz dla wszystkich, którzy lubią przebywać na łonie natury i podziwiać piękno krajobrazu.'] }
+        ]
+      },
+      request: {
+        hero: { title:'Wyślij zapytanie', sub:'Podaj nam terminy i liczbę gości. Odpowiemy osobiście, w możliwie najkrótszym czasie.' },
+        f: { name:'Imię i nazwisko', namePh:'Imię i nazwisko', email:'E-mail', emailPh:'ty@przyklad.com', accommodation:'Wybierz zakwaterowanie', vehicle:'Rodzaj pojazdu', vlength:'Długość pojazdu', arrive:'Data przyjazdu', depart:'Data wyjazdu', country:'Kraj', phone:'Numer kontaktowy', phonePh:'091 234 5678', message:'Twoja wiadomość', messagePh:'Napisz nam wszystko, co pomoże przygotować ofertę…', choose:'Wybierz opcję', submit:'Wyślij zapytanie', sending:'Wysyłanie…', error:'Wysłanie nie powiodło się. Spróbuj ponownie lub napisz do nas bezpośrednio.', gdpr:'RODO, Twoje dane są zbierane wyłącznie w celu odpowiedzi na to zapytanie oraz do rejestracji w systemie eVisitor.' },
+        accOptions:['Stanowisko A, przy morzu','Stanowisko B, blisko morza','Stanowisko C, środkowe tarasy','Stanowisko D, w cieniu sosen','Jeszcze nie wiem'],
+        vehicleOptions:['Namiot','Przyczepa','Kamper','Auto + namiot dachowy','Bez pojazdu'],
+        lengthOptions:['do 5 m','5–6 m','6–7 m','7–8 m','powyżej 8 m'],
+        yesnoOptions:['Tak','Nie'],
+        countryOptions:['Chorwacja','Słowenia','Niemcy','Austria','Włochy','Czechy','Polska','Holandia','Inny'],
+        success: { title:'Zapytanie wysłane!', body:'Dziękujemy. Twoje zapytanie zostało odebrane, odpowiemy w możliwie najkrótszym czasie.', again:'Wyślij nowe zapytanie' }
+      },
+      pricing: {
+        hero: { eyebrow:'Cennik 2026', title:'Ceny i stawki', sub:'Ceny dobowe w EUR, VAT wliczony. Cena stanowiska zależy od kategorii (A–D) i sezonu. Opłata klimatyczna płatna osobno.' },
+        main: { title:'Cennik 2026', cols:['Pozycja','01.01.–31.05. / 01.10.–31.12.','01.06.–30.06. / 01.09.–30.09.','01.07.–31.08.'], rows:[ ['Stanowisko A','38 €','40 €','55 €'],['Stanowisko B','36 €','38 €','50 €'],['Stanowisko C','34 €','36 €','48 €'],['Stanowisko D','32 €','34 €','45 €'],['Dorosły (12+)','6 €','8 €','10 €'],['Dziecko (5–12)','5 €','6 €','8 €'],['Dziecko do 5 lat','bezpłatnie','bezpłatnie','bezpłatnie'],['Dodatkowy namiot / auto / przyczepa / motor','7 €','7 €','7 €'],['Pies','4 €','5 €','6 €'],['Pralka','8 €','8 €','8 €'],['Suszarka','8 €','8 €','8 €'],['Lodówka (szuflada z zamkiem)','4 €','4 €','4 €'],['Jednorazowa rejestracja','2 €','2 €','2 €'] ] },
+        tax: { title:'Opłata klimatyczna', note:'', cols:['Osoba','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Osoba 18+','1,70 €','1,10 €'],['Osoba 12–18','0,85 €','0,55 €'],['Dziecko 0–12','0,00 €','0,00 €'] ] },
+        notes: { includedLead:'W cenie stanowiska są dwie osoby dorosłe oraz jedna z poniższych 3 opcji:', includedOptions:['auto + namiot','auto + przyczepa','kamper'], or:'lub', includedTail:'Cena obejmuje bezpłatne Wi-Fi, przyłącze prądu 16A, wodę i odpływ, jeśli są na stanowisku.', vat:'VAT jest wliczony w cenę.', taxExcluded:'Opłata klimatyczna nie jest wliczona w cenę.' },
+        checkin:'Zameldowanie na kempingu od 08:00 do 22:00',
+        checkout:'Wymeldowanie do 12:00, po 12:00 doliczany jest +1 dzień.',
+        reserveBtn:'Wyślij zapytanie o rezerwację'
+      },
+      map: {
+        hero: { eyebrow:'Znajdź drogę', title:'Mapa kempingu', sub:'Poznaj układ kempingu, udogodnienia i zakwaterowanie.' },
+        intro:'Przygotowujemy cyfrową mapę kempingu jako część doświadczenia online. Na razie to miejsce jest zarezerwowane, gdy mapa będzie gotowa, będziesz mógł:',
+        bullets:['Wyszukiwać udogodnienia i jednostki zakwaterowania','Wyświetlać tylko wybrane udogodnienia lub typy zakwaterowania','Wybrać konkretną jednostkę i wysłać zapytanie przez formularz','Zmieniać język mapy'],
+        placeholderTitle:'Interaktywna mapa wkrótce',
+        placeholder:'[ tutaj będzie mapa kempingu ]'
+      },
+      hero: { photo:'[ Zdjęcie hero, zatoka o złotej godzinie ]', eyebrow:'Lovište · Półwysep Pelješac · Chorwacja', title:'Budź się przy morzu.', sub:'Mały, rodzinny kemping, ukryty wśród sosen, na samym skraju spokojnej zatoki Lovište, z dala od tłumów, o krok od morza.', primary:'Zapytanie', secondary:'Poznaj kemping' },
+      stats: [ {num:'1998',label:'Rodzinny od'}, {num:'40',label:'Stanowisk i domków'}, {num:'3 ha',label:'Zieleni przy morzu'}, {num:'30 m',label:'Do plaży'} ],
+      intro: { eyebrow:'Witamy', title:'Camping Lovište Paradise to tarasowy kemping opadający ku krystalicznie czystemu morzu.', body:'Camping Lovište Paradise nie jest wielkim resortem i nie chce nim być. To tarasowy sosnowy gaj opadający ku krystalicznie czystemu morzu, z zacienionymi stanowiskami, od pierwszej linii przy morzu po spokojne zakątki w zieleni. Wystarczająco blisko, by słyszeć fale, wystarczająco daleko od wszystkiego innego.' },
+      acc: { eyebrow:'Zakwaterowanie', title:'Znajdź swój zakątek', sub:'Te same wygodne stanowiska w czterech kategoriach, A, B, C i D, różniące się głównie położeniem i widokiem na morze.', cta:'Zapytanie', items: [
+        { name:'Stanowisko A, przy morzu', guests:'do 6 osób', price:'od 38 €/noc', tag:'Pierwsza linia', img:'[ Stanowisko A · przy morzu ]', amenities:['Prąd wlicz.','Pierwsza linia przy morzu','Naturalny cień','Wi-Fi'] },
+        { name:'Stanowisko B, blisko morza', guests:'do 6 osób', price:'od 36 €/noc', tag:'', img:'[ Stanowisko B · blisko morza ]', amenities:['Prąd wlicz.','Widok na morze','Blisko plaży','Wi-Fi'] },
+        { name:'Stanowisko C, środkowe tarasy', guests:'do 6 osób', price:'od 34 €/noc', tag:'', img:'[ Stanowisko C · środkowe tarasy ]', amenities:['Prąd wlicz.','Częściowy cień','Spokojne położenie','Wi-Fi'] },
+        { name:'Stanowisko D, w cieniu oliwek', guests:'do 6 osób', price:'od 32 €/noc', tag:'Korzystne', img:'[ Stanowisko D · gaj oliwny ]', amenities:['Prąd wlicz.','Gęsty cień oliwek','Parking przy stanowisku','Wi-Fi'] } ] },
+      fac: { eyebrow:'Wyposażenie', title:'Wszystko, czego potrzebujesz, i nic zbędnego', items: [
+        { name:'Nowoczesny węzeł sanitarny', desc:'W pełni wyposażony: WC i kabiny prysznicowe, łazienki rodzinne, prysznice zewnętrzne, łazienka i przewijalnia dla dzieci oraz osobna łazienka dla osób z niepełnosprawnością.' },
+        { name:'Bezpłatne Wi-Fi', desc:'Obejmuje cały kemping, wystarczająco szybkie do pracy.' },
+        { name:'Plaża przy kempingu', desc:'Czyste morze zaledwie 10 metrów od kempingu.' },
+        { name:'Pralka i suszarka', desc:'Lodówki z szufladami oraz pralka i suszarka do dyspozycji.' },
+        { name:'Supermarket w pobliżu', desc:'Dobrze zaopatrzony supermarket jest kilka kroków dalej w Lovište.' },
+        { name:'Zwierzęta mile widziane', desc:'Twój pies jest częścią rodziny, z prysznicem zewnętrznym dla pupili.' } ] },
+      sanitary: { eyebrow:'Sanitariaty', title:'Nowoczesny węzeł sanitarny', intro:'W pełni wyposażony i nienagannie utrzymany węzeł sanitarny, zaprojektowany z myślą o komforcie gości w każdym wieku.', features:['WC i kabiny prysznicowe z ciepłą wodą','Łazienki rodzinne','Prysznice zewnętrzne','Łazienka i przewijalnia dla dzieci','Osobna łazienka dla osób z niepełnosprawnością','Lodówki z szufladami oraz pralka i suszarka','Prysznic zewnętrzny dla zwierząt'] },
+      things: { eyebrow:'Doświadczenia', title:'Dni płyną tu powoli', items: [
+        { no:'01', img:'[ Plaża ]', name:'Plaża', body:'Spokojne i ciepłe morze zatoki Lovište oraz relaks na plaży, o krok od stanowiska.' },
+        { no:'02', img:'[ Restauracja i kuchnia ]', name:'Restauracja i kuchnia', body:'Potrawy dalmatyńskie, świeże ryby i małże z Zatoki Malostońskiej przy winie Plavac.' },
+        { no:'03', img:'[ Sport i sporty wodne ]', name:'Sport i sporty wodne', body:'Deski SUP i kajaki w spokojnej zatoce, a do tego wycieczki statkiem i nurkowanie.' },
+        { no:'04', img:'[ Szlaki ]', name:'Szlaki i zwiedzanie', body:'Trasy rowerowe i piesze przez winnice, aż do Orebicia.' } ] },
+      area: { eyebrow:'Okolica', title:'Doskonała baza do zwiedzania', sub:'Pelješac to dopiero początek. Z Lovište w zasięgu ręki są jedne z najpiękniejszych zakątków południowej Dalmacji.', mapLabel:'[ Interaktywna mapa, Leaflet ]', distances: [
+        { place:'Wieś Lovište', time:'jesteś tutaj' },
+        { place:'Orebić', time:'19 km · ≈ 20 min jazdy' },
+        { place:'Wyspa Korčula', time:'prom z Orebicia · ≈ 15 min rejsu' },
+        { place:'Ston (mury, ostrygi)', time:'≈ 1 h' },
+        { place:'Dubrownik', time:'≈ 2 h' } ] },
+      gallery: { eyebrow:'Galeria', title:'Rzut oka na kemping', items:['Widok na zatokę','Gaj oliwny','Plaża','Domek mobilny','Zachód słońca','Basen','Taras','Ścieżka'] },
+      campTour: [
+        { name:'Recepcja', paras:['Recepcja to pierwsze miejsce po przyjeździe. Tu Cię witamy, dopełniamy formalności meldunkowych i chętnie doradzimy we wszystkim, co zapewni miły pobyt.'] },
+        { name:'Sanitariaty', paras:['Nowoczesne i nienagannie utrzymane węzły sanitarne z WC, łazienkami rodzinnymi i osobną łazienką dla osób z niepełnosprawnością.','Dla najmłodszych dostępna jest także łazienka dostosowana dla dzieci.'] },
+        { name:'Prysznice', paras:['Ciepłe prysznice w zamykanych kabinach oraz wygodne prysznice zewnętrzne do odświeżenia po plaży.','Dostępny jest również prysznic zewnętrzny dla Twoich zwierząt.'] },
+        { name:'Po kempingu', paras:['Tarasowe stanowiska w cieniu sosen, spokojne zakątki i zieleń w całym kempingu.','Dla najmłodszych jest tu również plac zabaw.'] },
+        { name:'Dojazd do kempingu', paras:['Kemping ma 2 wejścia, co oznacza, że jest dostępny z obu dróg w miejscowości.'] }
+      ],
+      apart: { eyebrow:'Nowo otwarte', title:'Sprawdzona gościnność', body:'Camping Lovište Paradise otwiera swoje bramy tego lata, dlatego kemping dopiero zbiera pierwsze opinie. Ale nasza rodzina od lat gości odwiedzających w swoich apartamentach w Lovište, ze znakomitymi ocenami na Google. Ta sama troska i ciepło czekają na Ciebie także na kempingu.', note:'Zobacz opinie o naszej willi', btn1:'Opinie · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
+      ctaBand: { title:'Gotowi na idealne lato?', sub:'Odpowiemy osobiście, w możliwie najkrótszym czasie.', button:'Zapytanie' },
+      footer: { tagline:'Rodzinny kemping w zatoce Lovište na półwyspie Pelješac.', explore:'Strony', contactHeading:'Kontakt', rights:'Wszelkie prawa zastrzeżone.' },
+      about: {
+        hero: { eyebrow:'O kempingu', title:'Spokojny kemping nad zatoką.', sub:'Tarasowy sosnowy gaj na skraju Lovište, przez lata ukształtowany w spokojny kemping przy morzu.' },
+        story: { title:'O kempingu', img:'[ Tarasy kempingu nad morzem ]', paras:[
+          'Camping Lovište Paradise leży na łagodnym sosnowym zboczu opadającym ku czystemu morzu zatoki Lovište. Tarasowy układ sprawia, że niemal każde stanowisko ma swój cień, prywatność i widok na morze.',
+          'Kemping rozciąga się na około trzech hektarach zieleni, z tarasowymi stanowiskami wśród sosen, od pierwszej linii przy morzu po spokojne zakątki w cieniu sosen. Morze jest zaledwie około dziesięciu metrów od kempingu.',
+          'Nowoczesne sanitariaty, bezpłatne Wi-Fi na całym kempingu i plaża tuż przy wejściu sprawiają, że wszystko jest proste, mały, zadbany kemping na powolne dni przy morzu.'
+        ] },
+        diff: { title:'Co nas wyróżnia', items:[
+          { no:'01', title:'Mały i spokojny', body:'Ograniczona liczba stanowisk oznacza spokój, przestrzeń i poczucie, że jesteś gościem, a nie numerem.' },
+          { no:'02', title:'Naprawdę przy morzu', body:'Tarasy opadają ku brzegowi, około dziesięciu metrów od namiotu do wody.' },
+          { no:'03', title:'Zielono i cieniście', body:'Sosnowe tarasy dają niemal każdemu stanowisku naturalny cień i równe miejsce na odpoczynek.' }
+        ] }
+      },
+      faqPage: {
+        hero: { eyebrow:'Najczęstsze pytania', title:'Wszystko, co musisz wiedzieć', sub:'Nie znalazłeś odpowiedzi? Napisz do nas, chętnie pomożemy.' },
+        ctaTitle:'Masz jeszcze pytania?', ctaSub:'Wyślij nam wiadomość, a odpowiemy.',
+        items:[
+          { q:'Kiedy jest zameldowanie i wymeldowanie?', a:'Zameldowanie od 14:00, wymeldowanie do 11:00. Wcześniejsze zameldowanie lub późniejsze wymeldowanie jest możliwe w zależności od dostępności, wystarczy uprzedzić nas z wyprzedzeniem.' },
+          { q:'Czy zwierzęta są dozwolone?', a:'Tak! Psy są mile widziane na stanowiskach i w większości zakwaterowań za niewielką dopłatą. Prosimy o trzymanie ich na smyczy w częściach wspólnych.' },
+          { q:'Jak działają ceny i płatność?', a:'Ceny zależą od terminu i rodzaju zakwaterowania. Po Twoim zapytaniu wysyłamy indywidualną ofertę; zaliczka potwierdza rezerwację, resztę płaci się przy przyjeździe.' },
+          { q:'Co powinienem zabrać?', a:'Na stanowiska: własny namiot/kamper i sprzęt. Domki mobilne i namioty glampingowe są w pełni wyposażone, wraz z pościelą i ręcznikami.' },
+          { q:'Czy jest parking?', a:'Tak, jedno miejsce parkingowe na stanowisko i jednostkę zakwaterowania jest wliczone w cenę. Dodatkowe pojazdy po uzgodnieniu.' },
+          { q:'Czy jest Wi-Fi?', a:'Bezpłatne Wi-Fi obejmuje cały kemping i jest wystarczająco szybkie do rozmów wideo i pracy.' },
+          { q:'Jaka jest polityka anulowania?', a:'Bezpłatne anulowanie do 14 dni przed przyjazdem ze zwrotem całej zaliczki. Szczegóły wysyłamy z każdą ofertą.' },
+          { q:'Co jest w pobliżu?', a:'Wieś Lovište z konobami i sklepem to 5 minut spacerem. Orebić i prom na Korčulę to łatwe wycieczki jednodniowe.' }
+        ]
+      },
+      contact: { hero:{ eyebrow:'Kontakt', title:'Wyślij zapytanie', sub:'Podaj nam terminy i liczbę gości. Odpowiemy osobiście, w możliwie najkrótszym czasie.' }, formHeading:'Zapytanie o rezerwację', intro:'Napisz do nas', emailBtn:'Wyślij nam e-mail', respNote:'Kliknij poniżej, aby wysłać e-mail.', locImg:'[ Lovište / zatoka ]', hoursHeading:'Zameldowanie i wymeldowanie', hours:[ {day:'Zameldowanie (check-in)',time:'08:00 – 22:00'}, {day:'Wymeldowanie (check-out)',time:'do 12:00'} ], mapLabel:'[ Mapa, Lovište ]' }
     }
   };
 
@@ -1847,7 +1986,8 @@ class Component extends DCLogic {
       { code:'hr', label:'HR', name:'Hrvatski' },
       { code:'en', label:'ENG', name:'English' },
       { code:'de', label:'DE', name:'Deutsch' },
-      { code:'sl', label:'SL', name:'Slovenščina' }
+      { code:'sl', label:'SL', name:'Slovenščina' },
+      { code:'pl', label:'PL', name:'Polski' }
     ];
     const langItemBase = 'display:flex;align-items:center;justify-content:space-between;gap:16px;text-align:left;width:100%;font-size:14.5px;font-weight:600;padding:11px 14px;border-radius:10px;transition:background .15s;';
     const langItems = langDefs.map((l) => ({
@@ -1856,7 +1996,10 @@ class Component extends DCLogic {
       style: langItemBase + (this.state.locale===l.code ? 'background:rgba(91,176,222,0.16);color:#114B7C;' : 'background:transparent;color:#3a4a40;'),
       chip: 'min-width:40px;padding:7px 9px;border-radius:9px;font-size:11px;font-weight:700;letter-spacing:0.04em;transition:background .2s,color .2s;' + (this.state.locale===l.code ? 'background:#2E7CB8;color:#fff;' : 'background:rgba(17,75,124,0.07);color:#114B7C;')
     }));
-    const currentLangLabel = (langDefs.find((l)=>l.code===this.state.locale) || langDefs[0]).label;
+    const currentLang = langDefs.find((l)=>l.code===this.state.locale) || langDefs[0];
+    const currentLangLabel = currentLang.label;
+    const currentLangName = currentLang.name;
+    const langChevron = this.state.langOpen ? '▲' : '▼';
 
     const accommodations = t.acc.items;
     const facIcons = ['droplet','wifi','waves','washer','basket','paw'];
@@ -2043,8 +2186,15 @@ class Component extends DCLogic {
       toggleSidebar: () => this.setState({ sidebarOpen: !this.state.sidebarOpen }),
       scrollAcc: () => { try { this.accEl && this.accEl.scrollIntoView({ behavior:'smooth', block:'start' }); } catch(e){} },
       accRef: (el) => { this.accEl = el; },
-      langItems, currentLangLabel, langOpen: this.state.langOpen,
-      toggleLang: () => this.setState({ langOpen: !this.state.langOpen }),
+      langItems, currentLangLabel, currentLangName, langChevron, langOpen: this.state.langOpen,
+      langMenuRef: (el) => { this._langMenuEl = el; },
+      toggleLang: () => {
+        const opening = !this.state.langOpen;
+        this.setState({ langOpen: opening });
+        // When opening, wait for the dropdown to render, then scroll the sidebar
+        // so every language row is visible even if the menu sits near the bottom.
+        if (opening) setTimeout(() => { try { this._langMenuEl && this._langMenuEl.scrollIntoView({ behavior:'smooth', block:'nearest' }); } catch(e){} }, 40);
+      },
       closeLang: () => this.setState({ langOpen: false }),
       navItems, accommodations, facilities, facilityShots, sanitaryFeatures, sanitarySlides, introSlides, introThumbs, introThumbCount, campSections, things, contactInfo, distances, mailHref,
       lightbox: this.state.lightbox,
