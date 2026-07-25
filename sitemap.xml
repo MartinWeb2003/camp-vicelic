@@ -5,4 +5,12 @@
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
+  <!-- The only client-side route that is also a real 200 page (generated at
+       deploy). The others are served by 404.html with an HTTP 404 status, so
+       they must stay out of this file. -->
+  <url>
+    <loc>https://campinglovisteparadise.com/posalji-upit/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

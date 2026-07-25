@@ -68,6 +68,35 @@ jobs:
           fi
           echo "404.html generated."
 
+      # The enquiry form is the landing page for Google Ads, and Ads disapproves
+      # an ad whose final URL answers 404 — which is what every client-side route
+      # gets from the step above. So this one route ships as a real directory +
+      # index.html and answers 200. Same trick as 404.html (a copy of index.html
+      # with <base href="/">, generated rather than committed so it cannot drift),
+      # plus canonical/og:url/<title> rewritten to this page so it is its own
+      # entity instead of a duplicate of the home page. The router boots from the
+      # URL and opens the request screen, exactly as it does via 404.html.
+      - name: Generate /posalji-upit/ landing page
+        run: |
+          mkdir -p posalji-upit
+          sed -e 's|<meta charset="utf-8">|<meta charset="utf-8">\n<base href="/">|' \
+              -e 's|<title>[^<]*</title>|<title>Pošalji upit — Camping Lovište Paradise</title>|' \
+              -e 's|<link rel="canonical" href="https://campinglovisteparadise.com/">|<link rel="canonical" href="https://campinglovisteparadise.com/posalji-upit/">|' \
+              -e 's|<meta property="og:url" content="https://campinglovisteparadise.com/">|<meta property="og:url" content="https://campinglovisteparadise.com/posalji-upit/">|' \
+              index.html > posalji-upit/index.html
+          # Every rewrite is asserted: a silent miss would ship an ads landing
+          # page that looks fine but is a duplicate of the home page.
+          for needle in \
+            '<base href="/">' \
+            '<title>Pošalji upit — Camping Lovište Paradise</title>' \
+            'rel="canonical" href="https://campinglovisteparadise.com/posalji-upit/"' \
+            'property="og:url" content="https://campinglovisteparadise.com/posalji-upit/"'
+          do
+            grep -qF "$needle" posalji-upit/index.html || { echo "::error::posalji-upit/index.html is missing: $needle"; exit 1; }
+          done
+          grep -qF "request: '/posalji-upit'" index.html || { echo "::error::the request route in index.html is no longer /posalji-upit — this page would 404 the router back to home"; exit 1; }
+          echo "/posalji-upit/ generated."
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
