@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,8 +23,8 @@
 <meta property="og:url" content="https://campinglovisteparadise.com/">
 <meta property="og:image" content="https://campinglovisteparadise.com/uploads/loviste1.jpg">
 <meta property="og:image:alt" content="Uvala Lovište i plaža uz kamp">
-<meta property="og:locale" content="hr_HR">
-<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="hr_HR">
 <meta property="og:locale:alternate" content="de_DE">
 <meta property="og:locale:alternate" content="sl_SI">
 <meta property="og:locale:alternate" content="pl_PL">
@@ -878,6 +878,27 @@
                 </label>
               </div>
 
+              <!-- Pets: the count only appears once "yes" is chosen, so the row
+                   is one field wide until then. -->
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+                <label style="display:block;">
+                  <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.pets }}</span>
+                  <select value="{{ form.pets }}" onChange="{{ onPets }}" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;cursor:pointer;">
+                    <option value="">{{ t.request.f.choose }}</option>
+                    <sc-for list="{{ yesnoOptions }}" as="o" hint-placeholder-count="2"><option value="{{ o }}">{{ o }}</option></sc-for>
+                  </select>
+                </label>
+                <sc-if value="{{ hasPets }}" hint-placeholder-val="{{ true }}">
+                  <label style="display:block;">
+                    <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.petsCount }}</span>
+                    <select value="{{ form.petsCount }}" onChange="{{ onPetsCount }}" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;cursor:pointer;">
+                      <option value="">{{ t.request.f.choose }}</option>
+                      <sc-for list="{{ petsCountOptions }}" as="o" hint-placeholder-count="5"><option value="{{ o }}">{{ o }}</option></sc-for>
+                    </select>
+                  </label>
+                </sc-if>
+              </div>
+
               <label style="display:block;">
                 <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.message }}</span>
                 <textarea value="{{ form.message }}" onChange="{{ onMessage }}" rows="5" placeholder="{{ t.request.f.messagePh }}" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;resize:vertical;min-height:120px;" style-focus="border-color:#2E7CB8;"></textarea>
@@ -1026,7 +1047,7 @@
   </sc-if>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:860},&quot;defaultLocale&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;hr&quot;,&quot;en&quot;,&quot;de&quot;,&quot;sl&quot;,&quot;pl&quot;],&quot;default&quot;:&quot;hr&quot;,&quot;tsType&quot;:&quot;'hr' | 'en' | 'de' | 'sl' | 'pl'&quot;},&quot;reduceMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:860},&quot;defaultLocale&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;hr&quot;,&quot;en&quot;,&quot;de&quot;,&quot;sl&quot;,&quot;pl&quot;],&quot;default&quot;:&quot;en&quot;,&quot;tsType&quot;:&quot;'hr' | 'en' | 'de' | 'sl' | 'pl'&quot;},&quot;reduceMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
 class Component extends DCLogic {
   // Client-side routes, keyed by state.page. Slugs are Croatian (the default
   // locale). GitHub Pages has no rewrite rules, so a cold hit on /cjenik is
@@ -1046,7 +1067,7 @@ class Component extends DCLogic {
   };
 
   state = {
-    locale: (this.props.defaultLocale || 'hr'),
+    locale: this._initLocale(),
     page: this._initRouter(),
     mobileOpen: false,
     langOpen: false,
@@ -1062,7 +1083,7 @@ class Component extends DCLogic {
     sending: false,
     submitErr: false,
     consent: this._initConsent(),
-    form: { name:'', email:'', accommodation:'', vehicle:'', vlength:'', arrive:'', depart:'', country:'', phone:'', message:'', company:'' }
+    form: { name:'', email:'', accommodation:'', vehicle:'', vlength:'', arrive:'', depart:'', country:'', phone:'', pets:'', petsCount:'', message:'', company:'' }
   };
 
   copy = {
@@ -1098,7 +1119,7 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Pošalji upit', sub:'Javite nam termine i broj gostiju. Javljamo se osobno, u najkraćem mogućem roku.' },
-        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', accommodation:'Odaberite smještaj', vehicle:'Vrsta vozila', vlength:'Duljina vozila', arrive:'Datum dolaska', depart:'Datum odlaska', country:'Država', phone:'Kontakt broj', phonePh:'091 234 5678', message:'Vaša poruka', messagePh:'Recite nam sve što nam pomaže pripremiti ponudu…', choose:'Odaberite opciju', submit:'Pošalji upit', sending:'Šalje se…', error:'Slanje nije uspjelo. Pokušajte ponovno ili nam pišite izravno e-mailom.', gdpr:'GDPR, vaši se podaci prikupljaju za odgovor na ovaj upit i za eVisitor prijavu. Ako ste prihvatili kolačiće, slanje upita bilježi se i kao konverzija u Google Adsu, uz šifrirane (hashirane) podatke.' },
+        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', accommodation:'Odaberite smještaj', vehicle:'Vrsta vozila', vlength:'Duljina vozila', arrive:'Datum dolaska', depart:'Datum odlaska', country:'Država', phone:'Kontakt broj', phonePh:'091 234 5678', pets:'Ljubimci', petsCount:'Broj ljubimaca', message:'Vaša poruka', messagePh:'Recite nam sve što nam pomaže pripremiti ponudu…', choose:'Odaberite opciju', submit:'Pošalji upit', sending:'Šalje se…', error:'Slanje nije uspjelo. Pokušajte ponovno ili nam pišite izravno e-mailom.', gdpr:'GDPR, vaši se podaci prikupljaju za odgovor na ovaj upit i za eVisitor prijavu. Ako ste prihvatili kolačiće, slanje upita bilježi se i kao konverzija u Google Adsu, uz šifrirane (hashirane) podatke.' },
         accOptions:['Parcela A, uz more','Parcela B, blizu mora','Parcela C, srednje terase','Parcela D, u hladu borova','Nisam siguran/a'],
         vehicleOptions:['Šator','Kamp-kućica','Kamper / autodom','Auto + krovni šator','Bez vozila'],
         lengthOptions:['do 5 m','5–6 m','6–7 m','7–8 m','preko 8 m'],
@@ -1283,7 +1304,7 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Send a request', sub:'Tell us your dates and number of guests. We reply personally, as soon as possible.' },
-        f: { name:'Your name', namePh:'Your name', email:'E-mail', emailPh:'you@example.com', accommodation:'Choose accommodation', vehicle:'Vehicle type', vlength:'Length of the vehicle', arrive:'Date of arrival', depart:'Date of departure', country:'Country', phone:'Contact number', phonePh:'091 234 5678', message:'Your message', messagePh:'Tell us anything that helps us prepare your offer…', choose:'Please choose an option', submit:'Send request', sending:'Sending…', error:'Sending failed. Please try again or email us directly.', gdpr:'GDPR, your details are collected to answer this request and for eVisitor registration. If you accepted cookies, sending the form is also recorded as a Google Ads conversion, using encrypted (hashed) data.' },
+        f: { name:'Your name', namePh:'Your name', email:'E-mail', emailPh:'you@example.com', accommodation:'Choose accommodation', vehicle:'Vehicle type', vlength:'Length of the vehicle', arrive:'Date of arrival', depart:'Date of departure', country:'Country', phone:'Contact number', phonePh:'091 234 5678', pets:'Pets', petsCount:'Number of pets', message:'Your message', messagePh:'Tell us anything that helps us prepare your offer…', choose:'Please choose an option', submit:'Send request', sending:'Sending…', error:'Sending failed. Please try again or email us directly.', gdpr:'GDPR, your details are collected to answer this request and for eVisitor registration. If you accepted cookies, sending the form is also recorded as a Google Ads conversion, using encrypted (hashed) data.' },
         accOptions:['Pitch A, seafront','Pitch B, near the sea','Pitch C, mid terraces','Pitch D, pine shade','Not sure yet'],
         vehicleOptions:['Tent','Caravan','Camper / motorhome','Car + roof tent','None'],
         lengthOptions:['up to 5 m','5–6 m','6–7 m','7–8 m','over 8 m'],
@@ -1469,7 +1490,7 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Anfrage senden', sub:'Nennen Sie uns Ihre Termine und die Anzahl der Gäste. Wir antworten persönlich, so schnell wie möglich.' },
-        f: { name:'Ihr Name', namePh:'Ihr Name', email:'E-Mail', emailPh:'sie@beispiel.com', accommodation:'Unterkunft wählen', vehicle:'Fahrzeugtyp', vlength:'Länge des Fahrzeugs', arrive:'Anreisedatum', depart:'Abreisedatum', country:'Land', phone:'Telefonnummer', phonePh:'091 234 5678', message:'Ihre Nachricht', messagePh:'Sagen Sie uns alles, was bei der Angebotserstellung hilft…', choose:'Bitte wählen', submit:'Anfrage senden', sending:'Wird gesendet…', error:'Senden fehlgeschlagen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.', gdpr:'DSGVO, Ihre Daten werden zur Beantwortung dieser Anfrage und für die eVisitor-Registrierung erhoben. Wenn Sie Cookies akzeptiert haben, wird das Absenden zudem als Google-Ads-Conversion mit verschlüsselten (gehashten) Daten erfasst.' },
+        f: { name:'Ihr Name', namePh:'Ihr Name', email:'E-Mail', emailPh:'sie@beispiel.com', accommodation:'Unterkunft wählen', vehicle:'Fahrzeugtyp', vlength:'Länge des Fahrzeugs', arrive:'Anreisedatum', depart:'Abreisedatum', country:'Land', phone:'Telefonnummer', phonePh:'091 234 5678', pets:'Haustiere', petsCount:'Anzahl der Haustiere', message:'Ihre Nachricht', messagePh:'Sagen Sie uns alles, was bei der Angebotserstellung hilft…', choose:'Bitte wählen', submit:'Anfrage senden', sending:'Wird gesendet…', error:'Senden fehlgeschlagen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.', gdpr:'DSGVO, Ihre Daten werden zur Beantwortung dieser Anfrage und für die eVisitor-Registrierung erhoben. Wenn Sie Cookies akzeptiert haben, wird das Absenden zudem als Google-Ads-Conversion mit verschlüsselten (gehashten) Daten erfasst.' },
         accOptions:['Stellplatz A, am Meer','Stellplatz B, nah am Meer','Stellplatz C, mittlere Terrassen','Stellplatz D, im Pinienschatten','Noch unsicher'],
         vehicleOptions:['Zelt','Wohnwagen','Wohnmobil','Auto + Dachzelt','Keines'],
         lengthOptions:['bis 5 m','5–6 m','6–7 m','7–8 m','über 8 m'],
@@ -1592,7 +1613,7 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Pošlji povpraševanje', sub:'Sporočite nam termine in število gostov. Odgovorimo osebno, v najkrajšem možnem času.' },
-        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-pošta', emailPh:'vi@primer.com', accommodation:'Izberite nastanitev', vehicle:'Vrsta vozila', vlength:'Dolžina vozila', arrive:'Datum prihoda', depart:'Datum odhoda', country:'Država', phone:'Kontaktna številka', phonePh:'091 234 5678', message:'Vaše sporočilo', messagePh:'Sporočite nam vse, kar pomaga pri pripravi ponudbe…', choose:'Izberite možnost', submit:'Pošlji povpraševanje', sending:'Pošiljanje…', error:'Pošiljanje ni uspelo. Poskusite znova ali nam pišite neposredno.', gdpr:'GDPR, vaši podatki se zbirajo za odgovor na to povpraševanje in za eVisitor prijavo. Če ste sprejeli piškotke, se oddaja obrazca zabeleži tudi kot konverzija v Google Adsu, s šifriranimi (zgoščenimi) podatki.' },
+        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-pošta', emailPh:'vi@primer.com', accommodation:'Izberite nastanitev', vehicle:'Vrsta vozila', vlength:'Dolžina vozila', arrive:'Datum prihoda', depart:'Datum odhoda', country:'Država', phone:'Kontaktna številka', phonePh:'091 234 5678', pets:'Hišni ljubljenčki', petsCount:'Število ljubljenčkov', message:'Vaše sporočilo', messagePh:'Sporočite nam vse, kar pomaga pri pripravi ponudbe…', choose:'Izberite možnost', submit:'Pošlji povpraševanje', sending:'Pošiljanje…', error:'Pošiljanje ni uspelo. Poskusite znova ali nam pišite neposredno.', gdpr:'GDPR, vaši podatki se zbirajo za odgovor na to povpraševanje in za eVisitor prijavo. Če ste sprejeli piškotke, se oddaja obrazca zabeleži tudi kot konverzija v Google Adsu, s šifriranimi (zgoščenimi) podatki.' },
         accOptions:['Parcela A, ob morju','Parcela B, blizu morja','Parcela C, srednje terase','Parcela D, v senci borov','Še nisem prepričan/a'],
         vehicleOptions:['Šotor','Prikolica','Avtodom','Avto + strešni šotor','Brez vozila'],
         lengthOptions:['do 5 m','5–6 m','6–7 m','7–8 m','nad 8 m'],
@@ -1715,7 +1736,7 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Wyślij zapytanie', sub:'Podaj nam terminy i liczbę gości. Odpowiemy osobiście, w możliwie najkrótszym czasie.' },
-        f: { name:'Imię i nazwisko', namePh:'Imię i nazwisko', email:'E-mail', emailPh:'ty@przyklad.com', accommodation:'Wybierz zakwaterowanie', vehicle:'Rodzaj pojazdu', vlength:'Długość pojazdu', arrive:'Data przyjazdu', depart:'Data wyjazdu', country:'Kraj', phone:'Numer kontaktowy', phonePh:'091 234 5678', message:'Twoja wiadomość', messagePh:'Napisz nam wszystko, co pomoże przygotować ofertę…', choose:'Wybierz opcję', submit:'Wyślij zapytanie', sending:'Wysyłanie…', error:'Wysłanie nie powiodło się. Spróbuj ponownie lub napisz do nas bezpośrednio.', gdpr:'RODO, Twoje dane są zbierane w celu odpowiedzi na to zapytanie oraz do rejestracji w systemie eVisitor. Jeśli zaakceptowano pliki cookie, wysłanie formularza jest też rejestrowane jako konwersja Google Ads, z użyciem zaszyfrowanych (zhaszowanych) danych.' },
+        f: { name:'Imię i nazwisko', namePh:'Imię i nazwisko', email:'E-mail', emailPh:'ty@przyklad.com', accommodation:'Wybierz zakwaterowanie', vehicle:'Rodzaj pojazdu', vlength:'Długość pojazdu', arrive:'Data przyjazdu', depart:'Data wyjazdu', country:'Kraj', phone:'Numer kontaktowy', phonePh:'091 234 5678', pets:'Zwierzęta', petsCount:'Liczba zwierząt', message:'Twoja wiadomość', messagePh:'Napisz nam wszystko, co pomoże przygotować ofertę…', choose:'Wybierz opcję', submit:'Wyślij zapytanie', sending:'Wysyłanie…', error:'Wysłanie nie powiodło się. Spróbuj ponownie lub napisz do nas bezpośrednio.', gdpr:'RODO, Twoje dane są zbierane w celu odpowiedzi na to zapytanie oraz do rejestracji w systemie eVisitor. Jeśli zaakceptowano pliki cookie, wysłanie formularza jest też rejestrowane jako konwersja Google Ads, z użyciem zaszyfrowanych (zhaszowanych) danych.' },
         accOptions:['Stanowisko A, przy morzu','Stanowisko B, blisko morza','Stanowisko C, środkowe tarasy','Stanowisko D, w cieniu sosen','Jeszcze nie wiem'],
         vehicleOptions:['Namiot','Przyczepa','Kamper','Auto + namiot dachowy','Bez pojazdu'],
         lengthOptions:['do 5 m','5–6 m','6–7 m','7–8 m','powyżej 8 m'],
@@ -1962,6 +1983,38 @@ class Component extends DCLogic {
     }
   }
 
+  // Locale on first paint. An explicit choice the visitor made on an earlier
+  // visit always wins; otherwise the browser's own language preferences decide.
+  // navigator.languages is what the device says it wants to read, which beats
+  // the country an IP lookup would guess — a German-speaking Austrian gets
+  // German, a Pole holidaying in Croatia still gets Polish — and it needs no
+  // third-party request, so it adds no latency and raises no consent question.
+  // Anything not translated falls back to the defaultLocale prop, i.e. English.
+  _initLocale() {
+    const known = ['hr', 'en', 'de', 'sl', 'pl'];
+    try {
+      const saved = window.localStorage && localStorage.getItem('clp-lang');
+      if (saved && known.indexOf(saved) > -1) return saved;
+    } catch (e) {}
+    try {
+      const nav = window.navigator || {};
+      const prefs = (nav.languages && nav.languages.length) ? nav.languages : [nav.language || ''];
+      for (const p of prefs) {
+        // "de-AT" and "de" both mean the German copy.
+        const code = String(p || '').toLowerCase().split('-')[0];
+        if (known.indexOf(code) > -1) return code;
+      }
+    } catch (e) {}
+    return this.props.defaultLocale || 'en';
+  }
+
+  // Remembering the choice is what stops _initLocale() from detecting over the
+  // visitor's head the next time they come back.
+  setLocale(code) {
+    try { if (window.localStorage) localStorage.setItem('clp-lang', code); } catch (e) {}
+    this.setState({ locale: code, langOpen: false, mobileOpen: false });
+  }
+
   // '' means the visitor has not answered the cookie banner yet, which is what
   // makes it show. Read once at boot; by then the <head> has already applied the
   // same stored value to gtag, so the two can never disagree.
@@ -2046,6 +2099,48 @@ class Component extends DCLogic {
     } catch (e) {}
   }
 
+  // Dates for the enquiry e-mail, which the owner reads in Croatian.
+  // <input type="date"> always yields ISO (YYYY-MM-DD) whatever the visitor's
+  // locale, so this is a reformat rather than a parse. Both forms are given:
+  // dd/mm/yyyy to scan quickly, and the month spelled out so 01/08 can never be
+  // read as 8 January. The month name is in the genitive ("1. kolovoza 2026."),
+  // which is how a date is written in Croatian — the nominative "kolovoz" would
+  // read as a header, not a date.
+  _fmtDate(iso) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso == null ? '' : iso).trim());
+    if (!m) return iso || '';
+    const months = ['siječnja', 'veljače', 'ožujka', 'travnja', 'svibnja', 'lipnja',
+                    'srpnja', 'kolovoza', 'rujna', 'listopada', 'studenoga', 'prosinca'];
+    const name = months[Number(m[2]) - 1];
+    const numeric = m[3] + '/' + m[2] + '/' + m[1];
+    return name ? numeric + ' (' + Number(m[3]) + '. ' + name + ' ' + m[1] + '.)' : numeric;
+  }
+
+  // Where a chosen <select> label sits in its option list, or -1. Every locale
+  // lists these options in the same order, so the index is the language-neutral
+  // identity of the choice. All locales are searched rather than just the active
+  // one, so a value picked before a language switch still resolves.
+  _optIndex(key, value) {
+    const v = String(value == null ? '' : value).trim();
+    if (!v) return -1;
+    for (const loc in this.copy) {
+      const opts = (this.copy[loc].request && this.copy[loc].request[key]) || [];
+      const i = opts.indexOf(v);
+      if (i > -1) return i;
+    }
+    return -1;
+  }
+
+  // The <select>s store the label in the visitor's own language, so without this
+  // a German enquiry would reach the owner as "Wohnmobil, Stellplatz A am Meer".
+  // Free-text fields are left exactly as typed.
+  _hrOption(key, value) {
+    const i = this._optIndex(key, value);
+    if (i < 0) return String(value == null ? '' : value).trim();
+    const hr = (this.copy.hr.request && this.copy.hr.request[key]) || [];
+    return hr[i] || String(value).trim();
+  }
+
   // Enhanced conversions ("poboljšane konverzije"), Google's method 3 — the
   // values are handed to the tag from code instead of being read off the page.
   // It is the only one of the three methods that can work here: the conversion
@@ -2072,12 +2167,7 @@ class Component extends DCLogic {
     // option is "other" and has no code, which the lookups below handle.
     const iso = ['HR', 'SI', 'DE', 'AT', 'IT', 'CZ', 'PL', 'NL'];
     const dial = ['385', '386', '49', '43', '39', '420', '48', '31'];
-    let ci = -1;
-    for (const loc in this.copy) {
-      const opts = (this.copy[loc].request && this.copy[loc].request.countryOptions) || [];
-      const i = s(f.country) ? opts.indexOf(s(f.country)) : -1;
-      if (i > -1) { ci = i; break; }
-    }
+    const ci = this._optIndex('countryOptions', f.country);
 
     // E.164 (+385…) is the only phone format Ads accepts. 00 is the same prefix
     // written the other way; a bare national number is only promoted when the
@@ -2189,7 +2279,7 @@ class Component extends DCLogic {
     const langItemBase = 'display:flex;align-items:center;justify-content:space-between;gap:16px;text-align:left;width:100%;font-size:14.5px;font-weight:600;padding:11px 14px;border-radius:10px;transition:background .15s;';
     const langItems = langDefs.map((l) => ({
       code:l.code, label:l.label, name:l.name, active:this.state.locale===l.code,
-      onClick: () => this.setState({ locale:l.code, langOpen:false, mobileOpen:false }),
+      onClick: () => this.setLocale(l.code),
       style: langItemBase + (this.state.locale===l.code ? 'background:rgba(91,176,222,0.16);color:#114B7C;' : 'background:transparent;color:#3a4a40;'),
       chip: 'min-width:40px;padding:7px 9px;border-radius:9px;font-size:11px;font-weight:700;letter-spacing:0.04em;transition:background .2s,color .2s;' + (this.state.locale===l.code ? 'background:#2E7CB8;color:#fff;' : 'background:rgba(17,75,124,0.07);color:#114B7C;')
     }));
@@ -2410,6 +2500,10 @@ class Component extends DCLogic {
       panoramaVideo, panoramaHasVideo: !!panoramaVideo, panoramaNoVideo: !panoramaVideo,
       muteRef: (el) => { if (el) { el.muted = true; el.defaultMuted = true; try { const p = el.play && el.play(); if (p && p.catch) p.catch(function(){}); } catch (e) {} } },
       accommodationOptions, vehicleOptions, lengthOptions, yesnoOptions, countryOptions, successCheck,
+      // "Yes" is index 0 of yesnoOptions in every locale; digits need no
+      // translating, so the counts are built here rather than in the copy.
+      hasPets: this._optIndex('yesnoOptions', this.state.form.pets) === 0,
+      petsCountOptions: ['1', '2', '3', '4', '5'],
       submitted: this.state.submitted, notSubmitted: !this.state.submitted,
       submitLabel: this.state.sending ? (rq.f && rq.f.sending) : (rq.f && rq.f.submit),
       hasError: !!this.state.submitErr, errorMsg: rq.f && rq.f.error,
@@ -2418,6 +2512,14 @@ class Component extends DCLogic {
       onDepart: setF('depart'), onParty: setF('party'), onMessage: setF('message'), onCompany: setF('company'),
       onAccommodation: setF('accommodation'), onVehicle: setF('vehicle'), onVlength: setF('vlength'),
       onCountry: setF('country'), onPhone: setF('phone'),
+      onPets: (e) => {
+        // Dropping to "no" (or back to unanswered) clears any count already
+        // picked, so a hidden field can never ride along with the enquiry.
+        const v = e.target.value;
+        const yes = this._optIndex('yesnoOptions', v) === 0;
+        this.setState({ form: { ...this.state.form, pets: v, petsCount: yes ? this.state.form.petsCount : '' } });
+      },
+      onPetsCount: setF('petsCount'),
       onSubmit: (e) => {
         e.preventDefault();
         if (this.state.form.company) return; // honeypot
@@ -2432,13 +2534,19 @@ class Component extends DCLogic {
           name: fm.name,
           email: fm.email,
           'Telefon': fm.phone,
-          'Država': fm.country,
-          'Smještaj': fm.accommodation,
-          'Vozilo': fm.vehicle,
-          'Duljina vozila': fm.vlength,
-          'Dolazak': fm.arrive,
-          'Odlazak': fm.depart,
+          'Država': this._hrOption('countryOptions', fm.country),
+          'Smještaj': this._hrOption('accOptions', fm.accommodation),
+          'Vozilo': this._hrOption('vehicleOptions', fm.vehicle),
+          'Duljina vozila': this._hrOption('lengthOptions', fm.vlength),
+          'Dolazak': this._fmtDate(fm.arrive),
+          'Odlazak': this._fmtDate(fm.depart),
+          'Ljubimci': this._hrOption('yesnoOptions', fm.pets),
+          // Only meaningful alongside a "Da"; onPets clears it otherwise.
+          'Broj ljubimaca': fm.petsCount,
           'Poruka': fm.message,
+          // The site now opens in the visitor's own language, so the owner
+          // needs to be told which one to reply in.
+          'Jezik upita': ({ hr:'hrvatski', en:'engleski', de:'njemački', sl:'slovenski', pl:'poljski' })[this.state.locale] || this.state.locale,
           botcheck: ''
         };
         this.setState({ sending: true, submitErr: false });
@@ -2459,7 +2567,7 @@ class Component extends DCLogic {
           })
           .catch(() => this.setState({ sending: false, submitErr: true }));
       },
-      resetForm: () => this.setState({ submitted: false, sending: false, submitErr: false, form: { name:'', email:'', accommodation:'', vehicle:'', vlength:'', arrive:'', depart:'', country:'', phone:'', message:'', company:'' } }),
+      resetForm: () => this.setState({ submitted: false, sending: false, submitErr: false, form: { name:'', email:'', accommodation:'', vehicle:'', vlength:'', arrive:'', depart:'', country:'', phone:'', pets:'', petsCount:'', message:'', company:'' } }),
       year: new Date().getFullYear()
     };
   }
