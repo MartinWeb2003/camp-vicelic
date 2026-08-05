@@ -7,6 +7,7 @@ posalji-upit/
 # served (hero.jpg, night*.jpg, *-web.mp4, *-poster.jpg); drone2.mp4 alone is
 # 244 MB, over GitHub's 100 MB per-file limit, so a push carrying it fails.
 uploads/hero.jpeg
+uploads/hero2.jpeg
 uploads/night1.jpeg
 uploads/night2.jpeg
 uploads/videos/drone1.mp4

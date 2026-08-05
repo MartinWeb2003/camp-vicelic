@@ -250,7 +250,7 @@
       <!-- HERO -->
       <section style="position:relative;min-height:clamp(580px,90vh,900px);display:flex;align-items:flex-end;overflow:hidden;">
         <div style="position:absolute;inset:0;background:linear-gradient(135deg,#114B7C,#2E7CB8 55%,#0E3C61);"></div>
-        <img src="./uploads/hero.jpg" alt="Camping Lovište Paradise" fetchPriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" />
+        <img src="./uploads/hero2.jpg" alt="Camping Lovište Paradise" fetchPriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" />
         <sc-if value="{{ heroHasVideo }}" hint-placeholder-val="{{ false }}">
           <video ref="{{ muteRef }}" autoPlay loop playsInline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
             <source src="{{ heroVideo }}" type="video/mp4" />
@@ -281,7 +281,7 @@
                 <source src="./uploads/videos/drone1-web.mp4" type="video/mp4" />
               </video>
             </div>
-            <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(62px,1fr));gap:10px;">
+            <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;">
               <sc-for list="{{ introThumbs }}" as="th" hint-placeholder-count="3">
                 <div onClick="{{ th.onOpen }}" style="position:relative;aspect-ratio:4/3;overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);cursor:zoom-in;">
                   <img src="{{ th.src }}" alt="{{ t.intro.title }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;" style-hover="transform:scale(1.06);" />
@@ -2315,7 +2315,7 @@ class Component extends DCLogic {
     // Intro gallery: unlike the sanitary section, the main stage never rotates —
     // the drone loop holds it permanently. These stills are the thumbnail strip
     // under it and the set the lightbox pages through, nothing more.
-    const introMain = ['./uploads/videos/drone1-poster.jpg', './uploads/camp8.jpg', './uploads/camp10.jpg', './uploads/camp13.jpg', './uploads/camp14.jpg', './uploads/night1.jpg', './uploads/night2.jpg'];
+    const introMain = ['./uploads/videos/drone1-poster.jpg', './uploads/hero.jpg', './uploads/camp8.jpg', './uploads/camp10.jpg', './uploads/camp13.jpg', './uploads/camp14.jpg', './uploads/night1.jpg', './uploads/night2.jpg'];
     const introThumbs = introMain.map((src, k) => ({ src, onOpen: () => this.setState({ lightbox: introMain, lightboxIdx: k }) }));
     // "Look around the camp" — activity-style sections, one per camp area.
     // Each has a cycling main image (crossfade via slideTick) + thumbnails, all
@@ -2399,8 +2399,7 @@ class Component extends DCLogic {
     //     Use  null  to hide the slot, '' to keep a "video coming" placeholder,
     //     or the embed url to make it playable, e.g.
     //     'https://www.youtube.com/embed/XXXXXXXXXXX'.
-    // hero.jpg stays underneath as the first paint / fallback; the loop fades in over it.
-    const heroVideo = './uploads/videos/drone2-web.mp4';  // muted loop
+    const heroVideo = '';        // e.g. './uploads/drone-hero.mp4'  (muted loop)
     const panoramaVideo = '';    // e.g. './uploads/drone-panorama.mp4'  (muted loop)
     const activityVideos = [null, null, null, null];
     // ───────────────────────────────────────────────────────────────────────
