@@ -256,7 +256,6 @@
             <source src="{{ heroVideo }}" type="video/mp4" />
           </video>
         </sc-if>
-        <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,0.035),rgba(255,255,255,0.035) 16px,transparent 16px,transparent 34px);"></div>
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(8,28,45,0.78) 0%,rgba(8,28,45,0.15) 45%,rgba(8,28,45,0.35) 100%);"></div>
         <div style="position:relative;z-index:2;max-width:1240px;width:100%;margin:0 auto;padding:0 clamp(20px,5vw,40px) clamp(54px,7vw,92px);">
           <div style="max-width:760px;" data-reveal>
@@ -2413,7 +2412,8 @@ class Component extends DCLogic {
     //     Use  null  to hide the slot, '' to keep a "video coming" placeholder,
     //     or the embed url to make it playable, e.g.
     //     'https://www.youtube.com/embed/XXXXXXXXXXX'.
-    const heroVideo = '';        // e.g. './uploads/drone-hero.mp4'  (muted loop)
+    // hero.jpg stays underneath as the first paint / fallback; the loop fades in over it.
+    const heroVideo = './uploads/videos/drone1-web.mp4';  // muted loop
     const panoramaVideo = '';    // e.g. './uploads/drone-panorama.mp4'  (muted loop)
     const activityVideos = [null, null, null, null];
     // ───────────────────────────────────────────────────────────────────────
