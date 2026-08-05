@@ -276,15 +276,12 @@
             <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.2vw,44px);line-height:1.12;letter-spacing:-0.02em;margin:0;text-wrap:balance;">{{ t.intro.title }}</h2>
           </div>
           <div style="flex:1 1 420px;min-width:300px;" data-reveal="right">
-            <div style="position:relative;height:clamp(300px,38vw,440px);overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);">
-              <video ref="{{ muteRef }}" autoPlay loop playsInline preload="metadata" poster="./uploads/videos/drone1-poster.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:{{ introVideoOpacity }};z-index:{{ introVideoZ }};transition:opacity .9s ease;">
+            <div style="height:clamp(300px,38vw,440px);overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);">
+              <video ref="{{ muteRef }}" autoPlay loop playsInline preload="auto" poster="./uploads/videos/drone1-poster.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
                 <source src="./uploads/videos/drone1-web.mp4" type="video/mp4" />
               </video>
-              <sc-for list="{{ introSlides }}" as="s" hint-placeholder-count="1">
-                <img src="{{ s.src }}" onClick="{{ s.onOpen }}" alt="{{ t.intro.title }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:{{ s.opacity }};z-index:{{ s.z }};transition:opacity .9s ease;cursor:zoom-in;" />
-              </sc-for>
             </div>
-            <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(72px,1fr));gap:12px;">
+            <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(62px,1fr));gap:10px;">
               <sc-for list="{{ introThumbs }}" as="th" hint-placeholder-count="3">
                 <div onClick="{{ th.onOpen }}" style="position:relative;aspect-ratio:4/3;overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);cursor:zoom-in;">
                   <img src="{{ th.src }}" alt="{{ t.intro.title }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;" style-hover="transform:scale(1.06);" />
@@ -2315,21 +2312,11 @@ class Component extends DCLogic {
     const sanitaryMain = ['./uploads/wc-main.jpg','./uploads/shower.jpg','./uploads/shower-outside.jpg','./uploads/wc-kids.jpg','./uploads/wc-invalid.jpg','./uploads/shower-dog.jpg','./uploads/fridge.jpg','./uploads/washer.jpg'];
     const sanIdx = this.state.slideTick % sanitaryMain.length;
     const sanitarySlides = sanitaryMain.map((src, k) => ({ src, opacity: (k === sanIdx ? '1' : '0'), z: (k === sanIdx ? '2' : '1'), onOpen: () => this.setState({ lightbox: sanitaryMain, lightboxIdx: k }) }));
-    // Rotating intro gallery (crossfade via slideTick) + mini thumbnails of the
-    // same shots, all click-to-zoom — mirrors the sanitary section pattern.
-    const introMain = ['./uploads/camp8.jpg', './uploads/camp10.jpg', './uploads/camp13.jpg', './uploads/camp14.jpg', './uploads/night1.jpg', './uploads/night2.jpg'];
-    // The drone clip leads the carousel. slideTick beats every 3s, so it is held
-    // for INTRO_VIDEO_TICKS beats (~its full 22s) instead of flashing past in one
-    // beat like a still does; the stills then follow, one beat each.
-    const INTRO_VIDEO_TICKS = 7;
-    const introSeq = this.state.slideTick % (INTRO_VIDEO_TICKS + introMain.length);
-    const introVideoOn = introSeq < INTRO_VIDEO_TICKS;
-    // -1 while the video holds the stage, so no still is lit.
-    const introIdx = introVideoOn ? -1 : introSeq - INTRO_VIDEO_TICKS;
-    const introSlides = introMain.map((src, k) => ({ src, opacity: (k === introIdx ? '1' : '0'), z: (k === introIdx ? '2' : '1'), onOpen: () => this.setState({ lightbox: introMain, lightboxIdx: k }) }));
+    // Intro gallery: unlike the sanitary section, the main stage never rotates —
+    // the drone loop holds it permanently. These stills are the thumbnail strip
+    // under it and the set the lightbox pages through, nothing more.
+    const introMain = ['./uploads/videos/drone1-poster.jpg', './uploads/camp8.jpg', './uploads/camp10.jpg', './uploads/camp13.jpg', './uploads/camp14.jpg', './uploads/night1.jpg', './uploads/night2.jpg'];
     const introThumbs = introMain.map((src, k) => ({ src, onOpen: () => this.setState({ lightbox: introMain, lightboxIdx: k }) }));
-    const introVideoOpacity = introVideoOn ? '1' : '0';
-    const introVideoZ = introVideoOn ? '2' : '1';
     // "Look around the camp" — activity-style sections, one per camp area.
     // Each has a cycling main image (crossfade via slideTick) + thumbnails, all
     // click-to-zoom. Order matches the campTour copy: reception · toilets ·
@@ -2413,7 +2400,7 @@ class Component extends DCLogic {
     //     or the embed url to make it playable, e.g.
     //     'https://www.youtube.com/embed/XXXXXXXXXXX'.
     // hero.jpg stays underneath as the first paint / fallback; the loop fades in over it.
-    const heroVideo = './uploads/videos/drone1-web.mp4';  // muted loop
+    const heroVideo = './uploads/videos/drone2-web.mp4';  // muted loop
     const panoramaVideo = '';    // e.g. './uploads/drone-panorama.mp4'  (muted loop)
     const activityVideos = [null, null, null, null];
     // ───────────────────────────────────────────────────────────────────────
@@ -2506,7 +2493,7 @@ class Component extends DCLogic {
         if (opening) setTimeout(() => { try { this._langMenuEl && this._langMenuEl.scrollIntoView({ behavior:'smooth', block:'nearest' }); } catch(e){} }, 40);
       },
       closeLang: () => this.setState({ langOpen: false }),
-      navItems, accommodations, facilities, facilityShots, sanitaryFeatures, sanitarySlides, introSlides, introThumbs, introVideoOpacity, introVideoZ, campSections, things, contactInfo, distances, mailHref,
+      navItems, accommodations, facilities, facilityShots, sanitaryFeatures, sanitarySlides, introThumbs, campSections, things, contactInfo, distances, mailHref,
       lightbox: this.state.lightbox,
       lightboxSrc: (this.state.lightbox && this.state.lightbox.length) ? this.state.lightbox[((this.state.lightboxIdx % this.state.lightbox.length) + this.state.lightbox.length) % this.state.lightbox.length] : null,
       lightboxMulti: !!(this.state.lightbox && this.state.lightbox.length > 1),
