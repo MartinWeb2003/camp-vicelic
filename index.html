@@ -250,7 +250,7 @@
       <!-- HERO -->
       <section style="position:relative;min-height:clamp(580px,90vh,900px);display:flex;align-items:flex-end;overflow:hidden;">
         <div style="position:absolute;inset:0;background:linear-gradient(135deg,#114B7C,#2E7CB8 55%,#0E3C61);"></div>
-        <img src="./uploads/loviste1.jpg" alt="Camping Lovište Paradise" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" />
+        <img src="./uploads/hero.jpg" alt="Camping Lovište Paradise" fetchPriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" />
         <sc-if value="{{ heroHasVideo }}" hint-placeholder-val="{{ false }}">
           <video ref="{{ muteRef }}" autoPlay loop playsInline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
             <source src="{{ heroVideo }}" type="video/mp4" />
@@ -278,11 +278,14 @@
           </div>
           <div style="flex:1 1 420px;min-width:300px;" data-reveal="right">
             <div style="position:relative;height:clamp(300px,38vw,440px);overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);">
+              <video ref="{{ muteRef }}" autoPlay loop playsInline preload="metadata" poster="./uploads/videos/drone1-poster.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:{{ introVideoOpacity }};z-index:{{ introVideoZ }};transition:opacity .9s ease;">
+                <source src="./uploads/videos/drone1-web.mp4" type="video/mp4" />
+              </video>
               <sc-for list="{{ introSlides }}" as="s" hint-placeholder-count="1">
                 <img src="{{ s.src }}" onClick="{{ s.onOpen }}" alt="{{ t.intro.title }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:{{ s.opacity }};z-index:{{ s.z }};transition:opacity .9s ease;cursor:zoom-in;" />
               </sc-for>
             </div>
-            <div style="margin-top:12px;display:grid;grid-template-columns:repeat({{ introThumbCount }},1fr);gap:12px;">
+            <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(72px,1fr));gap:12px;">
               <sc-for list="{{ introThumbs }}" as="th" hint-placeholder-count="3">
                 <div onClick="{{ th.onOpen }}" style="position:relative;aspect-ratio:4/3;overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);cursor:zoom-in;">
                   <img src="{{ th.src }}" alt="{{ t.intro.title }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;" style-hover="transform:scale(1.06);" />
@@ -429,7 +432,9 @@
             </div>
           </div>
           <div style="flex:1 1 360px;min-width:300px;height:clamp(320px,40vw,460px);overflow:hidden;background:#e8f2f9;" data-reveal="right">
-            <img src="./uploads/camp2.jpg" alt="Camping Lovište Paradise" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
+            <video ref="{{ muteRef }}" autoPlay loop playsInline preload="metadata" poster="./uploads/videos/drone2-poster.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="./uploads/videos/drone2-web.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
       </section>
@@ -862,6 +867,13 @@
                   <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.depart }} *</span>
                   <input type="date" value="{{ form.depart }}" onChange="{{ onDepart }}" required="required" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;" style-focus="border-color:#2E7CB8;" />
                 </label>
+                <label style="display:block;">
+                  <span style="font-size:14px;color:#6B7280;margin-bottom:8px;display:block;">{{ t.request.f.people }} *</span>
+                  <select value="{{ form.people }}" onChange="{{ onPeople }}" required="required" style="width:100%;padding:13px 15px;border:1px solid rgba(17,75,124,0.18);border-radius:10px;font-size:15px;color:#114B7C;background:#fff;outline:none;font-family:inherit;cursor:pointer;">
+                    <option value="">{{ t.request.f.choose }}</option>
+                    <sc-for list="{{ peopleOptions }}" as="o" hint-placeholder-count="10"><option value="{{ o }}">{{ o }}</option></sc-for>
+                  </select>
+                </label>
               </div>
 
               <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
@@ -1083,7 +1095,7 @@ class Component extends DCLogic {
     sending: false,
     submitErr: false,
     consent: this._initConsent(),
-    form: { name:'', email:'', accommodation:'', vehicle:'', vlength:'', arrive:'', depart:'', country:'', phone:'', pets:'', petsCount:'', message:'', company:'' }
+    form: { name:'', email:'', accommodation:'', vehicle:'', vlength:'', arrive:'', depart:'', people:'', country:'', phone:'', pets:'', petsCount:'', message:'', company:'' }
   };
 
   copy = {
@@ -1119,7 +1131,7 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Pošalji upit', sub:'Javite nam termine i broj gostiju. Javljamo se osobno, u najkraćem mogućem roku.' },
-        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', accommodation:'Odaberite smještaj', vehicle:'Vrsta vozila', vlength:'Duljina vozila', arrive:'Datum dolaska', depart:'Datum odlaska', country:'Država', phone:'Kontakt broj', phonePh:'091 234 5678', pets:'Ljubimci', petsCount:'Broj ljubimaca', message:'Vaša poruka', messagePh:'Recite nam sve što nam pomaže pripremiti ponudu…', choose:'Odaberite opciju', submit:'Pošalji upit', sending:'Šalje se…', error:'Slanje nije uspjelo. Pokušajte ponovno ili nam pišite izravno e-mailom.', gdpr:'GDPR, vaši se podaci prikupljaju za odgovor na ovaj upit i za eVisitor prijavu. Ako ste prihvatili kolačiće, slanje upita bilježi se i kao konverzija u Google Adsu, uz šifrirane (hashirane) podatke.' },
+        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-mail', emailPh:'vi@primjer.com', accommodation:'Odaberite smještaj', vehicle:'Vrsta vozila', vlength:'Duljina vozila', arrive:'Datum dolaska', depart:'Datum odlaska', people:'Broj osoba', country:'Država', phone:'Kontakt broj', phonePh:'091 234 5678', pets:'Ljubimci', petsCount:'Broj ljubimaca', message:'Vaša poruka', messagePh:'Recite nam sve što nam pomaže pripremiti ponudu…', choose:'Odaberite opciju', submit:'Pošalji upit', sending:'Šalje se…', error:'Slanje nije uspjelo. Pokušajte ponovno ili nam pišite izravno e-mailom.', gdpr:'GDPR, vaši se podaci prikupljaju za odgovor na ovaj upit i za eVisitor prijavu. Ako ste prihvatili kolačiće, slanje upita bilježi se i kao konverzija u Google Adsu, uz šifrirane (hashirane) podatke.' },
         accOptions:['Parcela A, uz more','Parcela B, blizu mora','Parcela C, srednje terase','Parcela D, u hladu borova','Nisam siguran/a'],
         vehicleOptions:['Šator','Kamp-kućica','Kamper / autodom','Auto + krovni šator','Bez vozila'],
         lengthOptions:['do 5 m','5–6 m','6–7 m','7–8 m','preko 8 m'],
@@ -1304,7 +1316,7 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Send a request', sub:'Tell us your dates and number of guests. We reply personally, as soon as possible.' },
-        f: { name:'Your name', namePh:'Your name', email:'E-mail', emailPh:'you@example.com', accommodation:'Choose accommodation', vehicle:'Vehicle type', vlength:'Length of the vehicle', arrive:'Date of arrival', depart:'Date of departure', country:'Country', phone:'Contact number', phonePh:'091 234 5678', pets:'Pets', petsCount:'Number of pets', message:'Your message', messagePh:'Tell us anything that helps us prepare your offer…', choose:'Please choose an option', submit:'Send request', sending:'Sending…', error:'Sending failed. Please try again or email us directly.', gdpr:'GDPR, your details are collected to answer this request and for eVisitor registration. If you accepted cookies, sending the form is also recorded as a Google Ads conversion, using encrypted (hashed) data.' },
+        f: { name:'Your name', namePh:'Your name', email:'E-mail', emailPh:'you@example.com', accommodation:'Choose accommodation', vehicle:'Vehicle type', vlength:'Length of the vehicle', arrive:'Date of arrival', depart:'Date of departure', people:'Number of guests', country:'Country', phone:'Contact number', phonePh:'091 234 5678', pets:'Pets', petsCount:'Number of pets', message:'Your message', messagePh:'Tell us anything that helps us prepare your offer…', choose:'Please choose an option', submit:'Send request', sending:'Sending…', error:'Sending failed. Please try again or email us directly.', gdpr:'GDPR, your details are collected to answer this request and for eVisitor registration. If you accepted cookies, sending the form is also recorded as a Google Ads conversion, using encrypted (hashed) data.' },
         accOptions:['Pitch A, seafront','Pitch B, near the sea','Pitch C, mid terraces','Pitch D, pine shade','Not sure yet'],
         vehicleOptions:['Tent','Caravan','Camper / motorhome','Car + roof tent','None'],
         lengthOptions:['up to 5 m','5–6 m','6–7 m','7–8 m','over 8 m'],
@@ -1490,7 +1502,7 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Anfrage senden', sub:'Nennen Sie uns Ihre Termine und die Anzahl der Gäste. Wir antworten persönlich, so schnell wie möglich.' },
-        f: { name:'Ihr Name', namePh:'Ihr Name', email:'E-Mail', emailPh:'sie@beispiel.com', accommodation:'Unterkunft wählen', vehicle:'Fahrzeugtyp', vlength:'Länge des Fahrzeugs', arrive:'Anreisedatum', depart:'Abreisedatum', country:'Land', phone:'Telefonnummer', phonePh:'091 234 5678', pets:'Haustiere', petsCount:'Anzahl der Haustiere', message:'Ihre Nachricht', messagePh:'Sagen Sie uns alles, was bei der Angebotserstellung hilft…', choose:'Bitte wählen', submit:'Anfrage senden', sending:'Wird gesendet…', error:'Senden fehlgeschlagen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.', gdpr:'DSGVO, Ihre Daten werden zur Beantwortung dieser Anfrage und für die eVisitor-Registrierung erhoben. Wenn Sie Cookies akzeptiert haben, wird das Absenden zudem als Google-Ads-Conversion mit verschlüsselten (gehashten) Daten erfasst.' },
+        f: { name:'Ihr Name', namePh:'Ihr Name', email:'E-Mail', emailPh:'sie@beispiel.com', accommodation:'Unterkunft wählen', vehicle:'Fahrzeugtyp', vlength:'Länge des Fahrzeugs', arrive:'Anreisedatum', depart:'Abreisedatum', people:'Anzahl der Personen', country:'Land', phone:'Telefonnummer', phonePh:'091 234 5678', pets:'Haustiere', petsCount:'Anzahl der Haustiere', message:'Ihre Nachricht', messagePh:'Sagen Sie uns alles, was bei der Angebotserstellung hilft…', choose:'Bitte wählen', submit:'Anfrage senden', sending:'Wird gesendet…', error:'Senden fehlgeschlagen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.', gdpr:'DSGVO, Ihre Daten werden zur Beantwortung dieser Anfrage und für die eVisitor-Registrierung erhoben. Wenn Sie Cookies akzeptiert haben, wird das Absenden zudem als Google-Ads-Conversion mit verschlüsselten (gehashten) Daten erfasst.' },
         accOptions:['Stellplatz A, am Meer','Stellplatz B, nah am Meer','Stellplatz C, mittlere Terrassen','Stellplatz D, im Pinienschatten','Noch unsicher'],
         vehicleOptions:['Zelt','Wohnwagen','Wohnmobil','Auto + Dachzelt','Keines'],
         lengthOptions:['bis 5 m','5–6 m','6–7 m','7–8 m','über 8 m'],
@@ -1613,7 +1625,7 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Pošlji povpraševanje', sub:'Sporočite nam termine in število gostov. Odgovorimo osebno, v najkrajšem možnem času.' },
-        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-pošta', emailPh:'vi@primer.com', accommodation:'Izberite nastanitev', vehicle:'Vrsta vozila', vlength:'Dolžina vozila', arrive:'Datum prihoda', depart:'Datum odhoda', country:'Država', phone:'Kontaktna številka', phonePh:'091 234 5678', pets:'Hišni ljubljenčki', petsCount:'Število ljubljenčkov', message:'Vaše sporočilo', messagePh:'Sporočite nam vse, kar pomaga pri pripravi ponudbe…', choose:'Izberite možnost', submit:'Pošlji povpraševanje', sending:'Pošiljanje…', error:'Pošiljanje ni uspelo. Poskusite znova ali nam pišite neposredno.', gdpr:'GDPR, vaši podatki se zbirajo za odgovor na to povpraševanje in za eVisitor prijavo. Če ste sprejeli piškotke, se oddaja obrazca zabeleži tudi kot konverzija v Google Adsu, s šifriranimi (zgoščenimi) podatki.' },
+        f: { name:'Vaše ime', namePh:'Vaše ime', email:'E-pošta', emailPh:'vi@primer.com', accommodation:'Izberite nastanitev', vehicle:'Vrsta vozila', vlength:'Dolžina vozila', arrive:'Datum prihoda', depart:'Datum odhoda', people:'Število oseb', country:'Država', phone:'Kontaktna številka', phonePh:'091 234 5678', pets:'Hišni ljubljenčki', petsCount:'Število ljubljenčkov', message:'Vaše sporočilo', messagePh:'Sporočite nam vse, kar pomaga pri pripravi ponudbe…', choose:'Izberite možnost', submit:'Pošlji povpraševanje', sending:'Pošiljanje…', error:'Pošiljanje ni uspelo. Poskusite znova ali nam pišite neposredno.', gdpr:'GDPR, vaši podatki se zbirajo za odgovor na to povpraševanje in za eVisitor prijavo. Če ste sprejeli piškotke, se oddaja obrazca zabeleži tudi kot konverzija v Google Adsu, s šifriranimi (zgoščenimi) podatki.' },
         accOptions:['Parcela A, ob morju','Parcela B, blizu morja','Parcela C, srednje terase','Parcela D, v senci borov','Še nisem prepričan/a'],
         vehicleOptions:['Šotor','Prikolica','Avtodom','Avto + strešni šotor','Brez vozila'],
         lengthOptions:['do 5 m','5–6 m','6–7 m','7–8 m','nad 8 m'],
@@ -1736,7 +1748,7 @@ class Component extends DCLogic {
       },
       request: {
         hero: { title:'Wyślij zapytanie', sub:'Podaj nam terminy i liczbę gości. Odpowiemy osobiście, w możliwie najkrótszym czasie.' },
-        f: { name:'Imię i nazwisko', namePh:'Imię i nazwisko', email:'E-mail', emailPh:'ty@przyklad.com', accommodation:'Wybierz zakwaterowanie', vehicle:'Rodzaj pojazdu', vlength:'Długość pojazdu', arrive:'Data przyjazdu', depart:'Data wyjazdu', country:'Kraj', phone:'Numer kontaktowy', phonePh:'091 234 5678', pets:'Zwierzęta', petsCount:'Liczba zwierząt', message:'Twoja wiadomość', messagePh:'Napisz nam wszystko, co pomoże przygotować ofertę…', choose:'Wybierz opcję', submit:'Wyślij zapytanie', sending:'Wysyłanie…', error:'Wysłanie nie powiodło się. Spróbuj ponownie lub napisz do nas bezpośrednio.', gdpr:'RODO, Twoje dane są zbierane w celu odpowiedzi na to zapytanie oraz do rejestracji w systemie eVisitor. Jeśli zaakceptowano pliki cookie, wysłanie formularza jest też rejestrowane jako konwersja Google Ads, z użyciem zaszyfrowanych (zhaszowanych) danych.' },
+        f: { name:'Imię i nazwisko', namePh:'Imię i nazwisko', email:'E-mail', emailPh:'ty@przyklad.com', accommodation:'Wybierz zakwaterowanie', vehicle:'Rodzaj pojazdu', vlength:'Długość pojazdu', arrive:'Data przyjazdu', depart:'Data wyjazdu', people:'Liczba osób', country:'Kraj', phone:'Numer kontaktowy', phonePh:'091 234 5678', pets:'Zwierzęta', petsCount:'Liczba zwierząt', message:'Twoja wiadomość', messagePh:'Napisz nam wszystko, co pomoże przygotować ofertę…', choose:'Wybierz opcję', submit:'Wyślij zapytanie', sending:'Wysyłanie…', error:'Wysłanie nie powiodło się. Spróbuj ponownie lub napisz do nas bezpośrednio.', gdpr:'RODO, Twoje dane są zbierane w celu odpowiedzi na to zapytanie oraz do rejestracji w systemie eVisitor. Jeśli zaakceptowano pliki cookie, wysłanie formularza jest też rejestrowane jako konwersja Google Ads, z użyciem zaszyfrowanych (zhaszowanych) danych.' },
         accOptions:['Stanowisko A, przy morzu','Stanowisko B, blisko morza','Stanowisko C, środkowe tarasy','Stanowisko D, w cieniu sosen','Jeszcze nie wiem'],
         vehicleOptions:['Namiot','Przyczepa','Kamper','Auto + namiot dachowy','Bez pojazdu'],
         lengthOptions:['do 5 m','5–6 m','6–7 m','7–8 m','powyżej 8 m'],
@@ -2306,11 +2318,19 @@ class Component extends DCLogic {
     const sanitarySlides = sanitaryMain.map((src, k) => ({ src, opacity: (k === sanIdx ? '1' : '0'), z: (k === sanIdx ? '2' : '1'), onOpen: () => this.setState({ lightbox: sanitaryMain, lightboxIdx: k }) }));
     // Rotating intro gallery (crossfade via slideTick) + mini thumbnails of the
     // same shots, all click-to-zoom — mirrors the sanitary section pattern.
-    const introMain = ['./uploads/camp8.jpg', './uploads/camp10.jpg', './uploads/camp13.jpg', './uploads/camp14.jpg'];
-    const introIdx = this.state.slideTick % introMain.length;
+    const introMain = ['./uploads/camp8.jpg', './uploads/camp10.jpg', './uploads/camp13.jpg', './uploads/camp14.jpg', './uploads/night1.jpg', './uploads/night2.jpg'];
+    // The drone clip leads the carousel. slideTick beats every 3s, so it is held
+    // for INTRO_VIDEO_TICKS beats (~its full 22s) instead of flashing past in one
+    // beat like a still does; the stills then follow, one beat each.
+    const INTRO_VIDEO_TICKS = 7;
+    const introSeq = this.state.slideTick % (INTRO_VIDEO_TICKS + introMain.length);
+    const introVideoOn = introSeq < INTRO_VIDEO_TICKS;
+    // -1 while the video holds the stage, so no still is lit.
+    const introIdx = introVideoOn ? -1 : introSeq - INTRO_VIDEO_TICKS;
     const introSlides = introMain.map((src, k) => ({ src, opacity: (k === introIdx ? '1' : '0'), z: (k === introIdx ? '2' : '1'), onOpen: () => this.setState({ lightbox: introMain, lightboxIdx: k }) }));
     const introThumbs = introMain.map((src, k) => ({ src, onOpen: () => this.setState({ lightbox: introMain, lightboxIdx: k }) }));
-    const introThumbCount = introThumbs.length;
+    const introVideoOpacity = introVideoOn ? '1' : '0';
+    const introVideoZ = introVideoOn ? '2' : '1';
     // "Look around the camp" — activity-style sections, one per camp area.
     // Each has a cycling main image (crossfade via slideTick) + thumbnails, all
     // click-to-zoom. Order matches the campTour copy: reception · toilets ·
@@ -2486,7 +2506,7 @@ class Component extends DCLogic {
         if (opening) setTimeout(() => { try { this._langMenuEl && this._langMenuEl.scrollIntoView({ behavior:'smooth', block:'nearest' }); } catch(e){} }, 40);
       },
       closeLang: () => this.setState({ langOpen: false }),
-      navItems, accommodations, facilities, facilityShots, sanitaryFeatures, sanitarySlides, introSlides, introThumbs, introThumbCount, campSections, things, contactInfo, distances, mailHref,
+      navItems, accommodations, facilities, facilityShots, sanitaryFeatures, sanitarySlides, introSlides, introThumbs, introVideoOpacity, introVideoZ, campSections, things, contactInfo, distances, mailHref,
       lightbox: this.state.lightbox,
       lightboxSrc: (this.state.lightbox && this.state.lightbox.length) ? this.state.lightbox[((this.state.lightboxIdx % this.state.lightbox.length) + this.state.lightbox.length) % this.state.lightbox.length] : null,
       lightboxMulti: !!(this.state.lightbox && this.state.lightbox.length > 1),
@@ -2504,12 +2524,13 @@ class Component extends DCLogic {
       // translating, so the counts are built here rather than in the copy.
       hasPets: this._optIndex('yesnoOptions', this.state.form.pets) === 0,
       petsCountOptions: ['1', '2', '3', '4', '5'],
+      peopleOptions: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10+'],
       submitted: this.state.submitted, notSubmitted: !this.state.submitted,
       submitLabel: this.state.sending ? (rq.f && rq.f.sending) : (rq.f && rq.f.submit),
       hasError: !!this.state.submitErr, errorMsg: rq.f && rq.f.error,
       form: f,
       onName: setF('name'), onEmail: setF('email'), onArrive: setF('arrive'),
-      onDepart: setF('depart'), onParty: setF('party'), onMessage: setF('message'), onCompany: setF('company'),
+      onDepart: setF('depart'), onPeople: setF('people'), onMessage: setF('message'), onCompany: setF('company'),
       onAccommodation: setF('accommodation'), onVehicle: setF('vehicle'), onVlength: setF('vlength'),
       onCountry: setF('country'), onPhone: setF('phone'),
       onPets: (e) => {
@@ -2540,6 +2561,7 @@ class Component extends DCLogic {
           'Duljina vozila': this._hrOption('lengthOptions', fm.vlength),
           'Dolazak': this._fmtDate(fm.arrive),
           'Odlazak': this._fmtDate(fm.depart),
+          'Broj osoba': fm.people,
           'Ljubimci': this._hrOption('yesnoOptions', fm.pets),
           // Only meaningful alongside a "Da"; onPets clears it otherwise.
           'Broj ljubimaca': fm.petsCount,
@@ -2567,7 +2589,7 @@ class Component extends DCLogic {
           })
           .catch(() => this.setState({ sending: false, submitErr: true }));
       },
-      resetForm: () => this.setState({ submitted: false, sending: false, submitErr: false, form: { name:'', email:'', accommodation:'', vehicle:'', vlength:'', arrive:'', depart:'', country:'', phone:'', pets:'', petsCount:'', message:'', company:'' } }),
+      resetForm: () => this.setState({ submitted: false, sending: false, submitErr: false, form: { name:'', email:'', accommodation:'', vehicle:'', vlength:'', arrive:'', depart:'', people:'', country:'', phone:'', pets:'', petsCount:'', message:'', company:'' } }),
       year: new Date().getFullYear()
     };
   }

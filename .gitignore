@@ -2,3 +2,12 @@ CLAUDE.md
 404.html
 # Generated at deploy from index.html (see .github/workflows/pages.yml).
 posalji-upit/
+
+# Camera/drone originals. Only the compressed derivatives beside them are
+# served (hero.jpg, night*.jpg, *-web.mp4, *-poster.jpg); drone2.mp4 alone is
+# 244 MB, over GitHub's 100 MB per-file limit, so a push carrying it fails.
+uploads/hero.jpeg
+uploads/night1.jpeg
+uploads/night2.jpeg
+uploads/videos/drone1.mp4
+uploads/videos/drone2.mp4
