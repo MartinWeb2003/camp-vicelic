@@ -292,6 +292,84 @@
         </div>
       </section>
 
+      <!-- GUEST REVIEWS (park4night + Google). Same block as the About page —
+           the DC template has no partials, so the markup is duplicated; edit
+           both together. The view-model (reviewPlatforms / reviewMarquee) and
+           the t.reviews copy are shared, so content only lives in one place. -->
+      <section style="background:#fff;padding:clamp(56px,7vw,96px) clamp(20px,5vw,40px);border-top:1px solid rgba(17,75,124,0.06);">
+        <div style="max-width:1180px;margin:0 auto;">
+          <div style="text-align:center;max-width:640px;margin:0 auto clamp(30px,4vw,44px);" data-reveal>
+            <span style="font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#5BB0DE;">{{ t.reviews.eyebrow }}</span>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(26px,3.8vw,40px);line-height:1.1;letter-spacing:-0.02em;margin:10px 0 14px;">{{ t.reviews.title }}</h2>
+            <p style="font-size:16.5px;line-height:1.65;color:#6B7280;margin:0;text-wrap:pretty;">{{ t.reviews.sub }}</p>
+          </div>
+
+          <!-- Platform score tiles. The star row and the big number are the
+               "these are five-star reviews" signal, so they lead the section. -->
+          <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin-bottom:clamp(30px,4vw,44px);" data-reveal>
+            <sc-for list="{{ reviewPlatforms }}" as="r" hint-placeholder-count="2">
+              <a href="{{ r.url }}" target="_blank" rel="noopener" style="flex:1 1 300px;max-width:400px;background:rgba(91,176,222,0.10);border:1px solid rgba(91,176,222,0.35);padding:24px 26px;display:flex;align-items:center;justify-content:space-between;gap:18px;transition:background .2s,transform .25s;" style-hover="background:rgba(91,176,222,0.18);transform:translateY(-3px);">
+                <span style="display:flex;flex-direction:column;align-items:flex-start;gap:5px;">
+                  <span style="display:flex;align-items:center;gap:9px;">
+                    <img src="{{ r.icon }}" alt="" loading="lazy" style="width:22px;height:22px;object-fit:contain;display:block;flex:0 0 auto;">
+                    <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:17px;color:#114B7C;letter-spacing:-0.01em;">{{ r.name }}</span>
+                  </span>
+                  <!-- Stars and count only where a rating has actually been
+                       filled in — an empty platform must not imply five stars. -->
+                  <sc-if value="{{ r.hasScore }}" hint-placeholder-val="{{ true }}">
+                    <span style="color:#5BB0DE;font-size:14px;letter-spacing:2.5px;">{{ r.stars }}</span>
+                    <span style="font-size:13px;color:#6B7280;">{{ r.countLabel }}</span>
+                  </sc-if>
+                  <sc-if value="{{ r.noScore }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size:13px;color:#2E7CB8;font-weight:600;">{{ t.reviews.cta }}</span>
+                  </sc-if>
+                </span>
+                <sc-if value="{{ r.hasScore }}" hint-placeholder-val="{{ true }}">
+                  <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(34px,5vw,46px);line-height:1;color:#114B7C;letter-spacing:-0.03em;">{{ r.rating }}</span>
+                </sc-if>
+                <span style="font-size:15px;color:#2E7CB8;font-weight:700;flex:0 0 auto;">↗</span>
+              </a>
+            </sc-for>
+          </div>
+
+          <!-- Verbatim guest quotes, in the language each was written in, on a
+               continuous marquee: about four cards sit in the window at a time
+               and all eight rotate through. `data-reveal` is on the window
+               rather than the cards — on a card it would never fire for the ones
+               starting outside the clip, leaving them to pop in mid-scroll. -->
+          <div data-reveal data-vc-marquee-viewport style="{{ marqueeViewport }}">
+            <!-- Hovering the track pauses it. style-hover compiles to a real
+                 :hover rule, so this costs no state and no re-render; the track
+                 spans the whole visible strip, so anywhere in the row works.
+                 The !important is load-bearing, not sloppiness: the runtime
+                 turns the style string above into a React style object, i.e. an
+                 inline style, and an inline `animation` shorthand carries its
+                 own play-state that would outrank any plain class rule. -->
+            <div data-vc-marquee style="{{ marqueeTrack }}" style-hover="animation-play-state:paused!important;">
+              <sc-for list="{{ reviewMarquee }}" as="q" hint-placeholder-count="8">
+                <div style="{{ quoteCardStyle }}" aria-hidden="{{ q.dup }}">
+                  <span style="color:#5BB0DE;font-size:14px;letter-spacing:2.5px;">{{ q.stars }}</span>
+                  <p style="font-size:14.5px;line-height:1.65;color:#3a4a52;margin:0;flex:1;text-wrap:pretty;">{{ q.text }}</p>
+                  <span style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;color:#6B7280;border-top:1px solid rgba(17,75,124,0.08);padding-top:12px;">
+                    <span style="font-weight:600;color:#114B7C;">{{ q.name }}</span>
+                    <!-- Google publishes only relative timestamps ("a month ago"),
+                         so its quotes carry no date and the card reads
+                         "name · Google" rather than inventing a precise one. -->
+                    <sc-if value="{{ q.hasDate }}" hint-placeholder-val="{{ true }}">
+                      <span>· {{ q.date }} ·</span>
+                    </sc-if>
+                    <sc-if value="{{ q.noDate }}" hint-placeholder-val="{{ false }}">
+                      <span>·</span>
+                    </sc-if>
+                    <span style="font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.04em;color:#2E7CB8;">{{ q.source }}</span>
+                  </span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- FACILITIES -->
       <section ref="{{ accRef }}" style="padding:clamp(72px,9vw,128px) clamp(20px,5vw,40px);">
         <div style="max-width:1240px;margin:0 auto;">
@@ -337,29 +415,6 @@
             <sc-for list="{{ facilityShots }}" as="s" hint-placeholder-count="8">
               <div data-reveal onClick="{{ s.onOpen }}" style="position:relative;aspect-ratio:4/3;overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);cursor:zoom-in;">
                 <img src="{{ s.src }}" alt="{{ t.sanitary.title }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;" style-hover="transform:scale(1.06);" />
-              </div>
-            </sc-for>
-          </div>
-        </div>
-      </section>
-
-      <!-- THINGS TO DO -->
-      <section style="background:#fff;padding:clamp(72px,9vw,128px) clamp(20px,5vw,40px);border-top:1px solid rgba(17,75,124,0.06);">
-        <div style="max-width:1180px;margin:0 auto;">
-          <div style="max-width:640px;margin-bottom:clamp(48px,6vw,72px);" data-reveal>
-            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.2vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0;">{{ t.things.title }}</h2>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;">
-            <sc-for list="{{ things }}" as="th" hint-placeholder-count="6">
-              <div data-reveal style="background:#fff;border:1px solid rgba(17,75,124,0.08);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);display:flex;flex-direction:column;overflow:hidden;transition:transform .25s,box-shadow .25s;" style-hover="transform:translateY(-4px);box-shadow:0 22px 50px -28px rgba(17,75,124,0.5);">
-                <div style="position:relative;height:168px;overflow:hidden;background:#e8f2f9;">
-                  <img src="{{ th.img }}" alt="{{ th.name }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
-                  <span style="position:absolute;top:14px;left:14px;width:34px;height:34px;background:#114B7C;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;">{{ th.no }}</span>
-                </div>
-                <div style="padding:24px;display:flex;flex-direction:column;flex:1;">
-                  <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:19px;color:#114B7C;line-height:1.2;letter-spacing:-0.01em;margin:0 0 10px;">{{ th.name }}</h3>
-                  <p style="font-size:14.5px;line-height:1.6;color:#6B7280;margin:0;text-wrap:pretty;">{{ th.body }}</p>
-                </div>
               </div>
             </sc-for>
           </div>
@@ -435,6 +490,81 @@
         </div>
       </section>
 
+      <!-- GUEST REVIEWS (park4night + Google) -->
+      <section style="background:#fff;padding:clamp(56px,7vw,96px) clamp(20px,5vw,40px);border-top:1px solid rgba(17,75,124,0.06);">
+        <div style="max-width:1180px;margin:0 auto;">
+          <div style="text-align:center;max-width:640px;margin:0 auto clamp(30px,4vw,44px);" data-reveal>
+            <span style="font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#5BB0DE;">{{ t.reviews.eyebrow }}</span>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(26px,3.8vw,40px);line-height:1.1;letter-spacing:-0.02em;margin:10px 0 14px;">{{ t.reviews.title }}</h2>
+            <p style="font-size:16.5px;line-height:1.65;color:#6B7280;margin:0;text-wrap:pretty;">{{ t.reviews.sub }}</p>
+          </div>
+
+          <!-- Platform score tiles. The star row and the big number are the
+               "these are five-star reviews" signal, so they lead the section. -->
+          <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin-bottom:clamp(30px,4vw,44px);" data-reveal>
+            <sc-for list="{{ reviewPlatforms }}" as="r" hint-placeholder-count="2">
+              <a href="{{ r.url }}" target="_blank" rel="noopener" style="flex:1 1 300px;max-width:400px;background:rgba(91,176,222,0.10);border:1px solid rgba(91,176,222,0.35);padding:24px 26px;display:flex;align-items:center;justify-content:space-between;gap:18px;transition:background .2s,transform .25s;" style-hover="background:rgba(91,176,222,0.18);transform:translateY(-3px);">
+                <span style="display:flex;flex-direction:column;align-items:flex-start;gap:5px;">
+                  <span style="display:flex;align-items:center;gap:9px;">
+                    <img src="{{ r.icon }}" alt="" loading="lazy" style="width:22px;height:22px;object-fit:contain;display:block;flex:0 0 auto;">
+                    <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:17px;color:#114B7C;letter-spacing:-0.01em;">{{ r.name }}</span>
+                  </span>
+                  <!-- Stars and count only where a rating has actually been
+                       filled in — an empty platform must not imply five stars. -->
+                  <sc-if value="{{ r.hasScore }}" hint-placeholder-val="{{ true }}">
+                    <span style="color:#5BB0DE;font-size:14px;letter-spacing:2.5px;">{{ r.stars }}</span>
+                    <span style="font-size:13px;color:#6B7280;">{{ r.countLabel }}</span>
+                  </sc-if>
+                  <sc-if value="{{ r.noScore }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size:13px;color:#2E7CB8;font-weight:600;">{{ t.reviews.cta }}</span>
+                  </sc-if>
+                </span>
+                <sc-if value="{{ r.hasScore }}" hint-placeholder-val="{{ true }}">
+                  <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(34px,5vw,46px);line-height:1;color:#114B7C;letter-spacing:-0.03em;">{{ r.rating }}</span>
+                </sc-if>
+                <span style="font-size:15px;color:#2E7CB8;font-weight:700;flex:0 0 auto;">↗</span>
+              </a>
+            </sc-for>
+          </div>
+
+          <!-- Verbatim guest quotes, in the language each was written in, on a
+               continuous marquee: about four cards sit in the window at a time
+               and all eight rotate through. `data-reveal` is on the window
+               rather than the cards — on a card it would never fire for the ones
+               starting outside the clip, leaving them to pop in mid-scroll. -->
+          <div data-reveal data-vc-marquee-viewport style="{{ marqueeViewport }}">
+            <!-- Hovering the track pauses it. style-hover compiles to a real
+                 :hover rule, so this costs no state and no re-render; the track
+                 spans the whole visible strip, so anywhere in the row works.
+                 The !important is load-bearing, not sloppiness: the runtime
+                 turns the style string above into a React style object, i.e. an
+                 inline style, and an inline `animation` shorthand carries its
+                 own play-state that would outrank any plain class rule. -->
+            <div data-vc-marquee style="{{ marqueeTrack }}" style-hover="animation-play-state:paused!important;">
+              <sc-for list="{{ reviewMarquee }}" as="q" hint-placeholder-count="8">
+                <div style="{{ quoteCardStyle }}" aria-hidden="{{ q.dup }}">
+                  <span style="color:#5BB0DE;font-size:14px;letter-spacing:2.5px;">{{ q.stars }}</span>
+                  <p style="font-size:14.5px;line-height:1.65;color:#3a4a52;margin:0;flex:1;text-wrap:pretty;">{{ q.text }}</p>
+                  <span style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;color:#6B7280;border-top:1px solid rgba(17,75,124,0.08);padding-top:12px;">
+                    <span style="font-weight:600;color:#114B7C;">{{ q.name }}</span>
+                    <!-- Google publishes only relative timestamps ("a month ago"),
+                         so its quotes carry no date and the card reads
+                         "name · Google" rather than inventing a precise one. -->
+                    <sc-if value="{{ q.hasDate }}" hint-placeholder-val="{{ true }}">
+                      <span>· {{ q.date }} ·</span>
+                    </sc-if>
+                    <sc-if value="{{ q.noDate }}" hint-placeholder-val="{{ false }}">
+                      <span>·</span>
+                    </sc-if>
+                    <span style="font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.04em;color:#2E7CB8;">{{ q.source }}</span>
+                  </span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- CAMP GALLERY -->
       <section style="background:#fff;padding:clamp(56px,7vw,100px) clamp(20px,5vw,40px);border-top:1px solid rgba(17,75,124,0.06);">
         <div style="max-width:1180px;margin:0 auto;">
@@ -473,25 +603,6 @@
         </div>
       </section>
 
-      <!-- REVIEWS / APARTMENTS -->
-      <section style="padding:clamp(56px,7vw,100px) clamp(20px,5vw,40px) clamp(56px,7vw,100px);border-top:1px solid rgba(17,75,124,0.06);">
-        <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:center;">
-          <div style="flex:1 1 360px;min-width:300px;" data-reveal="left">
-            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.2vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0 0 18px;">{{ t.apart.title }}</h2>
-            <p style="font-size:16.5px;line-height:1.7;color:#6B7280;margin:0 0 26px;text-wrap:pretty;">{{ t.apart.body }}</p>
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
-              <span style="color:#5BB0DE;font-size:15px;letter-spacing:3px;">★★★★★</span>
-              <span style="font-size:14px;color:#114B7C;font-weight:600;">{{ t.apart.note }}</span>
-            </div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;">
-              <a href="https://share.google/4OUGIWb0UEnocFVLh" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#2E7CB8;color:#fff;font-weight:600;font-size:14px;padding:13px 22px;border-radius:999px;transition:background .2s;" style-hover="background:#114B7C;">{{ t.apart.btn1 }} <span style="font-size:14px;">↗</span></a>
-            </div>
-          </div>
-          <div style="flex:1 1 360px;min-width:300px;height:clamp(320px,40vw,440px);overflow:hidden;background:#e8f2f9;" data-reveal="right">
-            <img src="./uploads/villa.webp" alt="Villa Lovište Paradise" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
-          </div>
-        </div>
-      </section>
 
       <section style="padding:0 clamp(20px,5vw,40px) clamp(72px,9vw,120px);">
         <div style="max-width:1240px;margin:0 auto;position:relative;border-radius:0;overflow:hidden;background:linear-gradient(135deg,#2E7CB8,#114B7C);padding:clamp(48px,7vw,84px) clamp(28px,5vw,72px);text-align:center;" data-reveal>
@@ -1030,6 +1141,15 @@
           </div>
         </div>
       </div>
+      <!-- Sottomonte link. A separate business (Pelješac real estate), so the
+           copy stays third-person; kept small and unlabelled, on its own row
+           rather than as a fourth column (which wrapped alone on ~1280px
+           laptops with the sidebar open). -->
+      <a href="{{ sottomonteUrl }}" target="_blank" rel="noopener" style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding-top:22px;color:rgba(255,255,255,0.55);transition:color .2s;" style-hover="color:rgba(255,255,255,0.9);">
+        <img src="./uploads/sottomonte-logo.png" alt="Sottomonte Real Estate" loading="lazy" style="width:82px;height:auto;object-fit:contain;display:block;flex:0 0 auto;opacity:.7;margin:-10px -8px;">
+        <span style="font-size:13px;line-height:1.6;">{{ t.footer.partnerText }}</span>
+        <span style="display:flex;align-items:center;gap:5px;font-size:13px;">sottomonte.hr <span style="font-size:11px;">↗</span></span>
+      </a>
       <div style="padding-top:28px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:13px;color:rgba(255,255,255,0.5);">
         <span>© {{ year }} Camping Lovište Paradise · Lovište, Pelješac, Hrvatska</span>
         <span>{{ t.footer.rights }}</span>
@@ -1197,15 +1317,6 @@ class Component extends DCLogic {
         intro:'Potpuno opremljen i besprijekorno održavan sanitarni čvor, osmišljen za udobnost gostiju svih uzrasta.',
         features:['WC-i i tuš kabine s toplom vodom','Obiteljske kupaonice','Vanjski tuševi','Kupaonica i svlačionica za djecu','Posebna kupaonica za osobe s invaliditetom','Frižideri s pretincima te perilica i sušilica rublja','Vanjski tuš za kućne ljubimce']
       },
-      things: {
-        eyebrow: 'Doživljaji', title: 'Dani ovdje teku polako',
-        items: [
-          { no:'01', img:'[ Plaža ]', name:'Plaža', body:'Bistro i toplo more uvale Lovište te opuštanje na plaži, na korak od vaše parcele.' },
-          { no:'02', img:'[ Restoran i gastronomija ]', name:'Restoran i gastronomija', body:'Dalmatinska jela, svježa riba i školjke iz Malostonskog zaljeva uz pelješki Plavac.' },
-          { no:'03', img:'[ Sport i vodeni sportovi ]', name:'Sport i vodeni sportovi', body:'SUP-i i kajaci u mirnoj uvali, uz mogućnost izleta brodovima i ronjenja.' },
-          { no:'04', img:'[ Staze i istraživanje ]', name:'Staze i istraživanje', body:'Biciklističke i pješačke staze kroz vinograde, sve do Orebića.' }
-        ]
-      },
       area: {
         eyebrow: 'Okolica', title: 'Savršena baza za istraživanje',
         sub: 'Pelješac je tek početak. S Lovišta su nadohvat neki od najljepših dijelova južne Dalmacije.',
@@ -1227,15 +1338,9 @@ class Component extends DCLogic {
         { name:'Kroz kamp', paras:['Terasaste parcele u hladu borova, mirni kutci i zelenilo po cijelom kampu.','Za najmlađe je tu i dječje igralište.'] },
         { name:'Put do kampa', paras:['Kamp ima 2 ulaza što znači da mu se može pristupiti s obje prometnice u mjestu.'] }
       ],
-      reviews: { eyebrow:'Dojmovi gostiju', title:'Vraćaju se iz godine u godinu',
-        items:[
-          { stars:'★★★★★', quote:'Najljepši kamp na kojem smo ikad bili. Mir, čistoća i more pred šatorom. Domaćini su nas dočekali kao obitelj.', name:'Petra K.', place:'Zagreb, HR', initial:'P' },
-          { stars:'★★★★★', quote:'Terasaste parcele znače da svi imaju pogled i privatnost. Sanitarije besprijekorne. Dolazimo i sljedeće ljeto.', name:'Markus W.', place:'München, DE', initial:'M' },
-          { stars:'★★★★★', quote:'Mali, tih i autentičan, točno ono što smo tražili daleko od velikih resorta. Plaža je san.', name:'Sophie L.', place:'Lyon, FR', initial:'S' }
-        ] },
-      apart: { eyebrow:'Novootvoreni kamp', title:'Provjerena gostoljubivost', body:'Camping Lovište Paradise otvara svoja vrata ovog ljeta, pa kamp tek prikuplja prve recenzije. No naša obitelj već godinama ugošćuje goste u Lovištu, s izvrsnim ocjenama na Googleu. Ista briga i toplina čekaju vas i u kampu.', note:'Pogledajte recenzije naše vile', btn1:'Recenzije · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
+      reviews: { eyebrow:'Recenzije', title:'Što gosti kažu', sub:'Mišljenja i zadovoljstvo naših gostiju su nam na prvom mjestu, s toga uvijek težimo pružiti najbolju uslugu.', cta:'Pročitajte recenzije', countForms:{ one:'recenzija', few:'recenzije', other:'recenzija' } },
       ctaBand: { title:'Spremni za savršeno ljeto?', sub:'Odgovaramo osobno, u najkraćem mogućem roku.', button:'Pošalji upit' },
-      footer: { tagline:'Obiteljski kamp u uvali Lovište na poluotoku Pelješcu.', explore:'Stranice', contactHeading:'Kontakt', rights:'Sva prava pridržana.' },
+      footer: { tagline:'Obiteljski kamp u uvali Lovište na poluotoku Pelješcu.', explore:'Stranice', contactHeading:'Kontakt', rights:'Sva prava pridržana.', partnerText:'Nekretnine na Pelješcu' },
       about: {
         hero: { eyebrow:'O kampu', title:'Tih kamp iznad uvale.', sub:'Terasasti kamp na rubu Lovišta, godinama oblikovan u miran kamp uz more.' },
         story: { title:'O kampu', img:'[ Terase kampa iznad mora ]', paras:[
@@ -1382,15 +1487,6 @@ class Component extends DCLogic {
         intro:'A fully equipped, impeccably maintained sanitary block designed for the comfort of guests of all ages.',
         features:['WCs and shower cabins with hot water','Family bathrooms','Outdoor showers','Bathroom and changing room for children','Dedicated bathroom for guests with disabilities','Fridges with lockable compartments, plus a washing machine and dryer','Outdoor shower for pets']
       },
-      things: {
-        eyebrow: 'Experiences', title: 'Days here move slowly',
-        items: [
-          { no:'01', img:'[ Beach ]', name:'Beach', body:'The calm, warm sea of Lovište bay and relaxing on the beach, steps from your pitch.' },
-          { no:'02', img:'[ Restaurant & food ]', name:'Restaurant & food', body:'Dalmatian dishes, fresh fish and shellfish from the Mali Ston bay with Pelješac Plavac wine.' },
-          { no:'03', img:'[ Sports & watersports ]', name:'Sports & watersports', body:'SUPs and kayaks in the calm bay, plus boat trips and scuba diving.' },
-          { no:'04', img:'[ Trails ]', name:'Trails & exploring', body:'Cycling and walking routes through vineyards, all the way to Orebić.' }
-        ]
-      },
       area: {
         eyebrow: 'The area', title: 'A perfect base to explore',
         sub: 'Pelješac is only the beginning. From Lovište, some of the most beautiful parts of southern Dalmatia are within easy reach.',
@@ -1412,15 +1508,9 @@ class Component extends DCLogic {
         { name:'Around the camp', paras:['Terraced pitches in the shade of the pines, quiet corners and greenery throughout the camp.','For the youngest there is a children’s playground.'] },
         { name:'The way in', paras:['The camp has 2 entrances, meaning it can be accessed from both roads in the village.'] }
       ],
-      reviews: { eyebrow:'Guest stories', title:'They come back, year after year',
-        items:[
-          { stars:'★★★★★', quote:'The most beautiful camp we have ever stayed at. Quiet, clean, and the sea right by the tent. The hosts welcomed us like family.', name:'Petra K.', place:'Zagreb, HR', initial:'P' },
-          { stars:'★★★★★', quote:'The terraced pitches mean everyone gets a view and privacy. Spotless facilities. We are coming back next summer.', name:'Markus W.', place:'Munich, DE', initial:'M' },
-          { stars:'★★★★★', quote:'Small, quiet and authentic, exactly what we wanted away from the big resorts. The beach is a dream.', name:'Sophie L.', place:'Lyon, FR', initial:'S' }
-        ] },
-      apart: { eyebrow:'Newly opening', title:'Verified hospitality', body:'Camping Lovište Paradise opens its doors this summer, so the camp is only gathering its first reviews. But our family has hosted guests in our apartments in Lovište for years, with excellent ratings on Google. The same care and warmth await you at the camp.', note:'See the reviews for our villa', btn1:'Reviews · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
+      reviews: { eyebrow:'Reviews', title:'What guests say', sub:'The opinions and satisfaction of our guests come first, which is why we always strive to provide the best service.', cta:'Read the reviews', countForms:{ one:'review', other:'reviews' } },
       ctaBand: { title:'Ready for a perfect summer?', sub:'We reply personally, as soon as possible.', button:'Inquire' },
-      footer: { tagline:'A family camp in the bay of Lovište on the Pelješac peninsula.', explore:'Pages', contactHeading:'Contact', rights:'All rights reserved.' },
+      footer: { tagline:'A family camp in the bay of Lovište on the Pelješac peninsula.', explore:'Pages', contactHeading:'Contact', rights:'All rights reserved.', partnerText:'Property on Pelješac' },
       about: {
         hero: { eyebrow:'About the camp', title:'A quiet camp above the bay.', sub:'A terraced pine grove on the edge of Lovište, shaped over the years into a calm seaside camp.' },
         story: { title:'About the camp', img:'[ Camp terraces above the sea ]', paras:[
@@ -1538,11 +1628,6 @@ class Component extends DCLogic {
         { name:'Supermarkt in der Nähe', desc:'Ein gut sortierter Supermarkt ist nur wenige Schritte entfernt in Lovište.' },
         { name:'Haustiere willkommen', desc:'Ihr Hund gehört zur Familie, mit einer Außendusche für Haustiere.' } ] },
       sanitary: { eyebrow:'Sanitär', title:'Moderner Sanitärbereich', intro:'Ein voll ausgestatteter, tadellos gepflegter Sanitärbereich, konzipiert für den Komfort von Gästen jeden Alters.', features:['WCs und Duschkabinen mit Warmwasser','Familienbäder','Außenduschen','Bad und Umkleide für Kinder','Eigenes Bad für Gäste mit Behinderung','Kühlschränke mit abschließbaren Fächern sowie Waschmaschine und Trockner','Außendusche für Haustiere'] },
-      things: { eyebrow:'Erlebnisse', title:'Die Tage vergehen hier langsam', items: [
-        { no:'01', img:'[ Strand ]', name:'Strand', body:'Das ruhige, warme Meer der Bucht von Lovište und Entspannung am Strand, direkt am Platz.' },
-        { no:'02', img:'[ Restaurant & Küche ]', name:'Restaurant & Küche', body:'Dalmatinische Gerichte, frischer Fisch und Meeresfrüchte aus der Bucht von Mali Ston mit Plavac-Wein.' },
-        { no:'03', img:'[ Sport & Wassersport ]', name:'Sport & Wassersport', body:'SUPs und Kajaks in der ruhigen Bucht, dazu Bootsausflüge und Scuba-Diving.' },
-        { no:'04', img:'[ Wege ]', name:'Wege & Erkundung', body:'Rad- und Wanderwege durch Weinberge, bis nach Orebić.' } ] },
       area: { eyebrow:'Die Umgebung', title:'Eine perfekte Basis zum Entdecken', sub:'Pelješac ist nur der Anfang. Von Lovište aus sind einige der schönsten Teile Süddalmatiens leicht erreichbar.', mapLabel:'[ Interaktive Karte, Leaflet ]', distances: [
         { place:'Dorf Lovište', time:'Sie sind hier' },
         { place:'Orebić', time:'19 km · ≈ 20 Min. Fahrt' },
@@ -1557,9 +1642,9 @@ class Component extends DCLogic {
         { name:'Rund ums Camp', paras:['Terrassierte Stellplätze im Schatten der Pinien, ruhige Ecken und Grün im ganzen Camp.','Für die Kleinsten gibt es einen Kinderspielplatz.'] },
         { name:'Der Weg zum Camp', paras:['Das Camp hat 2 Eingänge, das heißt, es ist von beiden Straßen im Ort erreichbar.'] }
       ],
-      apart: { eyebrow:'Neu eröffnet', title:'Geprüfte Gastfreundschaft', body:'Camping Lovište Paradise öffnet diesen Sommer seine Tore, der Platz sammelt also gerade erst seine ersten Bewertungen. Doch unsere Familie beherbergt seit Jahren Gäste in unseren Apartments in Lovište, mit ausgezeichneten Bewertungen bei Google. Dieselbe Fürsorge und Wärme erwarten Sie auch auf dem Platz.', note:'Sehen Sie die Bewertungen unserer Villa', btn1:'Bewertungen · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
+      reviews: { eyebrow:'Bewertungen', title:'Was Gäste sagen', sub:'Die Meinung und die Zufriedenheit unserer Gäste stehen für uns an erster Stelle, deshalb bemühen wir uns stets um den besten Service.', cta:'Bewertungen lesen', countForms:{ one:'Bewertung', other:'Bewertungen' } },
       ctaBand: { title:'Bereit für einen perfekten Sommer?', sub:'Wir antworten persönlich, so schnell wie möglich.', button:'Anfragen' },
-      footer: { tagline:'Ein Familiencampingplatz in der Bucht von Lovište auf der Halbinsel Pelješac.', explore:'Seiten', contactHeading:'Kontakt', rights:'Alle Rechte vorbehalten.' },
+      footer: { tagline:'Ein Familiencampingplatz in der Bucht von Lovište auf der Halbinsel Pelješac.', explore:'Seiten', contactHeading:'Kontakt', rights:'Alle Rechte vorbehalten.', partnerText:'Immobilien auf Pelješac' },
       about: {
         hero: { eyebrow:'Über das Camp', title:'Ein ruhiges Camp über der Bucht.', sub:'Ein terrassierter Pinienhain am Rand von Lovište, über die Jahre zu einem ruhigen Camp am Meer geformt.' },
         story: { title:'Über das Camp', img:'[ Camp-Terrassen über dem Meer ]', paras:[
@@ -1661,11 +1746,6 @@ class Component extends DCLogic {
         { name:'Supermarket v bližini', desc:'Dobro založen supermarket je le nekaj korakov stran v Lovištu.' },
         { name:'Hišni ljubljenčki dobrodošli', desc:'Vaš pes je del družine, z zunanjim tušem za ljubljenčke.' } ] },
       sanitary: { eyebrow:'Sanitarije', title:'Sodoben sanitarni prostor', intro:'Popolnoma opremljen in brezhibno vzdrževan sanitarni prostor, zasnovan za udobje gostov vseh starosti.', features:['WC-ji in tuš kabine s toplo vodo','Družinske kopalnice','Zunanji tuši','Kopalnica in preoblačilnica za otroke','Posebna kopalnica za osebe z invalidnostjo','Hladilniki s predali ter pralni in sušilni stroj','Zunanji tuš za hišne ljubljenčke'] },
-      things: { eyebrow:'Doživetja', title:'Dnevi tukaj minevajo počasi', items: [
-        { no:'01', img:'[ Plaža ]', name:'Plaža', body:'Mirno in toplo morje zaliva Lovište ter sprostitev na plaži, le korak od parcele.' },
-        { no:'02', img:'[ Restavracija & kulinarika ]', name:'Restavracija in kulinarika', body:'Dalmatinske jedi, sveže ribe in školjke iz Malostonskega zaliva ob vinu Plavac.' },
-        { no:'03', img:'[ Šport & vodni športi ]', name:'Šport in vodni športi', body:'SUP-i in kajaki v mirnem zalivu, poleg tega izleti z ladjami in potapljanje.' },
-        { no:'04', img:'[ Poti ]', name:'Poti in raziskovanje', body:'Kolesarske in pohodne poti skozi vinograde, vse do Orebića.' } ] },
       area: { eyebrow:'Okolica', title:'Odlična baza za raziskovanje', sub:'Pelješac je šele začetek. Iz Lovišta so na dosegu nekateri najlepši deli južne Dalmacije.', mapLabel:'[ Interaktivni zemljevid, Leaflet ]', distances: [
         { place:'Vas Lovište', time:'tu ste' },
         { place:'Orebić', time:'19 km · ≈ 20 min vožnje' },
@@ -1680,9 +1760,9 @@ class Component extends DCLogic {
         { name:'Po kampu', paras:['Terasaste parcele v senci borov, mirni kotički in zelenje po vsem kampu.','Za najmlajše je tu tudi otroško igrišče.'] },
         { name:'Pot do kampa', paras:['Kamp ima 2 vhoda, kar pomeni, da je dostopen z obeh cest v kraju.'] }
       ],
-      apart: { eyebrow:'Na novo odprto', title:'Preverjena gostoljubnost', body:'Camping Lovište Paradise letos poleti odpira svoja vrata, zato kamp šele zbira prve ocene. A naša družina že leta gosti obiskovalce v svojih apartmajih v Lovištu, z odličnimi ocenami na Googlu. Enaka skrb in toplina vas čakata tudi v kampu.', note:'Oglejte si ocene naše vile', btn1:'Ocene · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
+      reviews: { eyebrow:'Ocene', title:'Kaj pravijo gostje', sub:'Mnenje in zadovoljstvo naših gostov sta na prvem mestu, zato si vedno prizadevamo nuditi najboljšo storitev.', cta:'Preberite ocene', countForms:{ one:'ocena', two:'oceni', few:'ocene', other:'ocen' } },
       ctaBand: { title:'Pripravljeni na popolno poletje?', sub:'Odgovorimo osebno, v najkrajšem možnem času.', button:'Povpraševanje' },
-      footer: { tagline:'Družinski kamp v zalivu Lovište na polotoku Pelješac.', explore:'Strani', contactHeading:'Kontakt', rights:'Vse pravice pridržane.' },
+      footer: { tagline:'Družinski kamp v zalivu Lovište na polotoku Pelješac.', explore:'Strani', contactHeading:'Kontakt', rights:'Vse pravice pridržane.', partnerText:'Nepremičnine na Pelješcu' },
       about: {
         hero: { eyebrow:'O kampu', title:'Miren kamp nad zalivom.', sub:'Terasast borov gaj na robu Lovišta, skozi leta oblikovan v miren kamp ob morju.' },
         story: { title:'O kampu', img:'[ Terase kampa nad morjem ]', paras:[
@@ -1784,11 +1864,6 @@ class Component extends DCLogic {
         { name:'Supermarket w pobliżu', desc:'Dobrze zaopatrzony supermarket jest kilka kroków dalej w Lovište.' },
         { name:'Zwierzęta mile widziane', desc:'Twój pies jest częścią rodziny, z prysznicem zewnętrznym dla pupili.' } ] },
       sanitary: { eyebrow:'Sanitariaty', title:'Nowoczesny węzeł sanitarny', intro:'W pełni wyposażony i nienagannie utrzymany węzeł sanitarny, zaprojektowany z myślą o komforcie gości w każdym wieku.', features:['WC i kabiny prysznicowe z ciepłą wodą','Łazienki rodzinne','Prysznice zewnętrzne','Łazienka i przewijalnia dla dzieci','Osobna łazienka dla osób z niepełnosprawnością','Lodówki z szufladami oraz pralka i suszarka','Prysznic zewnętrzny dla zwierząt'] },
-      things: { eyebrow:'Doświadczenia', title:'Dni płyną tu powoli', items: [
-        { no:'01', img:'[ Plaża ]', name:'Plaża', body:'Spokojne i ciepłe morze zatoki Lovište oraz relaks na plaży, o krok od stanowiska.' },
-        { no:'02', img:'[ Restauracja i kuchnia ]', name:'Restauracja i kuchnia', body:'Potrawy dalmatyńskie, świeże ryby i małże z Zatoki Malostońskiej przy winie Plavac.' },
-        { no:'03', img:'[ Sport i sporty wodne ]', name:'Sport i sporty wodne', body:'Deski SUP i kajaki w spokojnej zatoce, a do tego wycieczki statkiem i nurkowanie.' },
-        { no:'04', img:'[ Szlaki ]', name:'Szlaki i zwiedzanie', body:'Trasy rowerowe i piesze przez winnice, aż do Orebicia.' } ] },
       area: { eyebrow:'Okolica', title:'Doskonała baza do zwiedzania', sub:'Pelješac to dopiero początek. Z Lovište w zasięgu ręki są jedne z najpiękniejszych zakątków południowej Dalmacji.', mapLabel:'[ Interaktywna mapa, Leaflet ]', distances: [
         { place:'Wieś Lovište', time:'jesteś tutaj' },
         { place:'Orebić', time:'19 km · ≈ 20 min jazdy' },
@@ -1803,9 +1878,9 @@ class Component extends DCLogic {
         { name:'Po kempingu', paras:['Tarasowe stanowiska w cieniu sosen, spokojne zakątki i zieleń w całym kempingu.','Dla najmłodszych jest tu również plac zabaw.'] },
         { name:'Dojazd do kempingu', paras:['Kemping ma 2 wejścia, co oznacza, że jest dostępny z obu dróg w miejscowości.'] }
       ],
-      apart: { eyebrow:'Nowo otwarte', title:'Sprawdzona gościnność', body:'Camping Lovište Paradise otwiera swoje bramy tego lata, dlatego kemping dopiero zbiera pierwsze opinie. Ale nasza rodzina od lat gości odwiedzających w swoich apartamentach w Lovište, ze znakomitymi ocenami na Google. Ta sama troska i ciepło czekają na Ciebie także na kempingu.', note:'Zobacz opinie o naszej willi', btn1:'Opinie · Villa Lovište Paradise', img:'[ Villa Lovište Paradise ]' },
+      reviews: { eyebrow:'Opinie', title:'Co mówią goście', sub:'Opinie i zadowolenie naszych gości są dla nas najważniejsze, dlatego zawsze staramy się zapewnić najlepszą obsługę.', cta:'Przeczytaj opinie', countForms:{ one:'opinia', few:'opinie', other:'opinii' } },
       ctaBand: { title:'Gotowi na idealne lato?', sub:'Odpowiemy osobiście, w możliwie najkrótszym czasie.', button:'Zapytanie' },
-      footer: { tagline:'Rodzinny kemping w zatoce Lovište na półwyspie Pelješac.', explore:'Strony', contactHeading:'Kontakt', rights:'Wszelkie prawa zastrzeżone.' },
+      footer: { tagline:'Rodzinny kemping w zatoce Lovište na półwyspie Pelješac.', explore:'Strony', contactHeading:'Kontakt', rights:'Wszelkie prawa zastrzeżone.', partnerText:'Nieruchomości na Pelješacu' },
       about: {
         hero: { eyebrow:'O kempingu', title:'Spokojny kemping nad zatoką.', sub:'Tarasowy sosnowy gaj na skraju Lovište, przez lata ukształtowany w spokojny kemping przy morzu.' },
         story: { title:'O kempingu', img:'[ Tarasy kempingu nad morzem ]', paras:[
@@ -2124,6 +2199,19 @@ class Component extends DCLogic {
     return name ? numeric + ' (' + Number(m[3]) + '. ' + name + ' ' + m[1] + '.)' : numeric;
   }
 
+  // "11 recenzija", "2 recenzije", "1 review". The counts are fetched at deploy
+  // time now, so they can land on any number and the three Slavic locales each
+  // need more than one plural form — hardcoding "recenzija" would print
+  // "2 recenzija". Intl.PluralRules picks the CLDR category for the active
+  // language; a locale only spells out the forms it actually distinguishes, so
+  // anything it leaves out falls back to `other`.
+  _countLabel(n) {
+    const forms = (this.copy[this.state.locale] || this.copy.en).reviews.countForms;
+    let cat = 'other';
+    try { cat = new Intl.PluralRules(this.state.locale).select(n); } catch (e) {}
+    return n + ' ' + (forms[cat] || forms.other);
+  }
+
   // Where a chosen <select> label sits in its option list, or -1. Every locale
   // lists these options in the same order, so the index is the language-neutral
   // identity of the choice. All locales are searched rather than just the active
@@ -2348,11 +2436,107 @@ class Component extends DCLogic {
     });
     const distIcons = ['house','navigation','sailboat','tree','landmark','building'];
     const distances = t.area.distances.map((d, i) => ({ ...d, iconEl: this.icon(distIcons[i % distIcons.length], 20) }));
-    const thingsMedia = ['./uploads/loviste-5.webp','./uploads/restaurant1.jpg','./uploads/kayak.jpg','./uploads/biking.webp'];
-    const things = t.things.items.map((it, i) => ({ ...it, img: thingsMedia[i] || it.img }));
+    // ── Guest reviews (About page) ────────────────────────────────────────
+    // The two platforms are maintained differently, on purpose.
+    //
+    // **park4night** refreshes itself at deploy time:
+    // .github/scripts/update-reviews.mjs rewrites the string literal sitting in
+    // front of each /*P4N_*​/ marker below. Those markers are load-bearing — the
+    // script anchors on them and fails the deploy if one goes missing, so
+    // renaming a field or dropping a comment means editing the script too. The
+    // committed values are the fallback it keeps when the lookup fails, so they
+    // must be numbers someone actually checked. Currently 5/5 from 11 reviews
+    // (checked 3 Sep 2026). Nothing is fetched in the browser, so no request
+    // fires before the visitor has answered the consent banner.
+    //
+    // **Google is typed in by hand.** The cid is the camp's Maps listing, taken
+    // from the map embed already used on the home and contact pages. There is
+    // no free automatic route: the place data is not in the Maps page HTML
+    // (it renders client-side), the Places API needs a billing account, and the
+    // Business Profile API needs gated OAuth — all of that to track a figure
+    // that moves a few times a season. So: open the listing, read the score and
+    // the review count off it, and update the two literals plus the date below.
+    //
+    // Leave them empty rather than guessing. With no rating the tile drops to
+    // the plain "read the reviews" link, which is the correct thing to show
+    // when nobody has checked — five stars must never be implied.
+    //
+    // Google last checked: 3 Sep 2026 — 5.0 from 36 reviews.
+    //
+    // Everything here is deliberately outside `copy`: the scores are numbers
+    // and the quotes stay in the language their author wrote them in, so none
+    // of it is translated.
+    const reviewSources = [
+      { name:'park4night', icon:'./uploads/park4night-mark.svg', url:'https://park4night.com/en/place/694419',
+        rating:'5,0'/*P4N_RATING*/, count:'11'/*P4N_COUNT*/ },
+      { name:'Google',     icon:'./uploads/google-g.svg',        url:'https://www.google.com/maps?cid=9954285529449248724',
+        rating:'5,0', count:'36' }
+    ];
+    const reviewPlatforms = reviewSources.filter((r) => !!r.url).map((r) => {
+      // Stars are drawn from the score rather than hardcoded: the ratings move
+      // on their own now, and a fetched 4,6 must not render as five full ones.
+      // Rounded to the nearest whole star — the exact number sits beside it in
+      // 46px type, so the row is a glance cue, not the precise value.
+      const full = Math.max(0, Math.min(5, Math.round(Number(String(r.rating).replace(',', '.'))) || 0));
+      return {
+        name: r.name, url: r.url, icon: r.icon,
+        hasScore: !!r.rating,
+        noScore: !r.rating,
+        rating: r.rating,
+        stars: '★'.repeat(full) + '☆'.repeat(5 - full),
+        countLabel: Number(r.count) > 0 ? this._countLabel(Number(r.count)) : ''
+      };
+    });
+    // Guest quotes copied exactly as they appear on the listing, spelling and
+    // punctuation included ("A Caming előtt" below is the author's typo, kept),
+    // and left in the language each was written in — a Croatian visitor reading a
+    // German review is part of what makes it read as real. Never paste a
+    // "Translated by Google" rendering: those are not the author's words. The
+    // only edit allowed is cutting a long one, and then the trailing … has to
+    // stay — and cut for length only, never to drop a criticism.
+    //
+    // `date` is optional. park4night prints an exact date so its quotes carry
+    // one; Google shows only "a month ago", so its quotes leave it empty and the
+    // card renders "name · Google" instead of a made-up date. Sources are
+    // interleaved so both platforms show up in the first row of the grid.
+    const reviewQuotes = [
+      { text:'We spent two nights at this beautiful campsite, and I can truly say we left absolutely thrilled. We were pleasantly surprised by the price…', name:'dom0603', date:'13/08/2026', source:'park4night' },
+      { text:'We had an amazing one week stay here. The campsite is nicely terraced, so you get a gorgeous view from almost every spot. The staff is incredibly friendly and welcoming. Top notch cleanliness of the facilities. We will definitely come back!', name:'ALENKA BAJC', date:'', source:'Google' },
+      { text:'Ausgezeichneter Campingplatz in bester Meerlage. Alles sehr sauber und gepflegt. Wasser und Strom am Standort. Kartenzahlung möglich. Klare Empfehlung.', name:'UweBohn', date:'24/08/2026', source:'park4night' },
+      { text:'Amazing Camping Paradise in Lovište is a true hidden gem on the Pelješac Peninsula. This brand-new campsite offers a peaceful setting surrounded by crystal-clear sea and beautiful Mediterranean nature. It is exceptionally clean, modern, and features a special bathroom designed for kids…', name:'Agnieszka Sadyk', date:'', source:'Google' },
+      { text:'Un camping de nota 10! Recomand ! Toate facilitatile iar zona de dusuri si spalat vase este extrem de ingrijit ! Nu am ce sa reprosez! Totul este perfect!', name:'adrianserban', date:'26/08/2026', source:'park4night' },
+      { text:'Ein wunderschöner Campingplatz. Platz direkt am Meer. Sanitäranlagen sehr sauber (wenn es ginge würde ich mehr Sterne vergeben).', name:'Angelika Hornung', date:'', source:'Google' },
+      { text:'odlicen pogled na morje,sanitarji novi,prijazni lastniki, zelo zadovoljni', name:'tadejzavrsek91', date:'29/07/2026', source:'park4night' },
+      { text:'Nagyon jól éreztük magunkat! Gyönyörű a hely. Nagyon szép tiszta és tágas a zuhanyzó, mosdó, van mosógép és szárító, vízvételi lehetőség is. Kutyabarát a hely. A Caming előtt közvetlenül van a strand! Sajnos szürkevíz leeresztésére nem volt lehetőség.', name:'Dóra Debreczeni', date:'', source:'Google' }
+    ].map((q) => ({ ...q, stars:'★★★★★', hasDate: !!q.date, noDate: !q.date }));
+    // The marquee scrolls the whole list past a window about four cards wide,
+    // so every quote gets seen without the section growing to two rows. It runs
+    // on one CSS animation over a track holding the list **twice**: at -50% the
+    // second copy sits exactly where the first began, so the loop never seams.
+    // The duplicate is decorative — `dup` marks it so the markup can hide it
+    // from screen readers, which would otherwise hear all eight reviews twice.
+    const reviewMarquee = [
+      ...reviewQuotes.map((q) => ({ ...q, dup:false })),
+      ...reviewQuotes.map((q) => ({ ...q, dup:true }))
+    ];
+    // Card width is fixed rather than fluid: a marquee track is `max-content`,
+    // so a percentage width would resolve against the track itself. 277+18 = 295
+    // × 4 = 1180, the section's max-width, which is what puts four on screen at
+    // full size. Narrower viewports simply show fewer — no breakpoint needed.
+    const quoteCardStyle = 'flex:0 0 auto;width:277px;margin-right:18px;background:#fff;border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);padding:24px 22px;display:flex;flex-direction:column;gap:12px;';
+    // reduceMotion is the DC prop; the OS-level prefers-reduced-motion setting
+    // is handled by the matching rules in styles.css. Both end up in the same
+    // place: no animation, and a strip you can scroll by hand instead.
+    const rm = !!this.props.reduceMotion;
+    const marqueeViewport = 'overflow:hidden;padding:4px 0 18px;' + (rm ? 'overflow-x:auto;' : '');
+    const marqueeTrack = 'display:flex;align-items:stretch;width:max-content;'
+      + (rm ? '' : 'animation:vcMarquee 72s linear infinite;will-change:transform;');
 
     const mapPinEl = this.icon('pin', 30);
     const eventsUrl = 'https://visitorebic-croatia.hr';
+    // Partner link in the footer. Separate business (Pelješac real estate),
+    // linked as a partner — the copy stays third-person for that reason.
+    const sottomonteUrl = 'https://www.sottomonte.hr';
     const sbOpen = this.state.sidebarOpen;
     const shellShift = (!this.state.isMobile ? ('margin-left:' + (sbOpen ? '272px' : '0') + ';transition:margin-left .3s ease;') : '') + 'min-height:100vh;display:flex;flex-direction:column;';
     const asideShift = sbOpen ? 'transform:translateX(0);' : 'transform:translateX(-100%);';
@@ -2492,7 +2676,7 @@ class Component extends DCLogic {
         if (opening) setTimeout(() => { try { this._langMenuEl && this._langMenuEl.scrollIntoView({ behavior:'smooth', block:'nearest' }); } catch(e){} }, 40);
       },
       closeLang: () => this.setState({ langOpen: false }),
-      navItems, accommodations, facilities, facilityShots, sanitaryFeatures, sanitarySlides, introThumbs, campSections, things, contactInfo, distances, mailHref,
+      navItems, accommodations, facilities, facilityShots, sanitaryFeatures, sanitarySlides, introThumbs, campSections, reviewPlatforms, reviewMarquee, quoteCardStyle, marqueeViewport, marqueeTrack, contactInfo, distances, mailHref,
       lightbox: this.state.lightbox,
       lightboxSrc: (this.state.lightbox && this.state.lightbox.length) ? this.state.lightbox[((this.state.lightboxIdx % this.state.lightbox.length) + this.state.lightbox.length) % this.state.lightbox.length] : null,
       lightboxMulti: !!(this.state.lightbox && this.state.lightbox.length > 1),
@@ -2500,7 +2684,7 @@ class Component extends DCLogic {
       lightboxImgClick: (e) => { if (e && e.stopPropagation) e.stopPropagation(); const L = this.state.lightbox; if (L && L.length > 1) { this.setState({ lightboxIdx: (this.state.lightboxIdx + 1) % L.length }); } else { this.setState({ lightbox: null, lightboxIdx: 0 }); } },
       lightboxPrev: (e) => { if (e && e.stopPropagation) e.stopPropagation(); const L = this.state.lightbox; if (!L || !L.length) return; this.setState({ lightboxIdx: (((this.state.lightboxIdx - 1) % L.length) + L.length) % L.length }); },
       lightboxNext: (e) => { if (e && e.stopPropagation) e.stopPropagation(); const L = this.state.lightbox; if (!L || !L.length) return; this.setState({ lightboxIdx: (this.state.lightboxIdx + 1) % L.length }); },
-      mainTable, taxTable, includedOptions, mapPinEl, eventsUrl, shellShift,
+      mainTable, taxTable, includedOptions, mapPinEl, eventsUrl, sottomonteUrl, shellShift,
       accTiers, sharedFacilities, activitiesItems,
       heroVideo, heroHasVideo: !!heroVideo, heroNoVideo: !heroVideo,
       panoramaVideo, panoramaHasVideo: !!panoramaVideo, panoramaNoVideo: !panoramaVideo,

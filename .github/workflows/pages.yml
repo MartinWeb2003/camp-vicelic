@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Re-deploys once a day so the review scores on the home and About pages pick
+  # up new reviews without anyone pushing. Nothing else about the site changes
+  # between scheduled runs. Note GitHub disables cron on repos with no activity
+  # for 60 days — if the numbers go stale, check that first.
+  schedule:
+    - cron: '17 4 * * *'
 
 permissions:
   contents: read
@@ -23,6 +29,20 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+
+      # Refreshes the park4night review score in index.html before the copies
+      # below are generated, so all three pages carry the same numbers.
+      # Deploy-time only, never committed — same rule as the beacon and the 404
+      # page, so nothing in the repo can drift out of sync.
+      #
+      # No credentials: park4night's place page is public. The Google numbers
+      # beside it are hand-maintained literals, not fetched — the only APIs that
+      # serve them either need a billing account or gated OAuth, which is not
+      # worth it for a figure that moves a few times a season. A failed lookup
+      # warns and keeps the committed numbers, so this step never blocks a
+      # deploy.
+      - name: Refresh review scores
+        run: node .github/scripts/update-reviews.mjs
 
       # The beacon token is public once the page ships, so it lives in a repo
       # *variable* (Settings → Secrets and variables → Actions → Variables), not
