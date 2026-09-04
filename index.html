@@ -292,6 +292,57 @@
         </div>
       </section>
 
+      <!-- MODERN SANITARY BLOCK -->
+      <section style="background:#fff;padding:clamp(72px,9vw,128px) clamp(20px,5vw,40px);border-top:1px solid rgba(17,75,124,0.06);">
+        <div style="max-width:1180px;margin:0 auto;">
+          <div style="display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:center;">
+            <div style="flex:1 1 380px;min-width:300px;" data-reveal="left">
+              <span style="font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#5BB0DE;">{{ t.sanitary.eyebrow }}</span>
+              <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4vw,42px);line-height:1.1;letter-spacing:-0.02em;margin:10px 0 16px;">{{ t.sanitary.title }}</h2>
+              <p style="font-size:16.5px;line-height:1.65;color:#6B7280;margin:0 0 26px;text-wrap:pretty;">{{ t.sanitary.intro }}</p>
+              <div style="display:flex;flex-direction:column;gap:13px;">
+                <sc-for list="{{ sanitaryFeatures }}" as="f" hint-placeholder-count="6">
+                  <div style="display:flex;align-items:flex-start;gap:12px;">
+                    <span style="flex:0 0 auto;width:26px;height:26px;border-radius:8px;background:rgba(91,176,222,0.16);color:#2E7CB8;display:flex;align-items:center;justify-content:center;">{{ f.iconEl }}</span>
+                    <span style="font-size:15px;line-height:1.5;color:#3a4a52;">{{ f.text }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="flex:1 1 420px;min-width:300px;height:clamp(320px,42vw,480px);position:relative;overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);" data-reveal="right">
+              <sc-for list="{{ sanitarySlides }}" as="s" hint-placeholder-count="1">
+                <img src="{{ s.src }}" onClick="{{ s.onOpen }}" alt="{{ t.sanitary.title }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:{{ s.opacity }};z-index:{{ s.z }};transition:opacity .9s ease;cursor:zoom-in;" />
+              </sc-for>
+            </div>
+          </div>
+          <div style="margin-top:clamp(34px,4vw,54px);display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;">
+            <sc-for list="{{ facilityShots }}" as="s" hint-placeholder-count="8">
+              <div data-reveal onClick="{{ s.onOpen }}" style="position:relative;aspect-ratio:4/3;overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);cursor:zoom-in;">
+                <img src="{{ s.src }}" alt="{{ t.sanitary.title }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;" style-hover="transform:scale(1.06);" />
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- FACILITIES -->
+      <section ref="{{ accRef }}" style="padding:clamp(72px,9vw,128px) clamp(20px,5vw,40px);">
+        <div style="max-width:1240px;margin:0 auto;">
+          <div style="text-align:center;max-width:640px;margin:0 auto clamp(40px,5vw,60px);" data-reveal>
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.2vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0;">{{ t.fac.title }}</h2>
+          </div>
+          <div style="max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;">
+            <sc-for list="{{ facilities }}" as="f" hint-placeholder-count="6">
+              <div data-reveal style="background:#fff;border:1px solid rgba(17,75,124,0.08);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;padding:26px 24px;display:flex;flex-direction:column;gap:12px;transition:border-color .2s,transform .25s;" style-hover="border-color:#5BB0DE;transform:translateY(-3px);">
+                <span style="width:46px;height:46px;border-radius:13px;background:rgba(91,176,222,0.14);color:#2E7CB8;display:flex;align-items:center;justify-content:center;">{{ f.iconEl }}</span>
+                <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:17px;color:#114B7C;margin:4px 0 0;">{{ f.name }}</h3>
+                <p style="font-size:13.5px;line-height:1.55;color:#6B7280;margin:0;">{{ f.desc }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
       <!-- GUEST REVIEWS (park4night + Google). Same block as the About page —
            the DC template has no partials, so the markup is duplicated; edit
            both together. The view-model (reviewPlatforms / reviewMarquee) and
@@ -366,57 +417,6 @@
                 </div>
               </sc-for>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- FACILITIES -->
-      <section ref="{{ accRef }}" style="padding:clamp(72px,9vw,128px) clamp(20px,5vw,40px);">
-        <div style="max-width:1240px;margin:0 auto;">
-          <div style="text-align:center;max-width:640px;margin:0 auto clamp(40px,5vw,60px);" data-reveal>
-            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4.2vw,44px);line-height:1.1;letter-spacing:-0.02em;margin:0;">{{ t.fac.title }}</h2>
-          </div>
-          <div style="max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;">
-            <sc-for list="{{ facilities }}" as="f" hint-placeholder-count="6">
-              <div data-reveal style="background:#fff;border:1px solid rgba(17,75,124,0.08);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;padding:26px 24px;display:flex;flex-direction:column;gap:12px;transition:border-color .2s,transform .25s;" style-hover="border-color:#5BB0DE;transform:translateY(-3px);">
-                <span style="width:46px;height:46px;border-radius:13px;background:rgba(91,176,222,0.14);color:#2E7CB8;display:flex;align-items:center;justify-content:center;">{{ f.iconEl }}</span>
-                <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:17px;color:#114B7C;margin:4px 0 0;">{{ f.name }}</h3>
-                <p style="font-size:13.5px;line-height:1.55;color:#6B7280;margin:0;">{{ f.desc }}</p>
-              </div>
-            </sc-for>
-          </div>
-        </div>
-      </section>
-
-      <!-- MODERN SANITARY BLOCK -->
-      <section style="background:#fff;padding:clamp(72px,9vw,128px) clamp(20px,5vw,40px);border-top:1px solid rgba(17,75,124,0.06);">
-        <div style="max-width:1180px;margin:0 auto;">
-          <div style="display:flex;flex-wrap:wrap;gap:clamp(32px,5vw,64px);align-items:center;">
-            <div style="flex:1 1 380px;min-width:300px;" data-reveal="left">
-              <span style="font-family:'Roboto Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#5BB0DE;">{{ t.sanitary.eyebrow }}</span>
-              <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(28px,4vw,42px);line-height:1.1;letter-spacing:-0.02em;margin:10px 0 16px;">{{ t.sanitary.title }}</h2>
-              <p style="font-size:16.5px;line-height:1.65;color:#6B7280;margin:0 0 26px;text-wrap:pretty;">{{ t.sanitary.intro }}</p>
-              <div style="display:flex;flex-direction:column;gap:13px;">
-                <sc-for list="{{ sanitaryFeatures }}" as="f" hint-placeholder-count="6">
-                  <div style="display:flex;align-items:flex-start;gap:12px;">
-                    <span style="flex:0 0 auto;width:26px;height:26px;border-radius:8px;background:rgba(91,176,222,0.16);color:#2E7CB8;display:flex;align-items:center;justify-content:center;">{{ f.iconEl }}</span>
-                    <span style="font-size:15px;line-height:1.5;color:#3a4a52;">{{ f.text }}</span>
-                  </div>
-                </sc-for>
-              </div>
-            </div>
-            <div style="flex:1 1 420px;min-width:300px;height:clamp(320px,42vw,480px);position:relative;overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);" data-reveal="right">
-              <sc-for list="{{ sanitarySlides }}" as="s" hint-placeholder-count="1">
-                <img src="{{ s.src }}" onClick="{{ s.onOpen }}" alt="{{ t.sanitary.title }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:{{ s.opacity }};z-index:{{ s.z }};transition:opacity .9s ease;cursor:zoom-in;" />
-              </sc-for>
-            </div>
-          </div>
-          <div style="margin-top:clamp(34px,4vw,54px);display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;">
-            <sc-for list="{{ facilityShots }}" as="s" hint-placeholder-count="8">
-              <div data-reveal onClick="{{ s.onOpen }}" style="position:relative;aspect-ratio:4/3;overflow:hidden;background:#e8f2f9;box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);cursor:zoom-in;">
-                <img src="{{ s.src }}" alt="{{ t.sanitary.title }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease;" style-hover="transform:scale(1.06);" />
-              </div>
-            </sc-for>
           </div>
         </div>
       </section>
