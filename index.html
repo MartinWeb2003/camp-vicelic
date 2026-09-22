@@ -2461,7 +2461,7 @@ class Component extends DCLogic {
     // the plain "read the reviews" link, which is the correct thing to show
     // when nobody has checked — five stars must never be implied.
     //
-    // Google last checked: 3 Sep 2026 — 5.0 from 36 reviews.
+    // Google last checked: 22 Sep 2026 — 5.0 from 61 reviews.
     //
     // Everything here is deliberately outside `copy`: the scores are numbers
     // and the quotes stay in the language their author wrote them in, so none
@@ -2470,7 +2470,7 @@ class Component extends DCLogic {
       { name:'park4night', icon:'./uploads/park4night-mark.svg', url:'https://park4night.com/en/place/694419',
         rating:'5,0'/*P4N_RATING*/, count:'11'/*P4N_COUNT*/ },
       { name:'Google',     icon:'./uploads/google-g.svg',        url:'https://www.google.com/maps?cid=9954285529449248724',
-        rating:'5,0', count:'36' }
+        rating:'5,0', count:'61' }
     ];
     const reviewPlatforms = reviewSources.filter((r) => !!r.url).map((r) => {
       // Stars are drawn from the score rather than hardcoded: the ratings move
