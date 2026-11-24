@@ -850,6 +850,49 @@
             <p style="font-size:14.5px;line-height:1.65;color:#114B7C;margin:0;font-weight:700;">{{ t.pricing.notes.taxExcluded }}</p>
           </div>
 
+          <!-- CAMPING CARD DISCOUNT (ADAC / ACSI / Avtokampi) -->
+          <div data-reveal style="margin-bottom:clamp(44px,6vw,68px);">
+            <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(22px,3vw,30px);letter-spacing:-0.01em;margin:0 0 22px;">{{ cardsTable.title }}</h2>
+
+            <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+              <div style="overflow:hidden;border:1px solid rgba(17,75,124,0.12);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);border-radius:0;">
+                <div style="display:grid;grid-template-columns:{{ cardsTable.grid }};background:#2E7CB8;">
+                  <div style="padding:15px 18px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:#fff;">{{ cardsTable.col0 }}</div>
+                  <sc-for list="{{ cardsTable.heads }}" as="h" hint-placeholder-count="2">
+                    <div style="padding:15px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:#fff;text-align:center;">{{ h }}</div>
+                  </sc-for>
+                </div>
+                <sc-for list="{{ cardsTable.rows }}" as="r" hint-placeholder-count="1">
+                  <div style="display:grid;grid-template-columns:{{ r.grid }};border-top:1px solid rgba(17,75,124,0.08);{{ r.rowBg }}">
+                    <div style="padding:14px 18px;font-weight:700;font-size:14.5px;color:#114B7C;">{{ r.label }}</div>
+                    <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="2">
+                      <div style="padding:14px 14px;text-align:center;font-size:14.5px;color:#3a4a52;">{{ c.value }}</div>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:12px;">
+                <sc-for list="{{ cardsTable.rows }}" as="r" hint-placeholder-count="1">
+                  <div style="border:1px solid rgba(17,75,124,0.1);box-shadow:0 6px 22px -12px rgba(17,75,124,0.22);padding:16px;{{ r.rowBg }}">
+                    <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:15.5px;color:#114B7C;margin:0 0 12px;overflow-wrap:break-word;">{{ r.label }}</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                      <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="2">
+                        <div style="flex:1 1 84px;min-width:0;background:rgba(91,176,222,0.1);padding:9px 11px;display:flex;flex-direction:column;">
+                          <div style="font-family:'Roboto Mono',monospace;font-size:9.5px;letter-spacing:0.03em;text-transform:uppercase;color:#6B7280;margin-bottom:4px;overflow-wrap:break-word;">{{ c.header }}</div>
+                          <div style="font-size:15px;font-weight:700;color:#114B7C;margin-top:auto;">{{ c.value }}</div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <p style="font-size:14.5px;line-height:1.65;color:#3a4a52;margin:16px 0 0;">{{ cardsTable.note }}</p>
+          </div>
+
           <!-- TOURIST TAX TABLE -->
           <div data-reveal style="margin-bottom:clamp(28px,4vw,40px);">
             <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#114B7C;font-size:clamp(22px,3vw,30px);letter-spacing:-0.01em;margin:0 0 22px;">{{ taxTable.title }}</h2>
@@ -1258,6 +1301,7 @@ class Component extends DCLogic {
       pricing: {
         hero: { eyebrow:'Cjenik 2026', title:'Cijene i tarife', sub:'Dnevne cijene u EUR, PDV uključen. Cijena parcele ovisi o kategoriji (A–D) i sezoni. Boravišna pristojba plaća se zasebno.' },
         main: { title:'Cjenik 2026', cols:['Stavka','01.01.–31.05. / 01.10.–31.12.','01.06.–30.06. / 01.09.–30.09.','01.07.–31.08.'], rows:[ ['Parcela A','38 €','40 €','55 €'],['Parcela B','36 €','38 €','50 €'],['Parcela C','34 €','36 €','48 €'],['Parcela D','32 €','34 €','45 €'],['Odrasli (12+)','6 €','8 €','10 €'],['Djeca (5–12)','5 €','6 €','8 €'],['Dijete do 5 god.','besplatno','besplatno','besplatno'],['Dodatni šator / auto / prikolica / motocikl','7 €','7 €','7 €'],['Pas','4 €','5 €','6 €'],['Perilica rublja','8 €','8 €','8 €'],['Sušilica rublja','8 €','8 €','8 €'],['Hladnjak (pretinac s ključem)','4 €','4 €','4 €'],['Jednokratna prijava','2 €','2 €','2 €'] ] },
+        cards: { title:'Popust za kamping kartice', cols:['Kamping kartica','Parcele','15.04.–30.06. / 15.09.–31.10.'], rows:[ ['ADAC · ACSI · Avtokampi','B, C, D','27 €'] ], note:'Cijena s popustom za ADAC, ACSI i Avtokampi kamping kartice odnosi se na kategorije parcela B, C i D u razdobljima 15.04.–30.06. i 15.09.–31.10. i uključuje 2 osobe i jednog psa, jedno vozilo, struju 16A, vodu i besplatan Wi-Fi. Boravišna pristojba nije uključena u cijenu.' },
         tax: { title:'Boravišna pristojba', note:'', cols:['Osoba','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Osoba 18+','1,70 €','1,10 €'],['Osoba 12–18','0,85 €','0,55 €'],['Dijete 0–12','0,00 €','0,00 €'] ] },
         notes: { includedLead:'U cijenu parcele uključene su dvije odrasle osobe i jedna od sljedeće 3 opcije:', includedOptions:['auto + šator','auto + kamp prikolica','kamper'], or:'ili', includedTail:'Cijena uključuje besplatni Wi-Fi, priključak na struju 16A, vodu i odvod ako postoji na parceli.', vat:'PDV je uključen u cijenu.', taxExcluded:'Boravišna pristojba nije uključena u cijenu.' },
         checkin:'Prijava u kamp od 08:00 do 22:00',
@@ -1428,6 +1472,7 @@ class Component extends DCLogic {
       pricing: {
         hero: { eyebrow:'Price list 2026', title:'Prices & rates', sub:'Daily rates in EUR, VAT included. The pitch price depends on the tier (A–D) and season. Tourist tax is charged separately.' },
         main: { title:'Price list 2026', cols:['Item','01.01.–31.05. / 01.10.–31.12.','01.06.–30.06. / 01.09.–30.09.','01.07.–31.08.'], rows:[ ['Pitch A','38 €','40 €','55 €'],['Pitch B','36 €','38 €','50 €'],['Pitch C','34 €','36 €','48 €'],['Pitch D','32 €','34 €','45 €'],['Adult (12+)','6 €','8 €','10 €'],['Child (5–12)','5 €','6 €','8 €'],['Child under 5','free','free','free'],['Extra tent / car / trailer / motorbike','7 €','7 €','7 €'],['Dog','4 €','5 €','6 €'],['Washing machine','8 €','8 €','8 €'],['Dryer','8 €','8 €','8 €'],['Fridge (lockable compartment)','4 €','4 €','4 €'],['One-time registration','2 €','2 €','2 €'] ] },
+        cards: { title:'Camping card discount', cols:['Camping card','Pitches','15.04.–30.06. / 15.09.–31.10.'], rows:[ ['ADAC · ACSI · Avtokampi','B, C, D','27 €'] ], note:'The discounted price for ADAC, ACSI and Avtokampi camping cards applies to pitch categories B, C and D in the periods 15.04.–30.06. and 15.09.–31.10. and includes 2 people and one dog, one vehicle, 16A electricity, water and free Wi-Fi. Tourist tax is not included in the price.' },
         tax: { title:'Tourist tax', note:'', cols:['Person','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Person 18+','1,70 €','1,10 €'],['Person 12–18','0,85 €','0,55 €'],['Child 0–12','0,00 €','0,00 €'] ] },
         notes: { includedLead:'The pitch price includes two adults and one of the following 3 options:', includedOptions:['car + tent','car + caravan','motorhome'], or:'or', includedTail:'The price includes free Wi-Fi, a 16A electricity connection, water and drainage where available on the pitch.', vat:'VAT is included in the price.', taxExcluded:'Tourist tax is not included in the price.' },
         checkin:'Check-in from 08:00 to 22:00',
@@ -1599,6 +1644,7 @@ class Component extends DCLogic {
       pricing: {
         hero: { eyebrow:'Preisliste 2026', title:'Preise & Tarife', sub:'Tagespreise in EUR, inkl. MwSt. Der Stellplatzpreis richtet sich nach Kategorie (A–D) und Saison. Die Kurtaxe wird separat berechnet.' },
         main: { title:'Preisliste 2026', cols:['Position','01.01.–31.05. / 01.10.–31.12.','01.06.–30.06. / 01.09.–30.09.','01.07.–31.08.'], rows:[ ['Stellplatz A','38 €','40 €','55 €'],['Stellplatz B','36 €','38 €','50 €'],['Stellplatz C','34 €','36 €','48 €'],['Stellplatz D','32 €','34 €','45 €'],['Erwachsene (12+)','6 €','8 €','10 €'],['Kind (5–12)','5 €','6 €','8 €'],['Kind unter 5','kostenlos','kostenlos','kostenlos'],['Zusätzl. Zelt / Auto / Anhänger / Motorrad','7 €','7 €','7 €'],['Hund','4 €','5 €','6 €'],['Waschmaschine','8 €','8 €','8 €'],['Trockner','8 €','8 €','8 €'],['Kühlschrank (abschließbares Fach)','4 €','4 €','4 €'],['Einmalige Anmeldung','2 €','2 €','2 €'] ] },
+        cards: { title:'Rabatt für Campingkarten', cols:['Campingkarte','Stellplätze','15.04.–30.06. / 15.09.–31.10.'], rows:[ ['ADAC · ACSI · Avtokampi','B, C, D','27 €'] ], note:'Der ermäßigte Preis für ADAC-, ACSI- und Avtokampi-Campingkarten gilt für die Stellplatzkategorien B, C und D in den Zeiträumen 15.04.–30.06. und 15.09.–31.10. und beinhaltet 2 Personen und einen Hund, ein Fahrzeug, Strom 16A, Wasser und kostenloses WLAN. Die Kurtaxe ist im Preis nicht enthalten.' },
         tax: { title:'Kurtaxe', note:'', cols:['Person','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Person 18+','1,70 €','1,10 €'],['Person 12–18','0,85 €','0,55 €'],['Kind 0–12','0,00 €','0,00 €'] ] },
         notes: { includedLead:'Im Stellplatzpreis sind zwei Erwachsene und eine der folgenden 3 Optionen enthalten:', includedOptions:['Auto + Zelt','Auto + Wohnwagen','Wohnmobil'], or:'oder', includedTail:'Der Preis umfasst kostenloses WLAN, einen 16A-Stromanschluss, Wasser und Abwasser, sofern am Stellplatz vorhanden.', vat:'Die MwSt. ist im Preis enthalten.', taxExcluded:'Die Kurtaxe ist nicht im Preis enthalten.' },
         checkin:'Check-in ins Camp von 08:00 bis 22:00 Uhr',
@@ -1717,6 +1763,7 @@ class Component extends DCLogic {
       pricing: {
         hero: { eyebrow:'Cenik 2026', title:'Cene in tarife', sub:'Dnevne cene v EUR, DDV vključen. Cena parcele je odvisna od kategorije (A–D) in sezone. Turistična taksa se plača ločeno.' },
         main: { title:'Cenik 2026', cols:['Postavka','01.01.–31.05. / 01.10.–31.12.','01.06.–30.06. / 01.09.–30.09.','01.07.–31.08.'], rows:[ ['Parcela A','38 €','40 €','55 €'],['Parcela B','36 €','38 €','50 €'],['Parcela C','34 €','36 €','48 €'],['Parcela D','32 €','34 €','45 €'],['Odrasli (12+)','6 €','8 €','10 €'],['Otrok (5–12)','5 €','6 €','8 €'],['Otrok do 5 let','brezplačno','brezplačno','brezplačno'],['Dodatni šotor / avto / prikolica / motor','7 €','7 €','7 €'],['Pes','4 €','5 €','6 €'],['Pralni stroj','8 €','8 €','8 €'],['Sušilni stroj','8 €','8 €','8 €'],['Hladilnik (predal s ključavnico)','4 €','4 €','4 €'],['Enkratna prijava','2 €','2 €','2 €'] ] },
+        cards: { title:'Popust za kamping kartice', cols:['Kamping kartica','Parcele','15.04.–30.06. / 15.09.–31.10.'], rows:[ ['ADAC · ACSI · Avtokampi','B, C, D','27 €'] ], note:'Cena s popustom za kamping kartice ADAC, ACSI in Avtokampi velja za kategorije parcel B, C in D v obdobjih 15.04.–30.06. in 15.09.–31.10. ter vključuje 2 osebi in enega psa, eno vozilo, elektriko 16A, vodo in brezplačen Wi-Fi. Turistična taksa ni vključena v ceno.' },
         tax: { title:'Turistična taksa', note:'', cols:['Oseba','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Oseba 18+','1,70 €','1,10 €'],['Oseba 12–18','0,85 €','0,55 €'],['Otrok 0–12','0,00 €','0,00 €'] ] },
         notes: { includedLead:'V ceno parcele sta vključeni dve odrasli osebi in ena od naslednjih 3 možnosti:', includedOptions:['avto + šotor','avto + prikolica','avtodom'], or:'ali', includedTail:'Cena vključuje brezplačni Wi-Fi, priključek na elektriko 16A, vodo in odtok, če je na parceli.', vat:'DDV je vključen v ceno.', taxExcluded:'Turistična taksa ni vključena v ceno.' },
         checkin:'Prijava v kamp od 08:00 do 22:00',
@@ -1835,6 +1882,7 @@ class Component extends DCLogic {
       pricing: {
         hero: { eyebrow:'Cennik 2026', title:'Ceny i stawki', sub:'Ceny dobowe w EUR, VAT wliczony. Cena stanowiska zależy od kategorii (A–D) i sezonu. Opłata klimatyczna płatna osobno.' },
         main: { title:'Cennik 2026', cols:['Pozycja','01.01.–31.05. / 01.10.–31.12.','01.06.–30.06. / 01.09.–30.09.','01.07.–31.08.'], rows:[ ['Stanowisko A','38 €','40 €','55 €'],['Stanowisko B','36 €','38 €','50 €'],['Stanowisko C','34 €','36 €','48 €'],['Stanowisko D','32 €','34 €','45 €'],['Dorosły (12+)','6 €','8 €','10 €'],['Dziecko (5–12)','5 €','6 €','8 €'],['Dziecko do 5 lat','bezpłatnie','bezpłatnie','bezpłatnie'],['Dodatkowy namiot / auto / przyczepa / motor','7 €','7 €','7 €'],['Pies','4 €','5 €','6 €'],['Pralka','8 €','8 €','8 €'],['Suszarka','8 €','8 €','8 €'],['Lodówka (szuflada z zamkiem)','4 €','4 €','4 €'],['Jednorazowa rejestracja','2 €','2 €','2 €'] ] },
+        cards: { title:'Zniżka z kartami kempingowymi', cols:['Karta kempingowa','Stanowiska','15.04.–30.06. / 15.09.–31.10.'], rows:[ ['ADAC · ACSI · Avtokampi','B, C, D','27 €'] ], note:'Cena ze zniżką dla kart kempingowych ADAC, ACSI i Avtokampi dotyczy stanowisk kategorii B, C i D w okresach 15.04.–30.06. i 15.09.–31.10. i obejmuje 2 osoby i jednego psa, jeden pojazd, prąd 16A, wodę i bezpłatne Wi-Fi. Opłata klimatyczna nie jest wliczona w cenę.' },
         tax: { title:'Opłata klimatyczna', note:'', cols:['Osoba','01.04.–30.09.','01.10.–31.03.'], rows:[ ['Osoba 18+','1,70 €','1,10 €'],['Osoba 12–18','0,85 €','0,55 €'],['Dziecko 0–12','0,00 €','0,00 €'] ] },
         notes: { includedLead:'W cenie stanowiska są dwie osoby dorosłe oraz jedna z poniższych 3 opcji:', includedOptions:['auto + namiot','auto + przyczepa','kamper'], or:'lub', includedTail:'Cena obejmuje bezpłatne Wi-Fi, przyłącze prądu 16A, wodę i odpływ, jeśli są na stanowisku.', vat:'VAT jest wliczony w cenę.', taxExcluded:'Opłata klimatyczna nie jest wliczona w cenę.' },
         checkin:'Zameldowanie na kempingu od 08:00 do 22:00',
@@ -2569,6 +2617,7 @@ class Component extends DCLogic {
     };
     const mainTable = mkTable(pr.main);
     const taxTable = mkTable(pr.tax);
+    const cardsTable = mkTable(pr.cards);
     const optIconSets = [['car','tent'], ['car','caravan'], ['camper']];
     const includedOptions = (((pr.notes || {}).includedOptions) || []).map((label, i) => ({ label, sep: i > 0, icons: (optIconSets[i] || []).map((nm) => this.icon(nm, 24)) }));
 
@@ -2684,7 +2733,7 @@ class Component extends DCLogic {
       lightboxImgClick: (e) => { if (e && e.stopPropagation) e.stopPropagation(); const L = this.state.lightbox; if (L && L.length > 1) { this.setState({ lightboxIdx: (this.state.lightboxIdx + 1) % L.length }); } else { this.setState({ lightbox: null, lightboxIdx: 0 }); } },
       lightboxPrev: (e) => { if (e && e.stopPropagation) e.stopPropagation(); const L = this.state.lightbox; if (!L || !L.length) return; this.setState({ lightboxIdx: (((this.state.lightboxIdx - 1) % L.length) + L.length) % L.length }); },
       lightboxNext: (e) => { if (e && e.stopPropagation) e.stopPropagation(); const L = this.state.lightbox; if (!L || !L.length) return; this.setState({ lightboxIdx: (this.state.lightboxIdx + 1) % L.length }); },
-      mainTable, taxTable, includedOptions, mapPinEl, eventsUrl, sottomonteUrl, shellShift,
+      mainTable, taxTable, cardsTable, includedOptions, mapPinEl, eventsUrl, sottomonteUrl, shellShift,
       accTiers, sharedFacilities, activitiesItems,
       heroVideo, heroHasVideo: !!heroVideo, heroNoVideo: !heroVideo,
       panoramaVideo, panoramaHasVideo: !!panoramaVideo, panoramaNoVideo: !panoramaVideo,
